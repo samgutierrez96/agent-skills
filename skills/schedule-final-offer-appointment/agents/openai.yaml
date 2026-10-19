@@ -1,0 +1,4 @@
+interface:
+  display_name: "Schedule Final Offer Appointment"
+  short_description: "Schedule a final-offer call and document it in OpsHub"
+  default_prompt: "Schedule the customer’s final-offer call using the available HSA Calendly link, then add the follow-up note to OpsHub."

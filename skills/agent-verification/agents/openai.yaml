@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Verification"
+  short_description: "Verify an agent review and log it in OpsHub"
+  default_prompt: "Run the agent verification review workflow for the specified customer."
