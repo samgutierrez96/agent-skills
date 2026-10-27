@@ -5,7 +5,7 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/AGENTS.md",
       "destination": "adapters/codex/xa-notes/AGENTS.md",
-      "sha256": "9fa1704006e52e5a17d1a78d934598c7a2f1fc666a9183b3d29958a43b43cb20"
+      "sha256": "e754e62d7d937e7641777d03f9c5c447ab9d03a6d44c9acf9b11dfddd8fa3620"
     },
     {
       "source": "Documents/ChatGPT Work/Escalations/AGENTS.md",
