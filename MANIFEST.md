@@ -36,6 +36,28 @@ active project versions before replacement. The active versions retain those
 corrections and contain subsequent changes. Pre-sync files are backed up locally
 under `.codex/backups/agent-skills-sync-20261027`.
 
+## Agent representation clarification — October 27, 2026
+
+The focused agent-representation-tracking branch records Alexis Schlattman's
+Slack clarification, acknowledged by Sam: representation is required, referrals
+alone do not qualify for payment, and transaction counts are checked through the
+agent's email-linked Customer record. Missing property addresses support backend
+review. The source thread is linked in each affected runtime. Bonus amounts,
+tiers, payout timing and backend ownership were not established.
+
+XA Notes, Zendesk and Escalations project runtimes and independently registered
+global variants received the scoped guidance. Escalations' detailed and Cursor
+runtime copies were aligned; its project rules and packaged adapter no longer
+direct agents to /agent for tracking. The XA boundaries reference preserves the
+limit on compensation advice. Historical call examples that use “referral” are
+retained as call descriptions, not payment-eligibility guidance. Archived copies,
+plugin caches and the separate upstream company repository were not edited.
+
+Repository changes are based on stable main and limited to this clarification;
+other open PR changes are deliberately not imported. Updated inventory hashes
+describe the packaged files; active sources may also contain those separately
+pending changes. Integration into main requires review.
+
 ## Sources outside this audit
 
 - `company-knowledge-update` is installed locally but was not previously included;

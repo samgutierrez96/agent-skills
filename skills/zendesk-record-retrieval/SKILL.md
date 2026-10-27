@@ -2937,3 +2937,24 @@ When the operator edits or corrects an email draft, record the correction as
 workflow feedback: preserve the operator's intended internal-note wording, and
 promote the correction into this skill when it expresses a reusable rule rather
 than a ticket-specific fact.
+
+## Agent representation and transaction-count questions — October 27, 2026
+
+Source: [Alexis Schlattman's clarification, acknowledged by Sam](https://opendoor.enterprise.slack.com/archives/C04TVKE41KP/p1793130542029719).
+Agents must represent their clients; referrals alone no longer qualify for
+payment under the current agent program. An agent may still use “refer” to mean
+representation, so clarify their meaning before applying that distinction.
+
+Agents do not have a reliable self-service way to check their transaction count
+for the bonus structure. Do not send them to a dashboard or /agent to track it.
+For a count request, use the agent's email to find their OpsHub Customer record
+and review the transactions shown lower on that page. Share only the verified
+history; do not equate every displayed transaction with a qualifying bonus.
+If the agent reports a missing transaction, obtain the missing property's address
+for backend review/correction through the appropriate team. Do not claim a
+correction or payment is complete without confirmation.
+
+This clarification supplies no bonus amounts, tiers, qualifying-stage rules,
+payout timing, or backend owner. Preserve separate seller-agent commission
+guidance and existing limits on compensation advice. Notes record only what
+actually happened; ordinary note drafting does not authorize record lookups.
