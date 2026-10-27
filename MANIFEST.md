@@ -50,6 +50,7 @@ under `.codex/backups/agent-skills-sync-20261027`.
 1. One folder per reusable skill; include required runtime dependencies.
 2. Reconcile against the actively deployed source and repository history.
 3. Exclude secrets, credentials, standalone customer records and generated output.
-4. Keep this repository private; these packages contain internal company context.
+4. Sam explicitly authorized public visibility and publication on 2026-10-27.
+   Preserve public visibility; continue to exclude secrets and standalone customer records.
 5. Validate the package, commit and push reviewed changes, and verify the remote.
 6. A local commit or an unmerged PR is not an updated stable `main` branch.

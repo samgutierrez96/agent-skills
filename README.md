@@ -1,6 +1,6 @@
 # Agent Skills
 
-Private canonical distribution repository for Sam's reusable agent skills.
+Public canonical distribution repository for Sam's reusable agent skills.
 
 Each skill lives in its own folder under `skills/`. The repository is the
 versioned source of truth; agent-specific folders under `adapters/` contain
@@ -25,8 +25,9 @@ added selectively after review.
 - Changes are prepared on focused branches such as
   `consolidate-canonical-skills` and merged after review.
 - Releases should use version tags such as `v0.1.0`.
-- Keep this GitHub repository private unless each included skill has been
-  explicitly cleared for broader sharing.
+- Sam explicitly authorized keeping this repository public and publishing the
+  reviewed skill updates on 2026-10-27. Preserve public visibility. Continue to
+  exclude secrets, credentials, standalone customer records and generated output.
 
 ## Layout
 
