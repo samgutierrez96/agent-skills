@@ -1105,20 +1105,13 @@ executive.experience inbox line, and never an escalation to closed homes.
 
 ## Commission (commission)
 
-Buyer's agent commission comes from **seller commissions**, since Opendoor is the
-seller on a listed home. No preset amount. The requested amount goes in the
-contract or applicable addendum for consideration.
+Buyer's agent commission on the resale side is **negotiated in the offer**.
+Use this standing line for a buyer's agent asking how commission works:
 
-> Let the agent know their commission comes from seller commissions, since
-> Opendoor is the seller on a listed home, and there is no preset amount. Advised
-> them to include the requested amount in the contract or applicable addendum, and
-> pointed them to opendoor.com/agents for the full structure.
-
-**Never write "seller concessions" on a commission call.** The word is
-commissions.
+> Let the agent know the buyer's agent commission on the resale side is negotiated in the offer.
 
 **Seller's agent commission** goes through their agreement with the seller, paid
-from the seller's proceeds at closing. Same referral to opendoor.com/agents.
+from the seller's proceeds at closing. Refer to opendoor.com/agents.
 
 A seller's agent who agrees to Cash Now, More Later also becomes the listing
 agent on the resale side if the seller stays for resale.
@@ -1718,7 +1711,7 @@ in the order they happened.
 
 ## Buyer's agent commission (commission)
 
-Commissions, never concessions.
+The resale-side commission is negotiated in the offer.
 
 ```
 Property Address: N/A
@@ -1727,7 +1720,7 @@ Reason for Call: Buyer's agent called with questions about commission.
 
 Customer Concerns: Agent wanted to know how their commission would be handled.
 
-Solution Offered: Let the agent know their commission comes from seller commissions, since Opendoor is the seller on a listed home, and there is no preset amount. Advised them to include the requested amount in the contract or applicable addendum, and pointed them to opendoor.com/agents for the full structure.
+Solution Offered: Let the agent know the buyer's agent commission on the resale side is negotiated in the offer.
 
 Follow Up Link: N/A
 ```
@@ -2080,7 +2073,7 @@ uploaded for the digital checkout."
     none.
 13. Confirmed wording verbatim, **every address written out in full**, never
     described.
-14. "Seller commissions," never "seller concessions."
+14. Buyer's agent commission on the resale side is negotiated in the offer.
 15. **Close of escrow window matches the seller type**, 21 to 60 standard and 21
     to 120 for a homebuilder partner. Never 14.
 16. Every acronym spelled out, product names capitalized, HODW never about a

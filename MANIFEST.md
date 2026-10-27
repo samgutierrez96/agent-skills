@@ -38,6 +38,13 @@ under `.codex/backups/agent-skills-sync-20261027`.
 
 ## Sources outside this audit
 
+The October 27 buyer's agent commission correction updates XA Notes' standing
+answer, example note and checklist: resale-side buyer's agent commission is
+negotiated in the offer. The active project runtime and its older global install
+received the same targeted correction; unrelated differences were preserved.
+The project human reference was corrected locally. Seller's agent commission
+guidance remains separate and unchanged.
+
 - `company-knowledge-update` is installed locally but was not previously included;
   it remains outside the seven-skill inventory.
 - `Documents/superdojo/skills` belongs to the separate shared company repository;
