@@ -37,6 +37,24 @@ copy boxes. The note contains no ticket number or drafting commentary. A timing
 pass with a quality failure is a failed case. Heading-presence checks do not prove
 answer quality; uncertain checks remain Not verified pending operator confirmation.
 
+## Resolution-scope decision checks
+
+Resolution-scope regression cases (use synthetic frozen evidence, not live writes):
+
+- Missing spouse/co-owner listing-agent identity plus a later automated visit
+  confirmation: ask for the agent's missing full name/email, not a visit recap.
+- Follow-up on an emailed offer for a sold home plus later generic submission
+  instructions: reply with the verified sold/unavailable status; no false close.
+- Same-property offer concern explicitly answered after the inbound, with no
+  newer ask: retain the no-reply/close disposition rather than answering twice.
+
+Supply the snapshot and current required source material without the expected
+decision in the model prompt. Check the two boxes and decision separately from
+channel formatting. These checks test decisions from supplied evidence, not live
+record retrieval, tool coverage or end-to-end timing. The three decision cases
+passed after the October 27 resolution-scope update; real-case parity remains a
+separate observation. Do not reuse an answered ticket as proof of its earlier draft.
+
 ## Record only available measurements
 
 For each run record case label, host/path, package revision or file hashes,

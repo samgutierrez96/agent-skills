@@ -2239,6 +2239,12 @@ record with a price, photos, and ownership populated.
 
 ## Agents vs sellers
 
+- When a seller identifies a spouse/co-owner or another person as their listing
+  agent, apply `recipes/seller-with-agent.md`: collect that person's missing full
+  name and email so their listing-agent role can be included. The requester's
+  identity does not establish a different person's agent details. A later visit
+  confirmation/reminder handles scheduling, not this unresolved agent-role detail;
+  do not substitute assessment guidance or a visit recap for the missing-agent ask.
 - An **agent** attached to the property means the property is **agent
   acquisition**. A **seller** attached means **sell direct**.
 - The property page Participants block can label an agent "Seller" while the
@@ -2353,6 +2359,13 @@ documented paths above or report the connector gap. Do not code-search schemas
 mid-ticket.
 
 ## Public listings
+
+For a follow-up about an offer already emailed on a named home, check that exact
+property's current listing status. Later generic offer-submission instructions or
+required-document guidance do not prove that offer was received/reviewed or that
+the property-specific concern was resolved. If the home has sold, reply that it
+has sold and is no longer available for offers. A no-reply disposition requires
+a later answer resolving this actual property's concern, not merely a newer SMS.
 
 For buyer requests for seller disclosures, inspection/service records, repair
 history, or transaction circumstances that the public listing does not answer,

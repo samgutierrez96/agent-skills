@@ -56,8 +56,9 @@ other hosts may use equivalent read-only tools without changing the evidence gat
    only if the ticket indicates a support exchange or omits the newest inbound.
    Ask what happens/error message and offer the support number; skip OpsHub,
    Glean, and browser unless a separate record-specific request requires them.
-4. Choose a card below from the newest customer-written inbound, not an automated
-   subject or quoted message. Read only matching cards, together when independent.
+4. Route every ask in the newest customer-written inbound; load matching cards
+   together. Scheduling updates do not resolve agent identity; generic submission
+   instructions do not resolve a named property's offer status or availability.
    Simple “offer too low” complaint → read `SKILL.md` → `Offer complaints`, then
    use narrow OpsHub MCP reads for the matched customer's stage and assessment
    state. Preserve duplicate and recent-resolution checks. Avoid overlapping

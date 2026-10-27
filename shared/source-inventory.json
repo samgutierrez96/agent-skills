@@ -106,7 +106,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/FAST-INDEX.md",
       "destination": "skills/zendesk-record-retrieval/FAST-INDEX.md",
-      "sha256": "d1b193b98fa5fa56b8b07853170d616e31342e9f9d96e41ed64095d759a460c6"
+      "sha256": "d994df52aa19f6a5127d179d8c1a59dad5a77a8352648bae779dd3a0f120ac96"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ROUTING-GATES.md",
@@ -116,12 +116,12 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/SKILL.md",
       "destination": "skills/zendesk-record-retrieval/SKILL.md",
-      "sha256": "7deb1aa0644443c63731f63717dffd28655004acac27d823f95a87105ed90653"
+      "sha256": "0f037a3cd930b4f2b496b069bc9ade52cdcf1081c90f3e7180a919f625a280ca"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/VERIFICATION.md",
       "destination": "skills/zendesk-record-retrieval/VERIFICATION.md",
-      "sha256": "01d3f7fd377cfef7adcf39268cc6bff7ea17e19de02e59f645f063d38b8f97c5"
+      "sha256": "fba980466dee7d3aaf5d306b1c61641336cf3d255823b423fa2384924dfbddbe"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/access-resolution.md",
@@ -156,7 +156,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/backup-offer.md",
       "destination": "skills/zendesk-record-retrieval/recipes/backup-offer.md",
-      "sha256": "996bc154643c1d60fb09c8dcadddf26a6ba88d7029f5c6d09207faa558411ac3"
+      "sha256": "aeb227048d8ad9e3037771effcebea0a3ecbcdcd2f22de100c5ff2c6fa000e5f"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/buyer-condition.md",
@@ -216,7 +216,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/seller-with-agent.md",
       "destination": "skills/zendesk-record-retrieval/recipes/seller-with-agent.md",
-      "sha256": "890f96ffd8a4abbe6ef5c3d8e350ef3eb242c5f1cc0a4d413cc37c33ca06ebfb"
+      "sha256": "ee3312173b6fa60afb28a0b0ad56fa856ed6bdd946c90f20dd31e62849fe15e8"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/showami-vacant-access.md",

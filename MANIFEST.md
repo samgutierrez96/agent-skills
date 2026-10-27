@@ -42,6 +42,12 @@ recent-resolution check, uses the current signed-in browser route, and withholds
 a customer reply if required history remains unreadable. The inventory hashes
 cover both updated files; no customer records or credentials are included.
 
+The subsequent resolution-scope correction preserves each unresolved inbound
+ask: appointment reminders do not settle a separate listing-agent identity,
+and generic submission guidance does not resolve a named home's emailed offer
+or availability. Updated seller/agent and offer-follow-up cards plus the
+verification guide retain positive and negative synthetic decision checks.
+
 ## Sources outside this audit
 
 - `company-knowledge-update` is installed locally but was not previously included;
