@@ -36,6 +36,12 @@ active project versions before replacement. The active versions retain those
 corrections and contain subsequent changes. Pre-sync files are backed up locally
 under `.codex/backups/agent-skills-sync-20261027`.
 
+The October 27 resolution-fallback update reconciles the Zendesk playbook and
+Fast Index with the active workspace: failed OpsHub authentication retains the
+recent-resolution check, uses the current signed-in browser route, and withholds
+a customer reply if required history remains unreadable. The inventory hashes
+cover both updated files; no customer records or credentials are included.
+
 ## Sources outside this audit
 
 - `company-knowledge-update` is installed locally but was not previously included;

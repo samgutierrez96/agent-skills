@@ -554,7 +554,15 @@ also unverified. Preserve all evidence and safety gates.
   For a recent-notes fallback, use one verified phone or email search, one bounded
   wait, and one content read. If no usable result appears, report that the notes
   could not be checked; do not alternate identifiers or troubleshoot the browser
-  merely to complete this check. Missing notes never establish resolution. If a
+  merely to complete this check. An expired OpsHub MCP cookie does not waive the
+  required recent-resolution check: the signed-in browser can still retrieve it.
+  Never navigate to `opshub.opendoor.com`; that obsolete host is not evidence that
+  the current OpsHub browser session is unavailable. If the required history
+  remains unreadable, withhold the customer reply and record the exact blocker
+  in the internal note/appendix. Do not ask the customer for the address or other
+  details merely because the failed lookup did not return them. A later matching
+  phone resolution means no customer reply; name the verified call handler in
+  the internal note. Missing notes never establish resolution. If a
   separate required fact remains unavailable, ask for that fact or report the gap
   rather than making an unsupported claim.
 - Stop after sufficient evidence and any required draft-ID confirmation. Never

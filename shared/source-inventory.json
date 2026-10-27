@@ -106,7 +106,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/FAST-INDEX.md",
       "destination": "skills/zendesk-record-retrieval/FAST-INDEX.md",
-      "sha256": "6420be3820529baeb4cb445ad0e74e8584d966137d7f10bba7b9fd5b21c21bb9"
+      "sha256": "d1b193b98fa5fa56b8b07853170d616e31342e9f9d96e41ed64095d759a460c6"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ROUTING-GATES.md",
@@ -116,7 +116,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/SKILL.md",
       "destination": "skills/zendesk-record-retrieval/SKILL.md",
-      "sha256": "8a95a9e4ed4e72a0a0d0bdd8d7c5daa742d061df4e24faef9a38faf379c92682"
+      "sha256": "7deb1aa0644443c63731f63717dffd28655004acac27d823f95a87105ed90653"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/VERIFICATION.md",
