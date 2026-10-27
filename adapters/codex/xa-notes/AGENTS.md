@@ -101,9 +101,9 @@ When the same website appears more than once in a note, list it only once.
 
 ## Operator corrections and durable saves
 
-Apply an operator's correction to the current note immediately. When the operator
-asks to update, remember, or fix the standing guidance, save the reusable lesson
-in its owning source during the same request without another confirmation:
+Apply an operator's correction to the current note immediately. Save reusable
+wording, workflow, or behavior corrections in their owning source during the same
+request without another confirmation:
 personal wording and always-on project behavior belong here; shared workflow,
 standing answers and expansions belong in `skills/xa-notes/`; agent-specific
 behavior belongs in its existing agent configuration only when that agent owns it.
