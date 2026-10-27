@@ -5,130 +5,71 @@ description: Consolidate duplicate Opendoor customer profiles while posting an O
 
 # XA Admin Account Merge
 
-**System of record:** Customer merges happen in **Admin**
-(`admin.opendoor.com`). OpsHub is used after the Admin merge to remove the
-merged email(s) from the surviving customer profile and, if applicable, to
-post the CONTACT note. Never merge customer profiles in OpsHub.
+## Outcome and speed
 
-Use only when duplicate customer profiles are found during an XA note or
-escalation. Multiple real profiles with distinct emails are only a merge
-candidate when the same verified customer name and phone number match on both
-records and the email is the field being corrected. A shared phone alone,
-different names, or a property-specific request without a verified property
-scope is not enough evidence; leave the profiles unchanged and follow the
-normal clarification or escalation path. A `Client-####` or other
-placeholder/stub without its own real email is not a duplicate signal. This is
-an internal Opendoor security/data-integrity step; caller consent is not
-required. If no duplicate-account signal exists, stop and let the normal note
-or escalation skill handle the request.
+Target **under 60 seconds from confirmed primary email and verified identity to verified cleanup and note posting**, when Admin and OpsHub respond normally. This is a performance target, never a reason to skip checks or claim success early. Prioritize few tool round trips, small outputs, and reuse of verified context.
 
-When the workflow runs, report status outside the note: send `Account merge
-started` before Admin work and `Account merge completed — primary email and
-phone verified` only after the surviving OpsHub profile is checked. Never put
-these statuses inside the OpsHub note.
+Merge in **Admin** (`admin.opendoor.com`); then clean contacts in **OpsHub**, verify, and post the original XA note/escalation. Never substitute an OpsHub merge or contact edit for the Admin merge.
 
-## Fast path
+## Preconditions
 
-1. Verify the caller using the applicable XA process.
-2. Ask once which email should remain primary if shorthand does not already
-   specify it. Do not ask again after the email identifies the record. Do not
-   post the note or ask which customer page to use while waiting for this
-   answer.
-3. In Admin, click **Customers** first. Start the search with the confirmed
-   primary email, then press **Enter** repeatedly until the actual customer
-   result loads; the search is broken if a single press appears to do nothing.
-   Do not search by the caller's name, and do not treat a filled search field
-   as a completed lookup. If the primary email is unavailable, use the
-   verified phone number or another confirmed identifier only as a fallback.
-4. Open the customer record with the chosen primary email. This is the keeping
-   customer. Open **Links → Merge** from this record; do not start from the
-   duplicate.
-5. Select the duplicate record. Confirm the merge page shows the intended
-   keeping customer and primary email.
-6. Treat the XA's confirmation of the primary email as confirmation to merge
-   that primary profile with the duplicate. Review the irreversible warning,
-   then click **I'm sure. Merge them.** without asking for a second
-   action-time confirmation.
-7. Reload the surviving **Admin** profile and confirm the merge completed. Do
-   not read the full event history.
-   Do not perform duplicate-email cleanup in Admin after the merge.
-8. In **OpsHub**, use the surviving customer UUID from the original lookup.
-   Cleanup is required before reporting completion or posting the note: open
-   the surviving customer's profile and inspect the full email and phone
-   lists. Preserve the confirmed primary email. When the original XA lookup
-   supplied a phone number, preserve that exact number as the primary phone
-   and remove every other phone number. Prefer a
-   single `edit_customer` update that writes the complete desired contact
-   record when the tool exposes the email-list and phone-list fields: submit
-   only the confirmed primary email and the supplied primary phone. If those
-   fields are unavailable or the update fails, use the customer editor UI,
-   remove all non-primary emails and extra phone numbers in one pass, and save
-   once.
-9. Reopen or refresh the surviving OpsHub profile and verify that only the
-   chosen primary email remains and, when a phone was supplied, only that
-   supplied primary phone remains. Verify the phone number itself is unchanged
-   from the original XA lookup. A compact `list_customers` result, the
-   surviving primary email, or Admin's “Merged customers” confirmation is not
-   sufficient proof that cleanup succeeded.
-10. Continue the original XA note or escalation only after the OpsHub email
-    email and phone cleanup is complete and verified. Post the note immediately after
-    verification; do not report the merge as completed before then.
+- Use the applicable XA caller verification. Reuse verification already completed in this workflow.
+- Merge candidates must have the **same verified customer name and phone**, with distinct real emails being corrected. A shared phone alone, different names, or an unverified property scope is insufficient. Leave profiles unchanged and use the normal clarification/escalation path when uncertain.
+- Ignore `Client-####` or other stubs without their own real email. Without a duplicate signal, return to the original note/escalation skill.
+- Ask once which email to keep only if not already supplied. Its confirmation authorizes merging the verified duplicates into that primary profile; no separate caller consent or second merge confirmation is required. While awaiting that answer, do not post or ask which customer page to use.
 
-## Admin search sequence learned from the screen recording
+## Execute once, in order
 
-Use this exact sequence to avoid the Admin search loading bug:
+1. Send `Account merge started`. Reuse the original lookup's surviving customer UUID, supplied phone, duplicate IDs, and confirmed primary email; retain them through completion. Avoid another lookup unless evidence is missing or contradictory.
+2. Open Admin in a separate **unfocused** Browser MCP task window: `browser_navigate(new_tab: true, eget_vindue: true, fokuser: false)`. Reuse an existing window belonging to this workflow if available. Never reuse the user's active tab or call `bring_to_front: true`. If an action cannot land without stealing focus, report the blocker and stop.
+3. Follow the XA's demonstrated search sequence: **open `https://admin.opendoor.com` → click Customers → finish typing the full confirmed primary email → press Enter**. Use the visible Customers link; `a[ui-sref="customers"]:not(.nav-list-item)` worked in the October 22 checks, while the generic text selector selected a covered duplicate navigation link. Wait for `input[placeholder="Search"]` to exist before filling; a successful click does not mean the destination has finished loading. Keep that field focused with the cursor at the end. Use the Enter compatibility call below, then wait for and verify the actual matching result. Admin result links use numeric Admin IDs, not OpsHub UUIDs: wait for a result row containing the confirmed full email, read its actual href, and retain that Admin ID. Never wait for an OpsHub UUID substring in an Admin href; this wasted 15 seconds on October 26. Do not bypass the Customers click with direct navigation or scripted form submission. Do not search by name. Use verified phone/another confirmed identifier only when the primary email is unavailable.
+4. Open the primary-email record (the **keeping** customer), then reach **Links → Merge** using the state-based navigation below. If already on this customer’s Links page, skip the Links click; if already on its merge page, skip navigation entirely. Select the verified duplicate. Check the displayed keeping customer and primary email, review the irreversible warning, then click **I'm sure. Merge them.** No second user confirmation.
+5. Immediately after the final click, send `Merge submitted — checking Admin result`. This is not a success receipt. Inspect the automatically refreshed surviving Admin profile for remaining real duplicates. Repeat the visible **Merge → I'm sure. Merge them.** sequence for each verified duplicate until none remain. Confirm the final state; skip manual refreshes, full event histories, and contact cleanup in Admin. If submission has an uncertain outcome, inspect the current state before any retry; never blindly repeat an irreversible merge.
+6. After verifying the Admin merge, send `Admin merge verified — checking contact cleanup`. Open the surviving OpsHub customer using the retained UUID and inspect the **full email and phone lists**. Keep only the confirmed primary email. If the XA lookup supplied a phone, keep that exact number as the sole primary phone and remove all others; otherwise preserve the existing phone list. Prefer one `edit_customer` update for the desired email/phone lists **only when their field names and replacement behavior are known from the tool or editor schema**. A generic `fields` object alone does not establish list support; do not guess keys or try speculative writes. If list fields are unsupported or the update fails, use the customer editor, remove extra contacts in one pass, and save once. Preserve unrelated contact fields. If already correct, skip the write.
+7. Perform **one fresh read** of the surviving OpsHub profile after cleanup; verify the complete lists show only the primary email and, when supplied, only the original phone with the same number. A read tool suffices only if it exposes the full lists; otherwise reopen/refresh the profile UI. Compact `list_customers` results, a primary-email-only response, and Admin's merge confirmation are insufficient.
+8. After verification, immediately post the original note through the applicable XA workflow. If this is a resumed run and the note is already confirmed posted, do not post it again. Send `Account merge completed — primary email and phone verified` outside the note only after the required cleanup and note posting succeed. Close the task window/tabs when done.
 
-1. Start from a fresh Admin page and click **Customers** before entering any
-   search value.
-2. Enter the confirmed primary email in the customer search field. Leave the
-   cursor focused at the end of the email before submitting. Do not type the
-   customer's name.
-3. With the cursor still at the end of the email, press **Enter** repeatedly
-   until the actual customer result opens or appears. A populated field or an
-   unchanged page is not a completed search; keep the cursor in the email field
-   and continue the Enter sequence rather than changing the identifier or
-   starting a name search.
-4. Open the result for the primary email, then continue with **Links → Merge**.
+## Enter compatibility — reproduced October 22
 
-This sequence is the preferred fast path when the Admin search appears slow or
-unresponsive. Keep the browser unfocused as required below, but do not skip the
-Customers-first click or substitute a name search.
+Browser MCP 1.30.3's ordinary Enter omits the keypress that submits this form. Use the tested carriage-return input:
 
-## Speed and browser handling
+```javascript
+await tools.mcp__browser_mcp__browser_press_key({key: "\r", code: "Enter"});
+```
 
-For a duplicate merge, optimize for roughly one minute after the primary email
-is confirmed. Use the direct Admin customer path, avoid customer searches after
-the keeping UUID and Admin customer ID are known, avoid rereading large event
-lists, and perform only the required merge, one-call OpsHub email cleanup when
-available, verification, and post. The required sequence is: lookup → Admin
-merge → single-call OpsHub email and phone cleanup (UI fallback) → verify → post.
+`"\r"` means one carriage-return character. This preserves the XA's Enter sequence without scripted form submission.
 
-Open Admin in a separate, unfocused Browser MCP window. When calling
-`browser_navigate`, use `new_tab: true`, `eget_vindue: true`, and
-`fokuser: false`. Never reuse the user's active Chrome tab, and never call
-`browser_switch_tab` with `bring_to_front: true` for this workflow. Browser
-MCP DOM/script clicks may operate in the unfocused task window; if an action
-cannot land without focus, stop and report the blocker instead of stealing
-focus from the user's browser. Close the task window after the merge and
-verification are complete.
+**Known false negative:** this call can report `key-not-delivered` despite successful submission. Wait up to 30 seconds and verify the actual matching result, identity/email, and search URL before retrying or stopping. Continue when verified; a filled input alone is insufficient. If no result or submit state appears, refocus the completed input and retry once, then wait again. Report a blocker if still unsuccessful. Never steal focus or resubmit while loading.
 
-Never substitute an OpsHub customer-page merge or customer edit for the Admin
-merge. The OpsHub customer edit is required for deleting all non-primary
-merged email(s) and, when a phone was supplied, all extra phone number(s)
-after the Admin merge. If Admin is unavailable, stop and
-report the blocker; do not merge in OpsHub. If OpsHub cleanup fails or is
-unavailable after a successful Admin merge, report the cleanup blocker and
-stop; do not post or claim completion before cleanup is verified, and never
-reopen or redo the Admin merge.
+## After-search UI fast path
 
-## Output
+Use these selectors observed in the October 22 run as starting points, validating them against the current page. Rediscover only if absent, ambiguous, or changed. Keep the Customers-first search sequence above unchanged.
 
-Mention the merge only if it completed successfully:
+- **Admin navigation:** use the current URL, keeping UUID, and visible controls as the state. A customer can open directly on `/links`; do not reopen the record or click Links again in that state. A ready merge form for that customer ends navigation immediately. Otherwise, click the visible Links control only when Links is still needed, then click the visible Merge control. Before either click, if that target is hidden, open the visible `button[uib-tooltip="Switch tabs"]` **once and wait until the target itself is visible** before clicking. A successful menu-button click does not prove the menu has rendered. Links can close the menu; re-check Merge visibility before reopening it. Do not toggle a menu when the intended target is already visible.
+- **Collapsed details and hidden matches:** if Switch tabs and the intended link are both hidden, allow a short readiness wait (up to 3 seconds). In the October 26 run, `info_outline` was the visible details control while navigation was collapsed; the generic `button[ng-click="$emit($ctrl.eventName)"]` matched a hidden button and failed. Inspect only that control and its surrounding customer header. If a unique visible details toggle is identified there, open it once, then wait for visible navigation. Never click the generic `$emit` selector or an unrelated info button. If the control cannot be identified safely, report that specific blocker.
+- **Visible target selection:** inspect all matches with `querySelectorAll` and select the unique visible, enabled match in the current customer pane. Check dimensions and computed visibility; do not assume `querySelector` returns the visible match. If duplicate hidden markup precedes the visible element, give the verified visible element a temporary unique DOM attribute and click that exact selector. Do not force-click hidden elements. Re-query after each navigation change; stale element references and mere DOM existence are not readiness checks.
+- **Bounded menu recovery:** if the intended target remains hidden after opening the menu, read its state once and allow one recovery based on that evidence. Stop and report a navigation blocker if it still fails. Do not cycle through Switch tabs → Links → Switch tabs repeatedly. Never wait for the merge form after a rejected Merge-link click; repair navigation first.
+- **Merge-page readiness:** wait for `input[ng-model="customer_merge.query"]`, not the nonexistent `Merge Customers` heading that cost 10 seconds in the October 22 run. Read keeping identity/email and candidate identities once. Select the verified duplicate; wait for the candidate details and visible `button[ng-click="customer_merge.warned = true"]`. Generic `button:text(Merge)` previously selected a hidden control. Read the selected target and keeping identity, then click that precise visible button. Read the displayed irreversible warning once before clicking visible `button[ng-click="customer_merge.merge()"]`. If already at the final warning, do not repeat the first button. After submission, inspect success and remaining duplicates once. If Admin is still loading, use a bounded result wait of up to 30 seconds and inspect the result once more; report an unverified submission if it remains unresolved, preserving the keeping and duplicate IDs for recovery. A timeout never authorizes another final Merge click. On an interrupted run, inspect that result before any further merge action. Never infer candidate identity from a name-only click or combine confirmation with an unreviewed warning.
+- **OpsHub UI fallback:** navigate using the retained UUID and inspect visible Details/Edit controls together. On the October 26 layout, Edit existed in hidden markup while the visible **Details** button opened the customer details panel. If the contact editor is already open, read its inputs directly. Otherwise, open visible Details when Edit is hidden, wait for a visible Edit in that customer details panel, then open that exact control. Do not rely on `browser_wait` finding hidden `button:text(Edit)`. Group navigation → visible Details if needed → visible Edit → input-ready check → full contact read in one guarded orchestration call; do not return to reasoning to rediscover each button. One focused DOM read of `input[name^="emails."]` and `input[name^="phones."]` should capture every contact's name, value, primary state, and associated remove control. Observed controls: `button[title="Remove email"]`, `button[title="Remove phone"]`, and `button[aria-pressed]` for primary state. Do not probe an empty dialog selector and then dump the page or re-extract input HTML. If inputs are not ready, wait for them.
+- Remove only the inspected non-primary contacts using their current rows, highest indexes first to handle renumbering; re-query after each removal. Execute those known removals sequentially in one orchestration call, stopping on failure. Read the desired lists once, save once, then reload/reopen once and read the complete saved lists for final verification. Do not inspect the saved page and then perform a second redundant verification before reopening the editor.
 
-> Consolidated duplicate customer profiles in Admin and removed all duplicate
-> emails and extra phone numbers from the surviving OpsHub profile.
+## Efficiency rules
 
-Do not include unnecessary customer personal data. If matching is uncertain or
-the merge fails, leave the profiles unchanged and use the applicable escalation
-path. Never attempt to reverse a merge or claim compliance before the surviving
-OpsHub profile is checked.
+- **Round trips dominate latency:** the October 26 trace had about 82 seconds between orchestration calls, plus substantial delivery overhead beyond the browser tool’s own execution time. A working click can take 0.2 seconds internally and nearly 7 seconds end to end. Minimize separate calls and repeated discovery rather than adding waits or merely shortening narration. These measurements do not establish an intentional pause or a server-side merge delay.
+- **Ready-screen execution:** after a focused read establishes identity and the next visible control, issue the next action immediately. Read keeping/candidate identity, candidate selectors, and readiness together when the merge form opens; do not follow with another link/HTML inventory. After candidate selection, combine selected-identity and warning-button readiness in one read. After reviewing it, group opening the warning with reading the full warning and final-button readiness. Once that warning is reviewed, submit immediately and group submission with a bounded result check. Preserve the identity and irreversible-warning review boundaries; do not add further discovery between a completed review and its action.
+- **No startup catalog scan:** call the known `mcp__browser_mcp__browser_` tools directly: `list_tabs`, `navigate`, `click`, `wait`, `fill`, `press_key`, `execute_script`, and `close_tab`. Load a missing tool's declaration only when required by the runtime; extract its schema without the repeated shared browser manual. Do not enumerate the catalog, rediscover known schemas, reload skills, or repeat verified customer lookups.
+- **Batch by decision boundary:** use one orchestration call for session-tab check → unfocused Admin open. Group Customers click → input-ready wait → fill → compatible Enter → result wait → focused result read in another. After identity review, group keeping-record open → guarded Links/menu navigation → merge-ready wait → focused candidate read. Execute calls sequentially with an explicit success/state guard after each dependent action; stop the batch on failure. Logging a failed result with `text()` and continuing is not a guard. Hidden-element errors and `found: false` must prevent later clicks and waits. For `maybe_landed`, unknown, or unverified outcomes, inspect the current page before deciding the next action. Treat only the documented Enter false negative by checking the result page. Return to reasoning when identity, candidate selection, or the irreversible warning requires review, rather than after every routine click. Never batch the final merge across an unreviewed confirmation.
+- **Page-script syntax:** `browser_execute_script` takes a JavaScript expression in `code`. Wrap multi-statement reads or DOM interactions in `(() => { ...; return result; })()`. Top-level `const`, `if`, or `return` caused a syntax error in the October 26 recovery; do not retry that form. Use scripts only for page inspection and ordinary visible UI interaction, never hidden application state or direct merge API calls.
+- Read visible identity sections and relevant control state together. Omit full-page text, input inventories, parent `outerHTML`, hidden warnings, and unrelated customer forms. An identity/confirmation read replaces repeated top/tail/HTML probes; repeat only when missing or contradictory.
+- Prefer focused DOM/text reads over screenshots and full-page dumps. Return only the relevant customer identity, merge state, or complete contact lists; skip unrelated histories and page content.
+- Batch independent reads when useful. Keep merge, cleanup, verification, and posting sequential. Browser actions share page state: do not parallelize them or batch across a confirmation that still needs inspection.
+- Use the page's ready/result state instead of fixed sleeps. Keep routine reasoning brief. Send the start, submission, verified-cleanup-stage, and completion statuses at their actual transitions, outside the note. If a stage lasts 30 seconds, report the current concrete blocker or pending check; never leave only `Account merge started` visible for minutes. Do not imply submission or completion before the corresponding action or verification.
+- Do not repeat a successful check without new conflicting evidence. Exceeding 60 seconds does not permit omitting verification or leaving additional real duplicates unhandled.
+
+## Failure and output
+
+If Admin is unavailable after the search sequence and bounded wait above, report the blocker; do not merge in OpsHub. **A failed or delayed Admin search does not authorize posting the note to the chosen email profile. Keep the note pending until merge and cleanup are verified.** Recover in the current run without requiring the user to repeat the merge request. If cleanup fails after an Admin merge, report **merge succeeded; cleanup blocked**, stop before posting/completion, and never reopen or redo the Admin merge. If posting alone fails, report verified merge/cleanup and the posting blocker accurately. Never attempt to reverse a merge.
+
+Keep merge statuses outside the OpsHub note. Mention successful consolidation only after verification; avoid unnecessary personal data. When a summary is needed:
+
+> Consolidated duplicate customer profiles in Admin and removed extra contact details from the surviving OpsHub profile.

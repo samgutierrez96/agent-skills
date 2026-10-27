@@ -1,90 +1,77 @@
 ---
 name: agent-verification
-description: Review an Alfred agent-verification task, verify the agent record, close the case, and log the result in OpsHub.
+description: Review an Alfred agent-verification task, verify the agent record, apply the supported outcome, and close the case.
 ---
 
 # Agent Verification
 
-Use this skill when an Alfred User Review requires an agent-verification check and the result must be recorded on the matching OpsHub customer record.
+Resolve the matching OpsHub customer, check live agent credentials, and close the matching Alfred review. Target **under 120 seconds** for an authenticated, exact-match run. Preserve identity checks and verify saved results; do not trade correctness for the timer.
 
-## Efficiency mode
+## Outcome and wording
 
-Optimize for execution speed and low token use:
+- An exact matching **High confidence · 100** result is preauthorized for **Allow + Verified**. Do not ask for confirmation. An older denial alone does not override this result.
+- A score is meaningful only for the matching customer's identifiers. Missing, ambiguous, below-100, or materially inconsistent live results require operator review; do not guess.
+- For Allow/Verified, Alfred's “Why is this user trustworthy?” must contain only **Confirmed and verified**.
+- OpsHub notes are permitted. For Allow/Verified, use only **Confirmed and verified** unless the operator requests more detail. Add relevant, evidence-based red flags only when final HAS is **Deny**. Do not copy historical flags forward as current findings without supporting evidence.
+- Agent credential verification does not establish that government ID validation passed. Do not claim checks that were not performed.
+- Never reuse a prior customer's identifiers, case ID, or outcome. Cache only the current run's resolved values.
 
-- Do not narrate routine clicks, tab switches, or successful reads.
-- Batch read-only data retrieval before opening Agent Verification.
-- Reuse the resolved customer/task IDs throughout the run; do not repeat searches.
-- Ask at most one user question: the confidence-tier confirmation.
-- Surface only blockers, mismatches, missing fields, or required confirmation.
-- Use masked identifiers in messages and avoid echoing full personal data.
+## Direct entry points
 
-## Fast path learned from demonstration
+- OpsHub: `https://opshub.apps.opendoor.com`
+- Customer detail: `https://opshub.apps.opendoor.com/customers/{resolved_customer_uuid}`
+- Alfred queue: `https://alfred.ops.opendoor.com/user-reviews`
+- Agent Verification: `https://script.google.com/a/macros/opendoor.com/s/AKfycbzaafxsysN1kOUwV5TXde9U3b53HVKpu7nfAjtTM64LsuHpXynNkOcX5sdI9H8-D1e6oA/exec`
 
-Target under two minutes of active work by using this routing immediately:
+These entry points remove the need to search local files, company knowledge, or the web for navigation on every run. If an entry point fails, use current visible navigation; do not iterate guessed hosts or routes. Obtain case-detail and Full Results URLs from the current UI links rather than guessing IDs.
 
-1. Resolve the OpsHub customer once and cache the available agent identifiers.
-2. In Alfred User Reviews, refresh the queue. If no matching open case exists, click “+ New Case”.
-3. In Create Identity Review, search by the exact customer email or phone number. Use the name only as a last resort. Select the result whose email or phone matches the OpsHub record.
-4. Always set Identity Review Type to “Requires Verification Review”, then select “Create”. Select the newly created case, choose “Claim and Begin”, then open “Review Case” and “View Full Results”.
-5. Use the separate Agent Verification site provided for this workflow:
-   `https://script.google.com/a/macros/opendoor.com/s/AKfycbzaafxsysN1kOUwV5TXde9U3b53HVKpu7nfAjtTM64LsuHpXynNkOcX5sdI9H8-D1e6oA/exec`
-6. Populate only identifiers returned by the matching OpsHub customer. The site runs a live search; do not enter MLS data that OpsHub does not provide. Stop for the required confidence-tier confirmation if results conflict or are ambiguous.
+## One-pass execution
 
-This fast path replaces queue-only assumptions: absence from the initial Alfred list means create the verification case, not stop.
+### 1. Resolve once (budget: 0–20 seconds)
 
-## Inputs
+- Prefer OpsHub `list_customers` with the supplied exact phone or email. Select the exact matching record and cache its UUID, name, phone, and email. Do not select a similarly named person.
+- Use a customer-detail MCP read only if it supports that resolved identifier and returns the needed agent fields. `get_customer` previously interpreted a customer UUID as a lead token and failed: do not repeat that call with a UUID unless its contract is corrected. `get_customer_profile(full=true)` previously returned a large activity history, not the needed agent fields: do not use it for this lookup.
+- Open or reuse the exact OpsHub customer-detail page. Read **Customer Info** and **Agent Info** once for MLS ID, license number, and current statuses; cache the returned identifiers. Avoid expanding communications, activity history, or AI summaries to retrieve agent data.
 
-Collect or confirm:
+### 2. Prepare the case (budget: 20–50 seconds)
 
-- The Alfred task/customer in scope.
-- The matching OpsHub customer record.
-- The agent identifiers available on the customer record: last name, first name, MLS ID, license number, phone, and/or email.
-- The confidence tier shown by Agent Verification, confirmed by the user before proceeding.
-- The verification decision: allow or deny, whether IDV passed, verification method(s), red flags, and a concise rationale.
+- Open or reuse Alfred User Reviews and refresh once. Check the current queue for the matching open Requires Verification Review, including remaining pages when needed; do not create a duplicate just because the first page lacks it.
+- If no matching open case exists, select **+ New Case**. Search the exact phone or email, select the result matching the cached customer, set **Requires Verification Review**, and select **Create** once. Wait for the dialog to disappear before any retry. Newly created cases may appear on the last queue page.
+- Select the matching case, choose **Claim and Begin** if unclaimed, and open **Review Case**. Cache its case ID/link. If the link opens a new tab, bind that tab; do not keep clicking the original link. When a popup does not open, navigate to the actual href read from the link.
+- Open **View Full Results** and read the available identity evidence once. Missing Mitek results mean ID validation was not established; they do not alone negate a matching agent credential result.
 
-Never hard-code a customer's name, phone, email, license number, MLS ID, address, or other personal data from a prior run. Treat those as run-specific inputs.
+### 3. Run the live lookup (budget: 50–80 seconds)
 
-## Workflow
+- Use Computer Use (`cua_repl`) for Agent Verification from the start. Its form and results are inside nested iframes; a blank top-level page-content response is not an empty app. Inspect the accessibility tree, or documented frame-scoped locators, instead of repeatedly reading the top-level document.
+- Populate only cached, current OpsHub identifiers using **LAST NAME**, **FIRST NAME**, **MLS ID**, **LICENSE NUMBER**, **PHONE**, **EMAIL**. Leave unavailable fields blank. Batch the known field fills and one **Search** click in one tool call, followed by a state read.
+- Wait for a result state rather than clicking Search again while “querying Snowflake” is shown. Read the matching candidate's tier, score, and identifier matches. A large result count can include weak first-name matches; assess the exact matching candidate, not the total count. Multiple rows for the same agent across MLS sources are not by themselves conflicting identities.
+- Matching High confidence · 100 proceeds immediately to closure. Surface an actual live mismatch for review.
 
-1. In Chrome, open Alfred's User Reviews queue and refresh the task list. Select the relevant open “Requires Verification Review” task, then choose “Claim and Begin”. Open “View Full Results”.
+### 4. Close and verify (budget: 80–110 seconds)
 
-2. Review the evidence. In the “Why is this user trustworthy?” field, enter a concise rationale based on the evidence (for example, that identity and license were confirmed). Do not claim a check that was not actually performed.
+- Return directly to the cached Alfred case. Select **Close case**, then **Yes** for “Can this user be trusted?” for the supported Allow/Verified outcome. Verify the dialog shows home access **Allow** and agent verification **Verified**. Do not select Deny or More information needed based only on an older denial.
+- Enter only **Confirmed and verified** in “Why is this user trustworthy?”, then submit **Close case** once. Verify **Case Closed**; a disabled submit button while saving is not completion and is not a reason to resubmit.
+- For a reviewed Deny outcome, use the appropriate denial fields and concise supporting evidence instead of the success wording.
+- Reload the cached OpsHub record once. Verify the actual saved home-access and agent-verification statuses in Customer Info/Agent Info. If adding an OpsHub note, save the concise permitted wording once and verify the note appears. Do not add a duplicate note or a long template.
 
-3. Retrieve the agent identifiers from OpsHub before opening or populating Agent Verification. Prefer one batched OpsHub MCP read: resolve the customer with `list_customers` or `global_search`, then use `get_customer` or `get_customer_profile` once to obtain the available name, phone, email, MLS ID, and license data. Cache the returned values for the remainder of the run. Use the browser only for fields the MCP does not return, and never use a mutation to retrieve data.
+### 5. Finish (budget: 110–120 seconds)
 
-4. Open the Agent Verification app. Populate only the available identifiers from the matching OpsHub customer record. Use stable field labels—LAST NAME, FIRST NAME, MLS ID, LICENSE NUMBER, PHONE, and EMAIL—and select Search.
+Report only the verified result: `Case: closed | Outcome: [actual HAS] | Agent: [actual status] | Confidence: [tier and score]`. Mention a saved OpsHub note if added. Report a concrete blocker when closure or statuses cannot be verified. Never claim completion based only on a click.
 
-5. Compare the live search result with the Alfred evidence. Identify the confidence tier displayed by Agent Verification. Ask one concise question: “Agent Verification shows confidence tier [tier]. Confirm or correct?” Do not continue until the user confirms or corrects it. Resolve discrepancies before deciding. If the live result is ambiguous, missing, or inconsistent, stop and ask for review rather than guessing.
+## Browser execution rules that prevent stalls
 
-6. Return to Alfred, select “Close case”, and confirm the case is no longer open. If the case cannot be closed, report the blocking state and do not claim completion.
+- Give one short starting update, then surface only meaningful mismatches, blockers, or delays. Use masked identifiers in chat. If work exceeds 60 seconds, give a brief update about what remains.
+- Prefer one browser-control surface for the UI workflow: `cua_repl` in Chrome, including Alfred and OpsHub. Reuse tab bindings. List tabs once when needed; do not create duplicates or repeatedly initialize the browser tools.
+- Use semantic labels or current accessibility indices. After actions, read fresh state before selecting the next dependent control. Batch deterministic actions on already-observed controls and the resulting state read; do not batch clicks that depend on a new dialog or menu you have not observed.
+- Prefer a targeted section or accessibility diff over full HTML/full activity dumps. Do not print tool catalogs or repeated shared tool instructions: discover exact tool names and only the needed schema.
+- Use condition-based waits supported by the browser, such as a dialog disappearing, a result heading appearing, or Case Closed becoming visible. No fixed sleeps. When the page is still loading, wait for that specific transition instead of taking repeated identical full-page snapshots.
+- If Browser MCP is used and input reports it did not land because the tab is inactive, switch to the intended tab before retrying. Check “maybe landed” actions before repeating; a stale immediate read does not prove a failed mutation. Do not cycle through failing clicks in the background.
+- If an iframe cannot be read by a top-level browser tool, switch immediately to Computer Use accessibility or documented frame locators. Do not spend several calls proving the top-level content is blank.
+- Do not reopen completed stages or reread a verified fact through multiple surfaces. After Case Closed and the refreshed OpsHub statuses are established, finish.
+- Stay within the authorized verification workflow. Unexpected destructive or unrelated irreversible actions require explicit authorization.
 
-7. Return to OpsHub, reload the customer record if needed, and add a note using this structure:
+## Timing and validation
 
-   ```text
-   Customer Type: Agent
-   Final HAS: Allow / Deny
-   IDV Passed: Y / N
-   Verified via: Phone / Email / ID / Agent Credentials
-   Red Flags: None / [list]
-   Notes: [brief evidence-based rationale]
-   ```
+Record elapsed wall time from first lookup to verified final state when executing a real case. Aim for the stage budgets above, adjusting for actual network latency. At 90 seconds, complete closure and final checks without optional history exploration. At 120 seconds, if still incomplete, report the concrete delayed stage and continue useful work; do not skip checks or claim success to meet the target.
 
-   Replace every placeholder with the actual outcome; do not leave slash-separated options or bracketed placeholders in the saved note.
-
-8. Select Add and verify the note appears in the customer record. Include the confirmed confidence tier in `Notes` or the available verification field. Report only: `Case: closed | Outcome: allow/deny | Confidence: [tier] | OpsHub note: saved/blocked`.
-
-## Safety and verification
-
-- Use the currently selected customer and task; do not infer identity from a similarly named record.
-- Avoid exposing sensitive identifiers in chat summaries. Use masked or high-level descriptions.
-- Treat “Allow” as a conclusion supported by the evidence, not a default.
-- Treat the confidence-tier confirmation as a required human checkpoint; do not infer or silently accept a tier.
-- If a destructive or irreversible action is requested beyond closing the review case and adding the note, pause for explicit confirmation.
-
-## UI interaction guidance
-
-Use semantic controls and visible labels in Chrome (for example, “Claim and Begin”, “View Full Results”, “Search”, “Close case”, and “Add”). Prefer the OpsHub MCP for batched read-only customer and agent data retrieval, then use Computer Use for the Agent Verification website and other UI-only steps. After each state-changing action, verify the resulting status before continuing, but do not report routine verification unless it fails.
-
-## Timing expectation
-
-The demonstrated workflow took about 3 minutes 12 seconds end-to-end, including navigation and manual lookup. With one batched OpsHub MCP read and minimized tab switching, target roughly 45–90 seconds of active work, plus however long the user takes to confirm the confidence tier. Treat this as an estimate, not a fixed SLA.
+This is a performance target, not a measured guarantee. Login, unavailable services, nonmatching results, and required operator review can exceed it. Validate future runs with their actual elapsed times; never create or modify an extra live customer case merely to benchmark the skill.

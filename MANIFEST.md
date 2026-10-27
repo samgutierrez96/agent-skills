@@ -1,37 +1,55 @@
 # Skill manifest
 
-Last inventory: 2026-10-19.
+Last content audit: 2026-10-27. Scope: all seven skills already included in this repository.
 
-## Included canonical skills
+## Canonical distribution and active sources
 
-These are copied from the active Codex installation at
-`~/.codex/skills/` and are the current local versions used by this account.
+This repository distributes reviewed copies of the active sources below. Project
+instructions determine source precedence; a global install is not authoritative
+when a project explicitly selects its own runtime. Content was compared, not
+selected by modification timestamp. File provenance and SHA-256 hashes are in
+`shared/source-inventory.json`.
 
-| Skill | Source | Status |
+| Skill | Active source relative to the user home | Audit result |
 | --- | --- | --- |
-| `agent-verification` | `~/.codex/skills/agent-verification` | included |
-| `opshub-context` | `~/.codex/skills/opshub-context` | included |
-| `schedule-final-offer-appointment` | `~/.codex/skills/schedule-final-offer-appointment` | included |
-| `xa-admin-account-merge` | `~/.codex/skills/xa-admin-account-merge` | included |
-| `xa-notes` | `~/.codex/skills/xa-notes` | included |
-| `xa-quick-slack` | `~/.codex/skills/xa-quick-slack` | included |
-| `zendesk-record-retrieval` | `~/.codex/skills/zendesk-record-retrieval` | included |
+| `agent-verification` | `.codex/skills/agent-verification` | Updated workflow and UI metadata |
+| `opshub-context` | `.codex/skills/opshub-context` | Already identical |
+| `schedule-final-offer-appointment` | `.codex/skills/schedule-final-offer-appointment` | Already identical |
+| `xa-admin-account-merge` | `.codex/skills/xa-admin-account-merge` | Updated verified merge workflow |
+| `xa-notes` | `Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes` | Updated full runtime, CORE and references |
+| `xa-quick-slack` | `Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack` | Updated compact runtime; retired brain removed |
+| `zendesk-record-retrieval` | `Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval` | Updated playbook; bundled entry, routing, verification and 27 recipe cards |
 
-## Upstream/reference sources
+Workspace rules for the three project skills are preserved under
+`adapters/codex/<skill>/AGENTS.md`. Zendesk's four on-demand context files are
+also bundled there. Read `adapters/codex/README.md` before installation.
+The Zendesk ENTRY rules path is translated to the repository layout; all other
+copied runtime content is byte-for-byte identical to its recorded active source.
 
-| Source | Local path | Inventory | Treatment |
-| --- | --- | ---: | --- |
-| Opendoor shared skills | `Documents/superdojo/skills` | 76 active | existing upstream repo; import selectively |
-| Obsidian/Documents vault | `Documents/**/SKILL.md` | 148 files | deduplicate and classify before import |
-| ChatGPT project copies | `Documents/ChatGPT Work/**/skills` | several | compare against included Codex versions |
-| Cursor transfer copies | `Documents/Cursor Transfer/**/skills` | several | migration/reference material |
+The older globally registered XA Notes, XA Quick Slack, and Zendesk copies are
+not the active sources in their dedicated projects and were not overwritten.
+Do not reinstall those variants over the project runtime. Project source folders
+were read only during this synchronization.
 
-## Curation rules
+Existing uncommitted backup-offer and privacy updates were compared against the
+active project versions before replacement. The active versions retain those
+corrections and contain subsequent changes. Pre-sync files are backed up locally
+under `.codex/backups/agent-skills-sync-20261027`.
 
-1. One folder per reusable skill; keep references and tests beside the skill.
-2. Prefer the newest actively deployed canonical, not the newest timestamped
-   draft or one-off scheduled task.
-3. Do not import secrets, credentials, customer records, or generated output.
-4. Keep company-internal skills private and document any external dependencies.
-5. Record source provenance and the import decision here when adding a skill.
+## Sources outside this audit
 
+- `company-knowledge-update` is installed locally but was not previously included;
+  it remains outside the seven-skill inventory.
+- `Documents/superdojo/skills` belongs to the separate shared company repository;
+  it is an upstream reference, not an import target for this audit.
+- Cursor Transfer, plugin caches, and archived copies were not treated as current
+  runtime sources or imported wholesale.
+
+## Curation and publication
+
+1. One folder per reusable skill; include required runtime dependencies.
+2. Reconcile against the actively deployed source and repository history.
+3. Exclude secrets, credentials, standalone customer records and generated output.
+4. Keep this repository private; these packages contain internal company context.
+5. Validate the package, commit and push reviewed changes, and verify the remote.
+6. A local commit or an unmerged PR is not an updated stable `main` branch.

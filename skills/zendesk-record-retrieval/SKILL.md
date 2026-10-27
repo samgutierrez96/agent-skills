@@ -9,22 +9,59 @@ Retrieval reference for drafting customer-facing Zendesk replies. Voice, formatt
 and the hard business rules for the reply itself live in the project instructions
 and are deliberately not duplicated here.
 
+**Routine-ticket speed:** Sam's correction is about completing routine tickets
+much faster, not adding another lookup requirement. Use the shortest sufficient
+retrieval path, batch independent required reads, reuse loaded rules and schemas,
+and extract only relevant facts from retained responses. Avoid overlapping recipe
+reads, speculative tool discovery, full-history dumps, and appendix-only research.
+Stop and draft as soon as the required evidence gates are satisfied. Prefer
+OpsHub MCP for record facts; browser remains a focused fallback for required
+missing facts. Preserve verification, but do not expand a straightforward ticket
+into a broad investigation. The under-25-second routine target is an aim, not
+permission to skip checks or a reason to claim unmeasured performance.
+
+
+**Packaged entry:** On a host without the bundled project rules already in
+context, load [ENTRY.md](ENTRY.md) once before drafting. Install the complete
+package, not this file alone. [FAST-INDEX.md](FAST-INDEX.md) links named routine
+recipes; [VERIFICATION.md](VERIFICATION.md) defines the under-25-second check.
 
 **Codex note:** This is the retrieval playbook for Zendesk ticket drafting.
 Voice, hard business rules (R1–R10), and reply formatting live in the project
 always-on rules (`AGENTS.md`) and are deliberately not duplicated
-here at length. Prefer **paste-ready draft + operator appendix** output. Use the
+here at length. Output **paste-ready customer reply + separate internal note**,
+then an optional operator appendix. Use the
 small read-only tool whitelist in the rules: Zendesk MCP `get_ticket` and
 `get_ticket_comments` for ticket metadata and comments, Glean for Help Center,
 announcements, and broader knowledge searches, OpsHub structured reads for
 customer/property/activity, exact address tools when needed, and browser only as
 a focused fallback. For browser reads use
 `browser_navigate` → `browser_wait` → `browser_get_page_content`; there is no
-`browser_batch` in this Codex setup. If a required connector is missing, ask the
-operator to paste the OpsHub/Zendesk block — degrade visibly, never invent
+`browser_batch` in this Codex setup. If Zendesk MCP is missing, use a targeted
+Glean ticket lookup or one focused live Zendesk read and verify ticket number,
+requester, channel, and newest inbound before continuing. Do not stop solely
+because Zendesk tools are unavailable. Never ask Sam to paste ticket conversations
+or record blocks. Diagnose and pursue the connection fix, use authorized fallbacks,
+and report the exact blocker and repair needed if retrieval remains unavailable.
+For missing OpsHub facts, use only the permitted recipe fallback.
+Degrade visibly, never invent
 credentials, UUIDs, offer amounts, or unverified facts. Skip Gumloop. Sibling projects
 `xa-notes` (post-call notes) and `xa-quick-slack` (escalations) live in other
-ChatGPT Work folders — do not invent Slack escalation output here.
+ChatGPT Work folders. Follow AGENTS.md and `xa-quick-slack` for requested or
+required escalations: verify the destination, prepare an unsent Slack draft when
+applicable, confirm its draft ID, and open the destination. Never send or submit
+automatically; keep the internal note accurate about the unsent status. Email
+tickets have no OpsHub call note. Estimated/expired offers without a final offer
+or contract do not trigger HSA escalation.
+
+**Same-ticket escalation deduplication:** Before preparing a follow-up Slack
+draft, compare the newest customer reply with the verified message already posted
+in the existing thread. If the issue and requested action are already covered,
+leave the escalation pending. A repeated callback request, continued waiting, or
+clarification of the same dispute does not by itself warrant another Slack
+message. Draft an update only when materially new information changes what the
+receiving team needs to do, or the operator explicitly requests another update.
+Do not create a second draft merely because a new Zendesk reply arrived.
 
 **Copy-box formatting is mandatory.** For every customer-facing draft, output the
 customer reply first inside its own plain triple-backtick fenced block, with nothing
@@ -66,10 +103,13 @@ describe the ticket facts first, not the operator's drafting or handling activit
 
 **Load the fast index once per chat.** Read
 `skills/zendesk-record-retrieval/FAST-INDEX.md` first for routine tickets, retrieve
-the ticket, then read only the matching recipe from this full playbook. Read lines
-1–900 and 901–end in one parallel block only for hard, ambiguous, or multi-record
-tickets. Do not first attempt an unchunked read, and do not re-read loaded
-material while the playbook remains in context.
+the ticket, then read the named card in `recipes/` and the matching full-playbook
+section when required by that card or a safety gate. For hard, ambiguous, or
+multi-record tickets needing the complete playbook, use explicitly bounded chunks
+of at most 200 lines and 12,000 characters each with labeled continuations. Inspect
+all required parts; independent chunks may run together within the output budget.
+No unbounded remainder, unchunked full read, or acceptance of truncated output.
+Reuse loaded material; see ROUTING-GATES.md → Targeted playbook reads.
 
 **Ticket identity is a hard gate.** After any Zendesk MCP result, Glean fallback,
 or live Zendesk read,
@@ -303,6 +343,20 @@ generic status: they may determine different next steps and wording.
   offering any path. Add only the browser pages the detailed recipe requires.
   **Exception:** a same-day keypad / lockbox SMS is the already-handled
   recipe below, not Flags.
+- **Showing scheduling failure with a requested time, phone-support reply only:**
+  For an SMS such as “not on Aligned Showings,” use Zendesk `get_ticket` →
+  `list_properties` → `get_property`, with one focused browser fallback for
+  Flags if structured data omits them. Add comments only for a needed thread or
+  newest inbound. When the reply only directs the requester to phone support
+  for verification and availability, skip customer/profile/activity/trust reads:
+  no appointment, identity, code, or direct entry is being verified in the reply.
+  Traditional-listing requirements still apply; never confirm the requested slot.
+  Include the verified full street, city, state, and ZIP. Stop once listing status
+  and the required Flags are known. If a customer lookup was already attempted
+  and `get_customer` returns “Lead not found” for a `WebCustomer` UUID, do not
+  retry that UUID as a lead, broaden to a profile, or guess a customer-page URL.
+  Only retrieve more customer data when a separate outward claim requires it.
+  Verified routing correction on ticket 5110320.
 - **General listing interest / request to connect:** If the inbound only says the
   customer is interested in a named listed home, asks to connect, or asks how to
   tour generally, and does not ask for a code, remote unlock, exact appointment,
@@ -401,21 +455,130 @@ Never inspect `user-opshub` without an exact tool name.
 
 ## Speed and token budget
 
+**October 22 operator priority: reduce both end-to-end latency and token use on
+future tickets.** Aim for under one minute including verified unsent Slack draft
+creation and opening the destination when required. This is an optimization
+target, not measured performance; the existing faster routine-ticket target is
+also unverified. Preserve all evidence and safety gates.
+
+- **Prior-answer check before offer-status research (all channels):** For an
+  offer update after an assessment, or another apparently repeated concern,
+  search Zendesk before customer/profile/property reads. With a full address,
+  use one exact street-address phrase query across channels; otherwise use the
+  verified requester email. Run this search alongside the recipe/required section
+  read. SMS can repeat an email exchange under another email address. Inspect
+  comments only on a matching candidate, verifying the customer name, exact
+  property, concern, answer timestamp and current inbound. A name or shared
+  address alone is insufficient. If a solved/closed ticket already answers the
+  same question and the new inbound adds no changed circumstance or substantive
+  follow-up, stop and recommend no reply/close; cite the source number only in
+  the appendix. Do not repeat OpsHub research. A pending exchange, subject-only
+  email row, or ticket status without its actual answer does not satisfy this
+  gate. If the search has no matching answer, continue the normal recipe; do not
+  run a series of name/address/email variants. Skip this search for explicit
+  inbound-only fast paths or when an earlier same-ticket check already suffices.
+- **Do not fetch comments automatically:** A complete initial SMS description
+  with no support exchange does not need `get_ticket_comments` merely because
+  the ticket was updated. Retrieve comments when the thread or newest inbound is
+  needed, as required by AGENTS.md. Do not add `get_thread` when the verified
+  address and identity are already available unless its content is required.
+- **Compact at the first response:** Store large connector responses before
+  emitting them. Inspect their structure in memory and print a focused view of
+  identity, current stage, relevant recent notes/events, timestamps, contradictions,
+  counts and pagination. Never print raw profile/history payloads, duplicate
+  `content` and `structuredContent`, or use a tool's requested limit as proof of
+  completeness. Preserve and inspect every required evidence field.
+- **Routine offer-timing lookup budget:** Treat a simple “will the final offer
+  come soon?” as a focused timing lookup. Aim for about 20 seconds; this is a
+  performance target, not permission to skip evidence gates. After discovering
+  unknown schemas, batch independent ticket/index, duplicate-search/section,
+  and customer/property reads as their dependencies permit. Do not fetch ticket
+  comments when the description contains the complete initial question and no
+  support exchange or missing inbound is indicated.
+  Preserve the recent-resolution check, requester/property match, current
+  offer stage, property Flags/status, and assessment checks. A cross-deal
+  profile is justified only for a required field such as recent resolution
+  evidence or an assigned advisor; do not pull it merely to identify a property
+  already supplied in the ticket. If a required response contains years of
+  history, retain it in memory and emit only relevant recent evidence, counts,
+  pagination, and contradictions. Never print the raw response first and filter
+  it afterward, including when `full:false` returns a large payload.
+  When structured reads omit required page facts, consolidate them into one
+  browser path and wait for loaded content before reading. Discover only the
+  missing schemas and print shared browser instructions once, followed by schema
+  declarations only. Stop when the reply and all required gates are supported;
+  do not fetch an assessor name, unrelated history, or further completion detail
+  solely to enrich the internal note. If an exact completion date is needed to
+  decide whether the timing window has passed, use the returned assessment task
+  ID directly with `get_task` instead of attempting a browser link first.
+- **Browser fallback once ready:** Navigate, await the exact observed section
+  label, then read the page. Do not read immediately after navigation/click and
+  again after loading. If required facts remain absent, make only the targeted
+  follow-up needed for those facts. Once recent property activity reveals a prior
+  Support exchange, check its Zendesk answer before inspecting another offer
+  record. Never borrow another profile's stage or assessment from a shared address.
+- Select the smallest matching recipe before declaring a ticket ambiguous. For
+  appraisal/inspection utility readiness use `recipes/appraisal-utilities.md`.
+  Load a targeted full-playbook section only for a genuinely missing rule; use
+  the complete playbook only for unresolved hard, ambiguous or multi-record cases,
+  in the explicitly bounded chunks defined above.
+- Discover exact required tools together. Emit argument schemas without repeated
+  connector boilerplate; retain and obey any new operational instructions. Do not
+  print the entire description of several tools sharing the same browser manual.
+  For `ALL_TOOLS` discovery, emit only matching names and the declaration suffix
+  beginning at `exec tool declaration:`. Read shared operational instructions once
+  per connector when first needed; do not emit them for every matched tool.
+- For a fresh exact ticket, discover `get_ticket` first if its schema is unknown,
+  then await the ticket and Fast Index read together. Do not read the index first
+  merely because tool discovery was needed. A transient ticket-read failure may
+  receive one retry; it does not justify unrelated connector discovery.
+- Store large connector responses in the execution session and emit a focused
+  evidence view once. Preserve identity, property, timestamps, handlers, relevant
+  message bodies, newer resolutions, contradictions and pagination. Compacting
+  output must not hide unresolved evidence. `limit` is a request, not proof the
+  response is bounded: `get_thread` returned substantial history despite limit 10.
+- For Slack history, read the exact relevant thread, retain human updates and
+  relevant bot status assertions, and omit repeated boilerplate, unrelated
+  account identifiers and attachment inventories. Do not trust a bot's all-on
+  summary over contradictory verification warnings. Inspect every parallel read.
+- For resolution-first agent requests, a property flip's activity may expose only
+  the former seller's acquisition history. Check returned identity; that result
+  does not satisfy the buyer's-agent recent-notes gate. Use the verified agent's
+  customer page rather than expanding the former seller's history.
+- OpsHub customer search is `/search?q=` on the verified
+  `https://opshub.apps.opendoor.com` host; `/customers` is not an index and 404s.
+  Search by verified phone/email, open the observed result, and verify identity.
+  If a required browser read remains, choose one browser interface and keep it;
+  use another only for a concrete capability gap. Do not repeat browser discovery.
+  Navigate directly to that verified search URL, not a guessed host or homepage.
+  For a recent-notes fallback, use one verified phone or email search, one bounded
+  wait, and one content read. If no usable result appears, report that the notes
+  could not be checked; do not alternate identifiers or troubleshoot the browser
+  merely to complete this check. Missing notes never establish resolution. If a
+  separate required fact remains unavailable, ask for that fact or report the gap
+  rather than making an unsupported claim.
+- Stop after sufficient evidence and any required draft-ID confirmation. Never
+  send an escalation or claim it was sent. Follow-ups reuse valid facts and
+  loaded material; do not recreate drafts unless asked.
+
 Optimize for the shortest evidence-backed answer. The first sufficient positive
 fact ends retrieval; do not collect appendix-only context. Use one tool call per
 independent fact group, batch independent reads, and avoid browser navigation when
-structured OpsHub already supplies the outward fact. Do not read trust, activity,
-or a full customer profile unless the reply would otherwise assert or deny a code,
-remote unlock, appointment, agent-only touring, prior contact, or another
-record-specific access fact. Prefer a two- or three-sentence reply over a full
+structured OpsHub already supplies the outward fact. For every record-specific
+reply, preserve AGENTS.md's recent-notes/activity resolution check for the same
+requester, property and concern; a later verified resolution takes priority.
+Inbound-only policy, spam, STOP and explicit recipe fast paths retain their
+exceptions. Beyond that check, read trust or a full customer profile only when a
+required access, identity, stage or other recipe fact needs it. Prefer a two- or three-sentence reply over a full
 macro when the ticket is simple.
 
 **Token and latency optimization is the default.** Keep this playbook and already
 loaded schemas in context across same-ticket follow-ups; never reread them. After
 the Zendesk MCP identifies the ticket shape, inspect only the schemas named by that recipe,
 then run independent reads in parallel. Do not retrieve customer, property,
-activity, trust, offer, or appendix context unless it supports an outward claim or
-resolves a required stage gate. Stop immediately when the customer-facing answer is
+activity, trust, offer, or appendix context unless it supports an outward claim,
+resolves a required stage/identity gate, or satisfies the required same-concern
+resolution check. The recent-notes check is not appendix-only retrieval. Stop immediately when the customer-facing answer is
 supported. For simple tickets, favor a compact draft and a concise internal note;
 do not spend tokens restating the lookup chain.
 
@@ -426,7 +589,10 @@ compact result. Never pass a large raw connector payload through to the user-fac
 response. Extract the minimum fields, draft immediately, and do not make a follow-up
 lookup merely to enrich the internal appendix.
 
-**30–40 second target.** For a routine ticket, use this latency budget:
+**Under-25-second target (not yet verified).** Measure submission through both
+complete copy boxes using `VERIFICATION.md`, separating fresh-chat and follow-up
+runs and recording actual provider usage when available. Do not omit required
+evidence to meet the clock. For a routine ticket, use this retrieval budget:
 
 1. Zendesk MCP ticket read: one focused call; add comments only when needed.
 2. Recipe/schema selection: one compact pass; do not inspect unrelated catalogs.
@@ -515,7 +681,7 @@ from a file that was not read.
 
 ## Browser only when structured OpsHub leaves a required page-only gap
 
-OpsHub MCP is the default after Glean. Chrome is not a faster way to read a
+OpsHub MCP is the default after the Zendesk ticket read. Chrome is not a faster way to read a
 customer or offer. Do not list tabs, inspect browser schemas, or confirm Chrome
 at startup unless the chosen recipe still requires an exact Zendesk or OpsHub
 **page** fact after structured reads. Use OpsHub `list_customers`,
@@ -531,13 +697,18 @@ and inspection dates come from `list_properties` + `get_sent_offer` /
 `get_customer_profile`, or the exact TASK read named by the recipe for assessment
 status, completion, scheduling, and dates. If the reply still depends on an exact
 page-only `Traditional listing` or Assessments & Inspections fact that structured
-OpsHub does not return, use one targeted browser page read. Do not replace that
-safeguard with inference.
+OpsHub does not return, use one targeted browser page read. Required recent
+customer notes or Home Visits that structured reads cannot expose also permit
+the focused customer-page fallback in `recipes/access-resolution.md`. Search by
+verified phone/email and verify the displayed identity; never substitute a seller's
+acquisition activity for the requester's notes. Do not replace these safeguards
+with inference.
 
 For a required page, use `browser_navigate` → `browser_wait` →
 `browser_get_page_content`. Load only those required browser schemas together and
 reuse them. If Chrome is unavailable, say so plainly, name what could not be
-checked, and ask for a paste of the needed OpsHub/Zendesk section. Do not quietly
+checked, and diagnose the connection fix without asking Sam to paste the needed
+OpsHub/Zendesk section. Do not quietly
 present a thinner record as complete.
 
 **If browser tools error or lose tabs mid-ticket**, name what could not be
@@ -640,6 +811,30 @@ recipe names the calls and where to stop, and it saves deciding the path from
 scratch. **A recipe does not override the record.** If what comes back contradicts
 the shape, the record wins, see "Stage gates the playbook".
 
+- **Seller asks about transaction expenses or net proceeds and supplies an offer
+  and mortgage payoff.** Route to policy/product first, not offer-status. An
+  address, quoted offer amount, or automated offer-update subject alone does not
+  require stage research. Retrieve the ticket, then verify service-charge and
+  closing-cost guidance with one focused Glean search (`num_results: 3`); batch an
+  announcements check with it if needed. Explain that those two figures alone do
+  not establish net proceeds, that the service charge varies and is shown as a
+  dollar amount in the final offer, and that standard third-party closing costs
+  may apply. Do not calculate net proceeds, quote a fee percentage, or assert
+  the customer's offer stage. A general explanation that a Home Sale Advisor can
+  explain the final-offer breakdown does not require identifying or contacting an
+  assigned advisor. Stop when the policy answer is supported.
+  This high-level response is an inbound-only policy path: skip customer,
+  property, recent activity, Flags, assessment, sent-offer, and browser lookups.
+  Add comments only when the ticket indicates a later response or missing thread;
+  search duplicates only when there is evidence of a repeated issue.
+  If a separate ask requires the actual itemized costs, a calculated estimate,
+  offer status, or an advisor handoff, use that record-specific recipe and its
+  required checks. An actual net-proceeds quote still requires the visible Latest
+  pricing card under “Selling options, Cash and Cash Plus.”
+  If unnecessary record lookups have already failed, return to this policy path;
+  do not cascade through profile, property, and browser fallbacks to support a
+  generic answer. Identify any unresolved record-specific request in the appendix
+  and request only the missing pricing breakdown or notes needed to complete it.
 - **Closed-home survey / document request** (buyer or their agent asking for a
   survey, deed, or other closing file from a home they already bought from
   Opendoor). Glean the ticket, CUSTOMER on phone or email, one OpsHub customer
@@ -755,8 +950,10 @@ the shape, the record wins, see "Stage gates the playbook".
   to view. A verified buyer's agent may view the property through the agent path.
   Opendoor does not host open houses; do not
   confirm, repeat, or invent open-house times. If the requester’s CUSTOMER record is
-  `is_agent: true`, also point them to `opendoor.com/makeoffer` or
-  `homes@opendoor.com`. An Opencomm
+  `is_agent: true`, also point them to `https://www.opendoor.com/make-offer`:
+  enter the property address and follow the prompts to submit the offer.
+  `homes@opendoor.com` remains an existing agent contact; it does not replace the
+  required submission URL when giving offer-submission guidance. An Opencomm
   mint with no `is_agent` flag is not an agent; do not assume they are one from
   the inbound. A leftover greeting name stays out of the draft. Verified on
   Oklahoma City ticket 4928122 (1212 SW 54th St; Flags: Traditional listing;
@@ -796,19 +993,35 @@ the shape, the record wins, see "Stage gates the playbook".
   ticket, CUSTOMER on phone, pin the listing. **Seller / owner financing is not
   offered.** The home still sells as a standard purchase paid in full at
   closing (cash or the buyer's financing). That is not "Opendoor never
-  finances." Check the state before naming a mortgage product:
-  **Opendoor Home Loans** only in announced ODHL markets (as of 2026-07-02: CO,
-  TX + DCA, AZ, OK, AL, OR, WI). Direct those buyers to
-  `opendoor.com/mortgage` or the ODHL line, not Lower. **Lower.com** is the
-  partner lender in all other Opendoor markets except NV and NY; Ohio is
-  Lower. Refer with the Help Center Affiliated Business Arrangement line:
+  finances." Check the state and current product availability before naming
+  a mortgage product. **Opendoor Home Loans LLC**, NMLS ID **2810193**, lists
+  these licensed jurisdictions as checked October 22, 2026: AL, AZ, CO, DC,
+  IA, KS, LA, MI, MN, MT, NE, OK, OR, TX, WI, WY. Source:
+  [Disclosures and Licenses](https://www.opendoor.com/homeloans/licenses).
+  This replaces the dated July market list as licensing evidence. A license
+  does not establish an active launch, a particular product's availability,
+  or borrower eligibility; verify current availability before a referral.
+  Recheck the live page for licensing questions rather than treating this
+  dated snapshot as permanent. The listed ODHL phone is **480-618-6760**.
+  Use the applicable verified product/application path below for applications;
+  the licensing page itself does not change that path. ODHL is an Opendoor
+  subsidiary; using an affiliate is optional, customers may shop around, and
+  Opendoor or its affiliates may benefit financially from the transaction.
+  Applications require underwriting, credit qualification, and verification;
+  do not promise approval or treat website information as a lending commitment.
+  **Lower.com:** retain the existing partner-referral guidance where currently
+  verified (previous guidance identified Ohio and excluded NV/NY), but do not
+  route automatically to Lower based on absence from the old ODHL list. The
+  ODHL licensing page does not establish Lower's coverage or affiliation.
+  Refer with the Help Center Affiliated Business Arrangement line:
   we are referring them to Lower.com, an affiliate of Opendoor; they are not
   required to use it and should shop around; Opendoor may receive a financial
   benefit if they do. Customer URL is `lower.com/go`. Off-market fixer-uppers
   or portfolios with financials: we do not have those to share; they can
-  browse listed homes at `opendoor.com/homes` and place the offer there. If the
-  home is a traditional listing, the site will tell them to share it with their
-  agent.
+  browse listed homes at `https://www.opendoor.com/buy`. Georgia buyers must
+  work with a licensed agent to place an offer. Where direct buyer submission
+  is available, submit from the listing; confirm the location’s path when
+  unknown and preserve traditional-listing requirements to use an agent.
   Verified on Toledo OH ticket 4928625 (3439 Rushland Ave; operator
   corrections: not a vendor decline, do not ignore seller-finance, do not
   lead with touring, Lower not a blanket no-finance).
@@ -895,7 +1108,16 @@ the shape, the record wins, see "Stage gates the playbook".
   or they also asked touring / availability. If they also ask to tour, then
   read Flags for `Traditional listing`. Verified on Davenport FL ticket
   4928636 (480 Buchannan Dr; operator: same send without the extra retrieval).
-- **Inspector / appraiser SMS that names who the visit is for.** Do **not** use the
+- **Inspector / appraiser SMS that names who the visit is for.**
+  Start with [resolution-first access](recipes/access-resolution.md): check the
+  verified appraiser's recent call notes/activity for this home before property
+  research or asking for participant details or a new appointment time. Check
+  Home Visits only if still relevant or explicitly requested.
+  If a call already resolved access, recommend close and name the verified call
+  handler in the internal note. A WebCustomer UUID failing the sell-direct
+  `get_customer` lookup does not establish that no visits exist; use the customer
+  search UI to verify Home Visits when structured reads do not expose them.
+  Do **not** use the
   unsolicited-vendor recipe off an Opencomm mint or a leftover “Hi [name],”. The
   sender is often the inspection or appraisal scheduler, so do not require the
   sender to be the buyer, buyer’s agent, or lender. Read the property record and
@@ -971,6 +1193,21 @@ the shape, the record wins, see "Stage gates the playbook".
   say that in the reply and do not promise a file or a timeline. Verified on
   North Providence RI ticket 4899221 (56 Cushing St had floor plans, no
   disclosure download).
+  **Condition/systems lookup stop rule:** After the required same-concern
+  resolution check and one exact address match, use a listing URL returned by
+  the connector when available. If no exact Opendoor URL is returned, make at
+  most one focused public search for the full address on Opendoor. An unrelated
+  home's similar-listings mention is not an exact listing result: do not open
+  that home, repeat search variants, discover browser tools, or try shell/page
+  fetch workarounds to chase the link. Do not add `get_property` solely to find
+  a public URL when the address match already identifies the home. If the exact
+  page cannot be retrieved, stop and disclose the listing gap in the operator
+  appendix. State that the requested condition or system detail cannot be
+  confirmed and give the independent-inspection option if they place an offer.
+  Never infer wiring, upgrades, or disclosure availability from missing data.
+  If the exact page is retrieved, answer only from verified information and
+  stop when it does not establish the requested detail. This limit does not
+  bypass required resolution, identity, access, or stage gates for separate asks.
   **Short path when the inbound already names a street and the send will only
   point at that public listing** (e.g. "951 haverstraw needs work?"). Two
   dependent rounds, no Chrome. Glean the ticket, CUSTOMER on
@@ -1612,6 +1849,15 @@ Draft with "Hi there," and assert no stage.
 
 ## Reading the OpsHub property record
 
+For property-specific HOA questions, including leasing restrictions and HOA or
+management contacts, resolve the exact address and use OpsHub
+`get_hoas_for_property(address_token, full:true)` before a public-listing fallback
+or saying the information is unavailable. Report positive restriction flags only
+at the level supported; a true leasing-restriction flag does not supply the actual
+lease rules. Provide verified HOA/management contacts for those details. Inspect
+all returned associations separately; null restrictions are unknown. The HOA dues
+payment rule still routes payment requests to `HOAAP@opendoor.com`.
+
 **Assessments & Inspections is the section that answers "did you get my
 assessment".** Start with `get_property` and `get_assessment_visits`. If those do
 not expose the exact completion record, read Assessments & Inspections in Chrome.
@@ -1711,6 +1957,24 @@ assessment).
   Check the reminder's timestamp against the completion date before writing that.
 
 ## Dashboard links and account setup
+
+**Simple login troubleshooting fast path:** For a bare “cannot log in” or
+account-setup failure, use Zendesk plus the requester-email duplicate search.
+Read comments only when the ticket indicates a prior support exchange or the
+newest inbound is missing. A verified solved duplicate takes the no-reply path.
+Otherwise ask what happens during sign-in or for the error message and offer
+(888) 352-7075. This is an inbound-supported reply: skip OpsHub recent notes,
+customer/property/offer reads, Glean, and browser. Do not look up an account email
+just to personalize this first troubleshooting question, assert that a link works,
+or claim a reset or resolution. Keep the internal note to the reported problem
+and next step; do not add a retrieval-gap appendix for intentionally skipped reads.
+
+Leave this fast path when the customer asks about a specific offer's visibility,
+which account email to use, a reset/account change, or an earlier unresolved
+support exchange. Use only the matching record checks for that request. An
+automated setup email quoting “check your offer” alone does not trigger offer
+research. If record identity is verified for another required reason, the normal
+verified-email disclosure rule still applies.
 
 Operators hand out a tokenized dashboard link,
 `consumer.opendoor.com/dashboard/sell/{address_uuid}?customer={uuid}&human_token={token}`,
@@ -1814,6 +2078,29 @@ accepted" FlipEvent, are flip-side and stay internal.
 
 ## Offers
 
+**Confirmed offer denial / Opendoor walked:** When the ticket or verified record
+establishes that Opendoor declined or walked away from making an offer, stop the
+offer-status lookup. Support cannot provide a specific denial reason. Do not
+research assessments, expired offers, pricing, property history, or additional
+records to explain the decision. Use the confirmed decision and briefly explain
+that a more specific reason cannot be provided; do not imply further research or
+an escalation can produce one. A separate substantive request keeps its own
+required checks. Target about 20 seconds for this fast path without treating the
+time target as permission to skip a necessary verification.
+
+For agent SMS offer-status questions, retrieve the requester’s SMS thread early
+when it can supply the full property address or verified property token. If the
+first property search is empty, wait for that thread before spending the one
+normalized retry; use the exact address it supplies. Do not use
+`get_customer_profile` merely to resolve a property when the thread already
+contains its token. A WebCustomer UUID is not a sell-direct lead token: do not
+pass it to `get_customer`. Use the verified property token for the narrow
+property read, then use browser fallback only for required missing page facts.
+Reuse the confirmed requester thread and relevant recent notes/activity; do not
+pull broad cross-deal history for an offer-timing question. Browser waits must
+use an exact observed UI label (the acquisition page uses `Assessment &
+Inspection`), not a guessed plural that consumes the timeout.
+
 For the offer actually presented to the seller, prefer OpsHub `get_sent_offer` on
 the verified flip token. It returns sent/open/expiry state and the quoted amount;
 the amount stays internal unless a separate rule explicitly allows it.
@@ -1851,11 +2138,22 @@ Three surfaces, three audiences, never interchange them:
 - `opendoor.com/agent` — agents requesting an offer on a client's
   home.
 - `opendoor.com` — direct sellers entering their own address to request an offer.
-- `opendoor.com/homes` — buyers finding an Opendoor listing and placing an offer
-  there. If the home is a traditional listing, the site tells the buyer to share
-  it with their agent; they cannot place an offer there.
-- `opendoor.com/makeoffer` or `homes@opendoor.com` — agents placing an offer.
-  Do not send the buyer `/makeoffer`.
+- Buyer offer eligibility (reaffirmed October 23, 2026): the complete state list
+  is pending Sam's confirmation. Use `opendoor.com/buy` where direct buyer
+  submission is available; preserve known location and listing exceptions.
+  Do not infer statewide eligibility from an individual call.
+- Buyer offer submission (company process update, 2026-10-22): Georgia buyers
+  must work with a licensed agent to place an offer. Some other locations also
+  require an agent; do not assume all other states allow direct submission.
+  Where direct buyer submission is available, find the property listing at
+  `https://www.opendoor.com/buy` and submit from that listing. Confirm the
+  location’s path when unknown. Preserve traditional-listing requirements to
+  submit through an agent. This changes offer guidance only, not touring/access.
+- `https://www.opendoor.com/make-offer` — agents placing an offer or backup offer.
+  Include the URL and tell them to enter the property address and follow the
+  prompts to submit. `homes@opendoor.com` remains an existing agent contact, not a
+  substitute for the required URL in submission guidance. Do not send an
+  unrepresented buyer to the agent submission path.
 
 When a current preliminary offer already exists for the client's property, do
 not tell the agent to request another offer. Direct them to review the existing
@@ -1961,10 +2259,21 @@ record with a price, photos, and ownership populated.
   describe the verification method to the customer, and note the empty Agent Info
   block in the appendix rather than treating it as a red flag.
 - **Agent verification, once done, is done.** When an earlier comment collected
-  full name, MLS or board, brokerage, and license number, and the CUSTOMER record
+  full name, MLS sign-in number, real estate license number, email, phone number,
+  and brokerage name, and the CUSTOMER record
   now reads `is_agent: true`, that is the verification. Do not re-ask, and do not
   narrate the verification step back to them. Thank them for the details and
   answer the question.
+- **Self-identified agent requesting access with verification outstanding:**
+  acknowledge the stated agent role and collect the missing verification details
+  in the ticket: MLS sign-in number, real estate license number, full name,
+  email, phone number, and brokerage name. MLS listing area is optional when
+  available; it is not a required verification field. The MLS sign-in number
+  means the agent's identifier, never a password. Reuse details already supplied,
+  including the verified requester phone; do not ask for them again. A name and
+  brokerage alone do not complete verification. Do not merely tell the requester
+  to find a licensed agent or redirect them to phone support instead of collecting
+  the missing details. Keep access and appointment unconfirmed until verified.
 - **MLS membership is not a gate on anything public.** An agent who is not a member
   of the MLS carrying one of our listings still gets the full public listing page.
   Do not treat their non-membership as a problem to solve or a reason to withhold.
@@ -2037,6 +2346,28 @@ mid-ticket.
 
 ## Public listings
 
+For buyer requests for seller disclosures, inspection/service records, repair
+history, or transaction circumstances that the public listing does not answer,
+include a useful listing-agent next step. Verify the assigned listing agent and
+contact details from the exact property's OpsHub participants first: use the
+verified flip token with `get_acquisition_transaction(panels:["participants"],
+full:true)` and select the participant whose role is `RESALE_AGENT`. The tool's
+acquisition-page name does not exclude resale participants. Do not substitute
+public syndication attribution or a brokerage number for the verified internal
+assignment and direct contact. A `get_resale_transaction` response with only a
+listing phone does not establish the participant's name; use the participants
+panel. This focused internal contact lookup is permitted even when the
+condition-detail lookup has reached its stop rule. If the participant cannot be
+verified, report that gap rather than promoting public co-listing attribution to
+the assigned-agent role. Invite the
+customer to request the available records or clarification from the listing
+agent; do not promise that documents exist or that the agent will respond.
+
+For general buyer interest in a named listing, include the verified Opendoor
+property URL in the first reply so the customer can review photos, floor plans,
+and available home details. Name disclosures only when the page shows them.
+Do not stop at asking what the customer wants to know when this resource is available.
+
 Public listing URL pattern:
 `opendoor.com/properties/{Street-City-ST-Zip}/aid_{address_id}` using the address
 ID from `pds_search_by_address`. Build it and confirm with a fetch. Never guess a
@@ -2076,6 +2407,12 @@ Send the verified URL and inventory what is on it rather than trying to route th
 to MLS data.
 
 PDS beds, baths and sqft beat third-party syndication sites, which are often wrong.
+
+For square-footage questions, use the verified listing's labeled home square
+footage and separate lot-size field. Prefer those explicit detail fields over
+incidental prose in the description; do not recite competing figures or expose
+Opendoor source discrepancies to the customer. For 2437 Lynn Rd SE, the verified
+listing details show a 1,840 sq ft home and a 9,409 sq ft lot.
 
 List price on an Opendoor-owned listed home is public and shareable. Do **not**
 volunteer the "Buy with Opendoor" incentive price unless asked. Do not volunteer the
@@ -2121,6 +2458,32 @@ never surfaced.
   "we are not showing an assessment completed", never as a flat negative.
 
 ## Access codes
+
+**Resolution check first:** Follow [resolution-first access](recipes/access-resolution.md)
+before property/status research or drafting a record-specific access or appointment
+reply. Recent verified notes resolving the same concern end retrieval. Use a
+verified flip token for `get_activity`; older examples that pass a customer UUID
+to that tool are superseded. With a verified WebCustomer ID and no flip token,
+use `get_customer_profile(customer_uuid: ..., full:false)` for recent customer
+events, call handlers, and notes before browser fallback. Live verified October
+23, 2026: this returns vendor/appraiser call notes by customer UUID, including
+Stefi Fluchaire's appraisal-access resolution. A missing flip token does not
+require a browser. Retain the response and emit only relevant recent events,
+newer inbound, contradictions, and pagination evidence; even `full:false` can
+return extensive history. Use the verified customer search UI only if this
+structured read omits the required evidence.
+Do not call sell-direct `get_customer` for vendor identity or treat its failure
+as missing appointment evidence. Keep Home Visits separate from call resolution.
+
+**Under-contract viewing gate (operator correction, October 22, 2026): Homes
+under contract cannot be viewed, including agent previews or viewings intended
+for a backup offer.** Check the current listing stage before giving scheduling
+guidance. When it is in contract, explain that the home cannot be viewed while
+under contract; do not direct the requester to call, use an app, or book through
+a showing service for that viewing. Acceptance of backup offers does not permit
+a viewing. This correction supersedes older guidance that tours may continue
+until closing, even if a booking system allows an appointment. If Support
+already told the customer otherwise, directly own and correct that statement.
 
 Anyone asking for "a code" means an **access code for an Opendoor home**.
 
@@ -2175,8 +2538,23 @@ the appendix and never mention it to the customer.
 A reply that asserts no access path, no appointment, and no stage does not need the
 trust rows read at all. That is what makes the pure-listing-info recipe safe at
 three calls. The moment the reply touches touring or codes, pull the customer page.
+Exception: the phone-support-only scheduling-failure recipe above does not need
+trust history, because verification and availability are left to phone support.
+It must not provide a code, remote unlock, direct entry instructions, or claim
+that an appointment is scheduled.
 
 ## Rental scams
+
+**Simple rental-question fast path:** If the exact ticket contains only a rental
+availability question or a rental ad report, with no prior support exchange,
+access, move-in, belongings, payment, or shared-information claim, use the ticket
+and this section to draft immediately. Do not retrieve comments merely to confirm
+a one-message description, search context files for the rental macro, or inspect
+OpsHub. Use the concise SMS wording below when the customer name is unavailable;
+substitute the verified first name when available. Do not assert ownership without
+verification, and do not add the email sign-off to SMS:
+
+> Hi, this is Sam with Opendoor. Opendoor does not offer any rentals or lease to own options on our properties - they are only for sale. Please file a report with the details at https://www.opendoor.com/rental-scam so our team can start an investigation.
 
 Rental wording in the visible inbound is enough to use the verified scam protocol
 and customer report URL. Do not open OpsHub merely to reconfirm that rental signal.
@@ -2211,15 +2589,15 @@ An Opendoor-owned home listed for sale is the fact that makes the rental ad
 illegitimate. Opendoor never rents or leases, and never lists on behalf of an owner,
 so "they said they were selling and renting at the same time" is still a scam.
 
-**Always ask whether they gained access to the property, and if they did, how.**
-This is not optional. It is easy to skip when someone is only asking whether a
-listing is real. Trust and Safety needs the access method to work the case, and
-access changes the situation from a bad ad to a possible move-in. The method
-matters: victim called Opendoor for access, suspect provided a keypad or lockbox
-code, suspect remotely unlocked the door, victim accessed through the app, victim
-met the suspect in person, victim accessed through an unlocked entry point, victim
-instructed to break the lockbox or keypad, victim instructed to hire a locksmith.
-Get the date and time too.
+For a simple rental signal without an access or move-in claim, do not add an
+access-method question unless it is needed for the ticket. If the inbound
+mentions access or a move-in, ask whether they gained access, how, and when.
+Trust and Safety needs the access method to work the case, and access changes the
+situation from a bad ad to a possible move-in. The method matters: victim called
+Opendoor for access, suspect provided a keypad or lockbox code, suspect remotely
+unlocked the door, victim accessed through the app, victim met the suspect in
+person, victim accessed through an unlocked entry point, victim instructed to
+break the lockbox or keypad, victim instructed to hire a locksmith.
 
 The rest of what T&S needs: where the ad was seen, the suspect's name, phone, and
 email, whether money was sent and how much, whether personal information or
@@ -2279,6 +2657,15 @@ A rental scam victim or suspect link is a **non-negotiable deny** on home access
 Never grant or promise access on one of these tickets.
 
 ## Sellers with an outstanding assessment
+
+**Agent scheduling request shortcut.** When the inbound clearly identifies a
+listing agent asking Opendoor to conduct or schedule the assessment, answer the
+policy directly: the agent completes it through the **Opendoor Key App** and
+Support cannot schedule it for them. Do not retrieve customer/property records,
+assessment status, Flags, or browser pages solely to support that policy reply.
+Do not claim the assessment is outstanding or describe the offer stage without
+evidence. This shortcut overrides the record gate below for this narrow reply;
+separate status, completion, or appointment questions still require their gates.
 
 **Gate first.** This whole section only applies when the assessment is genuinely
 outstanding, confirmed from Assessments & Inspections on the property page, not
@@ -2341,6 +2728,15 @@ identifies the customer as an agent.
 
 ## Offer complaints
 
+For a simple “offer too low” complaint, use narrow OpsHub MCP reads immediately
+after the ticket and required duplicate check to establish the matched customer's
+preliminary/final stage and assessment state. Discover only those required
+schemas, retain responses, and emit focused evidence rather than a full customer
+history. Do not read overlapping recipes or broaden to browser research unless a
+required authoritative fact remains missing from structured reads. A customer
+profile UUID is not a sell-direct lead token; use the correct verified identifier
+for each tool. Preserve the recent-resolution and requester/property identity gates.
+
 Establish prelim versus final from `domain_state` before replying. A preliminary
 estimate is comps and public records only, with nobody having seen the home, and
 the final can come back different once the assessment captures actual condition.
@@ -2359,24 +2755,108 @@ operator-appendix only.
 
 ## Privacy and deletion requests
 
-These are owned by the privacy team in #privacy-escalations, not by the XA. Search
-that channel for the ticket link before drafting. The team frequently posts
-**directed verbatim text** and says whether it is the final response. When they
-have, emit it verbatim and do not append to it, even if the customer asked other
-questions the text does not answer. Flag those unanswered questions to the operator
-instead.
+These are owned by the privacy team in #privacy-escalations. Search that channel
+for the ticket link and read the latest thread instructions before drafting.
 
-When the directed text is marked final and says no further response is needed if
-the customer replies, that holds even when the reply contains new questions.
-Recommend no reply. If some questions are genuinely outside privacy scope, such as
-profile or IDV support, say so and route the decision back to the privacy team
-rather than reopening the thread. A `hold_no_agent_replies` tag points the same way.
+**Escalation entry point:** The channel has a “Privacy Request Escalations”
+workflow with a “Privacy Escalation” form. Use that workflow when an escalation
+is warranted rather than substituting a regular channel-message draft. Its
+fields are Customer Name, Customer Profile Link, Type of Escalation,
+Escalation Origination, and Summary of Communication History. Verify the
+customer-profile link and available escalation-type options; never invent them.
+For email tickets, the origination is Zendesk/Written. Prepare the form for
+operator review and leave Submit untouched. Workflow-generated channel posts
+are a signal to inspect the channel's workflow before choosing a regular draft.
 
-Do not cite retention law or point to a specific clause. The approved language does
-not, deliberately.
+**Customer-profile deletion versus property removal:** When the property is
+confirmed absent from Opendoor's directory, describe the deletion request as
+customer-profile deletion. Do not imply that deleting the profile removes
+public property pages, photos, or search results. Do not use those separate asks
+alone to bypass the initial-response path or create an objection escalation.
+Apply directory absence only when verified or supplied
+by the operator; a missing property field on a ticket is not proof.
 
-Escalation path when the Privacy Center form or in-app deletion fails is
-support@opendoor.com for routing, plus opendoor-privacy.relyance.ai in some states.
+**Approved macros only:** use only the two approved privacy responses for the
+applicable deletion-objection workflow; no off-script explanations, additions,
+or improvised troubleshooting. Read the [Privacy FAQ](https://docs.google.com/document/d/1-ozEZYbcM3DcM6HHHLk8HiT4RyLOr10zHpH0B0TZ9dE/edit)
+for the applicable response. If the customer pushes back after the approved
+responses, escalate in #privacy-escalations. If Privacy directs an earlier return
+to the thread, follow that instruction. Directed verbatim text takes precedence
+over the usual greeting/sign-off wrapper. Flag unanswered questions to the
+operator instead of appending answers.
+
+The two objection responses are conditional follow-ups, not two messages to
+send automatically for an initial deletion request. The FAQ applies them when
+the individual objects to a deletion response and then follows up again. An
+initial customer-profile deletion request may receive the applicable portal
+instructions first. Property-directory presence does not determine the number
+of responses. A repeated initial request in another ticket is not itself an
+objection to a response. Do not create an objection escalation merely because
+two initial-request tickets exist. Source: Sasha Ellison's September 14, 2026
+thread, https://opendoor.enterprise.slack.com/archives/C07FM3A439C/p1789402415038949,
+read together with the FAQ's conditional objection-response sections.
+
+For an initial customer-profile deletion request matching this case, the
+customer-facing body is: “To request deletion of your customer profile, please
+visit https://www.opendoor.com/privacyrequest and click ‘Make a Privacy Request’
+to get started.” Use the normal email greeting and sign-off. Do not append a
+property-removal disclaimer or create a Slack draft/workflow escalation at this
+stage. Recommend this response without claiming it was sent. A later appeal,
+verified Privacy direction, or other applicable escalation rule takes priority.
+
+**State privacy requests and mobile-app account deletion are separate workflows.**
+A portal failure does not by itself establish a technical problem or eligibility.
+Sasha confirmed that the customer in the source case was outside an eligible
+privacy state and could not submit through the portal. Do not generalize that
+case into a current state list, claim all app deletion is state-restricted, or
+send every customer back to the portal. If request type or eligibility is unclear,
+ask Privacy to research it. Do not promise deletion or a completion date.
+
+When Privacy says no further response is needed, recommend no customer reply,
+even if the latest message repeats the deletion request or threatens a BBB
+complaint. This disposition requires direction on the matching case; it is not
+a blanket rule for all complaints. A `hold_no_agent_replies` tag points the same
+way. Flag genuinely separate profile/IDV questions to the operator and route the
+decision back to Privacy rather than independently reopening the conversation.
+
+If the customer says “appeal,” preserve the FAQ's prompt internal Legal Jira
+escalation with a communication summary and requested outcome. Do not copy the
+customer, direct them to Legal, or promise a response time. A BBB threat alone
+is not evidence of an appeal.
+
+Do not add retention-law citations or specific clauses to the approved language.
+Do not claim an unsubscribe has been completed without verified action; if the
+approved macro's completion claim is unverified, flag it to the operator and
+obtain Privacy direction instead of sending an inaccurate or rewritten macro.
+
+Source: [Sasha Ellison, October 20–21, 2026](https://opendoor.enterprise.slack.com/archives/C07FM3A439C/p1792543788923079?thread_ts=1792088602.701459).
+The October 21 final reply says “No further response needed.” This supersedes
+generic portal-failure routing for that case.
+
+## Remaining proceeds after resale
+
+For a former seller asking about remaining proceeds or a signed release after
+resale, read the ticket and the matching earlier support exchange. Apply the
+existing repeated-concern search once; retain the verified referral handler and
+date, prior substantive answer (if any), and customer-reported document completion.
+A forwarding note or solved ticket alone does not establish payment or resolution.
+Use the matched customer's recent OpsHub notes/activity to check for a later
+answer. If resale closing matters, verify the actual resale close date from the
+matched resale transaction (for example `get_resale_transaction_full`), or a
+verified transaction note; acquisition COE and a generic sold status do not prove
+that date. If it cannot be confirmed, omit it and disclose the gap in the appendix.
+Do not retrieve unrelated assessment or offer-status details for this question.
+
+When the record confirms Executive Experience owns the concern, include
+executive.experience@opendoor.com in the reply when directing the customer to
+forward earlier emails, and preserve the verified referral date. Ask for prior
+correspondence so the contact history is included. Do not request another signed
+release just because document completeness is unconfirmed. State separately that
+payment timing and any outstanding requirements remain unconfirmed; neither a
+signed-release report nor resale closing proves disbursement. Do not promise a
+payment date or import an unrelated response-time commitment. Keep the ticket
+open pending confirmation from Executive Experience. Put prior ticket identifiers
+in the operator appendix, outside the internal-note box.
 
 ## Legal requests
 

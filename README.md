@@ -8,9 +8,10 @@ small compatibility notes or wrappers when a host needs them.
 
 ## Current scope
 
-The first consolidation pass contains the seven custom skills currently
-installed in Codex. See [MANIFEST.md](MANIFEST.md) for provenance, status, and
-planned sources.
+The repository contains seven custom skills. The October 27, 2026 audit reconciles
+them with their active Codex or project runtime sources, including required
+project rules and references. See [MANIFEST.md](MANIFEST.md) for provenance and
+[Codex adapters](adapters/codex/README.md) for installation constraints.
 
 This repository intentionally does not copy the full `superdojo` repository or
 every `SKILL.md` found in the Obsidian vault. Those sources include shared

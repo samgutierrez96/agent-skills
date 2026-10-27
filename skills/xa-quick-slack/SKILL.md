@@ -1,1185 +1,1182 @@
 ---
-name: "xa-quick-slack"
-description: "Escalation notes and Slack messages for Opendoor Experience Advocates. Use this skill whenever the user types shorthand for a call that is being escalated — \"coe change escalated to eric mangin\", \"buyer info escalated to kaysha\", \"fo escalate hsa\", \"late checkout\", \"digital checkout\", \"extend closing\", \"wire of funds\", \"missing contract docs\", \"seller walking after signing\", \"propane closed home\", \"opshub broken\", \"property line dispute\", \"sellers disclosure\", \"continue the thread on 123 Main St\", or any short call-type phrase paired with an escalation target or thread reference. Outputs a pre-filled OpsHub note plus a ready-to-paste Slack escalation message, and can put that message into Slack as an unsent draft when asked. Scope is escalated calls only; non-escalated post-call notes are handled in the separate XA Post Notes project."
+name: xa-quick-slack
+description: Fast OpsHub notes and Slack escalation drafts for Opendoor XAs.
 ---
 
-# XA Quick — Escalations
+# XA Quick Slack — runtime
 
-You are helping an Opendoor Experience Advocate (XA) named Sam handle the calls
-that get escalated. Sam types a few words between calls; you produce the OpsHub
-note and the Slack message from the same shorthand.
+## Workflow commands — verified 2026-10-26
 
-**Scope: escalated calls only.** Non-escalated post-call notes live in Sam's
-separate XA Post Notes project. Part 1 below covers only call types that
-actually escalate. If Sam sends shorthand for something outside that list — an
-in-home walkthrough reschedule, a commission question, a routine access call —
-say it belongs in XA Post Notes rather than improvising a template. Do not
-guess a note format that isn't here.
+- `send and post it` / `send and post` explicitly authorizes the complete flow:
+  send the verified escalation through `slack_send_message`, capture the returned
+  `message_link`, then post the five-field OpsHub CONTACT note using
+  `CreateCustomerNote`. Do both in the same turn without another confirmation.
+- Sending through the Slack MCP was verified in this project on 2026-10-26.
+  Discover the live send tool when needed; do not claim sending is unavailable
+  based on an older instruction. This command does not require Skill Router.
+- For send-and-post, reuse every recipient, role, coverage, caller, property,
+  channel, and message-format gate from the draft path. Replace the draft call
+  with one send call; do not create a draft first. Fetch `whoami` alongside the
+  independent lookups when no current operator token is available.
+- If an existing confirmed draft from this ticket is being sent, pass its
+  `draft_id` to the send tool so it is removed after sending.
+- Use the returned Slack permalink first in `Follow Up Link`, then related
+  verified workflow links, any supplied Zendesk URL, and the verified property
+  URL. Post to the caller's CONTACT UUID using the flat mutation contract below.
+- If Slack succeeds but the note fails, preserve the permalink and retry only
+  the note when safe under the mutation receipt rules. Never resend Slack to
+  recover a note failure. Do not automatically retry a send with uncertain
+  execution status; resolve whether it was sent before attempting another send.
+- `draft it` (including `draft it/post it`) remains draft-only. `post it` alone
+  means Slack was already sent: find its permalink and post only the CONTACT
+  note. Paste-only remains the default without an explicit action command.
+- Slack Connect remains draft-only. Workflow-form channels retain their form
+  gates below. If a tool or channel prevents sending, complete the safe work
+  available and report the specific blocker without claiming completion.
+- The XA authorizes joining the required escalation channel when they are not
+  already a member. If membership blocks the workflow, join that exact channel
+  through an available supported Slack tool and continue the authorized draft
+  or send-and-post flow without asking for confirmation. Retry a rejected send
+  only when the membership error confirms no message was sent. If no supported
+  join capability is available or joining fails, report that specific blocker.
+  A membership fix does not override an externally-shared-channel restriction.
+- `#support-hsa-escalations` is an internal escalation channel: always attempt
+  the authorized send through the Slack MCP. If the connector rejects it as
+  externally shared, describe that as a connector restriction, not a change
+  to the channel's routing or a lack of user authorization. Do not bypass the
+  rejection through browser/native UI or resend through another destination.
+  Preserve an existing draft; create a fallback draft only if none exists.
 
-Note content comes from `xa-brain.md`, built from Sam's real corrections across
-~380 sessions. Escalation knowledge comes from `escalations-brain.md`, which you
-also write to. See Part 4.
+## Existing-issue thread check — before a new escalation
 
----
+This gate applies to paste-ready Slack text, explicit drafts, and authorized
+send-and-post actions. An apparent new escalation is provisional until this
+check is complete. The XA does not need to say “continue the thread.” This gate
+overrides new-post fast paths, fixed two-round budgets, and channel-preference
+ranking below. It does not reroute `post it` after Slack was already sent.
 
-# STEP ZERO — read the brain before you write anything
+1. Search `slack_search_public_and_private` across accessible channels, not
+   only the default destination. Use the distinctive quoted street address
+   (for example, `"1981 Central"`), or an already verified property UUID; use
+   customer name or ticket reference when no property key is available.
+   Request messages, `include_context: false`, `limit: 10`, timestamp sort,
+   and concise output. Do not AND the address with every situation word:
+   earlier posts may describe the same issue differently. Batch this search
+   with independent caller/property/profile lookups when possible.
+2. Read the parent and replies with `slack_read_thread` for the strongest
+   candidate(s), at most two. Verify the same property/customer and same
+   underlying issue, its current status, channel, exact parent timestamp,
+   and permalink. A shared address alone, a bot post, or an unrelated old
+   issue is not a match. If a reply links the active discussion elsewhere,
+   follow that link within the two-thread read budget and prefer the ongoing
+   discussion over the forwarding escalation. If no usable result appears,
+   allow one shorter-key/property-UUID fallback search; do not keep searching.
+3. One clear same-issue discussion automatically changes Shape A to Shape B.
+   Use that thread's actual `channel_id` and parent `thread_ts`, even when
+   it is outside the default escalation channel. Preserve applicable named
+   targets and coverage checks. Match issue continuity before channel or
+   recency; an unrelated newer escalation never outranks the active issue.
+   Use the existing Shape B reply and note format, retaining the current call
+   and a brief relevant recap. Do not send a second top-level post as well.
+4. If multiple discussions remain genuinely tied, show their verified links
+   and ask which to continue before drafting/sending. A successful bounded
+   search with no same-issue match permits the original Shape A route.
+   A tool/access failure is not a clean search miss: report that the check
+   could not be completed and stop before draft/send. If no usable search key
+   exists, ask for the property or issue reference.
 
-**Read `escalations-brain.md` from the project folder as the first action of
-every escalation turn.** Before `resolveAddress`, before any Slack lookup,
-before drafting a single line of the note.
+An explicit instruction to create a separate new post overrides automatic
+thread reuse. An explicitly named channel stays binding unless the XA also
+authorizes switching to the existing discussion; if the clear match is in a
+different channel, show it and ask which destination to use. A default channel
+chosen by the skill is not an explicit channel instruction.
 
-Not "if it seems relevant." Not "when unsure." First, every time.
+If an unsent draft already exists, do not leave a duplicate or create another
+draft while silently switching destinations. Use a supported draft-edit/move
+operation if available; otherwise provide the verified thread and replacement
+reply and ask the XA to clear the old draft before creating its replacement.
+Never repair it through Slack UI automation. A supplied thread link can also
+switch a pending escalation to Shape B after its parent and replies are read.
+Report the chosen thread link below the finished output; describe a confirmed
+thread draft as `Draft in #channel — in the existing thread, not sent.`
 
-This is a hard gate because skipping it has already cost Sam re-corrections he
-had previously given (2026-08-03, logged in that file's Process failures
-section). Corrections newer than this skill live only in the brain, and a draft
-written without reading it will repeat mistakes Sam has already fixed.
+### Speed, token use, and output
 
-If the file is missing, say so in the commentary block below the output and
-continue.
+- Reuse verified facts and completed thread checks for the same ticket; do not
+  search again on `draft it`, wording edits, or a destination switch already
+  resolved in this chat. Refresh only when new facts or elapsed time could
+  change the decision. A new caller/issue needs its own check.
+- Discover only missing tool schemas in one batch. Run independent read-only
+  lookups together; keep dependent reads and mutations sequential.
+- Read only the strongest thread first; read a second only for a linked active
+  discussion or a real ambiguity. Stop once the destination and current issue
+  are verified. Do not fetch broad channel history, attachments, or unrelated
+  profiles as extra confirmation. Request compact thread output while keeping
+  the exact parent timestamp and current replies needed for verification.
+- During live tickets, return the required note and requested Slack text or
+  confirmed action receipt only. Keep thread recaps to relevant facts; omit
+  lookup narration, repeated explanations, and duplicate Slack text after a
+  confirmed draft. Report only blockers or routing/coverage choices that matter.
+- Efficiency never skips property, identity, coverage, thread-match, or mutation
+  receipt checks required by the selected workflow. Do not claim measured speed
+  or token savings without a real measurement.
 
----
+## Required output check
 
-## Three parts
+Before displaying a note, creating a Slack draft, or posting a CONTACT note:
+- Use exactly these five OpsHub labels in order: `Property Address:`,
+  `Reason for Call:`, `Customer Concerns:`, `Solution Offered:`, `Follow Up Link:`.
+  Keep each value on its label's line and one blank line between fields.
+  Never substitute `Reason for Contact:` or add `Follow Up Required:`.
+- Expand the XA's acronyms in all note and Slack prose: COE → close of escrow,
+  FO → Final Offer, HSA → home sale advisor, IWT → in-home walkthrough,
+  DCO → digital checkout, CNML → Cash Now More Later. Preserve verified names,
+  Slack handles, channel identifiers, and URLs exactly.
+- Validate the actual CONTACT mutation `body`, not only the chat preview.
+  It must preserve the five fields and blank lines, with no code fences.
+  Do not reuse a previously displayed note if it fails these checks.
+- If the first skill read is truncated, retrieve only its missing output-format
+  section before drafting; never reconstruct labels from memory.
 
-1. **The OpsHub note** — always produced. The format is fixed: do not add
-   fields, reorder them, or redesign it.
-2. **The Slack block** — produced only when Sam's shorthand says so.
-3. **An unsent Slack draft** — only when Sam asks for it in words. See Part 3.
+This is the single hot-path skill. Do not read another skill or reference for a
+routine note, named-target paste, or named-target draft. The detailed editable
+source is `../../../skills/xa-quick-slack/SKILL.md`; consult it only for an
+uncovered process question or maintenance.
 
-**Never send anything to Slack.** Every message is left for Sam to review and
-send himself.
+If this skill is not already in the chat, the first action is only reading this
+file. No other tools. No chat text.
 
----
+## Execution budget
 
-# PART 1 — The OpsHub note
+Use the smallest valid path and stop when the note and requested draft are
+complete:
 
-## Output format — always exact, no intro, no commentary
+- Warm-up is text-only: `Ready when you are.` Do not reread this file or
+  discover schemas when it is already in context.
+- Do not reread the canonical skill for a routine ticket. Read only the
+  relevant section for maintenance or an uncovered process question.
+- Use one lookup contract per ticket: one compact caller lookup, one minimal
+  participant fetch when needed, one profile check for each named individual
+  target, and one draft. Named individuals always require an OOO/coverage
+  check before drafting; skip the profile only for a directory usergroup.
+- Allow at most one fallback search per lookup, including the shorter street-name
+  retry in Property resolution fallback. Never repeat a phone, address, channel, or
+  user search after a reliable ID is available.
+- Stop once a reliable customer ID, property ID, assigned-person ID, or Slack
+  permalink is available. If the single fallback also fails, use the facts
+  already resolved, name the missing field, and do not launch another broad
+  search or browser round.
+- Reuse stable channel IDs, user IDs, role groups, and session data already in
+  this file or the current chat.
+- Canonical channel mapping: `#support-listing-partner-escalations` is
+  `C026P10RHLY`. Use this channel for listing-partner / buyer-agent offer,
+  listing, property, and contract escalations unless the XA explicitly names a
+  different channel. Do not substitute `#buyer-offer-escalations` or another
+  similarly named channel.
+- Request compact payloads: narrow indexes, small limits, `concise` responses,
+  participant panels only, and `full: false` where supported.
+- Do not edit this skill during a live ticket. Maintenance is a separate task.
+- Track elapsed time, tool-call count, fallback count, duplicate lookups,
+  correction turns, and final output tokens internally; never print telemetry.
+
+## Hard-stop Slack draft format
+
+Before calling `slack_send_message_draft`, render Shape A exactly like this:
 
 ```
-Property Address:
+<@USERID|Name> [<!subteam^GROUPID|@coverage-group> or <@COVERID|Cover Name> ][Full address](https://opshub.apps.opendoor.com/property/{casa_id})
+Agent <https://opshub.apps.opendoor.com/customers/{customer_uuid}|Agent Name> called to report [the situation in one compact line].
+```
 
-Reason for Call:
+- First line: verified target mention, then any required verified cover or
+  coverage-group mention, then the verified property link and full address.
+  When no coverage applies, the property link follows the target mention.
+- Second line: one compact sentence/line only. For an agent caller, begin
+  exactly with `Agent <customer-link|Agent Name> called to report ...`.
+- No blank line, headings, labels, bullets, italic/bold field names,
+  `Customer:` lines, `Escalated to:` lines, phone/email, or extra paragraphs
+  in the Slack body. The mention already identifies the destination.
+- Use `/customers/{uuid}` (plural) for customer links and
+  `/property/{casa_id}` for property links. Never use `/customer/`.
+- This format is separate from the five-field OpsHub note. Never paste the
+  OpsHub note fields into Slack.
+- Never invent, modernize, or "clean up" a Slack format. If the situation is
+  Shape A, use the literal Shape A template above. If it is Shape B, use the
+  literal Shape B thread format below. Shape A and Shape B are not permission
+  to create a third format.
 
-Customer Concerns:
+## Hard-stop channel routing check
 
-Solution Offered:
+**HOA dues payment exception:** Any request to make a payment for HOA dues
+routes to `HOAAP@opendoor.com`, the team that makes all of Opendoor's HOA
+payments. Do not route this payment request to `#hoa-communications`, another
+Slack channel, or a general HOA contact. This exception overrides the general
+HOA-workflow routing below.
+
+Resolve the assigned participant's role before choosing the channel. An
+acquisition participant with `ACQ_AE`, `ACQ_CX`, `ACQ_TC`, or
+`ACQ_SALES_SUPPORT` routes to `#support-hsa-escalations` unless the verified
+engagement is a resale/listing-partner case. Use
+`#support-listing-partner-escalations` for buyer or buyer-agent
+listing/property/offer/contract issues when the assigned participant is a
+verified resale agent, resale transaction coordinator, or Listing Partner.
+Do not route to listing partner merely because the caller is an agent or
+because the target was named.
+
+When the XA names an individual, the verified Slack role controls the channel:
+a Home Sale Advisor or Agent Home Sale Advisor always routes to
+`#support-hsa-escalations`, even for buyer-side or listing-related topics.
+`#support-listing-partner-escalations` is only for a verified Listing Partner,
+Resale Agent, or resale transaction coordinator, or for the resolved resale
+participant who owns the escalation. Topic wording never overrides the verified
+target role.
+
+## Tool homes (named-target draft)
+
+Discover the required tools and the property fallback together, then work.
+Use the exposed tool names: `user-opshub.*` may appear as
+`mcp__opshub__*`, and Slack tools as `mcp__codex_apps__slack_slack_*`.
+
+- `user-opshub.list_customers`
+- `plugin-opendoor-casa-opendoor-casa.resolveAddress`
+- `mcp__opshub__global_search` for the property fallback below
+- `plugin-slack-slack.slack_read_user_profile`
+- `plugin-slack-slack.slack_send_message_draft` for drafts
+- `plugin-slack-slack.slack_send_message` for explicit send-and-post
+- `user-opshub.get_acquisition_transaction` for the seller-side participant panel
+- `user-opshub.call_operation` for the CONTACT-note mutation
+- `user-opshub.whoami` for `createdByToken`
+
+Never `user-slack`. Never `user-opshub.resolveAddress`. Never a Slack pattern
+search for schemas. Casa is not an OpsHub tool.
+
+### Property resolution fallback
+
+Automatically use the OpsHub MCP for supplied property addresses; do not wait
+for the XA to ask. If Casa `resolveAddress` is unavailable or fails, call
+`mcp__opshub__global_search` with the distinctive street name and `limit: 3`
+(for example, `{"query":"Spanish Flower","limit":3}`). Avoid a house-number-only
+query, which also matches ZIP codes, or a shortened mixed number/name query,
+which can miss an existing address. If a prior full-address or number/name
+query returned no exact match, retry once with just the distinctive street name
+before requesting a property link. Read the `PROPERTY` results and
+verify street, unit when supplied, city, state, and postal code against the
+XA's address. Use the exact matching result's `addressToken` as the property
+ID for `https://opshub.apps.opendoor.com/property/{addressToken}`. Use the
+matching live `propertyEngagementGroupId` as `flip_token` for the required
+participants fetch. This result satisfies the property-link gate without a
+second address lookup or browser visit.
+
+Do not use `find_deals_matching` to resolve a street address: its criteria
+parser can omit the address and return unrelated properties. Unrelated rows
+are not a verified match. Complete the supported `global_search` fallback
+before asking the XA for a property link. A failed search is not evidence that
+the property is absent from OpsHub; describe it only as a lookup failure.
+If the street-name search has no unique
+exact match, stop and name the missing verified property URL; do not guess.
+
+## Non-negotiable draft gates
+
+- When the XA supplies a property address, resolve it before drafting. The
+  draft is blocked until a verified Casa/property ID and the canonical
+  `https://opshub.apps.opendoor.com/property/{casa_id}` URL are available.
+- If Casa is unavailable or fails, use the property resolution fallback above.
+  Never use Chrome, native Slack, CUA, or a browser page to discover or repair
+  a property link on the named-target path. If the fallback also fails, stop,
+  name the missing property URL, and do not create a draft.
+- The Shape A first line must use Markdown hyperlink syntax with the verified property
+  URL and full address. Internally validate that the message contains both a
+  property link and the resolved customer link before calling the draft tool.
+- Use one `slack_send_message_draft` call per draft attempt. Follow the bounded
+  recovery rules in **Draft safety** if confirmation is missing. Never paste
+  Slack Markdown into the native Slack composer and never use UI automation to edit or repair
+  a draft. If a draft needs correction and no supported Slack draft-edit tool
+  exists, stop and report that the XA must edit or clear it in Slack; do not
+  create a duplicate draft.
+- `slack_send_message_draft` accepts text only; it cannot attach screenshots or
+  other files. Never claim that supplied photos were included in the draft.
+  Tell the XA to attach them manually to the existing Slack draft before
+  sending.
+
+## Silent draft sequence (named target + `draft it` / `draft it/post it`)
+
+### Authoritative meaning of `post it`
+
+When the XA says `post it`, `POST IT`, or `I sent the Slack message`, treat the
+Slack message as already sent. Do not create, edit, or discuss a draft. Search
+for the real Slack permalink, then post the corresponding CONTACT note to
+OpsHub with the Slack permalink first in `Follow Up Link`.
+
+`draft it` creates an unsent Slack draft. For `send and post it`, use the
+complete send-and-post flow above. The following rules apply to `post it` alone.
+When the XA says Slack is already posted and then says `post it`, that means
+post the OpsHub note, not create another Slack draft: find the real Slack
+permalink, then upload the exact five-field note to the caller's CONTACT page.
+Do not call `slack_send_message`. Do not print anything to the XA until the
+finished note. Order:
+
+The XA may say only `post it` or `posted` as shorthand for “the Slack message
+and any related workflow ticket were already submitted; now post the
+corresponding note to OpsHub with every verified Slack permalink and property
+link.” Treat that as the posted-Slack path every time. In this project, the XA
+may send one main escalation and one or more related workflow tickets (for
+example, a pricing ticket) before returning here. The OpsHub note must carry
+all of those links, not only the main escalation link.
+The prior `draft it` does not mean the Slack message is still unsent once the XA
+says `post it`; do not ask for confirmation or explain this mapping again.
+Never interpret that shorthand as permission to create or send another Slack
+message.
+
+This mapping also applies when `post it` follows a draft in the same chat: do
+not send, edit, or create another Slack message, and do not tell the XA that the
+Slack message is still unsent. Resolve the real Slack permalink and post the
+corresponding OpsHub CONTACT note.
+
+If the XA clarifies “post it on OpsHub,” “post the note,” or similar after a
+draft/post-it exchange, treat it as a clarification of the same ticket. Do not
+restart the ticket, ask them to repeat the request, or bounce the permalink
+back to them before completing the channel lookup and CONTACT-note path.
+
+For the posted-Slack path, use the OpsHub `CreateCustomerNote` mutation
+directly through `call_operation` whenever it is available. Pass
+`contextType: "CONTACT"`, `contextIdentifier` as the caller's customer UUID
+string, the complete note as `body`, and the current operator token from
+`whoami` as `createdByToken`. Do not use `create_acq_note`: that writes to the
+acquisition flip, not the caller's CONTACT page.
+The verified `CreateCustomerNote` contract takes flat variables, never an
+`input` wrapper. Use this exact argument shape with the current ticket values:
+
+```json
+{
+  "operation_name": "CreateCustomerNote",
+  "variables": {
+    "contextType": "CONTACT",
+    "contextIdentifier": "<caller customer UUID>",
+    "body": "<complete five-field note with actual newline characters>",
+    "createdByToken": "<operator token from whoami>"
+  },
+  "dry_run": false
+}
+```
+
+Use the CONTACT page's Add a note control only when the direct CONTACT mutation is genuinely unavailable.
+Do not repeatedly ask the XA for a permalink before exhausting the channel
+lookup path below. `post it` is an assertion that Slack was already sent; never
+reinterpret a missing search result as evidence that the message is still a
+draft. Search each explicitly stated or clearly related submitted Slack
+artifact once using `slack_search_public_and_private`, with the exact channel
+ID in `filters` plus the address, customer name, phone, or distinctive
+situation text. Prefer short lexical keywords such as `earnest money` split
+into `earnest` and `money`; do not rely on a quoted multi-word phrase alone.
+When the permalink or exact message timestamp may be needed, request
+`response_format: "detailed"` so the result can carry raw message metadata.
+When a draft was created in this chat, reuse its exact channel ID, customer
+UUID, property ID, and distinctive situation text. Run the Slack search and
+`whoami` in parallel. If the search returns one exact, timestamped match but
+omits its permalink, construct the permalink directly from the verified
+channel ID and the complete Slack message timestamp using Slack's canonical form:
+`https://<workspace>/archives/<channel_id>/p<timestamp_without_decimal>`.
+Never derive a permalink from a human-readable display time or a Unix timestamp
+rounded to whole seconds. If Slack does not return the exact `message_ts`, stop
+the post-it path rather than guessing or posting an unverified link.
+If the channel-scoped search returns no result, make one fallback all-channel
+search with the same artifact facts and a shorter keyword set, still using
+`slack_search_public_and_private`; do not stop after a public-index miss. If
+both searches miss but the artifact was drafted in this chat, use one narrow
+recent channel-history read with the exact channel ID and draft facts before
+reporting a blocker; attached drafts may be visible in channel history even
+when they are absent from search indexes. Use a narrow channel read also when
+the timestamp is missing, the match is ambiguous, or the constructed link
+cannot be validated from the search result. Reuse a
+The narrow channel read must request `response_format: "detailed"`; concise
+history can omit `Message TS` and is not sufficient to construct a verified
+permalink. Reuse a
+verified `createdByToken` already obtained in the current chat; call `whoami`
+only when it is not available. If the XA supplied a link or the link is
+already present in the current note, preserve and use it.
+Include links in `Follow Up Link` in this order:
+main escalation permalink, related workflow-ticket permalink(s), any supplied
+Zendesk URL, then the associated property page link(s), each separated by a
+blank line. Never omit a verified related ticket link just because the main
+escalation link was found first.
+
+**Notes mutation receipt:** For the MCP post-it path, a successful
+`CreateCustomerNote` response with a note ID is sufficient confirmation. Do not
+open OpsHub in a browser or use UI automation to verify the note, and do not
+add a second read round solely to confirm visibility. If the mutation returns
+a definite pre-execution validation error (for example, HTTP 400 with
+`BAD_USER_INPUT` and missing required variables), correct the request using
+the flat contract above and retry once within the existing `post it`
+authorization. Such a rejected request created no note. If that retry fails,
+stop and report it. For a timeout, transport failure, unclear execution status,
+or a response without a note ID, do not retry automatically because the note
+may already exist. Never turn a clear, correctable validation failure into a
+request for the XA to repeat `post it`.
+
+**Duplicate-profile gate:** Apply the `xa-admin-account-merge` workflow to
+escalations as well as ordinary XA notes. When the caller lookup returns
+multiple real customer profiles with distinct email addresses, treat that as
+the duplicate-profile trigger even if the XA did not mention duplicates. Ask
+once which email should remain primary when it is not already specified, then
+complete the merge in **Admin** (`admin.opendoor.com`) and verify the surviving
+OpsHub profile has one primary email and one primary phone before creating or
+posting the CONTACT note. **Admin is the only merge system of record. Never
+merge, consolidate, or repair duplicate profiles in OpsHub.** OpsHub is only
+for post-merge verification and the CONTACT note. The merge is a prerequisite
+to the note, not cleanup after it. If the primary email is missing, Admin is
+unavailable, or the Admin merge cannot be completed, stop before the CONTACT
+mutation and ask for the missing input or report the blocker; do not post to
+the initially selected profile. Keep the detailed merge steps and completion
+wording in `xa-admin-account-merge`.
+
+**One-search rule for an already-posted Slack message:** Use
+`slack_search_public_and_private` with the named channel, address, phone, or
+another distinctive key. When a draft was created in the same chat, reuse its
+exact channel, customer, property, and distinctive situation text to make this
+a narrow lookup. If that search returns one usable permalink, use it
+immediately; do not also read the full channel. If it returns no usable result,
+make one shorter-keyword fallback search without the channel filter. If that
+also misses and a draft was created in this chat, read the recent history of
+the exact channel once; attached drafts may appear there despite search misses.
+If the result has an exact message match and an exact Slack `message_ts` but no
+permalink, construct the canonical permalink from the known channel ID and the
+complete timestamp. Never derive it from a human-readable time or a timestamp
+rounded to whole seconds; if the exact `message_ts` is missing, stop before
+posting an unverified link.
+Never conclude that the message was not sent merely because search missed it.
+
+1. If tool schemas are not already available, discover the four homes above in
+   one block, plus any exposed OpsHub CONTACT/customer-note mutation. Never
+   discover one schema, work, then discover another. If the schemas are already
+   available, skip discovery. Treat `create_acq_note` as the wrong operation
+   for this path even if it is exposed.
+2. One parent lookup block: `list_customers` by phone + `resolveAddress`
+   (street, city, state, postalCode on the sold-home address only; never a
+   single `address` string). If Casa is unavailable, use `global_search` in
+   that block instead; if Casa fails, use the property resolution fallback above.
+   For a seller-side acquisition with an address,
+   also select the matching live flip and fetch its `participants` panel from
+   `get_acquisition_transaction`; that participant record is authoritative for
+   the assigned HSA / Agent Home Sale Advisor. Validate the XA-stated name
+   against that participant before tagging anyone. Do not choose a Slack user
+   by name or title when the property participant record is available. If the
+   participant and stated name conflict, use the assigned participant and note
+   the mismatch under `---`. Skip profile when the named target is a directory
+   usergroup. Do not start a caller subagent on this common path. If OpsHub
+   returns no unique customer UUID, fall back once to parent
+   `search_indextrious`; use a subagent only when that fallback result is
+   unusually large. Same-name rows on that phone still get a customer link;
+   do not draft the caller unlinked.
+   **Mandatory property gate:** When an address is supplied, do not proceed to
+   the draft until `resolveAddress` or the verified `global_search` PROPERTY
+   match supplies the property ID and canonical property URL. A plain address
+   is not a substitute for the link.
+   **Mandatory OOO/coverage gate:** Before drafting to any named individual,
+   read that person's Slack profile and resolve the named cover or deterministic
+   coverage group. This check is mandatory even when the XA says nothing about
+   availability, scheduling, or OOO status. Tag the assigned person plus the
+   verified cover/group when required. Do not draft to the assigned person
+   alone when coverage applies. Preserve any scheduling constraint the XA
+   stated in Customer Concerns and reflect the verified cover in Solution
+   Offered.
+3. Complete the **Existing-issue thread check** before one
+   `slack_send_message_draft` call. Use the selected `channel_id` and `message`,
+   plus the verified parent `thread_ts` when the check selected Shape B.
+4. Then the fenced OpsHub note, then `---` draft confirmation. If `draft_id`
+   came back, do not echo `--- SLACK ---`. A failed draft call with no
+   `draft_id` leaves draft creation unconfirmed; it does not prove the draft
+   is absent. Follow **Draft safety** recovery; a failed draft call never authorizes switching channels.
+
+If the related prior escalation's assigned person is out of office, consider
+continuing that escalation in its existing thread and add the deterministic
+coverage group when the profile supplies one. A new escalation is also valid
+when the new call is materially separate; choose based on the ticket shape and
+the user's stated intent. Do not lose the prior escalation's context.
+
+Do not treat `#support-hsa-escalations` (`C025L6TL4CB`) as Slack Connect. Do
+not search Slack plugin docs when a draft is enough. Slack Connect / draft-only
+is only `#external-listings-mgmt` (`C02CKQDH2QG`).
+
+For `send and post it`, use the Workflow commands above. `draft it/post it`
+remains draft-only. When the XA says Slack is already posted, use its verified
+permalink and post only the CONTACT note as described above.
+
+## Immediate behavior
+
+### Hot-path shape gate
+
+Classify the ticket before any lookup or draft:
+
+- A correction to an unsent draft (for example, “update the draft, I cleared
+  it”) preserves the current Shape A/Shape B and channel unless the XA
+  requests a switch or the existing-issue check identifies the active thread.
+  Follow the old-draft cleanup rule before replacing a draft.
+- **Shape B wins** when the XA says reply, thread, continue, follow up, update,
+  or in the thread. Verify the existing thread, then draft a threaded reply.
+- **Shape A** is a new escalation: escalated to, escalating to, escalate,
+  `@name`, ASAP, or a named team without thread language. Apply the existing-issue
+  thread check before deciding to draft a new post.
+- If both appear, use Shape B. Never use the Shape A template for Shape B.
+- If classification is uncertain, do not draft; ask whether this is a new post
+  or an existing-thread reply.
+
+Before drafting, check: `provisional shape → existing-issue thread check →
+new/thread → channel → target → customer →
+property URL → situation → draft_id`. Report a draft only when `draft_id` is
+returned; use **Draft safety** for missing-confirmation recovery.
+
+### Mandatory target-classification gate
+
+Before any Slack draft, classify the destination:
+
+- **Named target:** an explicitly named individual, such as `Sarah Dumke`, `@Sarah`, or a directory usergroup.
+- **Unnamed target:** a role, team, function, or channel description, such as `sales support specialist`, `home sale advisor`, `pricing team`, or `sales support`.
+
+An unnamed role or team must never use the named-target shortcut. Use the
+no-named-target path. For phone-only tickets, use the direct parent path:
+compact Indextrious CUSTOMER lookup, then `get_acquisition_transaction`
+participants, then draft. Tag the assigned person plus the deterministic role
+coverage group. Do not call `list_customers` or `slack_read_user_profile`.
+Do not draft until the caller, property URL, and assigned person are resolved.
+There is no missing-property-link exception for a supplied address.
+
+- Warm-up only (`ready`, or attaching this skill without call shorthand):
+  `Ready when you are.`
+- Every shorthand paste is a new ticket unless explicitly a correction, edit,
+  continuation, or thread update.
+- On a real ticket, the first assistant turn is tool calls with no text, or
+  the finished note fence. Never “I’ll follow / I’ll look up / Lookups are
+  running.”
+- Paste-only: first visible character is the finished note fence. Never narrate
+  skill loading or tool use. Never emit a stub or unlabeled draft of the note.
+- Draft / lookup path: stay silent until lookups finish, then one finished
+  five-field note. A placeholder fence with wrong labels or empty fields is not
+  a copy box.
+- Never post progress, lookup status, or skill-loading narration. For Shape B,
+  verify the thread internally; report thread details only below the finished
+  output.
+- Token-smart shifts: reuse one chat for routine and paste-only tickets. Count
+  completed tool-heavy **user tickets** in this chat (explicit draft, Shape B
+  search, unnamed lookup). The counter starts at zero in every new chat; tool
+  calls, tool rounds, and tickets from other chats do not count. After the 3rd,
+  or immediately after a messy Slack dump, schema retry, or GraphQL/browser
+  fallback, add this exact line under `---`:
+  `Memo: start a new chat for the next ticket and @ xa-quick-slack once.`
+  Do not send that memo on paste-only tickets or above the note. Send it once
+  until the XA actually starts a new chat.
+- Scope is escalated calls. Redirect non-escalated notes to `xa-post-call-notes`.
+- Paste-only is the default. `draft it` creates an unsent Slack draft.
+  `send and post it` sends Slack and posts the CONTACT note in the same turn.
+  `post it` alone posts the CONTACT note with the already-sent Slack permalink.
+
+## OpsHub note
+
+Always use exactly:
+
+```
+Property Address: 123 Example St, City, ST 00000
+
+Reason for Call: Short sentence.
+
+Customer Concerns: Short sentence.
+
+Solution Offered: Escalated to Name.
 
 Follow Up Link:
 ```
 
-One blank line between every section. No extra text before or after.
+Rules:
+- Put each value on the same line as its label. Keep one blank line
+  between fields. Follow Up Link is blank except a found Shape B thread
+  permalink, an XA-supplied Zendesk ticket URL, or on `post it` the Slack
+  message permalink and property URL. On a successful post, put the Slack
+  permalink first, then the Zendesk URL if supplied, then the property page
+  URL, each on its own line with a blank line between them. A single space
+  gets eaten when OpsHub auto-links. Never put a customer URL there. Never
+  invent a Zendesk ticket. For the post-it path, upload the exact note to the
+  caller's CONTACT page with `CreateCustomerNote`; if unavailable, use the
+  CONTACT page's `Add a note` control and verify the saved note.
+- Fill the property only when supplied. Two addresses: Property Address, Casa
+  resolve, and the Slack property link are the home being sold. A ship-to,
+  mailing, or lockbox delivery address stays in Customer Concerns and the Slack
+  situation line only. Do not resolve or link the ship-to as the property.
+- Caller type is the XA's first word: seller, agent, buyer, buyer's agent,
+  appraiser, inspector, photographer, neighbor, vendor, locksmith, HOA, title
+  company. Otherwise use Caller; never default to Seller or Agent.
+- Name every stated destination in Solution Offered and drop role fluff:
+  `Escalated to Dean Thompson.` If they were out and a coverage group or cover
+  was also tagged, name both: `Escalated to Jonathan Pryde and @agent-acq-eps.`
+  Stated channel plus stated tags: name both, e.g.
+  `Escalated to external listings management and ELA coordinators.`
+  Shape B continued thread is `Continued the related Slack thread.` One
+  thread stays singular. Two or more verified threads: `Continued the related
+  Slack threads.` Never the tagged person. Never write “escalated” unless the XA said they escalated or
+  the Slack path resolved the assigned participant. Advised is not escalated.
+  Never infer a step or action.
+- Spell out acronyms: Final Offer, home sale advisor, close of escrow, digital
+  checkout, in-home walkthrough, diligence visit, Cash Now More Later.
+- Use plain, short prose. No robotic hyphens. Write “sell direct,” not “seller
+  direct.”
+- **Keep the XA’s point.** Copy what they said happened. Do not add template
+  extras they did not type. Customer Concerns is the caller’s need in note
+  language, never an instruction to the tagged person (not “Confirm the
+  amendment was sent”). Shape B only: when actually continuing a related
+  Slack thread, keep that current-call point and add a short recap of what
+  the thread is already about. Not the full reply history. Never fold thread
+  facts into a Shape A or paste-only note.
+- Preserve concise, customer-relevant explanations when the XA supplied them.
+  Do not reduce the note to only the escalation topic when the XA also
+  explained how something works, clarified which information is accurate, or
+  described what the caller saw. Summarize the caller’s concern in Customer
+  Concerns and the explanation or action in Solution Offered; omit play-by-play
+  and unrelated detail.
 
-**Property Address:** fill it in when Sam gives an address, blank otherwise.
-**Follow Up Link:** always blank. Never populate it with a property URL you
-resolved for the Slack block — that field is Sam's.
+## Note patterns and routing
 
-## The caller is whoever Sam's first word says
+- Final Offer discussion: `Caller called to discuss their Final Offer.` Add
+  `and asked to speak with their home sale advisor` only when the XA said that
+  (asked for advisor / HSA / wants to speak to them). Concern: discuss the
+  Final Offer. Route pre-release to HSA; named target wins after the mandatory
+  OOO/coverage gate. If coverage applies, tag the assigned person and verified
+  cover/group, preserve any stated scheduling constraint in the note, and name
+  both in Solution Offered.
+- Delayed Final Offer: caller has not received it in the expected timeframe.
+  Route to pricing team / `#pricing-on-call`, not HSA.
+- Offer type switch: request a different offer structure. Route to HSA.
+- Inspection/final numbers: review inspection results and effect on proceeds.
+  HSA pre-release; acquisition sales support after contingencies release.
+  Engagement type decides the side first: `RESALE_BUYER_OFFER` remains listing
+  partner even when its state is `CONTINGENCIES_RELEASED`.
+- Close date, late checkout, digital checkout, checkout photos, settlement
+  statement, closing documents, or missing/incorrect contract documents:
+  acquisition sales support in `#support-hsa-escalations`, not HSA or title,
+  unless the verified named target is a Listing Partner / resale agent or
+  resale transaction coordinator. Participant role is authoritative: when the
+  named target resolves to `RESALE_AGENT`, `RESALE_TC`, or Listing Partner,
+  never use HSA; the verified target wins and the draft belongs in
+  `#support-listing-partner-escalations` (`C026P10RHLY`).
+- Seller cancellation: HSA save attempt, signed or unsigned.
+- Buyer or buyer's agent listing/property/offer/contract question: use the
+  Resale Agent in `#support-listing-partner-escalations` only when the verified
+  owner is a Resale Agent / Listing Partner / resale transaction coordinator.
+  A verified Home Sale Advisor or Agent Home Sale Advisor remains in
+  `#support-hsa-escalations` even for these topics. Agent getting info to place
+  an offer: Reason for Call and Slack always open with
+  `Agent is calling to get more info on the property to place an offer.`
+  External listing / ELA coordinator / showing or appraisal gate access that
+  the XA routes to ELA: `#external-listings-mgmt`, tag `@ela-coordinators`.
+  Named target wins. That is not the HOA workflow.
+- Buyer offer eligibility (reaffirmed October 23, 2026): the complete state list
+  is pending Sam's confirmation. Use `opendoor.com/buy` where direct buyer
+  submission is available; preserve known location and listing exceptions.
+  Do not infer statewide eligibility from an individual call.
+- Buyer offer submission (company process update, 2026-10-22): Georgia buyers
+  must work with a licensed agent to place an offer. Some other locations also
+  require an agent; do not invent a state list or assume all other states allow
+  direct submission. Where direct buyer submission is available, find the
+  property listing at `https://www.opendoor.com/buy` and submit from that listing.
+  Preserve traditional-listing requirements to submit through an agent. This
+  changes offer guidance only, not touring/access rules. Notes record only the
+  advice actually given; do not add agent guidance as a completed action to an
+  escalation-only call.
+- Wire/disbursement: first tell XA to check Admin → Closing → Wire Transfers.
+  (`admin.opendoor.com`). If unresolved after Opendoor wired, route to title.
+  Note only actions stated: reviewed status, or reviewed and escalated. Never
+  invent wire status.
+- Cash Now More Later second payment: advise
+  `executive.experience@opendoor.com`; no Slack channel and never closed homes.
+  Only genuinely urgent cases may be drafted to Katie Wright
+  `U8AU13UQ5` for the XA to place; this skill has no verified channel.
+- Previous owner wants into a closed CNML home: treat as a buyer, no lockbox
+  code, not closed homes, not Exec X unless they also asked about the second
+  half. Access-only belongs in xa-notes.
+- Rental scam: put 1-888-352-7075 in the note; no Slack block.
+- Post-close vendor/property condition or post-close property-information request:
+  closed homes team / `#closed-homes-customer`. This includes a prior seller or
+  buyer who already purchased the home asking about equipment identifiers,
+  manuals, filters, or other home-system information. Not for a previous owner
+  asking to enter. A Cash Now More Later second-payment question remains a
+  post-call note workflow, not closed homes.
+- Home damage/issue: `Filed a home issue report.` Emergency message prefix is
+  `UXA - `.
+- Code works but key fails: incident report for lockbox issue.
+- Completed assessment showing not started: `#keyapp-escalations`.
+- Property line/boundary concern: corresponding team member.
+- Seller's disclosure: request with disclosure team; only Slack if contract
+  pending and avoid duplicate OpsHub tasks. Named listing partner plus
+  “place an offer” stays listing partner; disclosure is the concern, not the
+  destination.
+- OpsHub/tool failure: tech support / `#tech-support`.
+- Square footage, bedroom, bathroom, or basement changes: `#pricing-on-call`;
+  never use Wally.
+- Identity verification never escalates. The XA verifies or denies
+  scheduling/access when verification cannot be completed.
+- Unknown escalated concern: describe the actual situation and route using the
+  closest rule; never leave Customer Concerns blank.
 
-Sam's first word sets the caller type: seller, agent, buyer, buyer's agent,
-appraiser, inspector, photographer, neighbor, vendor, locksmith, HOA, title
-company.
+Final Offer timing only when relevant: up to 5 business days; internally 3–4
+calendar days; MSRE about 3 days; Lennar 48 hours.
 
-**Never default to "Seller called" or "Agent called."** If Sam didn't say who
-called, write "Caller." This is one of the most frequently corrected mistakes,
-and wording throughout the note depends on getting it right.
+## Slack workflow-ticket channels
 
-**Sam's stated role beats any tool output.** If Sam says agent and
-`get_property_agent_info` returns that same name under "Seller Name," Sam is
-right — see the Seller Name quirk under Part 2 link building.
+Some Slack channels take workflow forms, not regular compose-box messages.
+Interpret `draft it` according to the destination: prepare ticket fields for
+a workflow channel and an unsent Slack draft for a regular channel. Recognize
+workflow channels from these saved mappings or verified workflow evidence
+already available in the chat, including a screenshot of the channel's form.
+Workflow evidence overrides the generic draft sequence; do not require the XA
+to explicitly say `ticket`. A successful regular draft response does not prove
+that the channel uses regular messages for escalations.
+For these, never call `slack_send_message_draft` or `slack_send_message`.
+Never search Slack, Glean, or project files for how to file the ticket.
+When the XA says the workflow ticket was already filed or says `post it`, do
+search for that submitted ticket as a related Slack artifact and include its
+verified permalink in the OpsHub note alongside the main escalation link.
+After the OpsHub note, provide a clearly labeled, paste-ready field pack and
+name the workflow the XA must open. Fill only facts and identifiers actually
+supplied or resolved; never invent a flip token, URL, category, or assignee.
+Label this section `--- WORKFLOW TICKET ---`, not `--- SLACK ---`.
 
-## Name the escalation target in the note
+- `#keyapp-escalations` (`C09B9U17KR9`) — **Key App Escalation** ticket:
+  `Agent Email` (optional), `Full Address` (optional), `OpsHub Link` (optional),
+  and `Escalation/Feedback/Question`. Provide each field in its own copy box.
+  Leave Agent Email blank when it is unavailable; use the verified property
+  URL for OpsHub Link. This workflow overrides Shape A compose-box drafting,
+  including when the XA says `draft it`. Do not create a regular Slack draft.
+- `#ext-showami-opendoor-support` — **Opendoor to Showami**:
+  `Property Address`, `Request Details`. Keep customer detail minimal because
+  the channel is externally shared.
+- `#pricing-on-call` — **Pricing Team Questions**:
+  `Flip Token`, `Full Address`, `Admin Link`, and `Question`.
+  Omit `Question Type` from the paste-ready output because it is a dropdown in
+  the workflow ticket. Present each field in its own copy box. `Admin Link`
+  means the OpsHub Admin helpers page, not the OpsHub property page, Admin
+  closing page, or customer link. Resolve it through OpsHub MCP by selecting
+  the matching live acquisition flip, reading its `latestOffer.id`, and using
+  `https://admin.opendoor.com/admin/experience_partner_offers_leftovers/{latestOffer.id}`.
+  Never guess the offer ID or substitute a different Admin URL.
+  Question Type is one of `Additional Info for Review`, `Final Offer Status`,
+  `Offer Denial`, `Unexpire Request`, `Refresh Offer Help`, or `Other`.
+  Include the live flip token and admin link when already supplied or returned
+  by the pricing/property lookup. A Casa ID is not a flip token. If the token is
+  unavailable, leave that field blank and say it must be copied from OpsHub;
+  never guess it. Pricing tickets may perform the extra live-flip lookup needed
+  for this form.
 
-**When Sam says "escalated to [name]", that name goes in Solution Offered.**
-Confirmed 2026-08-03.
+Whenever any workflow ticket requests an Admin helpers link, resolve it from
+the supplied property address through OpsHub MCP: find the matching property,
+select the relevant live acquisition flip, read its `latestOffer.id`, and use
+`https://admin.opendoor.com/admin/experience_partner_offers_leftovers/{latestOffer.id}`.
+Do not ask the XA to provide the link when the address is sufficient, and never
+substitute the OpsHub property page, Admin closing page, or customer link.
+- `#sign-install-triage` — signage workflow: include the matching category
+  (`Signage never installed`, `Signage not removed on time`,
+  `Missing-damaged signage`, or `Other`), property address, and request details.
+- `#hoa-communications` — HOA workflow: include the known requester, HPM/person
+  to action, request details, property address, and optional links. Leave any
+  unresolved required selector for the XA; do not guess.
+- `#xa-spanish-team` — **Spanish Request**: customer link first, property link
+  second, as bare URLs; use `N/A` when the form allows it and no property exists.
+- `#acq-cx-homes-escalation` — choose **CS to Homes** for Visits or **CS to VA
+  Team** for Refresh Offer / Repair Adjustment; provide `Property Address`,
+  `Request Type`, and `Context`.
 
-- `Escalated to Stefan Stobbs, the corresponding home sale advisor.`
-- `Escalated to Kesha Heggar to review the property line concern.`
+  **Routing clarification:** The CS to Homes workflow currently supports only
+  `Visits`. Do not use it for DCO/debris-removal updates when no visit is being
+  requested. Route those issues to Sales Support in
+  `#support-hsa-escalations`, tagging the assigned Sales Support specialist
+  when known (for example, Sarah Dumke).
 
-The Slack message does **not** repeat the name in prose — the `<@U…>` mention
-already carries it. Note names the person; Slack tags them.
+If another channel is known to use a workflow but its exact fields are not in
+context, do not draft into the compose box. Give the known facts as a paste pack
+and state that the remaining form fields must be selected in Slack.
 
-## Spelling out acronyms
+## Slack trigger
 
-- IWT → in-home walkthrough
-- FO → Final Offer
-- HODW → How Opendoor Works
-- HPM → home property manager
-- HSA → home sale advisor
-- COE → close of escrow
-- TOM → temporarily off market
-- DCO → digital checkout
-- DV → diligence visit
-- FHA → Federal Housing Administration
-- CNML → Cash Now, More Later
-- TC → transaction coordinator
-- OD → Opendoor
-- FB → Facebook
+Use XA input to detect whether Slack is requested; then use the existing-issue
+thread check to choose a new post or reply:
+- Shape B first: continue/update/reply/thread/in-the-thread language.
+- Provisional Shape A: escalated to, escalating to, escalate, @name, ASAP, or
+  named team. Run the existing-issue thread check before a new post.
+- Bare names and “let them know” alone do not trigger Slack.
+- Both shapes means Shape B.
 
-## Tone — the most-corrected thing in the whole skill
+Stated channel and stated tags are independent and both win. The XA often
+names a channel and separately who to tag. Draft/post into the channel they
+named (resolve from Channel IDs; search channels once if uncovered). Tag the
+people or groups they named. Routing fills only what they left unsaid. Do not
+move the post to listing partner, HSA, HOA workflow, or another default
+because the caller type usually goes there. Paste-only still labels Channel
+as a suggestion. Draft/post uses the stated channel as `channel_id`.
+- When the XA does not provide a target name, read the destination channel's
+  description before drafting and use the applicable team tag listed there.
+  The channel description is the source of truth for unnamed-target tags. If
+  the XA provides a target name, use that named target and do not replace it
+  with a channel-description tag unless the XA explicitly asks for both.
+- Known channel-description routing: `#utilities-support` (`C13LF642W`) uses
+  `@utilities-team` for stuck utility issues. Its other listed tags are
+  `@HPM Ops Bot` for lookup/status, `@Phone Bot` for provider calls,
+  `@emergency-alert` for alerts, and `@feedback` for agent ideas; choose only
+  the tag matching the request.
+- When the routing rule supplies a canonical channel, resolve that exact
+  channel—including private channels—from the user's accessible channel list
+  before considering any fallback. A broad search result for a similarly named
+  channel is never permission to substitute it.
 
-**No hyphens. No stiff or robotic constructions. No AI-speak.** Write the way a
-person types a quick note between calls. This gets corrected more often than any
-content error, sometimes three or four rounds in one note. Reread every sentence
-before output and cut anything that sounds like a press release.
+Output order:
+1. Fenced OpsHub note.
+2. `--- SLACK ---` and plain Slack block when triggered, unless a requested
+   draft returns `draft_id`.
+3. `---` and only necessary commentary: email, missing field, thread found,
+   wire reminder, draft status, or the new-chat memo.
 
-## Call type patterns
-
----
-
-### Final Offer — Escalated to Home Sale Advisor
-**Triggers:** fo escalate, wants to speak to hsa, asked for their advisor,
-fo too low, fo dispute, unhappy with fo, fo amount, discuss final offer
-
-Use when Sam explicitly says he escalated, transferred, submitted, or sent the
-request to the home sale advisor. If the caller only asked to speak with their
-advisor and Sam did not say he took an escalation action, use the general
-callback template and do not write "escalated."
+Shape A:
 
 ```
-Property Address:
-
-Reason for Call: Caller called to discuss their Final Offer and asked to speak with their home sale advisor.
-
-Customer Concerns: Caller wanted to discuss their Final Offer directly with their advisor.
-
-Solution Offered: Escalated to the corresponding home sale advisor.
-
-Follow Up Link:
+<@USERID|Name> [Full address](property-url)
+Role <customer-url|Customer Name> situation in one line.
 ```
 
-- Sam named the advisor → "Escalated to [Name], the corresponding home sale advisor."
-- No advisor assigned → "Escalated to the home sale advisor channel; no home sale advisor currently assigned to this property."
-- Offer won't cover the seller's loan → Joel Smith.
-
----
-
-### Final Offer — Delayed or Stuck in Queue
-**Triggers:** fo delayed, fo stuck, fo in queue, fo taking too long, no fo yet
-
-Delayed offers go to the **pricing team**, not the advisor.
-
-```
-Property Address:
-
-Reason for Call: Caller called about a delay in receiving their Final Offer.
-
-Customer Concerns: Caller had not received their Final Offer within the expected timeframe.
-
-Solution Offered: Escalated to the pricing team to review the delayed Final Offer.
-
-Follow Up Link:
-```
-
-The standard timeline is 3 to 5 business days after the assessment is complete.
-A Final Offer merely coming up in a call is not grounds to write an escalation —
-only write "escalated" when Sam says he escalated.
-
----
-
-### COE / Closing Date Change
-**Triggers:** coe change, move coe, change coe, closing date change, push closing,
-extend closing, extending the closing date, late checkout, lco, digital checkout,
-dco, checkout photos, settlement statement, closing documents
-
-**Owner is sales support, not the home sale advisor.** Source: Diego Mendieta,
-`#xa-announcements`, 2026-08-04, "Escalation Routing Reminder — What Should *Not*
-Come to HSAs." Anything closing-side belongs to sales support. Write "sales
-support" in Solution Offered; do not write "the corresponding home sale advisor"
-on these calls.
-
-```
-Property Address:
-
-Reason for Call: Caller called to request a change to the close of escrow date.
-
-Customer Concerns: Caller needed the closing date moved and confirmation the new date could be accommodated.
-
-Solution Offered: Escalated to sales support to review the close of escrow date change.
-
-Follow Up Link:
-```
-
-- Dates given → "...request the close of escrow be moved from [old] to [new]."
-- Late checkout mentioned → append "Caller also asked about enrolling in late checkout."
-- Digital checkout call → Reason for Call: "Caller called regarding digital
-  checkout." Solution Offered: "Escalated to sales support to assist with digital
-  checkout."
-- Close of escrow window is 14 to 120 days out, seller-selectable.
-- Eric Mangin is still a valid named contact for a close of escrow date change,
-  but the team that owns it is sales support.
-
----
-
-### Wire of Funds / Disbursement
-**Triggers:** wire, wire transfer, funds, when do i get paid, disbursement,
-money not received, proceeds, funded
-
-**Check admin before escalating anything.** admin.opendoor.com → Closing → Wire
-Transfers. Diego's 2026-08-04 post is explicit that this often answers the
-seller's question with no escalation at all. Put that as a single line in the
-commentary block below the output when Sam hasn't said he checked.
-
-```
-Property Address:
-
-Reason for Call: Seller called asking when and how they would receive their funds after closing.
-
-Customer Concerns: Seller had not received their proceeds and wanted confirmation of the timing and method.
-
-Solution Offered: Reviewed the wire status in admin and advised the seller of the current status.
-
-Follow Up Link:
-```
-
-- Admin didn't resolve it → "Reviewed the wire status in admin and escalated to
-  the title company to confirm disbursement timing and method."
-- Title owns the disbursement once Opendoor has wired. Opendoor cannot confirm
-  receipt timing after the funds are sent.
-- **A funds question on a Cash Now, More Later home that hasn't resold is not
-  this template.** That's CNML — advise `executive.experience@opendoor.com` and
-  see the CNML guardrail in Part 2.
-
----
-
-### Missing Contract Documentation
-**Triggers:** missing docs, missing contract, missing documentation, document not in file,
-addendum missing, contract paperwork, unsigned closing documents
-
-Title owns this, not the home sale advisor (Diego Mendieta, 2026-08-04).
-
-```
-Property Address:
-
-Reason for Call: Caller called regarding documentation missing from the contract file.
-
-Customer Concerns: Caller needed the missing documentation located or resent before closing could proceed.
-
-Solution Offered: Escalated to the title company to locate the missing contract documentation.
-
-Follow Up Link:
-```
-
-If title says the missing item has to come from Opendoor: "Escalated to the
-transaction coordinator assigned to the property to supply the missing
-documentation." Do not write both unless both actually happened.
-
----
-
-### Seller Walking After Signing
-**Triggers:** seller walking, walking after signing, wants to cancel after signing,
-backing out after contract, wants out of the contract
-
-**This one stays with the home sale advisor.** It is the exception to the
-closing-side rule above — the HSA owns the save attempt (Diego Mendieta,
-2026-08-04). Do not route it to sales support.
-
-```
-Property Address:
-
-Reason for Call: Seller called wanting to cancel after signing their contract.
-
-Customer Concerns: Seller no longer wanted to move forward and needed to know what cancelling would involve.
-
-Solution Offered: Redirected to the home sale advisor to attempt to retain the customer.
-
-Follow Up Link:
-```
-
-A seller who has **not** signed is a routine cancellation conversation and
-belongs in XA Post Notes, not here.
-
----
-
-### Buyer / Agent — Property Information
-**Triggers:** buyer info, buyer questions, property info, general info,
-agent asking about listing, diligence questions, listing questions
-
-```
-Property Address:
-
-Reason for Call: Caller called for information about a listed property.
-
-Customer Concerns: Caller needed property details before submitting an offer.
-
-Solution Offered: Escalated to the listing partner to provide property information.
-
-Follow Up Link:
-```
-
-If a topic is named: "...needed details on [topic] before advancing an offer."
-Buyers making offers → opendoor.com/homes. If it is a traditional listing, the
-site tells the buyer to share it with their agent. Agents making offers →
-opendoor.com/makeoffer.
-
----
-
-### Post-Close Vendor / Property Condition
-**Triggers:** propane, utility company, gas company, vendor calling, closed home,
-home we own, ac not working, repair issue, hoa calling
-
-```
-Property Address:
-
-Reason for Call: Caller contacted Opendoor regarding a property Opendoor has closed on.
-
-Customer Concerns: Caller needed resolution on a property matter Opendoor is responsible for as the owner.
-
-Solution Offered: Escalated to the closed homes team for resolution.
-
-Follow Up Link:
-```
-
-Name the specific matter when Sam gives it — a leased propane tank, a
-non-working air conditioning unit, a utility transfer.
-
-**A previous owner asking to enter a closed Cash Now, More Later home is not
-this template.** Treat them as a buyer. Do not give a lockbox code. Do not
-route to `#closed-homes-customer`. That call belongs in xa-notes unless Sam
-said they escalated a different issue.
-
----
-
-### Home Issue Report
-**Triggers:** mold, property damage, neighbor damage, home issue
-
-```
-Property Address:
-
-Reason for Call: Caller reported an issue at the property.
-
-Customer Concerns: Caller needed the issue at the home addressed.
-
-Solution Offered: Filed a home issue report.
-
-Follow Up Link:
-```
-
----
-
-### Access Incident — Code Works, Key Doesn't
-**Triggers:** key doesn't work, lockbox key stuck, couldn't get in with the code,
-photographer couldn't get in, locksmith
-
-A working code is not access. If the key fails, this is an incident report.
-
-```
-Property Address:
-
-Reason for Call: Caller called unable to enter the home despite having the lockbox code.
-
-Customer Concerns: Caller could not complete the visit because the key would not open the door.
-
-Solution Offered: Filed an incident report for the lockbox issue.
-
-Follow Up Link:
-```
-
-A vendor contacted directly by a rental scammer — sent to change locks, for
-example — is also an incident report, even if they relocked the home afterward.
-
----
-
-### Assessment Showing "Not Started"
-**Triggers:** assessment not started, assessment stuck, key app status wrong,
-assessment completed but showing incomplete
-
-```
-Property Address:
-
-Reason for Call: Caller called because the assessment was completed in the field but is showing as not started.
-
-Customer Concerns: Caller could not move forward while the assessment status was incorrect.
-
-Solution Offered: Escalated to the Key app escalations channel to correct the assessment status.
-
-Follow Up Link:
-```
-
-May be a systemic sync bug rather than a per-call issue. Worth flagging to Sam
-if it recurs.
-
----
-
-### Property Line / Boundary Dispute
-**Triggers:** property line, boundary dispute, survey issue, shared driveway
-
-```
-Property Address:
-
-Reason for Call: Caller called regarding a property line concern.
-
-Customer Concerns: Caller needed the boundary question resolved before moving forward.
-
-Solution Offered: Escalated to the corresponding team member to review the property line concern.
-
-Follow Up Link:
-```
-
-Named contact when one is given: Kesha Heggar. A shared driveway can block offer
-submission entirely.
-
----
-
-### Seller's Disclosure
-**Triggers:** sellers disclosure, disclosure request, disclosure email
-
-```
-Property Address:
-
-Reason for Call: Agent called to request the seller's disclosure.
-
-Customer Concerns: Agent needed the disclosure to move forward.
-
-Solution Offered: Put the request in with our team and advised it will be sent over once completed.
-
-Follow Up Link:
-```
-
-An agent who already has the disclosure and wants more detail on condition →
-advise an independent inspection.
-
----
-
-### Cash Now, More Later
-**Triggers:** cash now more later, cnml, second half payment, cash plus
-
-Renamed from "Cash Plus" — always use the new name. Sam does not escalate on the
-seller's behalf; he advises them to reach out directly.
-
-```
-Property Address:
-
-Reason for Call: Seller called with questions about the second half of their Cash Now, More Later payment.
-
-Customer Concerns: Seller wanted to know when the remaining funds would be released.
-
-Solution Offered: Advised the seller to contact executive.experience@opendoor.com directly.
-
-Follow Up Link:
-```
-
-Write "advised," never "escalated."
-
-**A previous owner asking to get into the closed home is not this template.**
-That is buyer access, not second-half payment. No lockbox code. No
-`#closed-homes-customer`. No Exec X inbox unless they also asked about the
-second half payment. Send access-only shorthand to xa-notes.
-
----
-
-### OpsHub / Tool Failure
-**Triggers:** opshub broken, system error, can't refresh, tool not working,
-system can't find, app error, fo refresh broken
-
-```
-Property Address:
-
-Reason for Call: Unable to complete a task in OpsHub due to a system error.
-
-Customer Concerns: Caller's request could not be completed while the system issue persisted.
-
-Solution Offered: Reported the issue to tech support for resolution.
-
-Follow Up Link:
-```
-
-**Precedence:** "fo refresh" alone is a Final Offer call. "fo refresh broken" or
-any wording describing the *system* failing is this template. The subject is the
-tool, not the offer.
-
----
-
-### Callback / Escalation — General
-**Triggers:** callback, escalated, escalation, team lead, floor support, manager
-
-Use when the call doesn't match a template above.
-
-```
-Property Address:
-
-Reason for Call: Caller called with a concern that required escalation.
-
-Customer Concerns: Issue could not be resolved at the XA level.
-
-Solution Offered: Escalated to the appropriate team for resolution.
-
-Follow Up Link:
-```
-
-For the channel, use the Part 2 routing table.
-
----
-
-## Rules
-
-- **Never fabricate details** Sam didn't mention. Omit that part of the sentence — never `___`.
-- **Never infer steps.** Only write what Sam explicitly said happened. Adding scheduling steps, escalations, or actions he didn't mention is the single most common failure.
-- **Never write "escalated" unless Sam says he escalated, or explicitly says he transferred, submitted, or sent the request to a team.** A caller asking for an escalation is not proof that Sam escalated it. "Advised" is not "escalated."
-- **Name the escalation target** in Solution Offered whenever Sam names one.
-- **Caller-role substitution:** replace `Caller` with the role Sam gives as the first word of the shorthand. If Sam does not identify the caller, use `Caller`. Do not let a template's example role override Sam's stated role.
-- **Never restate the Reason for Call** in Customer Concerns or Solution Offered.
-- **Customer Concerns is never blank** — the explicit concern, or the practical implied need.
-- **Reason for Call is a short descriptive sentence**, never a category label.
-- **Never write in third person** ("Sam will…"). Neutral first person.
-- **Never add intro text** like "Here's your note:" — output only the note.
-- **Always spell out acronyms**, even when Sam uses shorthand.
-- **Always leave a blank line** between every section.
-- **Follow Up Link** always blank.
-- **Final Offer timeline** — 3 to 5 business days after the assessment.
-- **Closing-side calls say "sales support,"** not "the corresponding home sale advisor."
-- **No hyphens, no stiff phrasing.** Reread before output.
-
-When a role-specific template says `Seller` or `Agent` but Sam did not identify
-that role, use `Caller` instead. A trigger phrase describes the situation; it
-does not identify the caller.
-
----
-
-# PART 2 — Slack escalation layer
-
-## Detection
-
-Read **Sam's input only.** Never let a note template's *output wording* trigger a
-Slack block; most templates here contain the word "escalated," and that is not a
-signal. The call type alone never fires a block either — Sam decides what gets
-escalated, on the call.
-
-Check Shape B triggers first:
-
-- **Shape B (threaded reply):** "continue the thread", "update the thread",
-  "reply to", "follow up on the thread", "in the thread", "back to [name]", or
-  any reference to a conversation already underway.
-- **Shape A (new post):** "escalated to [name]", "escalating to", "escalate",
-  "@[name]", "asap", "needs [team]", or a named team.
-- **Neither:** no Slack block. Output the OpsHub note alone. This is the
-  default — the block is additive, never assumed.
-- **Both** (an escalation target *and* thread language): **Shape B.** Searching
-  first is recoverable; posting a new message when a thread exists is not.
-
-**A bare person's name is not a trigger.** It counts only when the name is the
-*target of an escalation* — "escalated to Kaysha", "sending to Matt". Names that
-are call participants fire nothing: `"inspector access, Mike from ABC"` → no
-block.
-
-**"Let them know" is not a trigger on its own.** In XA shorthand it usually means
-"tell the customer." It counts toward Shape B only when paired with thread or
-Slack language in the same input.
-
-Do not ask a clarifying question in the happy path. The two exceptions are named
-under Shape A and Shape B.
-
-**Never fires a Slack block:** rental scam calls. Those are built from Sam's
-Flow A automation and have their own path. If Sam's input asks for one, output
-the note and say you skipped the block and why.
-
-**Wire of funds — check admin first.** Before drafting any Slack block about
-funds, put one line in the commentary block below the output telling Sam to check
-admin.opendoor.com → Closing → Wire Transfers. If he already checked and it
-didn't answer the question, draft the block and say what admin showed. A title
-thread that opens with "admin shows the wire sent 8/1, seller says nothing
-received" gets answered; "seller asking about funds" does not. Do not escalate a
-funds question you have no admin status for.
-
-## Building the links
-
-**Property link**
-
-1. If Sam pasted an OpsHub URL, use it verbatim. It carries a `/flip/{token}`
-   segment that cannot be derived from any tool — never reconstruct it.
-2. Otherwise, if Sam gave an address, call `resolveAddress` (street, city, state,
-   postalCode) for the Casa ID. For a Slack escalation, use the full acquisition
-   URL from the matching OpsHub page, including `/flip/{token}/acquisition`,
-   rather than a shortened Casa-only property URL.
-3. If neither works, use the recorded UI fallback below. Never fabricate a URL
-   or silently use an unlinked address when a Slack draft is requested.
-
-**Recorded UI fallback — do not skip the links.** If `resolveAddress` or the
-property lookup tools are unavailable, use the authenticated OpsHub page in
-Chrome: search for the address, open the matching acquisition property, and
-copy the current page URL verbatim. Preserve the full `/flip/{token}/acquisition`
-path; the Casa ID alone is not an equivalent replacement. Then open the caller
-record from the property page or OpsHub search and copy the customer URL. For
-an address based escalation where a caller record exists, the Slack draft must
-contain both the property link and the customer link before it is created.
-Never silently downgrade either link to plain text just because the semantic
-lookup path is unavailable. If the UI fallback cannot find one of the records,
-report the missing link below the output and do not create the Slack draft until
-Sam supplies or confirms it.
-
-**Customer link — always attach one when a record exists for the caller**
-
-Sam's standing request (2026-08-03): "when I mention the caller I want there to
-be a hyperlink from OpsHub attached." Link the caller's name whenever a record
-for *that person* exists — seller, agent, buyer, neighbor, anyone.
-
-**Step 1 — the property lookup.** Call `get_property_agent_info` with
-`address_uuids: [casa_id]`. The Casa ID returned by `resolveAddress` *is* the
-address UUID. It returns a Customer UUID and a name. Build
-`https://opshub.apps.opendoor.com/customers/{customer_uuid}`
-
-**The "Seller Name" field is not always the seller.** On an agent-represented
-property the *agent's* name comes back under Seller Lead / Seller Name, the
-actual seller is not listed, and the output still reads "No Agent assigned."
-Confirmed 2026-08-03 on 102 Washington Ave, Beverly NJ — Natosha Gaines is the
-agent. So:
-
-- **The returned name is the person the Customer UUID belongs to.** If that name
-  matches the caller Sam described, link it, whatever role label the tool used.
-- **Never attach that link to a different caller.** A neighbor, buyer, or
-  unrelated agent gets a *searched* link or no link — never the seller's. Wrong
-  person misdirects the receiving team. Confirmed 2026-08-03 on 106 Old Georgia
-  Rd: the tool returned the seller, not the neighbor who called.
-
-**Step 2 — search OpsHub when the caller is not the name returned.** Confirmed
-2026-08-06: do not stop at step 1 and leave the name plain. Callers with no
-stake in the property still routinely have records, including stubs Sam created
-himself on the call. Attempt this on **every** escalation where the caller is
-someone other than the name step 1 returned.
-
-Use Claude in Chrome, two calls:
-
-1. `navigate` → `https://opshub.apps.opendoor.com/search?q=First+Last`
-2. `get_page_text` → read the Customers group; the row's link *is*
-   `https://opshub.apps.opendoor.com/customers/{customer_uuid}`
-
-- `?q=` is the real query param; OpsHub rewrites spaces to `+`. There is no
-  `/customers` index page — that 404s.
-- Results are grouped: All, Properties, Tasks, Work Orders, Flips, Customers,
-  Offers. Each row shows name, email, phone, and an `Agent` badge where relevant.
-- **A phone number or email is one exact hit.** Ten digits, no `+1`, no
-  formatting — `?q=8649185474` returned one row where the name returned eight.
-  When Sam gives a number, search that instead of the name.
-- A brokerage name in Sam's shorthand is a disambiguator, not a search key.
-  Use it to pick among rows, not to query.
-
-**Step 3 — when the search is ambiguous.** Confirmed by Sam 2026-08-06:
-**draft unlinked and list the candidates in the commentary block below the
-output.** Never pick a row on a hunch, and never stop and wait — Sam is between
-calls.
-
-- Leave the caller's name plain in the Slack line.
-- Below the output, list up to three candidate rows: name, the distinguishing
-  detail (phone, email, `Agent` badge), and the customer URL.
-- Say in one line that the name is unlinked and why, so Sam can paste a link in
-  himself.
-
-**Step 4 — no record at all.** Say so in one line and leave the name plain.
-Outside-brokerage staff frequently have none: a buyer-side agent's transaction
-coordinator (722 Virginia Ln, 2026-08-04), an agent on a property with no agent
-assigned (982 Oak Dr, 2026-08-05). This is an expected outcome, not a failure.
-
-If Sam didn't say who called, use "Caller" and no customer link.
-
-**Slack link syntax:** `<url|label>`. This renders as a real mention and a real
-link in a Slack draft; confirmed, not assumed.
-
-**Pre-draft link checkpoint.** Before calling `slack_send_message_draft`, verify
-that the message has:
-
-- the full OpsHub property URL, labeled with the address; and
-- the OpsHub customer URL, labeled with the caller's name, whenever a caller
-  record was found.
-
-The address and caller name alone are not sufficient for an address based
-escalation. This checkpoint applies even when the recipient, channel, and
-situation are otherwise complete.
-
-**Recipient checkpoint.** Never guess a person to tag from the call type alone.
-Use the person Sam explicitly named, the assigned person returned by the
-property or Slack lookup, or the documented team fallback when the routing
-rules allow it. If none of those is available, leave the mention empty and say
-that the tag is unresolved below the output.
-
-**OOO checkpoint applies to every recipient type.** Before finalizing any
-person mention, check whether that person is out of office. Never tag an OOO
-person, even when they are the assigned rep, a named contact, a manager, a
-listing partner, a title contact, or the person Sam named. Replace the person
-with the documented OOO fallback for that recipient type. Known mappings are
-`@phx-asap` or `@mia-asap` for an HSA, `@agent-acq-eps` for an Agent HSA, and
-`@sales-support` for a Sales Support rep. As more recipient types are added,
-their OOO fallback must be recorded in the routing rules or brain before it is
-used. If no fallback is documented, leave the mention unresolved and say so
-below the output. The OOO group is the recipient; do not co-tag the unavailable
-person.
-
-To verify OOO status, inspect the person's Slack profile, including the profile
-banner. When the banner lists a backup tag, use that backup tag as the OOO
-recipient. This is how to choose between `@phx-asap` and `@mia-asap` for an HSA
-and applies to any future backup tag listed in a person's banner. Use Slack
-status or current team message context as supporting evidence. If OOO status or
-the banner's backup tag cannot be verified, do not claim that the person is
-available; leave the recipient unresolved when tagging them would risk routing
-to an unavailable person.
-
-## Recipient
-
-- Sam named a person → check `escalations-brain.md` first, then
-  `slack_search_users` for the member ID. Render as `<@U…|Name>`. More than one
-  match, show candidates and ask.
-- Sam named no one → leave the mention slot empty and say the tag is his call.
-
-### Routing precedence
-
-Apply recipient decisions in this order:
-
-1. Read `escalations-brain.md` and use a newer recorded correction.
-2. Check whether the intended recipient is OOO and apply the documented OOO
-   fallback before rendering any mention.
-3. Use the person Sam explicitly named, after resolving and validating the
-   person and their team.
-4. Use the assigned person returned by the property or Slack lookup.
-5. Use the situation routing table.
-6. If no recipient or fallback is documented, leave the mention unresolved;
-   never infer one from an old contact list or from the channel name.
-
-## Shape A — new post
-
-```
-Channel: #suggested-channel (suggestion — override freely)
-
-<@U…|Name> <property-url|123 Main St, City, ST 00000>
-Role <customer-url|Customer Name> [what they need, one line]
-```
-
-**Rules:**
-
-- The situation line opens with the caller's role: Seller, Agent, Buyer,
-  Appraiser, Inspector, or the descriptor Sam gave.
-- **Anything the mention already conveys stays out of the prose.** Two standing
-  corrections follow from this:
-  - **Drop "asked to speak with their advisor"** — the tagged advisor makes it
-    redundant. `Seller Rick Brunatti called to discuss his Final Offer.` The
-    OpsHub note keeps the phrase; Slack does not.
-  - **Never name the escalation target in the prose.** The `<@U…>` mention is the
-    name.
-- One line for the situation where possible; two when the facts require it.
-  Length does not decide shape — trigger phrases do.
-- Present tense for a live caller, past tense for a completed call.
-- No greeting, no sign-off, no "when you get a chance", no "please advise" unless
-  Sam is genuinely asking for a decision.
-- Plain sentence case. No hyphens, no stiff phrasing.
-
-**Incomplete input — the one Shape A exception to "no clarifying question."**
-Shape A needs a property, a recipient, and a situation. With fewer than all
-three, output the OpsHub note, show the Slack block only if it can be rendered
-without placeholders, and add one line in the commentary block naming the gap —
-`Missing: property address, situation`. Never create a Slack draft when any of
-those three fields is missing. Never render an empty mention, a placeholder
-link, an invented role, or a fabricated situation. For an address based Slack
-draft, a missing customer link must be resolved through the recorded UI fallback
-before drafting. If no caller record exists after that search, say so below the
-output and leave the caller name unlinked.
-
-## Routing table
-
-Suggestions, always labeled as such. `escalations-brain.md` holds newer
-observations; check it first and prefer it where it disagrees.
-
-| Situation | Channel | Tag |
-|---|---|---|
-| Seller or their agent, pre-close, **before contingencies release** — Final Offer, access, assessment, seller walking after signing | `#support-hsa-escalations` (`C025L6TL4CB`) | assigned home sale advisor |
-| **Closing-side** — late checkout, digital checkout / DCO, extending or moving the closing date, settlement statement, closing documents | `#support-hsa-escalations` (`C025L6TL4CB`) | assigned **sales support** rep |
-| **Wire of funds**, after the admin check — Opendoor already wired, seller asking when or how they receive it | market title channel | title, or the escrow contact already in that channel |
-| **Missing contract documentation** | market title channel | title; if title says the item must come from Opendoor, the assigned transaction coordinator |
-| Buyer or buyer's agent on an Opendoor-listed home — offers, addenda, diligence, property info | `#support-listing-partner-escalations` (`C026P10RHLY`) | listing partner |
-| Opendoor-owned home post-close — condition, vendors, utilities | `#closed-homes-customer` (see guardrail) | — |
-| OpsHub or internal tool failure | `#tech-support` | — |
-| Assessment completed in the field but showing "not started" | `#keyapp-escalations` (`C09B9U17KR9`) | — |
-| Identity or verification issue | `#identity-escalations` (`C0169CYUQ4W`) | — |
-| Seller's disclosure, contract pending | `#od-seller_disclosure-team` | `<@SAFRUQQT1>` |
-| Final Offer delayed or in queue | Pricing team | — |
-| Named person, no clear fit | Recipient routing below | — |
-
-### Sales Support vs. HSA — the split that matters most
-
-Source: Diego Mendieta, `#xa-announcements`, 2026-08-04 10:54 EDT, "Escalation
-Routing Reminder — What Should *Not* Come to HSAs." Sam had been over-routing
-these to HSAs, so weight this over any older habit.
-
-- **Rule of thumb: if contingencies have been released, it is sales support.**
-  When the state is ambiguous, that flag decides it.
-- **Closing belongs to sales support:** late checkout, digital checkout,
-  extending the closing date.
-- **The HSA keeps everything upstream** — Final Offer, pricing, assessment,
-  access — **plus a seller walking after signing**, which goes back to the HSA as
-  a save attempt.
-- **The channel does not change; the tag does.** Both sales support and the HSAs
-  are reached in `#support-hsa-escalations` (confirmed by Sam, 2026-08-04). There
-  is no separate XA-facing sales support channel. `#sales-support-roadmap`,
-  `#sales-support-biz-ops-all-teams` and `#sales-collaboration` are
-  sales-internal and are **not** escalation queues — never suggest them.
-
-**Tag the named rep, not the team handle, when that rep is available.** Britt
-Kato, in-channel 2026-07-31:
-"If we can start tagging the assigned sales support member with these requests
-versus the team tag, it will help lessen the noise for us all." Prefer the
-assigned rep. Fall back to `<!subteam^S0AU9AN2HTN|@sales-support>` (Sales Support
-Team, 4 members) only when Sam doesn't know who's assigned or the rep is out.
-When any recipient is out, use that recipient type's documented OOO fallback
-rather than tagging the person directly. This rule applies to all current and
-future routing entries, not only Sales Support.
-
-**Channel topic, Matt McCollum, 2026-07-31 — read literally, the team handles are
-OOO fallbacks, not default tags:**
-
-> Process Flow: XA posts to channel & tags below
-> `@phx-asap` or `@mia-asap` = HSA is OOO
-> `@agent-acq-eps` = Agent HSA is OOO (`STQT96KV4`)
-> `@sales-support` = Sales Support rep is OOO (`S0AU9AN2HTN`)
-> `@acq-hsa-managers` = CX requesting mgr follow up (`S0912QTHAQJ`)
-
-This supersedes any earlier note about co-tagging `@phx-asap`
-(`S0BL1DC2XBP`) alongside the named HSA. Tag the person; add the group only when
-they're out.
-
-### Title channels are per-market
-
-Resolve the property's state and use `#{state}-title-osn`:
-
-- `#az-title-osn` `C1T8FBZ0W`, `#tx-title-osn` `C378DSH1C`, `#co-title-osn`
-  `CHMGPP9RN`, `#fl-title-osn` `CJ7PKPJ78`, `#nv-title-osn` `C7RMDBL7Q`,
-  `#tn-title-osn` `CAM1DBL6N`, `#in-title-osn` `C02685ZCS6S`, `#va-title-osn`
-  `C02D0J0R2Q4`, `#il-title-osn` `C09MQ74MURY`, `#ca-title-osn` `C03AQFG65FW`
-
-Several markets have variants this skill cannot disambiguate from an address
-alone — `-osnrsl`, `#ncsc-title-hp`, `#moks-title-apex`, `#ga-title-oks`,
-`#ga-title-hp`. If the state is unknown, or the market has variants you can't
-tell apart, suggest `#title-escalations` (`C01K3C66LMN`) and say in one line in
-the commentary block below that you fell back because you couldn't pin the market
-channel. **Never guess between two market variants.**
-
-### Named contacts
-
-From `xa-brain.md` 2026-07-28 unless noted:
-
-- Eric Mangin — close of escrow date changes (team owner is sales support)
-- Landon Young — home sale advisor, Final Offer discussions
-- Joel Smith — Final Offer that won't cover the seller's loan
-- Dean Thompson — personal property left at the home
-- Kesha Heggar — property line and boundary disputes
-- Sharon Parmenter, Jeana Reyes — property info and offer questions
-- Stefan Stobbs (`U01N48TTF6H`) — Agent Home Sales Advisor,
-  `#support-hsa-escalations`. Took an agent-represented Final Offer escalation
-  2026-08-03. Supersedes his older "property info and offer questions" listing.
-
-**Recipient routing — Sam names a person, gives no situation.** Route on what
-they do, not the call type:
-
-- **Listing Partner / resale agent** (Kaysha Rice, Krysten Giordano, Whitney
-  Hunt-Sailors, Cary Sheih, Nakia Walker, Anton Watt `U0APXFW26TV`) →
-  `#support-listing-partner-escalations`
-- **Home Sale Advisor** (Jonathan Pryde, Matt Miller, Dean Thompson, Kendra
-  Gallagher, Alberto Flores, Terrance Wright, Gal Avraham, Landon Young,
-  Allison Mercer, Stefan Stobbs, Jude Koury `U0AAV9BHZRU`) →
-  `#support-hsa-escalations`
-- **Sales Support Specialist** (Sarah Dumke `U0B8VGYV4RL`, Britt Kato
-  `U01TVV7G38V`, Claire Buser `U02KL21ES80`, Katie Villasenor `U48CQ7FEE`;
-  manager Eric Wyrowski `UGCK82AMC`) → `#support-hsa-escalations`. Same channel
-  as the HSAs — a sales support name is not a signal to look elsewhere.
-- **Unknown person** → no channel guess. Say you don't know their team and ask.
-
-**Jude Koury is a Home Sales Advisor**, not sales support, despite carrying most
-of the closing-side escalation volume in the channel. Easy mis-read — do not use
-his name as a sales support signal.
-
-`slack_search_users` returns a job title, which usually settles it. If it
-doesn't, search their recent messages (`slack_search_public_and_private` with
-`from:<@USERID>`) and see which channels they post in.
-
-**Guardrails:**
-
-- **CNML escalations must not go to `#closed-homes-customer` under any
-  circumstances** (standing instruction, Hannah Shipman, 2026-07-07). These are
-  sellers who closed and are unhappy about what came after — list price, resale
-  timeline, when funds arrive, an unanswered email. Suggest
-  `executive.experience@opendoor.com` instead of a channel, and ask the seller to
-  forward earlier emails so the Exec X team has timestamps. Explicitly **not**
-  urgent: upset with list price; no email response within 24 to 48 hours; asking
-  about funds on a home that hasn't resold. Genuinely urgent → draft a DM to
-  Katie. A *vendor* calling about a closed home is not CNML and does belong in
-  `#closed-homes-customer`. A **previous owner** asking to enter after close is
-  also not closed homes: treat them as a buyer, go through access guidelines,
-  and **do not provide the lockbox code**. They signed knowing that after the
-  acquisition closed they are no longer the owner; Opendoor is. Appreciate the
-  feedback; we own the home now and we are doing our best to sell it.
-- **CNML outranks the wire row.** Title owns disbursement on a closed
-  acquisition. A seller asking when they get paid on a Cash Now, More Later home
-  that hasn't resold yet is an Exec X matter, not a title matter.
-- **Seller's disclosure:** review OpsHub tasks first — a duplicate task pushes the
-  property to the bottom of the queue. Only post if a contract is pending.
-- **`#tier1-floor-support`** is for questions Sam has *while on the call*. Not for
-  handing a customer off.
-
-**Precedence:** this table governs routing. `xa-brain.md` lists
-`#xa-team-leads`, `#xa_managers`, and `#xa-team-floor-support` under Key
-Context; those carry no traffic and that entry is stale.
-
-## Shape B — threaded reply
-
-Three steps, in order. Do not skip step 2.
-
-**1. Search.** Check `escalations-brain.md` thread history first — if the
-property is listed there, go straight to that thread. Otherwise use
-`slack_search_public_and_private`, trying keys in this order:
-
-- Property address (or a distinctive fragment)
-- OpsHub property UUID
-- Customer name
-- Ticket or flip reference
-
-Add `in:#channel` when Sam names one. Sort by timestamp when the thread is
-recent. Broaden before concluding there's no thread. Keep the first pass concise
-(`response_format: "concise"`, `include_context: false`) — full context on a
-common address will blow the token limit.
-
-**When several threads match**, prefer: a thread Sam started or replied to; the
-most recent; the one matching the caller Sam named. Still tied, show both and ask.
-
-**No search key — the one Shape B exception to "no clarifying question."**
-If the shorthand has none of the four keys, you cannot search. Don't guess, and
-don't fall back to Shape A. Output the note, then ask which property.
-
-**2. Surface what you found, before drafting anything.** Channel, parent message
-author and its first line or two, human-readable timestamp, reply count,
-permalink. This goes in the commentary block below the output.
-
-**3. Draft the reply.**
-
-**Reply content rule:** state what the customer was told and what they now
-expect. Not "note logged." Not "handled." The receiving team's next question is
-the thing the reply should already answer. If Sam didn't say what he told the
-customer, write only what he gave you.
-
-Format: plain prose, one to three lines, no greeting, no sign-off.
-
-**Do not guess an assignee.** Tag someone only if Sam named them, or if the
-thread makes it unmistakable who is waiting.
-
-**Enrichment from the thread.** Facts from the found thread may be used in the
-Slack reply. Do not fold them into the OpsHub note — that records Sam's call.
-
-**If no thread is found:** say so, show up to three closest candidates with
-channel, author, timestamp, and permalink, and ask which — or whether this should
-be a new post. **Do not silently fall back to Shape A.**
-
-## Output contract
-
-When a Slack component is detected:
-
-```
-[OpsHub note — Part 1 format, unchanged]
-
---- SLACK ---
-[Shape A: channel suggestion, then the message]
-[Shape B: "Replying in thread: <permalink>", then the reply]
-```
-
-When no Slack component is detected: the OpsHub note alone. Nothing else.
-
-**When a draft was created successfully** (a `draft_id` came back), skip the
-`--- SLACK ---` block entirely — the message is already in the right channel, so
-echoing it in chat is noise. Output the OpsHub note plus the one-line draft
-confirmation. Confirmed 2026-08-03. If no draft was requested, or `draft_id` is
-absent, show the block so Sam can paste.
-
-No preamble, no "here's your note", no commentary wrapping either block.
-
-**Where required commentary goes — below the output, never above.** Confirmed by
-Sam 2026-08-06: he copies the note straight out of chat into OpsHub, and anything
-sitting above it gets caught in the selection. This reverses the earlier rule.
-
-Surfacing a found thread, naming a missing field, flagging that you don't know
-someone's team, showing candidates, asking which property, telling Sam to check
-the wire in admin, reporting a created or failed draft, noting a brain update,
-listing customer-record candidates, saying a caller name went out unlinked — all
-of it goes **below**, after a `---` rule.
-
-Order every turn:
-
-```
-[OpsHub note]
-
-[--- SLACK --- block, if any]
-
----
-[commentary, plain lines]
-```
-
-Nothing goes above the note. Not one line, not a heads-up, not an apology.
-
-**Copyable output.** Put the OpsHub note in a fenced plain text code block so
-Sam gets a copy button. When a Slack component is present, put only the
-copyable Slack message in a second fenced plain text code block; keep the
-channel suggestion outside the block. Commentary stays below the `---` rule
-and outside both code blocks. Do not put labels such as `OpsHub note:` inside
-the first code block, because Sam pastes that block directly into OpsHub.
-
----
-
-# PART 3 — Putting the message into Slack as a draft
-
-Parts 1 and 2 end in chat. Sam copies and pastes. That is the default.
-
-On request, `slack_send_message_draft` puts the Slack block into Slack as an
-unsent draft.
-
-## What the tool actually does
-
-Tested against Sam's live workspace, August 1, 2026. **The tool's own
-description is misleading — do not reason from it.**
-
-- The draft is created **in Slack**: visible in the "Drafts & sent" sidebar list
-  *and* pre-filled in the target channel's message box.
-- `<@U…|Name>` and `<url|label>` render as a live mention and a real link.
-- A message card also renders in the Cowork chat with a Send button.
-- **Pressing that Send button posts the message.** A live send, attributed
-  "Sent using @Claude" under Sam's name.
-- Nothing posts unless Sam acts — that button, or Enter in the Slack compose box.
-
-You never press Send, and you never call `slack_send_message`.
-
-**"There was a problem displaying content from Slack"** is a render failure on
-that in-chat card, not a connection or draft failure. Confirmed 2026-08-06: the
-draft existed in the channel and the connector read the channel fine immediately
-after. If the banner appears alongside a `draft_id`, tell Sam the draft is in
-Slack and the banner is cosmetic — the only consequence is that the in-chat Send
-button won't be available, so sending happens in Slack. Do not diagnose it as an
-auth or connector problem.
-
-**The margin between "drafted" and "posted in front of his team" is one
-keystroke.** That's why this fires only on an explicit request, and why a
-half-finished draft is worse than no draft.
-
-## When to do it
-
-**Only when Sam asks, in words, in that turn.** "draft it", "put it in Slack",
-"save that as a draft", "draft it in the thread". Nothing else counts.
-
-Never infer it. Not from the call type, not from urgency, not from the previous
-call, not from a standing "always do this" earlier in the conversation.
-
-**Never draft when:**
-
-- No Slack block was produced.
-- Shape A is missing a field. Output the note, name the gap, say you didn't
-  create the draft and why. If a caller record exists, an unresolved customer
-  link is also a blocking gap until the recorded UI fallback has been tried.
-  If the fallback confirms that no caller record exists, leave the caller name
-  unlinked and continue.
-- Shape B found no thread, or found several and asked which.
-- Routing was flagged uncertain and Sam hasn't confirmed the channel.
-- You fell back to `#title-escalations` because you couldn't pin the market
-  channel. Say so and let Sam pick.
-- Sam called it a test and didn't say which target. Draft to his own DM
-  (`D0ASFD2RM98`) instead of a team channel, and say that's what you did.
-
-## How to do it
-
-1. **Output Part 1 first, unchanged.** The draft is in addition, never instead.
-2. Resolve the channel ID — `escalations-brain.md` has the common ones; otherwise
-   `slack_search_channels`. If the name doesn't resolve, say so and stop.
-3. Call `slack_send_message_draft` with `channel_id` and `message`. For Shape B,
-   pass `thread_ts` from the parent message you surfaced.
-4. **Check the response for `draft_id` before saying anything.**
-5. Report in one line **below** the output, under the `---` rule:
-   `Draft in #channel — in the message box there, not sent.`
-
-The body is the Slack block exactly as it would have appeared in chat. Don't
-rewrite it, and don't include the `Channel:` suggestion line — that's instruction
-for Sam.
-
-## The `draft_id` check — the only thing you can trust
-
-**The tool returns `"Draft message is created"` whether or not it made a draft.**
-That string is not evidence. A `draft_id` is.
-
-- **`draft_id` present** → the draft exists. Report it.
-- **`draft_id` absent** → nothing was created. Do not claim otherwise.
-
-**One draft per channel — behavior is uncertain.** An August 1 test suggested a
-second draft in a channel that already had one was silently dropped, with no
-`draft_already_exists` error and no `draft_id`. An August 3 test in
-`#support-hsa-escalations` returned a fresh `draft_id` with an unsent draft
-already present. Trust the `draft_id`, not either finding, and tell Sam to check
-for a stray second draft when you drafted into a channel that already had one.
-
-**When `draft_id` is absent, say this and stop:**
-
-```
-Draft not created — #channel-name already has an unsent draft.
-Send or clear that one and say "draft it" again, or paste the block above.
-```
-
-Don't retry, reroute, send instead, or try to clear the existing draft.
-
-## What never happens here
-
-- `slack_send_message` is not used by this skill, for any reason, ever.
-- You never press Send on the message card.
-- No draft without a request in that turn.
-- No draft to a channel whose ID you had to guess.
-- No claim that a draft exists without a `draft_id` in the response.
-
----
-
-# PART 4 — The escalations brain
-
-`escalations-brain.md` sits in the project folder alongside this skill. It is a
-notebook of observations about escalations: who owns what, where things actually
-landed, how Sam words a Slack message, and which properties have live threads.
-
-**This skill is the spec. The brain is what's been observed since.** Where they
-disagree, the brain is newer and wins — and say so out loud rather than silently
-following one.
-
-## Reading it
-
-**Read it first, every turn** — see Step Zero. Then use it for:
-
-- **Recipient** — whether Sam has escalated to this person before, and where.
-  Cheaper and more reliable than a job-title lookup.
-- **Channel** — recorded outcomes, especially any time Sam overrode a suggestion.
-- **Phrasing** — corrections he's made to previous drafts.
-- **Thread history** — whether this property already has a thread, before
-  searching Slack.
-- **Process failures** — mistakes already made once, so they aren't made twice.
-
-## Writing to it
-
-Append when Sam corrects something. The correction *is* the capture — don't ask
-permission and don't ask him to repeat it.
-
-Log when he:
-
-- Changes the channel you suggested
-- Corrects a name, a role, or who handles something
-- Edits your Slack draft before sending — record the before and the after
-- Confirms or overrides a routing call
-- Says how a thread resolved, or points you at one you didn't find
-- States any escalation rule, path, or contact
-- Forwards a team announcement about routing — record the source, author, channel
-  and date, since these supersede the table above
-- Corrects the same thing twice — that one goes in Process failures, with the
-  reason it was missed
-
-**How to append:**
-
-- Add to the matching section. Create a new section if none fits.
-- Date every entry.
-- **Never delete or rewrite an existing entry.** If something is superseded, mark
-  it and add the new one below. The history is the point.
-- Keep entries short and factual. This is a notebook, not prose.
-- Mention the update in one line below the output, under the `---` rule:
-  `Logged to escalations brain: Whitney Hunt-Sailors routes to listing partner, not HSA.`
-
-**Don't log:** anything Sam didn't actually say, your own inferences about why he
-did something, or a restatement of a rule already in this skill. An entry that
-isn't a real observation makes the file worse.
-
-## Folding the brain back into this skill
-
-Periodically, corrections that have proven durable get written into the skill
-body above, so they load automatically instead of depending on the file read.
-When that happens, leave the brain entry in place — dated and intact — and note
-in the entry that it has been folded in.
+- Treat the channel as draft metadata, not message content. Do not include a
+  `Channel: ... (suggestion — override freely)` line in the Slack message.
+- Keep the full Shape A message compact after the channel mention. Use exactly
+  one line break after the property link/address: the property link/address is
+  on the first line, and the caller's situation starts on the next line. Do
+  not add a blank line or split the situation into multiple paragraphs. Slack
+  may wrap either line visually; that is normal.
+- For an agent caller, use exactly `Agent <customer-url|Agent Name> called to
+  report ...`; the customer link follows the word `Agent`, and the linked name
+  is not repeated in plain text.
+- Slack prose never repeats the tagged target, phone, or email.
+- Preserve supplied email links and their `mailto:` prefix in Slack drafts.
+  The XA confirmed that these links open useful contact options; do not strip
+  the prefix or remove an operational email link such as utilities contact
+  information. This exception overrides the general omission of email from
+  Slack prose. Do not add redundant caller contact details.
+  A returned `draft_id` confirms creation only, not correct rendering.
+- Drop “asked to speak with their advisor” from Slack; the mention conveys it.
+- XA-supplied Zendesk ticket: Slack as
+  `<https://opendoor.zendesk.com/agent/tickets/NNNNNNN|Zendesk ticket NNNNNNN>`
+  and the same URL in Follow Up Link. Never invent a ticket.
+- Listing partner, agent getting info for an offer: open Slack with
+  `Agent <customer-url|Name> is calling to get more info on the property to place an offer.`
+  then the specific ask.
+- Seller asked us to contact their agent: include
+  `agent <customers-url|Agent Name>` from the listing-agent CUSTOMER record
+  (`is_agent` on the same Casa ID). The name is the link label. Do not link
+  the word “agent” alone. Missing agent link does not block the draft.
+- Do not write covering/OOO/until-date in Slack. Keep the situation line as the
+  call. Usergroups are additive: tag the stated person and the cover or
+  coverage group (`<@U01HXU1T6PM|Jonathan Pryde>` plus
+  `<!subteam^STQT96KV4|@agent-acq-eps>`). Do not drop the named person. If the
+  group was added because they are out, say that only under `---`.
+- Property URL: `https://opshub.apps.opendoor.com/property/{casa_id}`.
+- Property addresses are hyperlinks, never @ mentions. For the draft tool use
+  `[Full address](verified-property-url)`; do not use `<url|address>` for the
+  property, which produced a stray visible @ in the 2026-10-20 draft. Reserve
+  mention syntax for verified people and groups. Before drafting, check that
+  neither the property label nor its prefix contains @. This changes only link
+  serialization; keep the required two-line message layout. Do not claim the
+  rendered result is verified without a supported read of the created draft.
+- Customer URL: `https://opshub.apps.opendoor.com/customers/{customer_uuid}`.
+- Before drafting, run a final link check: both URLs must use `https://`, the
+  exact canonical paths above, and IDs returned by the corresponding lookup.
+  Never use the singular `/customer/` path; if either link fails this check,
+  stop before creating the Slack draft.
+- Missing customer link never blocks a paste-only response, but it blocks a
+  named-target draft when the customer lookup was requested. Never invent IDs.
+
+Shape B:
+- Apply the existing-issue check and read the selected thread before composing.
+  Search `slack_search_public_and_private`: quoted address, property UUID,
+  customer name, then ticket/flip reference; add channel when given.
+- Verify channel, parent author/opening, timestamp, reply count, and permalink
+  before drafting; report them below the finished output. If tied, ask. If none,
+  show closest candidates and ask
+  whether to create a new post; never silently switch to Shape A.
+- Search contract: put the quoted key in `keywords`, set
+  `content_types: "messages"`, `response_format: "concise"`,
+  `include_context: false`, `limit: 10`, and `sort: "timestamp"`. Add a short
+  `natural_language_query` describing the property/thread. Put a known channel
+  in `filters` as `in:<#CHANNEL_ID>`.
+- Found thread: Follow Up Link gets the permalink (each URL on its own line
+  with a blank line between them if more than one). Slack block (when shown) starts with `Replying in thread:
+  <permalink>` for one thread, or `Replying in threads:` plus each permalink
+  for more than one. Solution Offered is `Continued the related Slack thread.`
+  or `Continued the related Slack threads.` when continuing more than one.
+  Thread-only: Customer Concerns keeps
+  the XA’s current-call point and adds a short recap of that thread, for
+  example: `Follow-up on the Final Offer, listing agreement, and referral.
+  The agent is calling again.` Do not add a recap unless this ticket is
+  continuing a verified thread.
+- Reply states what customer was told and now expects, in 1–3 lines.
+  Always open the Slack copy with the caller link when resolved:
+  `Role <customer-url|Customer Name>`. Shape A and Shape B. Missing link never
+  blocks.
+
+## Channel IDs
+
+- HSA and acquisition sales support:
+  `#support-hsa-escalations` `C025L6TL4CB`
+- Listing partner: `#support-listing-partner-escalations` `C026P10RHLY`
+- Closed homes: `#closed-homes-customer` `C3WHL29FC`
+- Tech support: `#tech-support` `C0A9LM99EBZ`
+- Key app: `#keyapp-escalations` `C09B9U17KR9`
+- Seller disclosure: `#od-seller_disclosure-team` `C0B9C9DAPDY`,
+  tag `<@SAFRUQQT1>`
+- Pricing: `#pricing-on-call` `C0A14ENTB8A`
+- Title fallback: `#title-escalations` `C01K3C66LMN`; do not draft when market
+  channel is uncertain.
+- Title state channels: AZ `C1T8FBZ0W`, TX `C378DSH1C`, CO `CHMGPP9RN`, FL
+  `CJ7PKPJ78`, NV `C7RMDBL7Q`, TN `CAM1DBL6N`, IN `C02685ZCS6S`, VA
+  `C02D0J0R2Q4`, IL `C09MQ74MURY`, CA `C03AQFG65FW`.
+- External listings (Slack Connect — draft only): `#external-listings-mgmt`
+  `C02CKQDH2QG`, tag `<!subteam^S02KNHE3U6B|@ela-coordinators>`. `@ela-aeps`
+  is retired. If XA escalated to the channel and tagged the group, Solution
+  Offered names both: `Escalated to external listings management and ELA coordinators.`
+
+## Directory
+
+Home Sale Advisor:
+- Alberto Flores `U0AGFGH4WRL`; Alex Haas `URURENZPU`; Allison Mercer
+  `U03D464NBL1`; Andrea Bilducea `U0ALR5F0QHZ`; Bill Kellogg `U0AKFEFDL8L`;
+  Candy Kissner `U0AKFEQ31S8`; Chandi Young `U08B11WHQS3`; Daniel Castro
+  `U0ALQURK52A`; Dean Thompson `U0AAV97D09L`; Eric Mangin `U0B1YSF3M6Z`;
+  Gabby Perez `U029VK8TUQ3`; Gal Avraham `U0AJWCZF9M5`; Joel Smith
+  `U0AB0U09KRA`; Jude Koury `U0AAV9BHZRU`; Kendra Gallagher `U02LK7LHP44`;
+  Landon Young `UDKMKU136`; Mackenzie Jones `U08BFEWDT7V`; Matt D'Angelo
+  `U0AKQPNPYF3`; Matt Miller `U4CCTGRBQ`; Mo Hejazi `U0AKBSL40DQ`; Thomas
+North `U0ACG9EPSKE`.
+
+Directory spelling: Chandi Young (`U08B11WHQS3`). Do not rewrite this name as
+“Shandy Young” in Slack tags or OpsHub notes.
+
+Jude Koury is an HSA, not sales support.
+
+Market fallback:
+- Phoenix: Alex Haas, Allison Mercer, Andrea Bilducea, Bill Kellogg, Candy
+  Kissner, Chandi Young, Eric Mangin, Gabby Perez, Jude Koury, Kendra Gallagher,
+  Landon Young, Mackenzie Jones, Matt Miller.
+- Miami: Alberto Flores, Daniel Castro, Dean Thompson, Gal Avraham, Joel Smith,
+  Matt D'Angelo, Mo Hejazi, Thomas North.
+
+Agent HSA:
+- Giles Smith `U0AMYQ6CGRE`; Jonathan Pryde `U01HXU1T6PM`; Kim Schloz
+  `U02DF54TELQ`; Klayton Kristick `U0280QTHGK1`; Luke Bunjovac
+  `U02E6L7Q64S`; Stefan Stobbs `U01N48TTF6H`; Terrance Wright `U01RXHH01RN`.
+
+Listing Partner:
+- Alec Harris `U0AQGQ7GVMF`; Anton Watt `U0APXFW26TV`; Cary Sheih
+  `U02PLSLQDSP`; Cory Schwalbe `U03CRH0HWBC`; Darius Toney `UFY1E1DQV`; Eric
+  Tamayo `U9BGJRFAM`; Jason Whitmore `U02DRUHP3JT`; Jeana Reyes `UBWKF9AAK`;
+  Kaysha Rice `U9T867VNW`; Kesha Heggar `U030SUD1BL5`; Krysten Giordano
+  `U0AR54H0NLC`; Lance Stadler `U02PP45C88L`; Leori Bolivar `U02SZ7TKL9F`;
+  Lisa McGill `UD00Y3DS7`; Lynnette Easterling `UH3PCC0CX`; Michelle Huemmer
+  `U02KL2580HW`; Nakia Walker `UGNKNUVK6`; Naseem Mirza `U025N26KN1Z`;
+  Rachel Griego `U030R1VD11C`; Sharon Parmenter `U03AV3SSKKP`; Shelby Farrar
+  `U032XFR0HQA`; Shelby Hernandez `U028MNNKTM2`; Steven Gomez `U0AQW5VH1H6`;
+  Tanya Pickens `UEQ5VF6BE`; Verria Hairston `UF8LUD5CM`; Whitney
+  Hunt-Sailors `U030P68HPLN`.
+
+Sales Support:
+- Britt Kato `U01TVV7G38V`; Claire Buser `U02KL21ES80`; Katie Villasenor
+  `U48CQ7FEE`; Sarah Dumke `U0B8VGYV4RL`; manager Eric Wyrowski `UGCK82AMC`.
+
+Executive Experience: Katie Wright `U8AU13UQ5`.
+
+OOO groups:
+- Phoenix HSA `<!subteam^S0BL1DC2XBP|@phx-asap>`
+- Miami HSA `<!subteam^S0BL6JZH1S5|@mia-asap>`
+- Agent HSA `<!subteam^STQT96KV4|@agent-acq-eps>`
+- Sales support `<!subteam^S0AU9AN2HTN|@sales-support>`
+- HSA managers `<!subteam^S0912QTHAQJ|@acq-hsa-managers>`
+- Darius coverage `<!subteam^S03EEQ55SUT|@dariustoneyscoverage>`
+
+Known cover chains: Bill Kellogg → Candy Kissner; Michelle Huemmer → Steven
+Gomez; Lisa McGill → Whitney Hunt-Sailors; Kendra Gallagher → phx-asap.
+Display-name hours are not OOO coverage. A profile's named cover or personal
+coverage group beats a market group. Tag a fallback group only when the person
+is actually out and no named cover is available. Tag the named person too.
+
+## Fast tool paths
+
+### Known named target, paste
+
+For a seller-side acquisition with an address, verify the named target against
+the matching flip's participants panel before using the directory mention. For
+other known named targets, use the directory mention and channel above. Do not
+use browser, file, or schema lookup. Missing customer URL is acceptable.
+
+**First name only, or a first-name pair, on a seller-side acquisition file
+(corrected 2026-09-18):** this is not a person-specific mapping. Those files
+list an assigned home sale advisor (`acq_ae` / `acq_cx`) and often an assigned
+sales support specialist (`acq_sales_support`). If the XA’s names are not a
+unique directory last-name match, do not `slack_search_users` and pick by job
+title. Use the participants path on the ranked flip that matches the caller’s
+seller engagement — not `isHighestRanked` when that flip is a different seller
+or a dead file. Bind the XA’s names to those assigned roles. Keep the stated
+names in the note; Slack tags the assigned people.
+
+### Known named target, explicit Shape A draft or `draft it/post it`
+
+Use **Silent draft sequence** above. Do not restate the four tool homes here.
+For a seller-side acquisition with an address, use the matching flip's
+participants panel to resolve and validate the assigned target; do not use
+`slack_search_users` to guess by name or title. Use the runtime directory only
+  to map the verified participant to a Slack mention. Call
+  `slack_read_user_profile` for every named individual before drafting, even
+  when the participant is already verified and the XA says nothing about
+  appointment availability or OOO status. Use the profile's OOO/cover status
+  to add the required cover or coverage group. No browser or progress
+  narration. Do not serialize OOO in Slack; report the coverage decision only
+  below the finished output when needed.
+For explicit `send and post it`, use the Workflow commands above after
+completing the same named-target gates.
+
+Caller lookup contract:
+- Call `list_customers` in `user-opshub` in the parent block with `phone` and
+  `limit: 5`. Match the XA-typed name to a customer UUID; it also returns
+  email, but not engagements or `is_agent`. Same-name rows on that phone are
+  still linkable.
+- If OpsHub is unavailable, not unique, or engagement type/state is required
+  to route correctly, fall back once in the parent to `search_indextrious` on
+  index `CUSTOMER`, query `customer`, filtered by
+  `primary_phone_number equals +1XXXXXXXXXX`.
+- From the fallback keep only caller name, `is_agent`, email, customer UUID,
+  matching active engagement address/Casa ID, engagement type/state, and
+  ambiguity. If its payload is unusually large, move that fallback to one
+  silent subagent rather than loading it into the parent context.
+- Prefer full over stub, matching property, then ACTIVE. The XA’s typed
+  caller or agent name plus that phone is enough for the `/customers/`
+  link. Same-name duplicate rows on that number still get a UUID; list
+  unused same-name URLs under `---`. Different people on the same number
+  is the only remaining ambiguity: list up to three and do not guess.
+- If the XA asked to contact/reach the seller’s agent and OpsHub did not return
+  that relationship, use the existing CUSTOMER-by-Casa-ID fallback. Still no
+  GraphQL, browser, or extra indexes.
+
+### Shape B, explicit draft
+
+After this skill and required tool schemas are loaded, the unique-thread happy
+path includes these work rounds (thread reads are required before drafting):
+
+1. Search the thread. In that same parallel block, add only enrichment the reply
+   actually needs:
+   - named-recipient profile when coverage may change the tags;
+   - parent OpsHub customer lookup when customer identity/link is required;
+     use a subagent only for an unusually large Indextrious fallback.
+2. Read the selected parent and replies to verify the same issue and current
+   status. Follow a linked active discussion within the existing-issue budget.
+3. For one clear thread, call `slack_send_message_draft` with `channel_id`,
+   `message`, and the parent `thread_ts`.
+
+Do not call `resolveAddress`, fetch participants, or look up the caller merely
+because the XA supplied an address. The typed address is the first search key.
+If an explicit thread request is tied or empty, do not draft; show candidates
+below the note and ask. An automatic existing-issue check with no match
+returns to Shape A under that gate. If Codex requires schema discovery, batch every needed schema in one
+cold-start block before these work rounds.
+
+### No named target with an address
+
+Run the compact caller lookup and participants subagent in parallel. The
+participants subagent receives the plain address, resolves Casa ID, fetches
+ranked flip then participants, and returns only property URL/state, participant
+names/roles, needed Slack identity, profile OOO status, and coverage. Do not
+render the full OpsHub property page. The detailed GraphQL/browser fallback
+recipe remains in the canonical source and maintainer appendix; read it only on
+this uncommon address-supplied path. Do not claim `get_property` replaces
+participant lookup until a live result proves it returns assigned roles. Do not
+add `get_property`, Slack plugin-doc search, or WebSearch.
+`#support-hsa-escalations` is not Slack Connect. Explicit `send and post it`
+uses the send-and-post flow above.
+
+### Phone only, no address — direct parent path
+
+No nested agent. Keep all work in the current chat:
+
+1. Call `plugin-opendoor-search-opendoor-search.search_indextrious` on index
+   `CUSTOMER`, query `customer`, filtered by `primary_phone_number equals
+   +1XXXXXXXXXX`. Use that result as the single source for caller name and UUID,
+   engagement, property address/Casa ID, and flip token. Do not also call
+   `list_customers`.
+2. Select the matching live seller-side acquisition engagement. Take its
+   address/Casa ID, full address, and flip token. If multiple live properties
+   remain tied, ask for the address. Do not guess.
+3. Call `user-opshub.get_acquisition_transaction` with that flip token and
+   property ID, `panels: ["participants"]`, `full: false`. Read the assigned
+   role needed by the ticket (`acq_sales_support`, `acq_ae`, or `acq_cx`).
+4. Map that participant to the runtime directory and draft immediately. Do not
+   call `slack_read_user_profile`. Tag the assigned person plus the
+   deterministic role coverage group when one is defined: `@sales-support` for
+   `acq_sales_support`, and the engagement market's HSA group for `acq_ae` /
+   `acq_cx`. A named person remains tagged; the group is additive.
+
+When cold, discover exactly `search_indextrious`,
+`get_acquisition_transaction`, and `slack_send_message_draft` together in one
+block. Do not discover or call `list_customers`, `slack_read_user_profile`,
+`resolveAddress`, `get_property`, browser, GraphQL, or a participant subagent
+on this path. Use one silent subagent only if the Indextrious result is
+unusually large. Never narrate these steps.
+
+Seller and seller-agent engagements normally identify the property.
+A buyer or buyer's agent can also identify it by phone when the CUSTOMER record
+has an active, in-contract `RESALE_BUYER_OFFER` engagement on the listed home;
+route that side to the Resale Agent/listing partner. If no qualifying engagement
+exists, or multiple live properties remain tied, ask for the address instead of
+guessing.
+
+## Draft safety
+
+- Draft only for “draft it,” “put it in Slack,” `draft it/post it`, or
+  equivalent in this turn.
+- If the XA corrects facts, update the note and rewrite the full current-shape
+  Slack message. Reuse verified caller, property, target, coverage, and channel
+  from this ticket. When the XA says they cleared the previous draft, create
+  the replacement once. A factual correction alone does not change destinations;
+  an explicit switch request or verified existing-issue match uses the
+  existing-issue gate and its old-draft cleanup rule.
+  If a confirmed draft still exists, use a supported draft-edit tool if one is
+  available; otherwise give the replacement text for manual editing or wait
+  for the XA to clear it. Never repair drafts through browser/native UI.
+- If the XA reports that the unconfirmed draft is absent, or explicitly asks
+  to draft again after a missing-ID response, that authorizes one new attempt
+  in the same channel with the same latest message. Act on that request;
+  do not keep telling them to check. An `attached_draft_exists` response means
+  stop and direct them to edit or clear that existing draft. If the recovery
+  attempt also returns no ID, stop with unconfirmed status and the paste-ready
+  text; do not loop.
+- `draft it` uses `slack_send_message_draft`. `send and post it` uses one
+  `slack_send_message` followed by the CONTACT mutation. `post it` alone uses
+  the already-sent Slack permalink and posts only the CONTACT note; never
+  create or send another message for that path. Slack Connect stays draft-only.
+- Do not include the `Channel:` instruction in the drafted body.
+- `draft_id` present (draft-only): omit the Slack block and report:
+  `Draft in #channel — in the message box there, not sent.`
+- If the XA says Slack is already posted and asks to `post it`: search the
+  named escalation channel and any explicitly stated related workflow channel
+  for the matching submitted artifacts, using
+  `slack_search_public_and_private`; use their real permalinks, omit the Slack
+  block, and upload the exact displayed note to the caller's CONTACT page. Put
+  the main escalation permalink first, then related workflow-ticket
+  permalink(s), then any XA-supplied Zendesk URL, then the property URL(s),
+  each separated by a blank line, in Follow Up Link. If a search result has the
+  matching message but omits its permalink, use the result timestamp and known
+  channel ID to construct the standard permalink. If the channel-scoped search
+  misses, make one shorter-keyword all-channel fallback before asking the XA
+  for a link; never report that the draft is unsent just because search missed
+  it. If no CONTACT/customer-note mutation is exposed, use the CONTACT page's
+  Add a note control and verify the saved note. For the MCP path, the
+  returned note ID confirms completion; only the UI fallback needs visible
+  verification.
+- `draft_id` absent: creation is unconfirmed even if the response says
+  “Draft created.” Do not claim success or absence and do not retry in the
+  same turn automatically. Show the Slack block and tell the XA to check the
+  channel or Drafts & Sent. Apply the bounded recovery rule above when the XA
+  reports it missing or asks to draft again. One attached draft per channel
+  means an earlier draft may block confirmation.
+- Never draft or send with unresolved recipient/situation/property, an
+  ambiguous Shape B thread, uncertain title channel, or a test with no safe
+  target.
+- A test draft with no named target goes only to the XA's own DM after resolving
+  their user ID, never to a team channel or someone else's DM.
