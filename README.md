@@ -42,7 +42,9 @@ agent-skills/
 
 ## End-of-day integration
 
-Reviewed daytime work is committed and pushed to focused `codex/` branches.
+Daytime work is saved locally immediately. Publication validation, focused
+commits and pushes are batched in the existing end-of-day task; routine edits
+do not require immediate GitHub publication.
 The daily task integrates reviewed work into `main` at 7 p.m. America/New_York,
 after validation and required checks. It also handles the separate private
 [Skill Router application](https://github.com/samgutierrez96/skill-router).

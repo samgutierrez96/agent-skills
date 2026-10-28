@@ -81,3 +81,43 @@ are necessary. Cleanup selects Customer Info’s
 Edit directly on wide layouts, with Details used only when collapsed.
 Conflicting identities and the reviewed Admin irreversible warning remain submission gates. The installed shared skill
 and canonical package are identical; live timing still requires a future run.
+
+
+## XA notes preparation — October 28, 2026
+
+The XA adapter and CORE now load the full authoritative skill before Ready.
+The active native-discovery loader is included as
+`adapters/codex/xa-notes/skill-loader.md`; copy it to the workspace path described
+in the adapter README. Exact full source-text attachments satisfy preparation
+without rereading CORE or SKILL.md. Later callers reuse the same loaded source.
+The full templates and posting procedure were not shortened or changed.
+The active and canonical copies plus inventory hashes match locally; GitHub
+publication remains scheduled for the existing end-of-day task.
+
+
+## Existing-thread reply style — October 28, 2026
+
+The XA Quick Slack active runtime and its packaged copy now match the selected
+thread's order, tone and level of detail. Include case identifiers, verified
+links and mentions when useful; avoid repeating context already in the thread.
+New listing-partner/HSA posts keep their exact layouts, and OpsHub notes retain
+the five-field contract. The adapter agrees with the runtime; inventory hashes
+were updated. Saved locally for scheduled publication.
+
+## Merge continuation and property lookup — October 28, 2026
+
+The active escalation runtime and packaged copy keep property-link retrieval in
+the workflow, retain the original action while awaiting a primary-email choice,
+and ask only for concrete missing address details when lookup remains ambiguous.
+Runtime/package hashes match; changes are saved locally for scheduled sync.
+
+## Matching-phone duplicates without email — October 28, 2026
+
+The merge skill and active XA note/escalation entry points now recognize named
+profiles with the same normalized verified caller phone and compatible identity
+or prior XA same-person confirmation, even when the duplicate has no email.
+Open the confirmed primary-email profile first in Admin and inspect Potential
+Duplicates. Missing email alone does not make a profile a placeholder; true
+placeholders without independent identity or matching phone remain excluded.
+Canonical and active runtime copies and their inventory hashes match locally.
+Publication remains queued for the existing end-of-day synchronization task.

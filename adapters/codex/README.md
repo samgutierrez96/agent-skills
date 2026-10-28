@@ -19,3 +19,9 @@ exporting it into a dedicated workspace, restore the entry rules path to
 Zendesk context files are loaded only when the rules require them. Preserve the
 runtime's load-once and targeted-read contracts. Do not replace the active
 project package with the older separately registered global copy.
+
+XA Notes also requires `xa-notes/skill-loader.md` copied to
+`.agents/skills/xa-notes/SKILL.md` inside its workspace. It routes native skill
+discovery to the full authoritative source. Preparation now loads the full skill
+before Ready; an exact source-text attachment satisfies this load without
+repeated file reads. Caller and posting rules remain in the full skill.
