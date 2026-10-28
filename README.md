@@ -40,3 +40,10 @@ agent-skills/
 └── adapters/
 ```
 
+## End-of-day integration
+
+Reviewed daytime work is committed and pushed to focused `codex/` branches.
+The daily task integrates reviewed work into `main` at 7 p.m. America/New_York,
+after validation and required checks. It also handles the separate private
+[Skill Router application](https://github.com/samgutierrez96/skill-router).
+An uploaded working branch remains pending until its integration succeeds.
