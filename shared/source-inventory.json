@@ -106,7 +106,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/FAST-INDEX.md",
       "destination": "skills/zendesk-record-retrieval/FAST-INDEX.md",
-      "sha256": "ca96c23cb1cd39b9e551cfd1704708928a446d6d59fad91930bf0c891b49f5d1"
+      "sha256": "863bc12e2ce693cecdf14c4d8a8161ac6d7a7ddd14fff514f5c6ebb42d7677b7"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ROUTING-GATES.md",
@@ -116,7 +116,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/SKILL.md",
       "destination": "skills/zendesk-record-retrieval/SKILL.md",
-      "sha256": "17f26652e9601247815e2b65afe532418792e4a1fdaf6a179da0a02108a77f61"
+      "sha256": "6c60a1c17f6f30c0f50d1b677b639c05f1247996a6c5fa6ddecbb47d75b61a13"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/VERIFICATION.md",
@@ -171,7 +171,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/offer-status.md",
       "destination": "skills/zendesk-record-retrieval/recipes/offer-status.md",
-      "sha256": "2b88d929d6cf351f6ad018d8f60a374a1b415b9a9a535b4110f3203a03e2c02b"
+      "sha256": "9e822b80ef9f25f7d814d7f76a091716c580f8a35ec81ce8d3f0f883382c22bf"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/open-house.md",

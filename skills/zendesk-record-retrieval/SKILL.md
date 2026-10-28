@@ -2086,6 +2086,29 @@ accepted" FlipEvent, are flip-side and stay internal.
 
 ## Offers
 
+**Refresh already complete — current primary offer first:** For a seller having
+trouble refreshing an offer, use OpsHub MCP to resolve the exact address and
+inspect its current primary offer before following an older lead from SMS or
+advisor history. `get_customer_profile(address_token:..., full:false)` can expose
+leads and latest offer states; `get_acquisition_transaction` with only
+`flip_details` and `offer`, followed by `get_sent_offer` when needed, verifies the
+selected current record. A current initial/estimated offer with positive current
+status and no expired/denied status means the refresh is already complete. Say
+that a current preliminary offer is available and ask whether the customer can
+view it or what error remains. Do not tell them to refresh again or that Opendoor
+cannot offer based on an older expired/unqualified/denied lead. Absence of a tag
+alone is not positive current-status evidence. Keep requester association and
+nonpublic offer details gated; a different email on an older/newer lead does not
+by itself establish a different person or authorize a merge.
+
+For this refresh-only answer, preserve the recent-resolution check but skip
+assessment completion, photo reuse, visit research and browser reads once MCP
+and any operator-verified current page state support the answer. Assessments and
+page-only Flags remain required when a separate timing, assessment, final-offer,
+or access claim depends on them. Target about 20 seconds; emit only the relevant
+status fields from retained MCP responses. A denial stop applies only after
+verifying it is the current applicable decision, not merely a historical lead.
+
 **Confirmed offer denial / Opendoor walked:** When the ticket or verified record
 establishes that Opendoor declined or walked away from making an offer, stop the
 offer-status lookup. Support cannot provide a specific denial reason. Do not

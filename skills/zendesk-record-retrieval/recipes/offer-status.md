@@ -11,6 +11,13 @@ token; reserve the single normalized address retry until that evidence is availa
 A verified property token avoids a broad cross-deal profile lookup. Never pass a
 WebCustomer UUID to sell-direct `get_customer`.
 
+- **Refresh-only exception:** Follow `Offers` → “Refresh already complete —
+  current primary offer first.” Verify the current primary initial/estimated
+  offer through OpsHub MCP before treating an older lead as expired or denied.
+  A current offer answers the refresh question; ask about remaining viewing
+  trouble. Assessment/Flags browser research is conditional on a separate claim
+  that needs it, rather than mandatory for this refresh-only answer.
+
 - **Offer-status questions on any channel:** Zendesk MCP → identify the property →
   one narrow OpsHub read of the assessment and current offer/finalization status,
   then tailor the reply to the customer's actual question. Do not default to
