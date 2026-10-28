@@ -65,7 +65,7 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "a03002f7d2142568b64105d70e051fef597bb9362e3af7d9d27f3a029e2d9d41"
+      "sha256": "d016c545e1cc3e30e4c7e485280f354e1fad36ad23ec8a5724ec36a4208e4f01"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/CORE.md",
@@ -75,7 +75,7 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/SKILL.md",
       "destination": "skills/xa-notes/SKILL.md",
-      "sha256": "ead11ae0a4f543af563d6909b35c9d966e986df7765569211279098712f2c8e3"
+      "sha256": "d8bbb8eb05c8307065643917eed1f93468c12aa3a4bf4102bfa5e92c2cc97c48"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/reference/process-detail.md",
@@ -95,7 +95,7 @@
     {
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/SKILL.md",
       "destination": "skills/xa-quick-slack/SKILL.md",
-      "sha256": "6b437ae35d88a1d3d1e4f11c4fbc5b75212e60d1b83bd4856e74c6cb47f88144"
+      "sha256": "b0ab5e43b450003f0489557649fd7138805c33a54e869e33e49a8a62beef6175"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ENTRY.md",

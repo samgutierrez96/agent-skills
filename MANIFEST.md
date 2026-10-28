@@ -74,8 +74,10 @@ compared again; the existing two October 27 local commits are retained.
 
 The October 28 merge follow-up accepts compatible partial candidate names with
 verified matching phones, preserves primary-email authorization, and removes
-redundant ready-screen identity reads. Notes and escalation entry gates ask for
-missing full name and primary email together. Cleanup selects Customer Info’s
+redundant ready-screen identity reads. Notes and escalation entry gates ask
+only for needed information: request a name only when existing record evidence
+cannot resolve identity, combining name and primary-email questions when both
+are necessary. Cleanup selects Customer Info’s
 Edit directly on wide layouts, with Details used only when collapsed.
 Conflicting identities and the reviewed Admin irreversible warning remain submission gates. The installed shared skill
 and canonical package are identical; live timing still requires a future run.

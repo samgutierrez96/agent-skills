@@ -86,10 +86,10 @@ When a caller identifier returns multiple matching customer profiles with more
 than one real email address, treat it as a duplicate-profile signal. A
 `Client-####` record or other placeholder/stub without its own real email is
 not a duplicate profile and must not trigger the account-merge workflow. Ask
-the XA for the primary email and verified full customer name together when
-either is missing, including any known candidate identity ambiguity in that
-same question. Prefill known values and reuse the answer without a second
-merge confirmation before consolidating anything.
+the XA only for the primary email if that choice is missing. Ask for a customer
+name only when existing email/phone/record evidence cannot resolve identity;
+if both are needed, ask together in the same message. Otherwise proceed using
+the verified context. Reuse the answer without a second merge confirmation.
 If the XA directly supplies an email after the duplicate signal, that email is
 the explicit primary-selection answer; do not ask the same question again.
 Once the XA supplies that email, trigger
@@ -2363,9 +2363,10 @@ Then:
    only, then post to the `list_customers` UUID that is that property's
    customer after the duplicate-profile workflow is complete. If none of
    those UUIDs match, or more than one does, or the caller is not the seller,
-   or there is no street: ask for the missing primary email and verified full
-   customer name together, plus any known candidate identity conflict, and stop
-   until the XA answers. Reuse known values and prior identity confirmations.
+   or there is no street: ask for the primary email if needed, adding a customer
+   name question only if existing email/phone/record evidence cannot resolve
+   identity. Collect both in one message when both are needed; stop only for
+   required answers. Reuse known values and prior identity confirmations.
    Once the XA answers, use the confirmed email's UUID as the keeping customer. Follow `xa-admin-account-merge` and post only after the
    Admin merge and surviving OpsHub contact cleanup are verified. If blocked,
    keep the note pending and report the blocker; do not post merely because
