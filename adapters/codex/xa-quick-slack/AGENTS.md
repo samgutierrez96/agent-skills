@@ -30,7 +30,9 @@ ID as confirmation; do not open the browser just to verify the note.
 
 Slack draft property addresses must be Markdown hyperlinks
 `[Full address](verified-property-url)`, with no @ before the address. Reserve
-@ mention syntax for people and groups. Keep the skill's two-line layout.
+@ mention syntax for people and groups. Keep the skill's two-line layout for
+new posts; existing-thread replies match the verified conversation's style
+and include links or mentions only when needed for that case or next action.
 
 ## Agent representation and transaction-count questions — October 27, 2026
 

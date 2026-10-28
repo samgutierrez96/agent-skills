@@ -8,6 +8,15 @@ other hosts may use equivalent read-only tools without changing the evidence gat
 
 ## First decision
 
+- **Offer refresh trouble:** OpsHub MCP → exact address → current primary
+  initial/estimated offer. A positively current offer means the refresh is done;
+  ask whether they can view it or what error remains. Do not replace current
+  status with an old SMS-linked lead's expired/denied status. Use a narrow
+  address-scoped profile / transaction offer read, then sent-offer state if needed.
+  Preserve recent-resolution and requester-association checks; skip assessment,
+  photos, visits and browser for this refresh-only answer. Read `Offers` for the
+  current-primary rule. Target about 20 seconds, without omitting required gates.
+
 1. Exact ticket ID → Zendesk `get_ticket`; if this index is not loaded, read it
    alongside the ticket in one awaited parallel block when supported. Inspect both
    results before routing. Add comments only for a needed thread or newest inbound.

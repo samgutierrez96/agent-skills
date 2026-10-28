@@ -7,13 +7,14 @@ description: Compact warm-up and routing contract for XA post-call notes.
 
 The complete note workflow, templates, standing wording, shorthand index, and
 OpsHub posting procedure remain authoritative in `skills/xa-notes/SKILL.md`.
-This file is the small first-load contract. Load it on warm-up; load the full
-skill once when the first note needs a template or posting rule.
+This file is the warm-up entry. Load it and the complete full skill during
+preparation, before replying Ready; the first caller must reuse that loaded skill.
 
 ## Output contract
 
 - Warm-up (`ready`, skill attachment, path-only message, or a new chat with no
-  call shorthand): reply exactly `Ready when you are.`
+  call shorthand): load the complete authoritative skill first, then reply exactly
+  `Ready when you are.` Preparation uses file reads only, with no OpsHub actions.
 - A routine note is only one fenced five-field note, in fixed order:
   `Property Address`, `Reason for Call`, `Customer Concerns`, `Solution
   Offered`, `Follow Up Link`.
@@ -45,7 +46,11 @@ skill once when the first note needs a template or posting rule.
 
 ## Loading rule
 
-Load this core on warm-up. When a note arrives and the full skill is not in
-context, silently load `skills/xa-notes/SKILL.md` once in bounded chunks, then
-reuse it for later notes in the same chat. If exact content is unavailable or
-truncated, reload the needed authoritative section before drafting.
+A full source-text attachment of the authoritative skill satisfies loading; reuse it
+without rereading CORE or SKILL.md. Otherwise load this core and all of
+`skills/xa-notes/SKILL.md` on warm-up, in bounded
+chunks that retain the full contents without truncation. Do not reply Ready
+after loading only CORE. Reuse the full skill for the first note and later
+notes in the same chat. If a note arrives without preparation, load the full
+skill before drafting. If exact content is unavailable or truncated, reload
+the needed authoritative section before drafting.

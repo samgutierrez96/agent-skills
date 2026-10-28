@@ -202,8 +202,9 @@ Agent <https://opshub.apps.opendoor.com/customers/{customer_uuid}|Agent Name> ca
   OpsHub note fields into Slack.
 - Never invent, modernize, or "clean up" a Slack format. If the situation is
   Shape A, use the literal Shape A template above. If it is Shape B, use the
-  literal Shape B thread format below. Shape A and Shape B are not permission
-  to create a third format.
+  Shape B conversation-matching guidance below. Keep Shape A exact for new
+  listing-partner and HSA escalations; existing-thread replies follow the
+  verified conversation style.
 
 ## Hard-stop channel routing check
 
@@ -252,6 +253,17 @@ search for schemas. Casa is not an OpsHub tool.
 
 ### Property resolution fallback
 
+Property-link retrieval belongs to this workflow. Do not ask the XA to find or
+paste an OpsHub property URL after a failed lookup. Reuse any verified property
+ID/link already in this call, then complete the fallback below. If those lookups
+still cannot verify a unique property, retain the call and report the specific
+lookup blocker; ask only for a missing address detail that resolves a concrete
+ambiguity (such as city or unit). Never invent a link or bypass verification.
+When the primary-email choice is missing, ask only that choice, list the known
+email candidates, and wait. Retain property lookup responsibility and the original
+send/post action across the answer; do not add a property-link request to the
+email question or classify the waiting choice as an uncertain completed action.
+
 Automatically use the OpsHub MCP for supplied property addresses; do not wait
 for the XA to ask. If Casa `resolveAddress` is unavailable or fails, call
 `mcp__opshub__global_search` with the distinctive street name and `limit: 3`
@@ -259,7 +271,7 @@ for the XA to ask. If Casa `resolveAddress` is unavailable or fails, call
 query, which also matches ZIP codes, or a shortened mixed number/name query,
 which can miss an existing address. If a prior full-address or number/name
 query returned no exact match, retry once with just the distinctive street name
-before requesting a property link. Read the `PROPERTY` results and
+before reporting a property lookup blocker. Read the `PROPERTY` results and
 verify street, unit when supplied, city, state, and postal code against the
 XA's address. Use the exact matching result's `addressToken` as the property
 ID for `https://opshub.apps.opendoor.com/property/{addressToken}`. Use the
@@ -270,7 +282,7 @@ second address lookup or browser visit.
 Do not use `find_deals_matching` to resolve a street address: its criteria
 parser can omit the address and return unrelated properties. Unrelated rows
 are not a verified match. Complete the supported `global_search` fallback
-before asking the XA for a property link. A failed search is not evidence that
+before reporting a property lookup blocker. A failed search is not evidence that
 the property is absent from OpsHub; describe it only as a lookup failure.
 If the street-name search has no unique
 exact match, stop and name the missing verified property URL; do not guess.
@@ -415,11 +427,17 @@ request for the XA to repeat `post it`.
 
 **Duplicate-profile gate:** Apply the `xa-admin-account-merge` workflow to
 escalations as well as ordinary XA notes. When the caller lookup returns
-multiple real customer profiles with distinct email addresses, treat that as
-the duplicate-profile trigger even if the XA did not mention duplicates. Ask
-once which email should remain primary when it is not already specified, then
-complete the merge in **Admin** (`admin.opendoor.com`) and verify the surviving
-OpsHub profile has one primary email and one primary phone before creating or
+multiple real customer profiles with distinct email addresses, or a named
+profile with the same normalized caller phone and compatible identity / prior
+XA same-person confirmation, treat that as the duplicate-profile trigger even
+when the second profile has no email or the XA did not mention duplicates.
+Missing email alone is not a stub signal. Keep the confirmed primary-email
+profile and inspect its Potential Duplicates in Admin. Ask
+only for the primary email if that choice is missing. Ask for a customer name
+only if existing email/phone/record evidence cannot resolve identity; if both
+are needed, ask together in the same message. Otherwise proceed using the
+verified context. Reuse the answer without a second merge confirmation. Then complete the merge in **Admin** (`admin.opendoor.com`) and
+verify the surviving OpsHub profile has one primary email and one primary phone before creating or
 posting the CONTACT note. **Admin is the only merge system of record. Never
 merge, consolidate, or repair duplicate profiles in OpsHub.** OpsHub is only
 for post-merge verification and the CONTACT note. The merge is a prerequisite
@@ -909,10 +927,19 @@ Shape B:
   example: `Follow-up on the Final Offer, listing agreement, and referral.
   The agent is calling again.` Do not add a recap unless this ticket is
   continuing a verified thread.
-- Reply states what customer was told and now expects, in 1–3 lines.
-  Always open the Slack copy with the caller link when resolved:
-  `Role <customer-url|Customer Name>`. Shape A and Shape B. Missing link never
-  blocks.
+- Reply states the new issue, what was done, and what the customer was told or
+  now expects, using only verified facts. Match the selected thread's order,
+  tone, and level of detail, usually in 1–3 lines. A brief issue log can use
+  `[Full address](verified-property-url) — incorrect code; remotely unlocked.`
+  Do not add “adding this example to the ongoing issue” when the thread already
+  supplies that context. Do not infer a double lock or other symptom from peers.
+- Include the address/property link, caller/customer link, and verified mentions
+  when needed to identify this case or reach the person handling the next step.
+  Omit information already clear in the thread. A shared issue thread with many
+  properties still needs this case's property identifier. Do not force a caller
+  introduction, repeat an existing case's links, or tag every participant merely
+  because they replied. Keep the exact Shape A layout for new listing-partner
+  and HSA posts and the five-field OpsHub note format unchanged.
 
 ## Channel IDs
 

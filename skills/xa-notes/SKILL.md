@@ -82,11 +82,18 @@ This safeguard applies to every skill used in this workflow.
 
 ### Duplicate customer profiles
 
-When a caller identifier returns multiple matching customer profiles with more
-than one real email address, treat it as a duplicate-profile signal. A
-`Client-####` record or other placeholder/stub without its own real email is
-not a duplicate profile and must not trigger the account-merge workflow. Ask
-the XA which email should remain the main email before consolidating anything.
+When a caller identifier returns multiple real profiles with distinct emails,
+or a named profile with the same normalized caller phone and compatible identity
+(or XA confirmation that both profiles belong to the same person), treat it as
+a duplicate-profile signal even if the second profile has no email. Missing
+email alone does not make a profile a stub. Ignore only true `Client-####` or
+other placeholders without independent compatible identity or verified matching
+phone. Open the confirmed primary-email profile first in Admin and inspect
+Potential Duplicates under `xa-admin-account-merge`. Ask
+the XA only for the primary email if that choice is missing. Ask for a customer
+name only when existing email/phone/record evidence cannot resolve identity;
+if both are needed, ask together in the same message. Otherwise proceed using
+the verified context. Reuse the answer without a second merge confirmation.
 If the XA directly supplies an email after the duplicate signal, that email is
 the explicit primary-selection answer; do not ask the same question again.
 Once the XA supplies that email, trigger
@@ -2350,19 +2357,23 @@ Then:
    addresses to include**, ask which one and stop. Never guess. If the XA
    supplied multiple addresses for the same call, keep all of them in the note
    and still post to the caller's customer page. **Same phone, one real
-   customer and one `Client-####` or other placeholder/stub record:** the stub
+   customer and one true `Client-####` or other placeholder without independent
+   compatible identity or verified matching phone:** the stub
    is not a second plausible customer. Post to the real customer matched by
    the phone or email. Do not ask which one. **Same phone, two or more real
-   customer records with distinct emails:** do not ask yet. Do not add
+   customer records with distinct emails or a named matching-phone profile with
+   compatible identity / prior XA same-person confirmation, even without email:** do not ask yet. Do not add
    `get_customer_profile` to the first
    lookup batch. If the caller is the seller (or previous owner) and there is
    a matched `address_token`, call `get_customer_profile` with that token
    only, then post to the `list_customers` UUID that is that property's
    customer after the duplicate-profile workflow is complete. If none of
    those UUIDs match, or more than one does, or the caller is not the seller,
-   or there is no street: ask which email should remain primary and stop until
-   the XA answers. Once the XA answers, use the confirmed email's UUID as the
-   keeping customer. Follow `xa-admin-account-merge` and post only after the
+   or there is no street: ask for the primary email if needed, adding a customer
+   name question only if existing email/phone/record evidence cannot resolve
+   identity. Collect both in one message when both are needed; stop only for
+   required answers. Reuse known values and prior identity confirmations.
+   Once the XA answers, use the confirmed email's UUID as the keeping customer. Follow `xa-admin-account-merge` and post only after the
    Admin merge and surviving OpsHub contact cleanup are verified. If blocked,
    keep the note pending and report the blocker; do not post merely because
    the primary UUID is known. Never pick the property owner for an agent,

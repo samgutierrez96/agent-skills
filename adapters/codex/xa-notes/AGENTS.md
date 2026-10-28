@@ -11,8 +11,11 @@ OpsHub posting workflow. The `.agents/skills/xa-notes/SKILL.md` file is only a
 loader; never read it as the authoritative content. Outdated Cowork variants
 are inactive: `xa-post-call-note`, `xa-quick`, and `xa-quick-slack`.
 
-The compact warm-up contract is `skills/xa-notes/CORE.md`. Load it first on
-warm-up. The authoritative full skill is the workspace file at
+The warm-up entry is `skills/xa-notes/CORE.md`. During preparation, load both
+CORE and the complete authoritative skill before declaring the chat ready.
+If the runtime attaches the full authoritative skill as exact source text,
+it is already loaded: do not reread it or CORE. The authoritative full skill is
+the workspace file at
 `/Users/sam.gutierrez@opendoor.com/Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/SKILL.md`.
 Do not substitute an installed or global copy. When loading it in bounded
 chunks, retain the returned file contents in model context; a tool call that
@@ -25,8 +28,13 @@ For ordinary notes without `post`, use `N/A` for both `Property Address` and
 field blank. Explicit posts use resolved caller/property values.
 
 - On warm-up (`ready`, skill attachment, a path-only message, or a new chat
-  with no call shorthand), silently load `skills/xa-notes/CORE.md` once if it
-  is not already in context, then reply exactly: `Ready when you are.`
+  with no call shorthand), reuse a full authoritative source attachment when present.
+  Otherwise silently load `skills/xa-notes/CORE.md` and the full
+  `skills/xa-notes/SKILL.md` once if not already in context. Read the full skill
+  in bounded chunks, retaining every chunk without truncation. Only after the
+  complete skill is available, reply exactly: `Ready when you are.` Do not
+  defer the full load until the first caller. Preparation authorizes file reads
+  only; it never authorizes customer lookups, posting, or other external actions.
 - If a note arrives before the full skill is loaded, silently load the full
   authoritative skill once in bounded chunks before drafting. Do not expose the
   loading step.
