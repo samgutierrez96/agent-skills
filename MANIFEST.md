@@ -1,6 +1,6 @@
 # Skill manifest
 
-Last content audit: 2026-10-27. Scope: all seven skills already included in this repository.
+Last content audit: 2026-10-28. Scope: all seven skills already included in this repository.
 
 ## Canonical distribution and active sources
 
@@ -66,3 +66,8 @@ verification guide retain positive and negative synthetic decision checks.
    Preserve public visibility; continue to exclude secrets and standalone customer records.
 5. Validate the package, commit and push reviewed changes, and verify the remote.
 6. A local commit or an unmerged PR is not an updated stable `main` branch.
+
+The October 28 catch-up audit includes the active agent representation and
+transaction-history guidance, resale commission wording, durable-correction
+workflow, and builder closing-date reply correction. All recorded sources were
+compared again; the existing two October 27 local commits are retained.

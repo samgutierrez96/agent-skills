@@ -849,7 +849,9 @@ to the Key app escalations channel.
 
 ## Dashboards, links, and access to them (dashboard, link)
 
-**Nothing on a dashboard call requires a lookup.** This section and the template
+**Ordinary dashboard login/link guidance requires no lookup.** Transaction-count
+and missing-transaction requests follow the October 27 clarification below.
+This section and the template
 in Part 9 are the whole answer. Do not search, do not open a reference file, and
 do not re-read this file to confirm the wording below.
 
@@ -861,9 +863,8 @@ do not re-read this file to confirm the wording below.
   details once they are under contract. The agent's view tracks their clients'
   properties.
 - Give an agent plain **opendoor.com** when they just need to log in.
-- **opendoor.com/agent** is two specific jobs, not a general dashboard URL:
-  entering a property address and details for an initial estimated offer, and
-  checking the referral bonus for acting as the seller's agent.
+- **opendoor.com/agent** is for entering a property address and details for an
+  initial estimated offer. It is not a transaction-count tracking tool.
 - Write the URL actually walked through. Do not default to /agent.
 
 ### The property link
@@ -1105,20 +1106,13 @@ executive.experience inbox line, and never an escalation to closed homes.
 
 ## Commission (commission)
 
-Buyer's agent commission comes from **seller commissions**, since Opendoor is the
-seller on a listed home. No preset amount. The requested amount goes in the
-contract or applicable addendum for consideration.
+Buyer's agent commission on the resale side is **negotiated in the offer**.
+Use this standing line for a buyer's agent asking how commission works:
 
-> Let the agent know their commission comes from seller commissions, since
-> Opendoor is the seller on a listed home, and there is no preset amount. Advised
-> them to include the requested amount in the contract or applicable addendum, and
-> pointed them to opendoor.com/agents for the full structure.
-
-**Never write "seller concessions" on a commission call.** The word is
-commissions.
+> Let the agent know the buyer's agent commission on the resale side is negotiated in the offer.
 
 **Seller's agent commission** goes through their agreement with the seller, paid
-from the seller's proceeds at closing. Same referral to opendoor.com/agents.
+from the seller's proceeds at closing. Refer to opendoor.com/agents.
 
 A seller's agent who agrees to Cash Now, More Later also becomes the listing
 agent on the resale side if the seller stays for resale.
@@ -1718,7 +1712,7 @@ in the order they happened.
 
 ## Buyer's agent commission (commission)
 
-Commissions, never concessions.
+The resale-side commission is negotiated in the offer.
 
 ```
 Property Address: N/A
@@ -1727,7 +1721,7 @@ Reason for Call: Buyer's agent called with questions about commission.
 
 Customer Concerns: Agent wanted to know how their commission would be handled.
 
-Solution Offered: Let the agent know their commission comes from seller commissions, since Opendoor is the seller on a listed home, and there is no preset amount. Advised them to include the requested amount in the contract or applicable addendum, and pointed them to opendoor.com/agents for the full structure.
+Solution Offered: Let the agent know the buyer's agent commission on the resale side is negotiated in the offer.
 
 Follow Up Link: N/A
 ```
@@ -2080,7 +2074,7 @@ uploaded for the digital checkout."
     none.
 13. Confirmed wording verbatim, **every address written out in full**, never
     described.
-14. "Seller commissions," never "seller concessions."
+14. Buyer's agent commission on the resale side is negotiated in the offer.
 15. **Close of escrow window matches the seller type**, 21 to 60 standard and 21
     to 120 for a homebuilder partner. Never 14.
 16. Every acronym spelled out, product names capitalized, HODW never about a
@@ -2561,3 +2555,24 @@ answered from a reference file.**
 
 *Skill version: 2026-10-06b. If a note contradicts a rule above, check this date
 against the version you expect to be live before assuming the rule is wrong.*
+
+## Agent representation and transaction-count questions — October 27, 2026
+
+Source: [Alexis Schlattman's clarification, acknowledged by Sam](https://opendoor.enterprise.slack.com/archives/C04TVKE41KP/p1793130542029719).
+Agents must represent their clients; referrals alone no longer qualify for
+payment under the current agent program. An agent may still use “refer” to mean
+representation, so clarify their meaning before applying that distinction.
+
+Agents do not have a reliable self-service way to check their transaction count
+for the bonus structure. Do not send them to a dashboard or /agent to track it.
+For a count request, use the agent's email to find their OpsHub Customer record
+and review the transactions shown lower on that page. Share only the verified
+history; do not equate every displayed transaction with a qualifying bonus.
+If the agent reports a missing transaction, obtain the missing property's address
+for backend review/correction through the appropriate team. Do not claim a
+correction or payment is complete without confirmation.
+
+This clarification supplies no bonus amounts, tiers, qualifying-stage rules,
+payout timing, or backend owner. Preserve separate seller-agent commission
+guidance and existing limits on compensation advice. Notes record only what
+actually happened; ordinary note drafting does not authorize record lookups.

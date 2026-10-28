@@ -135,7 +135,7 @@ multi-part request, combine only the matching cards; keep their required gates.
 - [Mass vendor SMS](recipes/vendor-sms.md)
 - [Policy/product question](recipes/policy-product.md)
 - [Simple login / account setup](SKILL.md#dashboard-links-and-account-setup)
-- [Partnership inquiry](recipes/partnership.md)
+- [Partnership inquiry, agent referral/bonus counts, or missing transactions](recipes/partnership.md)
 - [Policy-only email](recipes/policy-only.md)
 - [Remaining proceeds / signed release after resale](SKILL.md#remaining-proceeds-after-resale) — preserve referral date and actionable Executive Experience email; verify resale COE separately from acquisition COE.
 - [Offer-status questions on any channel](recipes/offer-status.md)

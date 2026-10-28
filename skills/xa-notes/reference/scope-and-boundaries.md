@@ -28,13 +28,18 @@ credits, diligence results, or a direct line to Opendoor's agent.
 
 ## Acquisition — seller's agent
 
-**Can discuss:** the Agent Access program, referral process, representation, Final
+**Can discuss:** the Agent Access program, representation process, Final
 Offer readiness and timeline, denials and walks, appliance addendum, updating the
 close date or late checkout, updating names before signing.
 
 **Cannot discuss:** Final Offer details or negotiations, credits, diligence
 results, signing addenda, updating names after signing, Opendoor Select walks, or
 how the agent gets paid.
+
+October 27 clarification: referrals alone no longer qualify for payment;
+representation is required. Transaction-history lookup is permitted process
+assistance; it does not establish bonus eligibility or authorize compensation
+advice. See the full skill's agent representation and transaction-count section.
 
 ## Resale — represented buyer
 

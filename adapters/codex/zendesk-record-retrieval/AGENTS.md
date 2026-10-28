@@ -350,6 +350,12 @@ The Opendoor Team
 
 ## After a correction
 
+When a builder contact reports a closing date different from the verified
+Opendoor closing date, state the Opendoor date and ask whether the seller is
+trying to close on the date the contact supplied. Do not give a receipt-only acknowledgment
+or replace that question with a question about the new-home closing date. Do
+not claim a closing-date change has been made.
+
 For an offer-denial reply, end warmly when appropriate: “Our ability to make an
 offer may change in the future. Thank you for considering Opendoor.” Keep this
 conditional; do not promise a future offer, notification, review, or follow-up.
