@@ -417,9 +417,11 @@ request for the XA to repeat `post it`.
 escalations as well as ordinary XA notes. When the caller lookup returns
 multiple real customer profiles with distinct email addresses, treat that as
 the duplicate-profile trigger even if the XA did not mention duplicates. Ask
-once which email should remain primary when it is not already specified, then
-complete the merge in **Admin** (`admin.opendoor.com`) and verify the surviving
-OpsHub profile has one primary email and one primary phone before creating or
+once for the primary email and verified full customer name together when
+either is missing; include any known candidate identity ambiguity in that same
+question and prefill known values. Reuse the answer without a second merge
+confirmation. Then complete the merge in **Admin** (`admin.opendoor.com`) and
+verify the surviving OpsHub profile has one primary email and one primary phone before creating or
 posting the CONTACT note. **Admin is the only merge system of record. Never
 merge, consolidate, or repair duplicate profiles in OpsHub.** OpsHub is only
 for post-merge verification and the CONTACT note. The merge is a prerequisite

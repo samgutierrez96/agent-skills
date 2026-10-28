@@ -86,7 +86,10 @@ When a caller identifier returns multiple matching customer profiles with more
 than one real email address, treat it as a duplicate-profile signal. A
 `Client-####` record or other placeholder/stub without its own real email is
 not a duplicate profile and must not trigger the account-merge workflow. Ask
-the XA which email should remain the main email before consolidating anything.
+the XA for the primary email and verified full customer name together when
+either is missing, including any known candidate identity ambiguity in that
+same question. Prefill known values and reuse the answer without a second
+merge confirmation before consolidating anything.
 If the XA directly supplies an email after the duplicate signal, that email is
 the explicit primary-selection answer; do not ask the same question again.
 Once the XA supplies that email, trigger
@@ -2360,9 +2363,10 @@ Then:
    only, then post to the `list_customers` UUID that is that property's
    customer after the duplicate-profile workflow is complete. If none of
    those UUIDs match, or more than one does, or the caller is not the seller,
-   or there is no street: ask which email should remain primary and stop until
-   the XA answers. Once the XA answers, use the confirmed email's UUID as the
-   keeping customer. Follow `xa-admin-account-merge` and post only after the
+   or there is no street: ask for the missing primary email and verified full
+   customer name together, plus any known candidate identity conflict, and stop
+   until the XA answers. Reuse known values and prior identity confirmations.
+   Once the XA answers, use the confirmed email's UUID as the keeping customer. Follow `xa-admin-account-merge` and post only after the
    Admin merge and surviving OpsHub contact cleanup are verified. If blocked,
    keep the note pending and report the blocker; do not post merely because
    the primary UUID is known. Never pick the property owner for an agent,
