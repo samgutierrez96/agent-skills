@@ -2338,8 +2338,13 @@ Then:
 2. **Customer is the caller.** When a caller phone, email, or name was
    supplied, post to the matching customer UUID from `list_customers`.
    Always post to the caller record matched by the supplied phone or email.
-   Never post to a `Client-####` record or another placeholder/stub record,
-   even when it appears in the same search results.
+   A unique record whose normalized phone matches the supplied caller phone
+   is a valid posting target even when its name is blank or email is missing.
+   Post to that UUID without asking for a name or treating missing contact
+   fields alone as a stub. Do not post to a true `Client-####` or other
+   placeholder without independent compatible identity or verified matching
+   phone. Ambiguous or conflicting matches still require clarification and
+   the existing duplicate-profile workflow where applicable.
    Caller type is a required sanity check: an appraiser call goes on the
    appraiser's page, an **agent call on the agent's page**, an inspector on
    the inspector's, a seller on the seller's. Never substitute the property

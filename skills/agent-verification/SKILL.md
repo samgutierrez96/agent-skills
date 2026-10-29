@@ -70,6 +70,30 @@ Report only the verified result: `Case: closed | Outcome: [actual HAS] | Agent: 
 - Do not reopen completed stages or reread a verified fact through multiple surfaces. After Case Closed and the refreshed OpsHub statuses are established, finish.
 - Stay within the authorized verification workflow. Unexpected destructive or unrelated irreversible actions require explicit authorization.
 
+## Operator corrections and source ownership
+
+An operator correction or performance review is not a new live customer task.
+Apply a current-output correction without repeating completed actions. Explain
+delay or token concerns from the saved trace/context; do not rerun customer
+lookups merely to discuss performance. Recommendations alone do not change the
+skill.
+
+Save a requested reusable correction in the existing owning passage of this
+authoritative skill, or an existing registered agent configuration only when that
+agent actually owns the behavior. Read related rules first. Amend superseded
+wording instead of adding a conflicting rule. If already covered, apply the
+existing rule and cite its exact passage; do not add a duplicate for an execution
+failure. Keep customer identifiers and case-specific outcomes out of instructions.
+Never create a parallel Skill Router rules file.
+
+Verify saved content and report the exact path. Keep required canonical local
+copies consistent through the established source inventory. Conflicting copies,
+uncertain ownership or unavailable validation block a verified-save claim; use
+Skill Router's direct-source reviewed save flow or report the specific blocker.
+Local save and scheduled GitHub publication are separate. Updated instructions
+need current context; never replay a merge, case closure, post or other external
+action to refresh it.
+
 ## Timing and validation
 
 Record elapsed wall time from first lookup to verified final state when executing a real case. Aim for the stage budgets above, adjusting for actual network latency. At 90 seconds, complete closure and final checks without optional history exploration. At 120 seconds, if still incomplete, report the concrete delayed stage and continue useful work; do not skip checks or claim success to meet the target.

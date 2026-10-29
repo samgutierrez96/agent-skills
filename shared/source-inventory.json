@@ -5,17 +5,17 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/AGENTS.md",
       "destination": "adapters/codex/xa-notes/AGENTS.md",
-      "sha256": "b4e61b1aa0520eba83af288c487168c6d5d1c01edf03704adbe12807bfa548f9"
+      "sha256": "9a16eb08cff7248507bf99152b94afccea35e7203cf0f8a71c667f42f794afd2"
     },
     {
       "source": "Documents/ChatGPT Work/Escalations/AGENTS.md",
       "destination": "adapters/codex/xa-quick-slack/AGENTS.md",
-      "sha256": "0b4692a56320ff529b97c6c3beeeadb110a85ab1136e5f4fd6bf744076b21067"
+      "sha256": "b85a998bd5361e94898904f2e983c684fa7765897720a62aa1f5fc17aabe00ab"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/AGENTS.md",
       "destination": "adapters/codex/zendesk-record-retrieval/AGENTS.md",
-      "sha256": "2bb0a7e65b4a49a22577224a519dc8332ecaad7c86a592c79f18ea3fc8500605"
+      "sha256": "d14e5dbb71e093bfdb01838a85539b957ae2aeeff651021eb4284261ba614312"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/decisions-and-conventions.md",
@@ -40,7 +40,7 @@
     {
       "source": ".codex/skills/agent-verification/SKILL.md",
       "destination": "skills/agent-verification/SKILL.md",
-      "sha256": "7c89b30b9ac9d03a1788b8057f934a3e4822d0e125c10eb0163410d875cd9bf1"
+      "sha256": "2d1cf49fb1fe6e9fb004aa87faf748ce028dcc43e64ae002b068b9fff872f7aa"
     },
     {
       "source": ".codex/skills/agent-verification/agents/openai.yaml",
@@ -65,7 +65,7 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "8184ab25411c740416884902b4cfd7e0fcf690cc0ff10de5da6ea20caea2570a"
+      "sha256": "c5d3e66ac219d367745d246bbdf86a04f75dbe764b1ecdda8a66d13db3e2da9f"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/CORE.md",
@@ -75,7 +75,7 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/SKILL.md",
       "destination": "skills/xa-notes/SKILL.md",
-      "sha256": "d1021f0452d3bf29a286bc3fe9d248a7a99615a554d9587b8e3ac6dfa7e99296"
+      "sha256": "14f6178d03ee4aefa7f59644329ee34c1dae59d7eafa5514abc8275f2bb7cc36"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/reference/process-detail.md",
@@ -106,7 +106,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/FAST-INDEX.md",
       "destination": "skills/zendesk-record-retrieval/FAST-INDEX.md",
-      "sha256": "863bc12e2ce693cecdf14c4d8a8161ac6d7a7ddd14fff514f5c6ebb42d7677b7"
+      "sha256": "9bd81c0a38374a3939d484b33c6e564315a86c28b5ea8eee90e467bab6b82248"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ROUTING-GATES.md",
@@ -116,7 +116,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/SKILL.md",
       "destination": "skills/zendesk-record-retrieval/SKILL.md",
-      "sha256": "6c60a1c17f6f30c0f50d1b677b639c05f1247996a6c5fa6ddecbb47d75b61a13"
+      "sha256": "9a3aed218a7a6f6a251c7eb3cb2ac3550f94d9de909dcb26f8de5940b557c2fc"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/VERIFICATION.md",
@@ -131,7 +131,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/agent-verification.md",
       "destination": "skills/zendesk-record-retrieval/recipes/agent-verification.md",
-      "sha256": "e4e00e58403b7060bab2f35fa632e17ec410af1d9cb52b8ed17046239bf365c3"
+      "sha256": "e6f8e28a554b236b90085d1032c7d003d6671f6ed2bd641734cffeb680543847"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/appraisal-utilities.md",
@@ -236,7 +236,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/touring-access.md",
       "destination": "skills/zendesk-record-retrieval/recipes/touring-access.md",
-      "sha256": "4371ec730b5e437fa90a82978d9861de1e743b49cf699363ff2ed9c340505587"
+      "sha256": "dfccc684def4679aa85226b22e075bc6ede63f9f28f1d754c73016bd3e2f3a4a"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/unrelated-request.md",
