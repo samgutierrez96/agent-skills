@@ -1,5 +1,42 @@
 # Skill manifest
 
+## Completed-merge aliases — October 29, 2026
+
+The Account Merge skill now distinguishes remaining distinct unmerged accounts
+from a linked duplicate entry left visible after a confirmed successful merge.
+Continue merging distinct qualifying accounts, but do not repeat a completed
+merge, require an empty sidebar/search result, or block posting when an entry
+resolves to the surviving account with matching identity/contact details. Reuse
+the XA's explicit completion confirmation and supplied result evidence. Matching
+details or a generic keeping-customer checkmark alone are not a merge receipt.
+Preserve contact-cleanup checks and post only once to the surviving customer.
+Active and canonical copies match locally; the inventory hash is updated.
+GitHub publication remains queued for the existing daily synchronization.
+
+## Direct-source correction guardrails — October 29, 2026
+
+The three Codex project adapters and the standalone Account Merge and Agent
+Verification skills now share the direct-source correction boundary: amend the
+existing owning passage, avoid duplicate/conflicting rules and customer-case
+facts, verify the exact local source, and distinguish it from GitHub publication.
+Ordinary-drafting edit prohibitions now explicitly allow operator corrections
+under that boundary. The Skill Router adapter verifies ownership, mirrors and
+receipts; it does not own a parallel set of workflow business rules. Active and
+canonical local copies and the five updated inventory hashes match. Publication
+is pending the established scheduled synchronization.
+
+## Operator feedback reviews — October 29, 2026
+
+The Zendesk, XA Notes and Escalations adapters now distinguish result corrections
+from questions about processing speed, output quality and token usage. Feedback
+uses normal prose, preserves correct outcomes, reuses saved evidence and does
+not authorize sends/posts or waive verification gates. Actual draft corrections
+retain their deliverable contracts. The Zendesk adapter also stops unnecessary
+research after verifying that a newer same-concern email supersedes an older SMS,
+without treating the newer request as resolved. Active project rules and these
+canonical adapters match locally; inventory hashes are updated. Live performance
+savings are not measured. GitHub publication awaits the scheduled daily sync.
+
 Last content audit: 2026-10-28. Scope: all seven skills already included in this repository.
 
 ## Canonical distribution and active sources
@@ -121,3 +158,12 @@ Duplicates. Missing email alone does not make a profile a placeholder; true
 placeholders without independent identity or matching phone remain excluded.
 Canonical and active runtime copies and their inventory hashes match locally.
 Publication remains queued for the existing end-of-day synchronization task.
+
+## Unnamed caller posting target — October 29, 2026
+
+Sam confirmed that a unique customer record matching the supplied normalized
+caller phone remains a valid posting target when its name is blank or email is
+missing. Missing fields alone do not make it a stub or require a name question.
+Ambiguous/conflicting matches and duplicate-profile handling retain their gates.
+The active XA notes runtime and canonical package match locally; the inventory
+hash is updated. GitHub publication remains queued for the existing daily sync.

@@ -12,5 +12,11 @@ read the matching full-playbook section before drafting; this card is the first 
   guidance there. Do not send the requester to phone support, an app, or a showing
   service to schedule that viewing. Older tours-until-closing guidance and a
   system allowing booking do not override this gate.
-- When the listing stage permits viewing: customer lookup → property Flags. Never provide a
-  code or remote unlock when trust is denied.
+- When the listing stage permits viewing: customer lookup → property Flags and
+  actual Home Access self-tourability. Self-tourable homes permit any eligible
+  requester after required identity verification; non-self-tourable homes requiring
+  agent access need verified agent information. A denied self-identified agent
+  with outstanding verification follows the agent-verification card to collect
+  missing credentials, not a phone-support-only referral. Never provide a code,
+  remote unlock, or direct entry while denial/verification is unresolved; preserve
+  non-negotiable Trust and Safety and rental-scam restrictions.

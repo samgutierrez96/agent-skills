@@ -17,10 +17,18 @@ Use `ROUTING-GATES.md` → `Targeted playbook reads` without broad searches.
 3. If unresolved, verify listing stage before viewing guidance. Under contract
    means no viewing, including for a backup offer. An appraisal/inspection is a
    separate visit type; use its participant/appointment rules instead.
-4. Collect only missing MLS sign-in number, real estate license number, full name,
-   email, phone number, and brokerage name. Reuse verified requester phone and
-   other supplied details. MLS listing area is optional; MLS sign-in number means
+4. Check actual Home Access self-tourability before deciding who may access:
+   a self-tourable home permits any eligible requester after required identity
+   verification; a non-self-tourable home requiring agent access needs verified
+   agent information. Denial alone does not make a home agent-only. For this
+   self-identified-agent route, collect only missing MLS sign-in number, real estate license number, full name,
+   primary email, phone number, and brokerage name. Reuse details the customer already
+   supplied in the ticket thread, including the verified requester phone; OpsHub or
+   profile data alone does not skip primary email, phone number, or brokerage name in
+   the customer-facing ask. In the reply, name every still-missing field from that set,
+   not MLS sign-in and license alone. MLS listing area is optional; MLS sign-in number means
    an identifier, never a password. Full name and brokerage alone are insufficient.
+   In the customer reply, use `You can also contact us at (888) 352-7075.` Do not use `If you need assistance` or similar before the number; the reply is already assisting them. Do not offer phone support instead of collecting the missing verification details.
 5. If the earlier required details and CUSTOMER `is_agent: true` already verify the
    agent, do not re-ask. Follow the verified access path. Property Flags establish
    `Traditional listing`; trust denial alone does not establish that flag.

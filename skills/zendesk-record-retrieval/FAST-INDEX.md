@@ -116,7 +116,8 @@ other hosts may use equivalent read-only tools without changing the evidence gat
    Skip customer/property, assessment-status, Flags, and browser reads unless a
    separate question needs them; do not assert an unverified stage or completion state.
 6. SMS showing-scheduling failure (for example, missing from Aligned Showings)
-   with a phone-support-only reply: ticket → property status → required Flags,
+   with a phone-support-only reply, and no known denial or outstanding requester
+   verification: ticket → property status → required Flags,
    with one focused browser fallback if needed. Skip customer/trust reads and
    unnecessary comments; do not confirm the slot or provide entry instructions.
    A WebCustomer UUID returning “Lead not found” is not a reason to broaden reads
@@ -187,14 +188,21 @@ multi-part request, combine only the matching cards; keep their required gates.
 - Stage-sensitive offer/assessment questions require property header Flags/status
   and Assessments & Inspections, with focused browser fallback if structured reads
   omit them. Do not infer presentation from SENT, or photos from Complete alone.
-- Trust denied → no code, remote unlock or direct access instructions. Traditional
-  listing is a separate property flag. Preserve privacy and escalation exceptions.
+- Denied viewing requester → check actual Home Access self-tourability and stage.
+  Self-tourable: required identity verification, not an agent-only requirement.
+  Not self-tourable / agent access required: verify agent information. For a
+  self-identified agent with verification outstanding, collect missing credentials
+  using the agent-verification card; do not replace that step with phone support.
+  No code, remote unlock or direct entry while denial/verification is unresolved.
+  Preserve under-contract and non-negotiable Trust and Safety/rental-scam gates.
 - Self-identified agent requesting access with verification outstanding → collect
-  missing MLS sign-in number, real estate license number, full name, email,
+  missing MLS sign-in number, real estate license number, full name, primary email,
   phone number, and brokerage name in the ticket. MLS listing area is optional.
-  Reuse supplied details, including the verified requester phone; do not replace
-  this step with a phone-support referral
-  or tell the agent to find a licensed agent. See full-playbook agent verification.
+  Reuse details already in the ticket thread; OpsHub or profile data alone does not
+  skip primary email, phone number, or brokerage name in the customer-facing ask.
+  Name every still-missing field in the reply, not MLS sign-in and license alone.
+  Use `You can also contact us at (888) 352-7075.` in the customer reply; do not use `If you need assistance` before the number. Do not replace credential collection with a phone-support-only referral or tell the agent to find a licensed agent. See
+  full-playbook agent verification.
 - A simple STOP/spam path cannot swallow a separate support, privacy or partnership
   ask. An unsubscribe footer alone is not a STOP request or proof of spam.
 - Privacy/deletion → read “Privacy and deletion requests” in the full playbook
