@@ -14,9 +14,14 @@ WebCustomer UUID to sell-direct `get_customer`.
 - **Refresh-only exception:** Follow `Offers` → “Refresh already complete —
   current primary offer first.” Verify the current primary initial/estimated
   offer through OpsHub MCP before treating an older lead as expired or denied.
-  A current offer answers the refresh question; ask about remaining viewing
-  trouble. Assessment/Flags browser research is conditional on a separate claim
-  that needs it, rather than mandatory for this refresh-only answer.
+  This exception is only for explicit refresh-only trouble, not a request to
+  resend an unseen or expired offer. `SENT`, a new sent date, or draft
+  underwriting alone does not establish that an offer is viewable. Resend and
+  visibility requests retain the normal assessment and property Flags/status
+  checks below. A verified **Finalizing / Sent Finalizing Offer** status wins:
+  say the final offer is being finalized; do not redirect to a preliminary offer
+  or request an access-error screenshot. Assessment/Flags browser research for
+  a genuine refresh-only request is conditional on a separate claim that needs it.
 
 - **Offer-status questions on any channel:** Zendesk MCP → identify the property →
   one narrow OpsHub read of the assessment and current offer/finalization status,
@@ -55,6 +60,16 @@ WebCustomer UUID to sell-direct `get_customer`.
   When the customer confirms a property whose prior offer is expired and asks
   what happened or what to do next, tell them the next step is to refresh the
   offer; do not frame it as starting an unrelated new offer request.
+  When the customer reports that the address they enter on opendoor.com is not
+  accepted for an offer request, screenshots can still help clarify a display or
+  entry issue, but clearly explain that if the site will not accept the property's
+  actual address, Opendoor is unable to make an offer for that property at this
+  time. A courtesy acknowledgment alone is not enough; do not suggest that an
+  incorrect secondary address establishes eligibility. If record activity shows
+  an offer request processed under a different
+  or secondary address entry, say that processing likely happened because another
+  number or address variant was entered, not because the primary address is accepted
+  on the site.
   If `get_assessment_visits` is stale, the linked acquisition transaction's
   `seller_full_assessment` task is load-bearing: `CLOSED` plus
   `assessment_completed` and `completedAt` confirms completion and starts the

@@ -374,13 +374,13 @@ Add **only** the matching follow-up block when they push it. Do not stack unused
 > The previous seller has never occupied this property, so we encourage an independent, professional home inspection to verify the condition of the property and determine the cost of repairs, if any.
 
 ### Making an offer
-Buyer offer guidance (2026-10-22): choose the applicable line based on the property location; do not use both as a blanket answer. Confirm the path for locations other than Georgia before giving direct-submission instructions. Preserve traditional-listing requirements to use an agent.
+Buyer offer guidance (updated October 30, 2026): choose the applicable line based on the property's verified submission path; do not use both as a blanket answer. Preserve separately saved location eligibility guidance. In special instances, a traditional listing encountered at opendoor.com/buy or opendoor.com/homes instructs the buyer to submit through homes@opendoor.com or contact a licensed agent; follow that listing's instructions.
 
 > In Georgia, you need to work with a licensed agent to place an offer on the property.
 
 > Where direct buyer submission is available, find the listing at opendoor.com/buy and submit your offer from that listing.
 
-Agent offer instructions remain separate in the current playbook.
+Agents normally use opendoor.com/makeoffer: enter the property address and follow the prompts. When the home has an active offer, instruct the agent to email homes@opendoor.com. Do not present email as a blanket alternative. This does not change touring/access rules.
 
 ---
 

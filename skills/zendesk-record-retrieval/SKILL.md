@@ -942,7 +942,7 @@ the shape, the record wins, see "Stage gates the playbook".
   code in the ticket). Acknowledge that once the acquisition closed Opendoor
   became the owner, thank them for the feedback, and say we are doing our best
   to sell the home. Do not route as a closed-homes vendor ticket and do not
-  use the CNML second-half Exec X recipe unless they also asked about the
+  use the CNML second-payment inbox recipe unless they also asked about the
   remaining payment.
 - **Buyer SMS asking if a named listing is still available.** Do not send a
   one-line yes/no. Glean the ticket, CUSTOMER on `primary_phone_number`, pin the
@@ -958,10 +958,10 @@ the shape, the record wins, see "Stage gates the playbook".
   to view. A verified buyer's agent may view the property through the agent path.
   Opendoor does not host open houses; do not
   confirm, repeat, or invent open-house times. If the requester’s CUSTOMER record is
-  `is_agent: true`, also point them to `https://www.opendoor.com/make-offer`:
-  enter the property address and follow the prompts to submit the offer.
-  `homes@opendoor.com` remains an existing agent contact; it does not replace the
-  required submission URL when giving offer-submission guidance. An Opencomm
+  `is_agent: true`, normally point them to `opendoor.com/makeoffer`: enter the
+  property address and follow the prompts. When the home has an active offer,
+  instruct the agent to email `homes@opendoor.com` instead. Do not offer email
+  as a blanket alternative for every submission. An Opencomm
   mint with no `is_agent` flag is not an agent; do not assume they are one from
   the inbound. A leftover greeting name stays out of the draft. Verified on
   Oklahoma City ticket 4928122 (1212 SW 54th St; Flags: Traditional listing;
@@ -1029,7 +1029,9 @@ the shape, the record wins, see "Stage gates the playbook".
   browse listed homes at `https://www.opendoor.com/buy`. Georgia buyers must
   work with a licensed agent to place an offer. Where direct buyer submission
   is available, submit from the listing; confirm the location’s path when
-  unknown and preserve traditional-listing requirements to use an agent.
+  unknown. In special instances, a traditional listing encountered at
+  opendoor.com/buy or opendoor.com/homes instructs the buyer to submit through
+  homes@opendoor.com or contact a licensed agent; follow those instructions.
   Verified on Toledo OH ticket 4928625 (3439 Rushland Ave; operator
   corrections: not a vendor decline, do not ignore seller-finance, do not
   lead with touring, Lower not a blanket no-finance).
@@ -1403,12 +1405,14 @@ the shape, the record wins, see "Stage gates the playbook".
 
   **Seller sends a lockbox code after a scheduled assessment:** Always check the
   Assessments & Inspections record for the visit outcome before drafting. If the
-  scheduled assessor already completed the assessment, recommend no outbound
-  reply: the seller already knows the assessment was completed, so a code
-  acknowledgment adds no value. This does not create an automatic internal-note
-  requirement; add a note only when operationally useful, and never repeat the
-  lockbox code. Use the outstanding/incomplete branch only when the record does
-  not support completion.
+  scheduled assessor already completed the assessment, send a brief confirmation
+  that the assessment is completed and thank the customer for providing the
+  lockbox information. Do not assume the customer already knows the outcome or
+  recommend no reply solely because the assessment is completed. Keep the reply
+  focused on completion; do not repeat the code, ask why they supplied it, or add
+  unnecessary next steps. Follow the project's channel-specific greeting and
+  internal-note rules. Use the outstanding/incomplete branch only when the
+  record does not support completion.
 - **Customer asking to update / change their email, and the inbound does not name
   the destination address.** Glean the ticket, CUSTOMER on uuid or phone, one
   OpsHub customer read for primary email vs setup/password subjects. **Do not
@@ -1932,6 +1936,24 @@ assessment).
 
 ## Assessment reschedules and confirmations
 
+- **Scheduling horizon:** Support can help schedule or reschedule an eligible
+  seller assessment up to 7 calendar days from today, not farther out. Ask for
+  the preferred date and time within that window; if the requested date is
+  beyond it, ask the customer to contact us when that date is within 7 days.
+  Preserve agent-only assessment restrictions and verify an existing appointment
+  before describing a change as a reschedule. This drafting workflow does not
+  book or change appointments, and an available slot is not guaranteed.
+- For a missed or canceled Showami visit, read any existing escalation thread
+  linked in the customer's notes before asking whether a later call resolved it.
+  Use Slack read tools; no new escalation or draft is authorized by this lookup.
+  A call disposition alone is not resolution. Verify the thread's property and
+  appointment chronology; an older cancellation does not establish that a newer
+  appointment was canceled. When the provider confirms cancellation or
+  unavailability and no later resolution or completion supersedes it, offer
+  rescheduling through the verified dashboard link or ask for a preferred date
+  and time. Alternatively, explain how to download the Opendoor Key App and
+  take the assessment photos live through the app. Do not ask a generic
+  "Do you still need help?" when the evidence already supports these next steps.
 - **Do not promise an action the record already completed.** When the appointment is
   already rescheduled and confirmed, the reply confirms it and stops. The confirmed
   appointment is the answer, even when the customer wrote "call me please". See
@@ -2093,15 +2115,22 @@ advisor history. `get_customer_profile(address_token:..., full:false)` can expos
 leads and latest offer states; `get_acquisition_transaction` with only
 `flip_details` and `offer`, followed by `get_sent_offer` when needed, verifies the
 selected current record. A current initial/estimated offer with positive current
-status and no expired/denied status means the refresh is already complete. Say
-that a current preliminary offer is available and ask whether the customer can
-view it or what error remains. Do not tell them to refresh again or that Opendoor
+status and no expired/denied status can establish that the refresh is complete,
+but `SENT`, a new `sentAt`, and draft underwriting do not establish dashboard
+availability or override a verified **Finalizing / Sent Finalizing Offer** status.
+Use this shortcut only for an explicit refresh-only problem, not a request to
+resend an unseen or expired offer. For a resend/visibility request, follow the
+normal offer-status checks, including assessment completion and property
+Flags/status. If the final offer is being finalized, say so; do not describe a
+preliminary offer as available, direct the customer to view it, or request an
+access-error screenshot. Give dashboard access guidance only when current
+viewability is supported. Do not tell them to refresh again or that Opendoor
 cannot offer based on an older expired/unqualified/denied lead. Absence of a tag
 alone is not positive current-status evidence. Keep requester association and
 nonpublic offer details gated; a different email on an older/newer lead does not
 by itself establish a different person or authorize a merge.
 
-For this refresh-only answer, preserve the recent-resolution check but skip
+For a verified refresh-only answer within that scope, preserve the recent-resolution check but skip
 assessment completion, photo reuse, visit research and browser reads once MCP
 and any operator-verified current page state support the answer. Assessments and
 page-only Flags remain required when a separate timing, assessment, final-offer,
@@ -2173,18 +2202,19 @@ Three surfaces, three audiences, never interchange them:
   is pending Sam's confirmation. Use `opendoor.com/buy` where direct buyer
   submission is available; preserve known location and listing exceptions.
   Do not infer statewide eligibility from an individual call.
-- Buyer offer submission (company process update, 2026-10-22): Georgia buyers
-  must work with a licensed agent to place an offer. Some other locations also
-  require an agent; do not assume all other states allow direct submission.
-  Where direct buyer submission is available, find the property listing at
-  `https://www.opendoor.com/buy` and submit from that listing. Confirm the
-  location’s path when unknown. Preserve traditional-listing requirements to
-  submit through an agent. This changes offer guidance only, not touring/access.
-- `https://www.opendoor.com/make-offer` — agents placing an offer or backup offer.
-  Include the URL and tell them to enter the property address and follow the
-  prompts to submit. `homes@opendoor.com` remains an existing agent contact, not a
-  substitute for the required URL in submission guidance. Do not send an
-  unrepresented buyer to the agent submission path.
+- Buyer offer submission (updated October 30, 2026): where direct submission
+  is available, find the home at `opendoor.com/buy` or `opendoor.com/homes` and
+  follow the listing's offer instructions. In special instances, a traditional
+  listing there instructs buyers to submit through `homes@opendoor.com` or
+  contact a licensed agent to place an offer; follow that listing's instructions.
+  Preserve separately saved location eligibility guidance, including Georgia;
+  do not infer that all other states permit direct submission. This changes
+  offer guidance only, not touring/access rules.
+- `opendoor.com/makeoffer` — agents normally enter the property address and
+  follow the prompts to submit an offer or backup offer. When the home has an
+  active offer, instruct the agent to email `homes@opendoor.com` instead. Email
+  is not a blanket alternative for every offer. Do not send an unrepresented
+  buyer to the agent submission path.
 
 When a current preliminary offer already exists for the client's property, do
 not tell the agent to request another offer. Direct them to review the existing
@@ -2897,23 +2927,31 @@ resale, read the ticket and the matching earlier support exchange. Apply the
 existing repeated-concern search once; retain the verified referral handler and
 date, prior substantive answer (if any), and customer-reported document completion.
 A forwarding note or solved ticket alone does not establish payment or resolution.
-Use the matched customer's recent OpsHub notes/activity to check for a later
-answer. If resale closing matters, verify the actual resale close date from the
-matched resale transaction (for example `get_resale_transaction_full`), or a
-verified transaction note; acquisition COE and a generic sold status do not prove
-that date. If it cannot be confirmed, omit it and disclose the gap in the appendix.
-Do not retrieve unrelated assessment or offer-status details for this question.
+Use the matched customer's recent OpsHub notes/activity when a record-specific
+answer needs a later-resolution check. A routing-only reply supported by the
+inbound needs no property, assessment, offer, or resale-transaction research.
+Former ownership or a CNML second-payment interest does not authorize disclosure
+of the current resale transaction's private details, including its scheduled
+closing date. Keep any already-retrieved private facts internal; do not retrieve
+them solely to answer the former owner. Acquisition closing and a generic sold
+status do not establish resale completion or payment.
 
-When the record confirms Executive Experience owns the concern, include
-executive.experience@opendoor.com in the reply when directing the customer to
-forward earlier emails, and preserve the verified referral date. Ask for prior
-correspondence so the contact history is included. Do not request another signed
-release just because document completeness is unconfirmed. State separately that
-payment timing and any outstanding requirements remain unconfirmed; neither a
-signed-release report nor resale closing proves disbursement. Do not promise a
-payment date or import an unrelated response-time commitment. Keep the ticket
-open pending confirmation from Executive Experience. Put prior ticket identifiers
+Direct CNML closed-home and second-payment questions to
+cashnowmorelater@opendoor.com, replacing the former Executive Experience inbox
+for this scope. Ask the customer to include the property address and forward
+earlier correspondence when relevant so the contact history is included;
+preserve a verified prior referral date without presenting the old inbox as the
+current route. Do not request another signed release just because document
+completeness is unconfirmed. Do not confirm payment timing, outstanding
+requirements, or disbursement without authorized evidence, promise a payment
+date, or import an unrelated response-time commitment. Keep unresolved tickets
+open pending confirmation through the CNML inbox. Put prior ticket identifiers
 in the operator appendix, outside the internal-note box.
+
+Source: Diego Mendieta's October 30, 2026 announcement and clarification:
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1793377165539289.
+This routing change does not replace Executive Experience for unrelated legal
+or other explicitly documented workflows.
 
 ## Legal requests
 

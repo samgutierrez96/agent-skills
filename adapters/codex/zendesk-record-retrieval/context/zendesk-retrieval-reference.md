@@ -27,7 +27,7 @@ What can be looked up, how, and where the traps are. Conclusions only — the di
 | Customer → property from a phone number | Yes | `list_customers` → `get_customer_profile` |
 | Assessment appointment **date** | Yes | `get_assessment_visits` |
 | Connected login email | Yes | `get_customer` / `get_customer_profile` |
-| Listing offer status (buyer side) | No | Verified public listing, UI only; browse at opendoor.com/buy. Offer submission is location-dependent: Georgia requires a licensed agent. |
+| Listing offer status (buyer side) | No | Verified public listing, UI only; browse at opendoor.com/buy. Offer submission is location-dependent: preserve Georgia's saved agent requirement. Traditional listings at /buy or /homes may instruct homes@opendoor.com or a licensed agent; agents normally use /makeoffer, emailing homes@opendoor.com when the home has an active offer (October 30 update). |
 | **OpsHub comms & notes** | Yes | OpsHub `get_thread` / `get_activity` |
 | Customer profile / engagements | Yes | `list_customers` → `get_customer` / `get_customer_profile` |
 | Property / assessment visits | Yes | `get_property` / `get_assessment_visits`; Chrome fallback for exact page sections |

@@ -7,7 +7,9 @@ read the matching full-playbook section before drafting; this card is the first 
 
 - **Seller sends a lockbox code after a scheduled assessment:** Check Assessments &
   Inspections for the visit outcome before drafting. If the scheduled assessor
-  already completed the assessment, recommend no outbound reply because the seller
-  already knows the outcome. This does not automatically require an internal note;
-  if one is useful, keep the code out of it. If completion is not supported, use
-  the outstanding/incomplete assessment guidance.
+  already completed the assessment, briefly confirm completion and thank the
+  customer for providing the lockbox information. Do not assume they already know
+  the outcome or recommend no reply solely because the assessment is completed.
+  Do not repeat the code, ask why they supplied it, or add unnecessary next steps.
+  Follow the project's channel-specific greeting and internal-note rules. If
+  completion is not supported, use the outstanding/incomplete assessment guidance.

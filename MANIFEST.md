@@ -1,5 +1,33 @@
 # Skill manifest
 
+## Buyer and agent offer-submission exceptions — October 30, 2026
+
+Sam confirmed two scoped exceptions in the Floor Support chat. Buyers who
+encounter a traditional listing at opendoor.com/buy or opendoor.com/homes follow
+its instructions to submit through homes@opendoor.com or contact a licensed
+agent. Agents normally use opendoor.com/makeoffer; when the home has an active
+offer, instruct the agent to email homes@opendoor.com. Email is not a blanket
+alternative for every offer. XA Notes, Escalations and Zendesk runtime sources,
+dependent local instructions and canonical packages are aligned; affected
+inventory hashes are updated. Existing location, touring/access, privacy and
+escalation boundaries are preserved. The Georgia-specific sentence is omitted
+from the announcement, not repealed as saved operational guidance. Local
+Floor Support project context and the shared company-knowledge reference also
+record the update. Historical exports and plugin caches were not rewritten.
+GitHub publication remains queued for the existing daily synchronization.
+
+## CNML contact and resale confidentiality — October 30, 2026
+
+Diego Mendieta's announcement now directs Cash Now, More Later closed-home and
+second-payment questions to cashnowmorelater@opendoor.com, replacing Executive
+Experience for that scope. Former ownership does not authorize disclosure of
+private current-resale details or its scheduled closing date. Zendesk's owning
+rules, playbook and Fast Index, XA Notes, and Escalations have been reconciled
+locally, including their applicable installed and portable references. Other
+Executive Experience routes remain unchanged. Source:
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1793377165539289.
+Publication remains queued for the existing daily synchronization.
+
 ## Completed-merge aliases — October 29, 2026
 
 The Account Merge skill now distinguishes remaining distinct unmerged accounts
@@ -37,7 +65,7 @@ without treating the newer request as resolved. Active project rules and these
 canonical adapters match locally; inventory hashes are updated. Live performance
 savings are not measured. GitHub publication awaits the scheduled daily sync.
 
-Last content audit: 2026-10-28. Scope: all seven skills already included in this repository.
+Last content audit: 2026-10-30. Scope: all seven skills already included in this repository.
 
 ## Canonical distribution and active sources
 

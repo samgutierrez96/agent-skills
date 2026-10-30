@@ -9,12 +9,18 @@ other hosts may use equivalent read-only tools without changing the evidence gat
 ## First decision
 
 - **Offer refresh trouble:** OpsHub MCP → exact address → current primary
-  initial/estimated offer. A positively current offer means the refresh is done;
-  ask whether they can view it or what error remains. Do not replace current
+  initial/estimated offer. A positively current offer may establish the refresh
+  is done, but `SENT` / a new sent date alone does not prove it is viewable.
+  This shortcut is only for explicit refresh-only trouble, not resending an
+  unseen or expired offer. Resend/visibility requests keep normal assessment
+  and property Flags/status checks. **Finalizing / Sent Finalizing Offer** wins:
+  say the final offer is being finalized, not that a preliminary offer is
+  available to view. Do not replace current
   status with an old SMS-linked lead's expired/denied status. Use a narrow
   address-scoped profile / transaction offer read, then sent-offer state if needed.
   Preserve recent-resolution and requester-association checks; skip assessment,
-  photos, visits and browser for this refresh-only answer. Read `Offers` for the
+  photos, visits and browser only for a verified refresh-only answer within this
+  scope. Read `Offers` for the
   current-primary rule. Target about 20 seconds, without omitting required gates.
 
 1. Exact ticket ID → Zendesk `get_ticket`; if this index is not loaded, read it
@@ -45,6 +51,11 @@ other hosts may use equivalent read-only tools without changing the evidence gat
    [resolution-first access](recipes/access-resolution.md). Verify recent OpsHub
    notes/activity before property research or requesting more details. Stop if
    the same concern was already resolved; use Home Visits only if still needed.
+   Missed/canceled Showami visit with an escalation link in those notes: read the
+   existing Slack thread and check appointment chronology. A bare later call
+   disposition is not resolution. Confirmed cancellation/unavailability with no
+   superseding resolution supports rescheduling or Opendoor Key App instructions,
+   not a generic question about whether help is still needed.
    With only a verified WebCustomer UUID, use `get_customer_profile(full:false)`
    to read recent call events and notes before browser fallback; no flip token
    is needed for that tool. Emit focused recent evidence from the retained response.
@@ -147,7 +158,7 @@ multi-part request, combine only the matching cards; keep their required gates.
 - [Simple login / account setup](SKILL.md#dashboard-links-and-account-setup)
 - [Partnership inquiry, agent referral/bonus counts, or missing transactions](recipes/partnership.md)
 - [Policy-only email](recipes/policy-only.md)
-- [Remaining proceeds / signed release after resale](SKILL.md#remaining-proceeds-after-resale) — preserve referral date and actionable Executive Experience email; verify resale COE separately from acquisition COE.
+- [CNML closed-home / second-payment / signed-release questions](SKILL.md#remaining-proceeds-after-resale) — direct to cashnowmorelater@opendoor.com. Former ownership does not authorize private resale details or scheduled closing dates; skip resale research for a routing-only reply.
 - [Offer-status questions on any channel](recipes/offer-status.md)
 - [Seller asking for assessment day/time](recipes/assessment-time.md)
 - [Seller asks whether Opendoor can conduct the assessment](recipes/assessment-provider.md)

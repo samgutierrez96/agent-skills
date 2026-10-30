@@ -113,7 +113,9 @@ connector catalogs.
 | Exact OpsHub Flags or Assessments page section | Browser only when the required page-only fact is still missing after structured OpsHub reads: `browser_navigate` → `browser_wait` → `browser_get_page_content` |
 | Public listing | `web_fetch` of the verified URL |
 
-When a customer or agent asks for a listing link, open the exact Opendoor property page from the address search or a verified result and copy its full property URL. Do not substitute a market page, a third-party listing, or a guessed URL.
+For general buyer home-search inquiries, include `https://www.opendoor.com/buy` or `https://www.opendoor.com/homes` so the customer can search properties in their area, including when they seek a home needing work. Do not only ask for their preferred city or ZIP code or provide the support number. Do not imply that matching inventory or homes needing work are available without verification.
+
+When a customer or agent asks for a specific listing link, open the exact Opendoor property page from the address search or a verified result and copy its full property URL. Do not substitute a general home-search page, a market page, a third-party listing, or a guessed URL.
 
 OpsHub `get_special_flags` is property-condition metadata, not the page's
 load-bearing **Flags** block; it cannot establish `Traditional listing`.
@@ -216,7 +218,7 @@ The Opendoor Team
 
 ## Hard gates (never violate)
 
-- Do not reply solely to repeat a request already visible in the email thread or say its answer is pending. When the thread already asks the right person for confirmation, wait for a substantive answer unless Support has a useful new fact or next step.
+- Do not reply solely to repeat a request already visible in the email thread or say its answer is pending. When the thread already asks the right person for confirmation, wait for a substantive answer unless Support has a useful new fact or next step. This does not make a customer's clarification of an unresolved concern a closing acknowledgment: provide a brief, courteous acknowledgment when needed, especially when the operator requests a reply. Do not repeat an outstanding request, imply resolution, or promise an unverified action.
 
 - **Stage gates the playbook** — `domain_state` wins over customer wording; do not
   invent next steps the stage rules out.
@@ -228,6 +230,10 @@ The Opendoor Team
   flag, prior tour, knowledge of the address, or a customer record does not establish
   that association. Do not disclose another buyer's contingencies, release dates,
   financing, or other private contract terms to an unassociated requester.
+  Former ownership, including a Cash Now, More Later seller's interest in a
+  second payment, does not authorize disclosure of the current resale
+  transaction's private details or scheduled closing date. Route CNML closed-home
+  and second-payment questions to cashnowmorelater@opendoor.com.
   Verified public listing status, including that a home is under contract, may
   be shared without transaction association. Answer that public-status question
   directly and point agents to https://www.opendoor.com/makeoffer to enter the
@@ -252,7 +258,11 @@ The Opendoor Team
   must not be surfaced to the customer.
 - Customer-facing replies must contain only customer-appropriate facts and next
   steps; never mention internal records, lead matching, retrieval, operator
-  corrections, drafting decisions, or internal process.
+  corrections, drafting decisions, or internal process. For unresolved occupancy
+  updates, keep security visit dates, security report findings, and unconfirmed
+  vacancy details in the internal note. Keep the customer reply to a courteous
+  acknowledgment and a verified commitment to keep them updated, without
+  recapping the security investigation.
 - Never tell a customer that Opendoor has conflicting internal numbers or listing
   figures. For home and lot square footage, state the separately labeled values
   from the verified listing details. Keep any source discrepancy internal.
@@ -460,7 +470,15 @@ remain; it is being sent to that manager. Ask the customer what items they belie
 were left behind so there is a clear trace, without promising that the items remain
 or will be retrieved.
 
-When directing an agent to submit an offer or backup offer, include the verified website https://www.opendoor.com/make-offer and the concise next step: enter the property address and follow the prompts to submit the offer. Do not name the Agent Offer Portal without giving its URL.
+When directing an agent to submit an offer or backup offer, normally include
+opendoor.com/makeoffer and the concise next step: enter the property address and
+follow the prompts. When the home has an active offer, instruct the agent to
+email homes@opendoor.com instead; do not present email as a blanket alternative.
+Buyers use opendoor.com/buy or opendoor.com/homes where direct submission is
+available. In special instances, a traditional listing there instructs the buyer
+to submit through homes@opendoor.com or contact a licensed agent; follow that
+listing's instructions. Preserve separately saved location eligibility guidance.
+This does not change touring/access or transaction-confidentiality rules.
 
 For unresolved remaining-proceeds follow-ups, preserve the verified referral date
 in the customer reply and include the verified destination email when asking the

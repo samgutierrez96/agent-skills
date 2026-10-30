@@ -688,32 +688,42 @@ Rules:
   is pending Sam's confirmation. Use `opendoor.com/buy` where direct buyer
   submission is available; preserve known location and listing exceptions.
   Do not infer statewide eligibility from an individual call.
-- Buyer offer submission (company process update, 2026-10-22): Georgia buyers
-  must work with a licensed agent to place an offer. Some other locations also
-  require an agent; do not invent a state list or assume all other states allow
-  direct submission. Where direct buyer submission is available, find the
-  property listing at `https://www.opendoor.com/buy` and submit from that listing.
-  Preserve traditional-listing requirements to submit through an agent. This
-  changes offer guidance only, not touring/access rules. Notes record only the
-  advice actually given; do not add agent guidance as a completed action to an
+- Buyer offer submission (updated October 30, 2026): where direct submission
+  is available, find the home at `opendoor.com/buy` or `opendoor.com/homes` and
+  follow the listing's offer instructions. In special instances, a traditional
+  listing there instructs buyers to submit through `homes@opendoor.com` or
+  contact a licensed agent to place an offer; follow that listing's instructions.
+  Preserve separately saved location eligibility guidance, including Georgia;
+  do not infer that all other states permit direct submission. This changes
+  offer guidance only, not touring/access rules.
+- Agents normally use `opendoor.com/makeoffer`: enter the property address and
+  follow the prompts to submit. When the home has an active offer, instruct the
+  agent to email `homes@opendoor.com`; this is not a blanket email alternative.
+  Notes record only advice actually given; do not add completed actions to an
   escalation-only call.
 - Wire/disbursement: first tell XA to check Admin → Closing → Wire Transfers.
   (`admin.opendoor.com`). If unresolved after Opendoor wired, route to title.
   Note only actions stated: reviewed status, or reviewed and escalated. Never
   invent wire status.
-- Cash Now More Later second payment: advise
-  `executive.experience@opendoor.com`; no Slack channel and never closed homes.
+- Cash Now More Later closed-home questions and second payment: advise
+  `cashnowmorelater@opendoor.com`; no Slack channel and never closed homes.
   Only genuinely urgent cases may be drafted to Katie Wright
   `U8AU13UQ5` for the XA to place; this skill has no verified channel.
+  Former ownership does not authorize private current-resale details or its
+  scheduled closing date. The CNML inbox replaces Executive Experience for
+  closed-home and second-payment questions; no payment or response-time promise.
+  Source: Diego Mendieta, October 30, 2026,
+  https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1793377165539289.
 - Previous owner wants into a closed CNML home: treat as a buyer, no lockbox
-  code, not closed homes, not Exec X unless they also asked about the second
+  code, not closed homes, not the CNML inbox unless they also asked about the second
   half. Access-only belongs in xa-notes.
 - Rental scam: put 1-888-352-7075 in the note; no Slack block.
 - Post-close vendor/property condition or post-close property-information request:
   closed homes team / `#closed-homes-customer`. This includes a prior seller or
   buyer who already purchased the home asking about equipment identifiers,
   manuals, filters, or other home-system information. Not for a previous owner
-  asking to enter. A Cash Now More Later second-payment question remains a
+  asking to enter. CNML closed-home questions use the CNML inbox above, not this
+  generic closed-homes route. A Cash Now More Later second-payment question remains a
   post-call note workflow, not closed homes.
 - Home damage/issue: `Filed a home issue report.` Emergency message prefix is
   `UXA - `.

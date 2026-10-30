@@ -51,8 +51,12 @@ Preserve AGENTS.md's same-requester/property/concern recent-notes resolution che
 for record-specific replies, including focused browser fallback when structured
 reads cannot expose required notes or Home Visits. Inbound-only and explicit fast
 paths keep their exceptions. Under-contract homes cannot be viewed, even for a
-backup offer. Agent submission guidance includes `https://www.opendoor.com/make-offer`
-and the address-entry/submission steps; keep buyer and seller paths distinct.
+backup offer. Agent submission normally uses `opendoor.com/makeoffer` and the
+address-entry/submission steps. When the home has an active offer, direct the
+agent to email `homes@opendoor.com`. Buyers who encounter a traditional listing
+at `opendoor.com/buy` or `opendoor.com/homes` follow its instructions to email
+`homes@opendoor.com` or contact a licensed agent. Keep buyer and seller paths
+distinct; preserve separately saved location eligibility guidance.
 
 Use the smallest sufficient read and stop when the answer and required gates are supported. Read
 only named recipe sections; do not hunt through tool catalogs or reload context.

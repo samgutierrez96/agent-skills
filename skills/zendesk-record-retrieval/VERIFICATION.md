@@ -178,9 +178,13 @@ tool/lookup rounds, exposed provider usage, two-box output and semantic result.
    verified phone; request only MLS sign-in number, license number and email.
    MLS listing area stays optional; no passwords, confirmed appointment or code.
    Verify same-concern resolution and listing stage before access guidance.
-2. **Backup-offer submission:** use the known under-contract listing fixture.
-   Include the approved /make-offer URL and entry/submission steps; no viewing
-   or scheduling referral while under contract. Preserve required resolution checks.
+2. **Backup-offer submission:** use a synthetic listing fixture with an active
+   offer. Instruct the agent to email homes@opendoor.com under the October 30
+   exception. A normal agent submission without an active offer uses
+   opendoor.com/makeoffer and address-entry/submission steps. No viewing or
+   scheduling referral while under contract. Preserve required resolution checks.
+   Also check a buyer encountering a traditional listing at /buy or /homes:
+   follow its email-to-homes@opendoor.com or licensed-agent instructions.
 3. **Condition/wiring unavailable:** exact property identified, no supported
    wiring fact. Stop after the permitted exact-page lookup; no unrelated listing,
    repeated search or shell fetch workaround. Give the inspection option and gap.

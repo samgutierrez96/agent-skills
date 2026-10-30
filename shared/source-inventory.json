@@ -1,5 +1,5 @@
 {
-  "audited_on": "2026-10-28",
+  "audited_on": "2026-10-30",
   "scope": "Seven previously included custom skills and their runtime dependencies",
   "files": [
     {
@@ -15,7 +15,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/AGENTS.md",
       "destination": "adapters/codex/zendesk-record-retrieval/AGENTS.md",
-      "sha256": "d14e5dbb71e093bfdb01838a85539b957ae2aeeff651021eb4284261ba614312"
+      "sha256": "b8ce1e4121bf930f4c164539a641c336980c4d3e090a3a7b512cabe56e51a02f"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/decisions-and-conventions.md",
@@ -25,17 +25,17 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/drafting-procedure.md",
       "destination": "adapters/codex/zendesk-record-retrieval/context/drafting-procedure.md",
-      "sha256": "3715f7f6cd2e4d471ad1b16dc4dbaa99b822c1cb0397c615f8a24933d0480ba9"
+      "sha256": "5d80340c2b414590f7a5ff8d1d720780304f6bf4a47e42f0e6ec32ced4d261ed"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/zendesk-retrieval-reference.md",
       "destination": "adapters/codex/zendesk-record-retrieval/context/zendesk-retrieval-reference.md",
-      "sha256": "a0279123460f31b87067e3d947a53cf407797f36b27d5431bec72eabb9d2e1ce"
+      "sha256": "bf776be468c7eaac1279df2abb5437b998a8fa360c743933a315edf297fa64d1"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/zendesk-voice-and-rules.md",
       "destination": "adapters/codex/zendesk-record-retrieval/context/zendesk-voice-and-rules.md",
-      "sha256": "34c5767d7168b16be41698810f871a577fb1a8b1bf30d31025512848cfdd37b4"
+      "sha256": "ba09511f088424a40e1cb3b14d6ed93498e8fe1d6678e87c7fa2731c32d59807"
     },
     {
       "source": ".codex/skills/agent-verification/SKILL.md",
@@ -75,7 +75,7 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/SKILL.md",
       "destination": "skills/xa-notes/SKILL.md",
-      "sha256": "14f6178d03ee4aefa7f59644329ee34c1dae59d7eafa5514abc8275f2bb7cc36"
+      "sha256": "d940ac73711e9b70128be9653a63dada20a39f84f26db38cf8222243ce12dc04"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/reference/process-detail.md",
@@ -95,18 +95,18 @@
     {
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/SKILL.md",
       "destination": "skills/xa-quick-slack/SKILL.md",
-      "sha256": "7dc37042bec76762b33c2397c75eeae2fae92808563aa8aa6e55d0693a0e32f4"
+      "sha256": "3cebf34ad5a2ee0373e2e9a6ebc5f15a55c874b4074fc6f62ea8f733d71670f9"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ENTRY.md",
       "destination": "skills/zendesk-record-retrieval/ENTRY.md",
-      "sha256": "58d51dddfdab90d9f36a944cdae5f46197a1b9ae17112338584b56e74fde7fed",
+      "sha256": "32352f859d29bf41840eda8e838d6b9c6c3095719836ab3b8a38e66f07f00203",
       "transformation": "Repository layout: rules path points to adapters/codex/zendesk-record-retrieval/AGENTS.md"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/FAST-INDEX.md",
       "destination": "skills/zendesk-record-retrieval/FAST-INDEX.md",
-      "sha256": "9bd81c0a38374a3939d484b33c6e564315a86c28b5ea8eee90e467bab6b82248"
+      "sha256": "daeff5ef3edfcbb7ef5f711f5b8b62cd9eea06bcd220d7ca01c9ae879854e930"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ROUTING-GATES.md",
@@ -116,17 +116,17 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/SKILL.md",
       "destination": "skills/zendesk-record-retrieval/SKILL.md",
-      "sha256": "9a3aed218a7a6f6a251c7eb3cb2ac3550f94d9de909dcb26f8de5940b557c2fc"
+      "sha256": "3b47451d126de21c914f4e3b888cd6d2e3cbf76028963effc798904ca2225c78"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/VERIFICATION.md",
       "destination": "skills/zendesk-record-retrieval/VERIFICATION.md",
-      "sha256": "fba980466dee7d3aaf5d306b1c61641336cf3d255823b423fa2384924dfbddbe"
+      "sha256": "eeaa1086e58fdc34a050ea56c01187f2a068dda16b46c8cb3d98bbb47a934be8"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/access-resolution.md",
       "destination": "skills/zendesk-record-retrieval/recipes/access-resolution.md",
-      "sha256": "2c6a65e7819c928e5aaa44c171ea9ac20780538972cbfb673fa10d3108c80ef6"
+      "sha256": "9ad0d7af57848871d26bf0ae81d43a4220330051d3891f6aa532df41c28179bd"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/agent-verification.md",
@@ -141,7 +141,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/assessment-code-follow-up.md",
       "destination": "skills/zendesk-record-retrieval/recipes/assessment-code-follow-up.md",
-      "sha256": "22924846fb992d00465f5c30d0e21672ae0ac4a79745f96d9731ac2f96693a72"
+      "sha256": "6eae89fd67ca8f04cabfd60ab3d7ea032d6aa117266bd8a11267de143ec2c114"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/assessment-provider.md",
@@ -156,7 +156,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/backup-offer.md",
       "destination": "skills/zendesk-record-retrieval/recipes/backup-offer.md",
-      "sha256": "aeb227048d8ad9e3037771effcebea0a3ecbcdcd2f22de100c5ff2c6fa000e5f"
+      "sha256": "fefc8bbe818c2ed56ce2398fc652a94c907185fd0ea549df9249271a66247df3"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/buyer-condition.md",
@@ -166,12 +166,12 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/buyer-listing.md",
       "destination": "skills/zendesk-record-retrieval/recipes/buyer-listing.md",
-      "sha256": "351dbb7200798713208d4a7ba7e165bc7be5146f19fb8b5e96721fdd3414c6ae"
+      "sha256": "8a4d6e33ad50e5418f4c8cd60e8fe4d771f7d93c2aa6054e027a17b44b5eef02"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/offer-status.md",
       "destination": "skills/zendesk-record-retrieval/recipes/offer-status.md",
-      "sha256": "9e822b80ef9f25f7d814d7f76a091716c580f8a35ec81ce8d3f0f883382c22bf"
+      "sha256": "97d00d730332246f1408f8bc7129b4315065ef6539be6ad8639422aaa28de588"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/open-house.md",
