@@ -499,8 +499,8 @@ The reply is the note, per the rule at the top. Inside the note:
 - **Never promise a future action.** Not "their agent will be contacted." Write
   what was said: "Advised the seller that their agent will be contacted with
   information to complete the next steps."
-- **Write an address out, never a description of it.** "The executive experience
-  inbox" is not a substitute for executive.experience@opendoor.com. This applies
+- **Write an address out, never a description of it.** "The CNML
+  inbox" is not a substitute for cashnowmorelater@opendoor.com. This applies
   to every inbox in this file, and a description is a defect even when it reads
   naturally.
 
@@ -960,9 +960,9 @@ complete as written.** If the answer is here, write it and move on. Do not open
 | Need | Where it goes |
 |---|---|
 | Opendoor Experience team customer service line | 888-352-7075 |
-| Escalated seller issues | executive.experience@opendoor.com |
-| Buyer making an offer on an Opendoor-listed home | Georgia: work with a licensed agent. Where direct buyer submission is available: find the listing at opendoor.com/buy and submit from it. Confirm other locations before advising direct submission. |
-| Agent making an offer on an Opendoor-listed home | opendoor.com/makeoffer |
+| Escalated seller issues other than CNML closed-home / second-payment questions | executive.experience@opendoor.com |
+| Buyer making an offer on an Opendoor-listed home | Use the listing at opendoor.com/buy or opendoor.com/homes where direct submission is available. Special traditional listings may instruct homes@opendoor.com or a licensed agent; follow listing instructions and separately saved location eligibility. |
+| Agent making an offer on an Opendoor-listed home | Normally opendoor.com/makeoffer; when the home has an active offer, email homes@opendoor.com. |
 | Listing agreement not yet on file | support@opendoor.com |
 | Agent commission structure | opendoor.com/agents |
 | Account deletion requests | opendoor.com/privacy |
@@ -1024,9 +1024,9 @@ partner deal.
 - Opendoor does not make offers on manufactured homes.
 - Remote area properties are Cash Now, More Later only. No all cash offer.
 - Cash Now, More Later was formerly "Cash Plus." Always use the current name.
-- Backup offers are submitted through `opendoor.com/makeoffer` and are not
-  binding. Note this, especially when the property is already in a resale
-  contract.
+- Backup offers start at `opendoor.com/makeoffer`; when the home has an active
+  offer, instruct the agent to email `homes@opendoor.com`. Backup offers are not
+  binding. This does not authorize a viewing of an under-contract home.
 - A shared driveway blocks an offer from being submitted.
 - An offer expiring the same day is time critical. Handle it first.
 
@@ -1035,11 +1035,12 @@ partner deal.
 The complete eligible-state list is pending Sam's confirmation (October 23,
 2026). Do not infer statewide eligibility from an individual call.
 
-Some locations require a licensed agent to submit a buyer’s offer. Georgia is one: direct the buyer to work with a licensed agent to place the offer. Where direct buyer submission is available, find the property listing at `https://www.opendoor.com/buy` and submit the offer from that listing. Do not assume every other state allows direct submission; confirm the location’s path when unknown. If a traditional listing requires submission through an agent, the buyer must work with their agent. This offer-submission rule does not change touring/access rules.
+Where direct buyer submission is available, find the home at `opendoor.com/buy` or `opendoor.com/homes` and submit from its listing. In special instances, a buyer will encounter a traditional listing there and be instructed to submit an offer through `homes@opendoor.com` or contact a licensed agent to place the offer; follow that listing's instructions. Some locations require a licensed agent, including Georgia under the separately saved October 22 guidance; confirm the location's path when unknown rather than assuming all other states allow direct submission. This offer-submission guidance does not change touring/access rules.
 
-Buyer offer guidance is `opendoor.com/buy`: find the home and submit the offer
-from its listing where direct submission is available. Keep the location and
-traditional-listing exceptions above. `opendoor.com/makeoffer` is for agents.
+Buyer offer guidance is `opendoor.com/buy` or `opendoor.com/homes`: find the home
+and follow its listing instructions where direct submission is available. Keep
+the location and traditional-listing exceptions above. `opendoor.com/makeoffer`
+is for agents.
 
 Use the applicable standing line only when it reflects advice actually given:
 
@@ -1053,14 +1054,25 @@ Do not add either as a completed action when the XA only escalated the question.
 
 ## Placing an offer — agent (agent making an offer, makeoffer)
 
-Direct an agent to `opendoor.com/makeoffer` for every offer, including a backup
-offer. Do not provide an email address as an offer-submission path.
+Direct an agent to `opendoor.com/makeoffer` to enter the property address and
+follow the prompts to submit an offer. Exception confirmed October 30, 2026:
+when the home has an active offer, instruct the agent to email
+`homes@opendoor.com`. Do not offer email as a blanket alternative for every
+submission. The same active-offer exception applies to backup offers.
 
 > Explained how to place an offer and pointed the agent to opendoor.com/makeoffer.
 
-Backup offers are submitted through `opendoor.com/makeoffer` and are not
-binding. Note this, especially when the property is already in a resale
-contract.
+When the active-offer exception was actually explained, use instead:
+
+> Let the agent know the home has an active offer and advised them to email
+> homes@opendoor.com to submit their offer.
+
+For a traditional-listing buyer, record the email or licensed-agent direction
+actually given; do not invent advice or an escalation.
+
+Backup offers start at `opendoor.com/makeoffer`; when the home has an active
+offer, instruct the agent to email `homes@opendoor.com`. Backup offers are not
+binding. This does not authorize a viewing of an under-contract home.
 
 If they also asked for something else, keep this sentence and add the other
 template's standing line. Do not drop either one.
@@ -1086,13 +1098,19 @@ requests to the general HOA contact or invent another payment path.
 
 ## Cash Now, More Later second half payment (cnml, 2nd half)
 
+CNML closed-home and second-payment questions go to cashnowmorelater@opendoor.com.
+Former ownership does not authorize disclosure of the current resale transaction's
+private details or scheduled closing date. Do not promise a payment date or
+response time. Source: Diego Mendieta, October 30, 2026, https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1793377165539289.
+
+
 The seller contacts the inbox themselves. Never escalate on their behalf. Write
 this sentence as it appears, address included:
 
-> Advised seller to contact executive.experience@opendoor.com directly regarding
+> Advised seller to contact cashnowmorelater@opendoor.com directly regarding
 > the second half of their Cash Now, More Later payment.
 
-**Write the address, never "the executive experience inbox."** That description
+**Write the address, never "the CNML inbox."** That description
 is a defect, not a paraphrase. This sentence is the complete answer for the
 call.
 
@@ -1695,9 +1713,10 @@ Solution Offered: Explained to the buyer to go to opendoor.com/buy, find the hom
 Follow Up Link: N/A
 ```
 
-This example is for direct buyer submission. For Georgia or a traditional
-listing requiring an agent, use the applicable standing line from Part 6
-instead. Do not invent advice the XA did not give.
+This example is for direct buyer submission. For a special traditional listing
+instructing email to homes@opendoor.com or contact with a licensed agent, or a
+separately saved location restriction, use the applicable Part 6 guidance instead.
+Do not invent advice the XA did not give.
 
 ## Placing an offer — agent
 
@@ -1752,7 +1771,7 @@ Follow Up Link: N/A
 
 ## Cash Now, More Later second half payment (cnml, 2nd half)
 
-Confirmed wording, address included. Never write "the executive experience
+Confirmed wording, address included. Never write "the CNML
 inbox" in place of the address.
 
 ```
@@ -1762,7 +1781,7 @@ Reason for Call: Seller called about the second half payment for their Cash Now,
 
 Customer Concerns: Seller wanted to know about receiving the second half of their payment.
 
-Solution Offered: Advised seller to contact executive.experience@opendoor.com directly regarding the second half of their Cash Now, More Later payment.
+Solution Offered: Advised seller to contact cashnowmorelater@opendoor.com directly regarding the second half of their Cash Now, More Later payment.
 
 Follow Up Link: N/A
 ```
@@ -2124,9 +2143,11 @@ uploaded for the digital checkout."
     that path.
 30. **Two distinct asks pulled standing lines from both templates.** Example:
     HOA documents plus how to place an offer includes the HOA contact sentence
-    and the applicable buyer offer path (licensed agent in Georgia; listing at
-    opendoor.com/buy where direct submission is available), or
-    opendoor.com/makeoffer for an agent.
+    and the applicable buyer offer path (listing at opendoor.com/buy or
+    opendoor.com/homes where direct submission is available; follow special
+    traditional-listing email/agent instructions and saved location eligibility).
+    Agents normally use opendoor.com/makeoffer; when the home has an active
+    offer, instruct email to homes@opendoor.com.
     Do not write the
     second thread from the bullets only.
 31. **A seller with a listing agent who called for offer or file info got the

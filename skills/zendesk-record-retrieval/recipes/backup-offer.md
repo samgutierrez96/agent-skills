@@ -20,11 +20,12 @@ AGENTS.md's current agent submission URL takes priority over older URL wording.
    status even when generic instructions were sent later. If sold, say it has
    sold and is no longer available for offers; do not repeat submission guidance
    or recommend closing without a reply on the strength of that generic SMS.
-3. Opendoor accepts backup offers. When directing an agent to submit, include
-   `https://www.opendoor.com/make-offer`: enter the property address and follow the
-   prompts to submit the offer. Do not name the portal without its URL or promise
-   acceptance, a response, or an appointment. Keep buyer and seller submission
-   paths distinct; use their existing recipe if the requester is not an agent.
+3. Opendoor accepts backup offers. Agents normally use `opendoor.com/makeoffer`:
+   enter the property address and follow the prompts. When the home has an active
+   offer, instruct the agent to email `homes@opendoor.com` instead. Do not offer
+   email as a blanket alternative or promise acceptance, a response, or an
+   appointment. Keep buyer and seller paths distinct; use their existing recipe
+   if the requester is not an agent.
 4. If the home is under contract, it cannot be viewed, including for a backup
    offer. Do not route a viewing to an app, support, or showing service. Acceptance
    of backup offers and a system permitting booking do not override this gate.

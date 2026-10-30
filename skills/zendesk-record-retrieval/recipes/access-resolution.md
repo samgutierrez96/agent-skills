@@ -21,7 +21,16 @@ Apply project rules. Check resolution before drafting or expanding retrieval.
    Internal note: concern + property + verified call handler + resolution.
    Skip property, Flags, trust, participant, and visit research after resolution,
    unless the operator explicitly requests a remaining fact.
-5. If unresolved, continue the matching touring/access or appraiser playbook.
+5. For a missed/canceled Showami visit, read any escalation thread linked in the
+   notes through Slack before asking about the later call's outcome. Verify the
+   property and appointment chronology; do not apply an older cancellation to a
+   newer slot. A call disposition alone is not resolution. If the provider
+   confirms cancellation/unavailability without a superseding resolution, use
+   the full-playbook Assessment reschedules and confirmations guidance:
+   reschedule through the verified dashboard link or collect a preferred date
+   and time, or explain the Opendoor Key App live-photo alternative. Do not
+   create a new escalation or draft solely to read this existing context.
+6. If unresolved, continue the matching touring/access or appraiser playbook.
    Verify participant and assigned appointment before access guidance. An elapsed
    requested time alone does not justify asking for a replacement appointment
    before checking for a later resolution. Missing visits are not proof that no

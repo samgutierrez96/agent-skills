@@ -19,5 +19,7 @@ read the matching full-playbook section before drafting; this card is the first 
   the buyer to work with one. Where direct buyer submission is available, use
   the listing at `https://www.opendoor.com/buy`. Do not assume all other states
   allow direct submission; confirm the location’s path when unknown. Preserve
-  traditional-listing requirements to submit through an agent. These are offer
-  rules and do not change the touring rules above.
+  listing-specific instructions: in special instances, a traditional listing at
+  `opendoor.com/buy` or `opendoor.com/homes` instructs the buyer to submit through
+  `homes@opendoor.com` or contact a licensed agent to place the offer. Follow those
+  instructions. These offer rules do not change the touring rules above.
