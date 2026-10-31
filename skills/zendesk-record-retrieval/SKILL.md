@@ -1010,17 +1010,18 @@ the shape, the record wins, see "Stage gates the playbook".
   does not establish an active launch, a particular product's availability,
   or borrower eligibility; verify current availability before a referral.
   Recheck the live page for licensing questions rather than treating this
-  dated snapshot as permanent. The listed ODHL phone is **480-618-6760**.
+  dated snapshot as permanent. **480-618-6760** is the dated licensing-page
+  number, not the application contact; use **947-600-5891** below for getting a loan.
   Use the applicable verified product/application path below for applications;
   the licensing page itself does not change that path. ODHL is an Opendoor
   subsidiary; using an affiliate is optional, customers may shop around, and
   Opendoor or its affiliates may benefit financially from the transaction.
   Applications require underwriting, credit qualification, and verification;
   do not promise approval or treat website information as a lending commitment.
-  **Lower.com:** retain the existing partner-referral guidance where currently
-  verified (previous guidance identified Ohio and excluded NV/NY), but do not
-  route automatically to Lower based on absence from the old ODHL list. The
-  ODHL licensing page does not establish Lower's coverage or affiliation.
+  **Lower.com:** the October 21 announcement reply says to direct customers to
+  opendoor.com/mortgage first; Lower.com may be a referral if they cannot qualify.
+  Verify Lower's current coverage before a referral; do not route automatically
+  based on absence from the old ODHL licensing list.
   Refer with the Help Center Affiliated Business Arrangement line:
   we are referring them to Lower.com, an affiliate of Opendoor; they are not
   required to use it and should shop around; Opendoor may receive a financial
@@ -1037,12 +1038,28 @@ the shape, the record wins, see "Stage gates the playbook".
   lead with touring, Lower not a blanket no-finance).
 - **Opendoor Home Loans application start / incomplete application.** When a
   buyer asks how to start, continue, or submit an Opendoor Home Loans
-  application, provide `https://homebuyer.com/rates`. Tell them to select
-  **Get started**, complete and submit the application, or sign in and continue
-  if they already started one. For an application-status SMS with no submission
-  recorded, include this link and these start/continue steps in the first reply;
-  do not make the customer ask for the website separately. Verified on ticket
-  4955249 and corroborated by ticket 4820174.
+  application, provide `https://www.opendoor.com/mortgage` and follow its
+  application/sign-in prompts. Direct contacts: **947-600-5891** and
+  **mortgage@opendoor.com**. For an application-status SMS with no submission
+  recorded, include the website and start/continue guidance in the first reply.
+  This October 31 update supersedes the older homebuyer.com/rates entry point,
+  not the requirement to help the customer start or continue the application.
+  Opendoor Home Loans is our in-house lender. Sam confirmed no lender or
+  origination fees and up to 2% toward a rate buydown on Opendoor homes.
+  Paraphrase as needed; do not promise the maximum incentive, a rate, approval,
+  or no closing costs. Check ZIP-code/product availability and eligibility;
+  preserve the optional-affiliate/disclosure safeguards above. XAs are not
+  mortgage consultants and do not provide financial advice.
+  `opendoor.com/drop` has listing-specific financing incentives and a
+  pre-approval path; its promotional rates are for Opendoor Home Loans and
+  are not available retroactively after closing. **Existing active loans:**
+  the announcement explicitly distinguishes application/getting-a-loan support
+  from post-close servicing. The servicing contact remained unresolved; do not
+  present the application phone or email as a verified servicing route.
+  Source: September 28 announcement and September 29 / October 21–22 replies,
+  https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1790624146909069.
+  Sam supplied the fee, incentive and email facts directly on October 31, 2026;
+  those three details are not independently established by the thread.
 - **Unsolicited vendor / staging pitch on SMS** (offers staging, cleaning, photography,
   etc.; often greets a named person who is not the requester; frequently tagged
   `initial_greeting_sms`). Clear insurance/medical-benefits sales pitches are

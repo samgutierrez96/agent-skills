@@ -1,5 +1,30 @@
 # Skill manifest
 
+## Home Loans knowledge and contact guidance — October 31, 2026
+
+Sam supplied the in-house lender, no lender/origination fees, up-to-2% rate
+buydown on Opendoor homes and mortgage@opendoor.com facts. The September 28
+announcement thread confirms opendoor.com/mortgage, 947-600-5891 and scoped
+application/ZIP-code/Lower referral guidance; the post-close servicing route
+remains unresolved. XA Notes runtime and Zendesk playbook/policy-product card
+are aligned with their local distribution copies. Fees are not a no-closing-cost
+promise; incentives and approval are not guaranteed. The older application entry
+point is superseded, while licensing and optional-affiliate safeguards remain.
+The shared local company-knowledge reference records source distinctions; it
+remains outside this seven-skill distribution. Source-inventory hashes updated.
+No customer actions or past outputs were replayed. Local save only; publication
+awaits the existing daily synchronization.
+
+## Thread-specific content corrections — October 31, 2026
+
+Existing-thread matching remains the default. The latest explicit XA content
+instruction for a thread overrides an earlier omission instruction or stylistic
+omissions in peer replies: when requested for that issue, include the verified
+customer name linked to the customer's OpsHub page. This does not impose or
+prohibit names/links in other threads. Case identities remain outside reusable
+instructions. The active Escalations runtime and canonical package match, and
+the inventory hash is updated. Local save only; publication awaits the daily sync.
+
 ## Buyer and agent offer-submission exceptions — October 30, 2026
 
 Sam confirmed two scoped exceptions in the Floor Support chat. Buyers who
@@ -65,7 +90,7 @@ without treating the newer request as resolved. Active project rules and these
 canonical adapters match locally; inventory hashes are updated. Live performance
 savings are not measured. GitHub publication awaits the scheduled daily sync.
 
-Last content audit: 2026-10-30. Scope: all seven skills already included in this repository.
+Last content audit: 2026-10-31. Scope: all seven skills already included in this repository.
 
 ## Canonical distribution and active sources
 

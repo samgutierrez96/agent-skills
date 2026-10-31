@@ -301,6 +301,7 @@ answer to anything listed here, and neither is a search.
 | place an offer, how to offer, makeoffer, making an offer | Part 6, "Placing an offer on an Opendoor home (place an offer, makeoffer)" |
 | hoa, HOA, hoa docs, hoa documents, hoa contact | Part 6, "HOA documents (hoa)" |
 | hoa dues, HOA dues payment, pay HOA dues, HOA assessment payment | Part 6, "HOA dues payments (hoa dues payment)" |
+| home loans, mortgage, lender contact, Opendoor Home Loans | Part 6, "Opendoor Home Loans (home loans, mortgage, lender)" |
 | hodw, HODW | Acronyms table below |
 | rental scam, rsv, RSV, facebook, scammed | Part 8, "Rental scam calls (rental scam, rsv)" |
 | walk, cancel, cancellation | Part 9, "Walk or cancellation (walk, cancel)" |
@@ -966,11 +967,37 @@ complete as written.** If the answer is here, write it and move on. Do not open
 | Listing agreement not yet on file | support@opendoor.com |
 | Agent commission structure | opendoor.com/agents |
 | Account deletion requests | opendoor.com/privacy |
+| Opendoor Home Loans applications / getting a loan | opendoor.com/mortgage; 947-600-5891; mortgage@opendoor.com. Not a confirmed post-close servicing route. |
 | Vendor asking to work with Opendoor | opendoor.com/vendor-partnerships, and vendoronboarding@opendoor.com |
 | Trust and safety | trust@opendoor.com |
 
 Give the contact even when an escalation is also noted. The two are not
 alternatives.
+
+## Opendoor Home Loans (home loans, mortgage, lender)
+
+Opendoor Home Loans is our in-house lender. Sam confirmed October 31, 2026:
+no lender or origination fees, and up to 2% toward a rate buydown on Opendoor
+homes. Apply at opendoor.com/mortgage or contact 947-600-5891 or
+mortgage@opendoor.com. These are knowledge facts, not a mandatory verbatim pitch:
+record only the guidance actually given and write out contacts that were shared.
+Do not turn "up to 2%" into a guaranteed incentive, promise approval or a rate,
+or describe no lender/origination fees as no closing costs.
+
+The website checks availability and offers by ZIP code; licensing alone does
+not establish product availability or borrower eligibility. Affiliate use is
+optional and customers may shop around. The announcement directs customers to
+opendoor.com/mortgage first; Lower.com may be a referral if they cannot qualify.
+opendoor.com/drop shows listing-specific financing incentives and a pre-approval
+path; its promotional rates are for Opendoor Home Loans and are not retroactive
+after closing. The phone is for applications/getting a loan, not a verified
+post-close loan-servicing contact; that servicing route remained unresolved.
+
+Source: September 28 announcement and September 29 / October 21–22 replies,
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1790624146909069.
+The fee, up-to-2% and email details above were supplied directly by Sam on
+October 31, not independently established by that thread. XAs do not provide
+financial advice; preserve applicable affiliated-business disclosures.
 
 ## Confirming an agent is attached (attached)
 
