@@ -13,4 +13,8 @@ read the matching full-playbook section before drafting; this card is the first 
   Distinguish licensed jurisdictions from current product availability and
   borrower eligibility; do not use the former July 2026 market list for routing.
   The licensing page does not establish Lower.com coverage or replace the
-  separately documented application steps.
+  separately documented application steps. For applications, contacts, fees or
+  incentives, also read the adjacent "Opendoor Home Loans application start /
+  incomplete application" guidance: opendoor.com/mortgage, 947-600-5891 and
+  mortgage@opendoor.com. Do not use the application contact as a verified route
+  for servicing an existing closed loan.

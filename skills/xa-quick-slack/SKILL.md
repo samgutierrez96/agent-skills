@@ -945,7 +945,15 @@ Shape B:
   supplies that context. Do not infer a double lock or other symptom from peers.
 - Include the address/property link, caller/customer link, and verified mentions
   when needed to identify this case or reach the person handling the next step.
-  Omit information already clear in the thread. A shared issue thread with many
+  Match the thread's style by default, but the XA's latest explicit content
+  instruction for that thread takes precedence over stylistic omissions. If
+  the XA reverses an earlier request to omit the customer name/link, include
+  the verified customer name linked to that customer's OpsHub page in the
+  specified thread. Keep matching and reusing the existing thread; do not turn
+  this exception into a name/link requirement or prohibition for other threads.
+  Peers omitting names or links is not itself a prohibition. Keep case-specific
+  instructions with their case, not customer identities in reusable guidance.
+  Omit information already clear unless the XA requests it for this case. A shared issue thread with many
   properties still needs this case's property identifier. Do not force a caller
   introduction, repeat an existing case's links, or tag every participant merely
   because they replied. Keep the exact Shape A layout for new listing-partner
