@@ -54,6 +54,33 @@ automatically; keep the internal note accurate about the unsent status. Email
 tickets have no OpsHub call note. Estimated/expired offers without a final offer
 or contract do not trigger HSA escalation.
 
+## Department routing when a Slack destination is unverified
+
+For a legitimate misrouted department inquiry, search Slack/internal knowledge
+for the appropriate escalation channel and verify that its purpose covers this
+issue. A similarly named channel or an old invoice discussion is not a verified
+escalation route. Say when no appropriate channel could be verified; do not claim
+that no channel exists or invent a destination.
+
+If that search does not establish an appropriate channel but a customer-facing
+department contact email is verified, recommend a brief reply directing the
+sender to that exact email. Include it in the revised customer reply and record
+the referral in the separate internal note. This routing reply can be useful even
+when Support cannot handle the underlying invoice; do not default to close/no
+reply solely because it is outside home-buying or selling support. When the
+operator requests the revision, return it now, independently of reusable-save
+status. Do not claim forwarding, receipt, payment, or escalation occurred.
+Preserve explicit no-contact directions, spam/phishing handling, and a verified
+already-resolved thread; this is not a rule to answer every automated invoice.
+
+Accounts Payable contact: `accountspayable@opendoor.com`, verified November 2,
+2026 from the Accounts Payable Check Request Form's questions contact and the
+Guide to Expensing's invoice-submission guidance. This does not establish a
+dedicated AP Slack channel, vendor-specific procedure, invoice receipt or payment
+status, or a payment timeline. HOA dues payments retain `HOAAP@opendoor.com`.
+Sources: https://docs.google.com/forms/d/1WPkUWBZFOrkVi_IlBVZ_TGB2ub5MoS5037NuLmpm0SA
+and https://drive.google.com/file/d/15ktZSmtJLnvkLZBHcQKlkLVZeXqn9zWw.
+
 **Same-ticket escalation deduplication:** Before preparing a follow-up Slack
 draft, compare the newest customer reply with the verified message already posted
 in the existing thread. If the issue and requested action are already covered,
@@ -86,7 +113,9 @@ address, scheduled slot, what the assessment lookup showed, and the next
 operational requirement. Keep codes out of the note when the code is already in
 the ticket unless the operator specifically needs to locate it; say that lockbox
 information must be included for a reschedule. Since the note is added inside the
-ticket, do not repeat the ticket number. Use the Zendesk MCP inbound together
+ticket, do not repeat the current ticket number. Include the full Zendesk URL
+of any different verified ticket referenced in the note so the threads can be
+connected. Use the Zendesk MCP inbound together
 with the relevant OpsHub records to summarize the full issue concisely; omit
 unrelated subject-line or automation context.
 
@@ -228,8 +257,10 @@ still returns an upcoming visit. Use the dated task completion for the customer-
 Internal notes must contain only operationally useful customer context, verified
 record facts, and the next action. Do not include drafting errors, corrections,
 process commentary, or internal critique in the paste-ready note. Before emitting
-the draft, scan the internal note and remove the ticket number wherever it appears;
-the note is already being added inside that ticket.
+the draft, remove redundant mentions of the current ticket number; the note is
+already being added inside that ticket. Preserve full URLs to different verified
+Zendesk tickets when the note references them. Follow AGENTS.md for cross-channel
+pending actions; closing an older SMS does not resolve a newer email request.
 
 Do not apologize or imply Opendoor caused an issue unless the record supports an
 Opendoor error. When the customer should be able to access an existing offer or
@@ -2232,6 +2263,10 @@ Three surfaces, three audiences, never interchange them:
   active offer, instruct the agent to email `homes@opendoor.com` instead. Email
   is not a blanket alternative for every offer. Do not send an unrepresented
   buyer to the agent submission path.
+  Agents can also check offer status and find the listing agent's contact
+  details at `opendoor.com/makeoffer` (Sam, November 2, 2026). This is
+  self-service guidance, not evidence that Support checked a current status
+  or contacted the listing agent; preserve transaction-confidentiality rules.
 
 When a current preliminary offer already exists for the client's property, do
 not tell the agent to request another offer. Direct them to review the existing

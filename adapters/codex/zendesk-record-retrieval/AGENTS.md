@@ -17,7 +17,9 @@ of Opendoor's HOA payments. Do not direct it to a general HOA contact or
 invent another payment path.
 
 When the operator asks to update a Slack channel from this project, use the
-escalation skill (`xa-quick-slack`). **Email tickets:** Slack only. Do not emit
+escalation skill (`xa-quick-slack`). **Email-ticket escalations:** Slack drafts
+only when the destination is verified; if no appropriate channel can be verified,
+apply the department-email fallback in the playbook. Do not emit
 an OpsHub call note. Do not Slack a home sale advisor on an estimated or
 expired offer with no final offer and no contract.
 
@@ -162,6 +164,11 @@ verified without a measured comparison. A correct no-reply result remains correc
 when the operator is questioning its latency.
 
 Actual output corrections still return the corrected workflow deliverable.
+When the operator asks for a revised reply now as well as a future-use update,
+return the revised customer reply and internal note even if the reusable save
+needs more context. State that save blocker separately; never substitute the old
+no-reply draft or a source-review explanation for the requested revision. Verify
+contacts before using them; a historical assistant claim alone is not evidence.
 Reusable corrections belong in the existing authoritative project, skill or
 agent-file passage that owns the behavior, not a Skill Router rule overlay.
 Read that passage and related guidance before editing. Replace superseded
@@ -182,10 +189,42 @@ context without repeating completed actions. Pure delay/token questions remain
 analysis unless an actual improvement is selected for saving. Feedback never
 authorizes an external send, post, merge, closure, or Slack draft creation.
 
+## Conversation evidence for Skill Router
+
+Operator questions about what a reply answered are read-only discussion, not a
+request for another customer draft or an action. Reuse sufficient retrieved
+evidence; look up only missing or explicitly requested newer facts. Historical
+assistant summaries are leads, not source evidence. Preserve the current draft.
+When the operator asks what they previously requested, use their saved requests,
+not customer messages. Reading saved history never needs customer-record reads.
+
+For an abbreviated inbound, preserve the actual preceding outbound and relevant
+later messages when already retrieved. Read both sides of the inbound timestamp;
+use `get_thread` for SMS and activity/related-ticket reads only when required by
+the existing recipe. Match requester, property and concern before combining
+channels. Explicit reply metadata can establish a parent; proximity alone cannot.
+Keep an older channel's no-reply disposition separate from unresolved work in a
+newer email. Existing related-ticket URL and internal-note rules still apply.
+
+When a Codex orchestration call emits focused source excerpts to Skill Router,
+emit them once in that same tool call as JSON under `skill_router_context_v1`:
+`{ticket_id:"selected ticket",messages:[{source:"zendesk" or "opshub",id:"source message ID",url:"source record URL",at:"source timestamp with timezone",actor:"source sender",channel:"sms/email/note/call",direction:"inbound/outbound/internal/unknown",body:"exact source text",truncated:false}],gaps:["material coverage limits"]}`.
+Build this display envelope from the retained connector response, not assistant
+prose, AI summaries, or invented facts. Preserve raw source text and source IDs;
+omit unknown timestamps and use unknown direction rather than guessing. Include
+only the matched ticket/customer/property's load-bearing excerpts and coverage
+limits. Do not emit email subjects as bodies, access codes, verification tokens,
+credentials, or unrelated cross-deal history. Leave sensitive entries out and
+state that an entry was withheld. Prefer this focused output instead of dumping
+the response again; retain the original in tool memory for required inspection.
+There is no additional read or AI summary pass solely for the snapshot. No
+evidence available means no invented snapshot. Keep the envelope out of the final
+reply/internal-note fences; it is display evidence, never an action receipt.
+
 ## Output order
 
 1. Customer reply in its own plain triple-backtick fence, with nothing above it. The internal note must be in a separate plain triple-backtick fence immediately after it. On no-send, fence `[No reply recommended. Close ticket.]` Unsolicited listing / marketing email: fence `[No reply recommended. Mark as spam and close.]` Put spam/close only in that fence, not in the internal note or appendix.
-2. A Zendesk internal note in its own fenced copy box, with enough detail to explain what the record shows and what the operator needs to do next. When a customer supplies information a team member requested, connect it to the original purpose and explicitly state the supported next action: the specific OpsHub update or escalation and its verified destination, as applicable. For example, requested listing-agent contact details now supplied → “Add the listing agent to the property in OpsHub using the supplied contact details.” Do not stop at acknowledging receipt or hedge a clear action with “review and add as appropriate.” Keep required identity/property checks and authorization gates; distinguish a pending action or unsent Slack draft from a completed update or sent escalation. This instruction does not authorize OpsHub writes or external sends. Do not repeat the assigned agent's name; it is already attached to the ticket. It may use multiple sentences or lines when the timeline or evidence needs explanation. Spell out acronyms (`buyer's agent`, not `BA`). Do not start it with `No outbound`. Because the note is added inside the ticket, never repeat the ticket number or include drafting/process commentary in it.
+2. A Zendesk internal note in its own fenced copy box, with enough detail to explain what the record shows and what the operator needs to do next. When a customer supplies information a team member requested, connect it to the original purpose and explicitly state the supported next action: the specific OpsHub update or escalation and its verified destination, as applicable. For example, requested listing-agent contact details now supplied → “Add the listing agent to the property in OpsHub using the supplied contact details.” Do not stop at acknowledging receipt or hedge a clear action with “review and add as appropriate.” Keep required identity/property checks and authorization gates; distinguish a pending action or unsent Slack draft from a completed update or sent escalation. This instruction does not authorize OpsHub writes or external sends. Do not repeat the assigned agent's name; it is already attached to the ticket. It may use multiple sentences or lines when the timeline or evidence needs explanation. Spell out acronyms (`buyer's agent`, not `BA`). Do not start it with `No outbound`. Because the note is added inside the ticket, never repeat the current ticket number or include drafting/process commentary in it. When referencing a different verified Zendesk ticket, include its full URL in the internal note so the conversations can be connected; a ticket number or “the email thread” alone is not enough.
 3. Optional short operator appendix below (gaps, trust deny, unverified claims, confidence)
 4. Warm-up only (`ready`) → reply exactly: `Ready when you are.`
 
@@ -204,6 +243,11 @@ The Opendoor Team
 
 - Blank line after greeting; blank line before sign-off; body is one block.
 - Prefer `We see…` for pipeline state; `I see` / `I show` for a just-done lookup.
+- Keep brief completion confirmations warm, not abrupt. When appropriate, invite
+  the customer to reply with any questions and include the support number:
+  `Please let us know if you have any questions. You can also contact us at (888) 352-7075.`
+  This is an invitation, not an unnecessary clarifying question or promised callback;
+  preserve no-reply dispositions and verbatim macros.
 - Keep Zendesk internal notes in English, even when the customer reply follows
   the customer's language.
 - When a Spanish-speaking agent says they want to “ver” or “verla” without
@@ -361,8 +405,8 @@ The Opendoor Team
   by the requester email and compare matching open or solved tickets. If a
   solved duplicate already contains the answer, recommend no reply and close
   the duplicate; do not repeat retrieval or send a second answer. Include the
-  source ticket number in the operator appendix so the duplicate can be found;
-  keep ticket numbers out of the internal note.
+  verified source ticket's full Zendesk URL in the internal note so the duplicate
+  can be found; do not repeat the current ticket number.
 - Keep duplicate internal notes direct; do not refer to the operator in the
   third person. State that the prior response already answered the customer.
 - A same-ticket follow-up does not reload the playbook, re-inspect schemas, or
@@ -371,7 +415,23 @@ The Opendoor Team
 - When a newer verified email changes the intent of an older SMS about the same
   concern, preserve the correct no-reply recommendation for the older channel
   and identify the remaining work in the newer thread. Do not treat the newer
-  thread as resolved merely because the older SMS needs no reply. Reuse the
+  thread as resolved merely because the older SMS needs no reply. In the internal
+  note, link the newer ticket by its full Zendesk URL and state its pending next
+  action plainly. If it was auto-solved without addressing the request, identify
+  that it needs reopening and continued assistance. Always include a complete,
+  paste-ready customer reply for that email in the same result, not just a link
+  or an instruction to reply later. Keep the older ticket's no-reply box and its
+  internal-note box first; then label the destination email ticket with its full
+  verified URL outside a separate plain fenced reply box. Use email formatting
+  and answer the unresolved request from verified context; do not put the older
+  SMS's no-reply disposition in place of the email draft.
+  Match the internal note to Sam's explicitly stated paste-time actions. When Sam
+  confirms reopening the email or says it will be reopened before the note is
+  pasted, write "Reopened" rather than "Reopen" in that prepared note. Otherwise
+  keep reopening pending. This is draft wording for the operator's action, not a
+  claim that the assistant changed ticket status; do not reopen, close, or send
+  anything on the strength of this rule. Do not imply that Sam must book an
+  appointment immediately, or that a requested date is confirmed. Reuse the
   verified requester/property match and completed recent-resolution checks;
   avoid additional property, assessment or browser research that cannot change
   that disposition. A separate substantive ask retains its own evidence gates.
@@ -444,7 +504,7 @@ exception. Put retrieval and stage-detection corrections in the workspace
 always-on behavior changes in this `AGENTS.md`. Apply the update immediately so
 the corrected behavior is used on later tickets.
 
-Before sending any draft, verify: the customer reply fence is first, the internal-note fence is second, and the internal note contains no ticket number, drafting critique, apology about the draft, or process commentary.
+Before sending any draft, verify: the customer reply fence is first, the internal-note fence is second, and the internal note omits the current ticket number, includes the full URL of any related ticket it references, and contains no drafting critique, apology about the draft, or process commentary.
 
 When a prior phone call resolves the ticket's concern, name the verified person
 who spoke with the customer in the Zendesk internal note for added confirmation.

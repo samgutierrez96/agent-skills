@@ -43,6 +43,12 @@ other hosts may use equivalent read-only tools without changing the evidence gat
    it, and do not imply a further lookup can provide a specific reason. Answer
    briefly; target about 20 seconds. Separate substantive asks retain their gates.
 2. HOA dues payment → `HOAAP@opendoor.com`; handle a separate ask with its own recipe.
+   Legitimate misrouted department inquiry / requested Slack escalation → search
+   and verify the appropriate channel. If none is verified but the department's
+   customer-facing email is, draft the requested referral reply with that email
+   plus the internal note, not an automatic no-reply disposition. Read
+   [department routing](SKILL.md#department-routing-when-a-slack-destination-is-unverified)
+   for the verified AP contact, scope, and no-contact/spam/resolution exceptions.
    Property-specific HOA restrictions or contact question → exact address match,
    then `get_hoas_for_property(full:true)` before public-listing fallback or an
    unavailable-information reply. Read “Reading the OpsHub property record” for
@@ -190,8 +196,8 @@ multi-part request, combine only the matching cards; keep their required gates.
   viewing to phone support, an app, or a showing service. Backup-offer acceptance
   and a system allowing booking do not override this gate.
 - Two separate non-empty plain triple-backtick boxes: customer reply first with
-  nothing above it, then internal note. No ticket numbers or process commentary
-  in that note. No-send still uses its required bracketed disposition.
+  nothing above it, then internal note. Omit the current ticket number and process
+  commentary; include full URLs for any different verified Zendesk tickets referenced. No-send still uses its required bracketed disposition.
 - Match every record fact to this requester and property. Missing/empty evidence
   is unknown. Resolve contradictory completion/stage evidence before drafting.
 - Photos, video, app, walkthrough, upload or completion questions require the

@@ -20,8 +20,9 @@ and extra context remain on demand, with the current package rules taking priori
 - Customer reply first in its own plain triple-backtick box, nothing above it;
   complete internal note in a separate plain triple-backtick box immediately after.
   Optional operator appendix follows. Required no-send disposition stays in box one.
-- Both boxes must be non-empty. No ticket numbers, draft criticism or process
-  commentary in the internal note; prior-ticket references belong in the appendix.
+- Both boxes must be non-empty. Omit the current ticket number, draft criticism
+  and process commentary from the internal note. Include the full Zendesk URL for
+  any different verified ticket referenced in the note, not only in the appendix.
 - Email voice/sign-off and concise SMS voice differ; use the exact bundled rules.
   Preserve approved macro wording, including the rental-report destination
   `https://www.opendoor.com/rental-scam` and the Opendoor Key App product name.
