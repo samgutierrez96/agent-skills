@@ -699,6 +699,9 @@ Rules:
 - Agents normally use `opendoor.com/makeoffer`: enter the property address and
   follow the prompts to submit. When the home has an active offer, instruct the
   agent to email `homes@opendoor.com`; this is not a blanket email alternative.
+  Agents can also check offer status and find the listing agent's contact
+  details at `opendoor.com/makeoffer` (Sam, November 2, 2026). Record only
+  guidance actually given; this does not imply a completed lookup or contact.
   Notes record only advice actually given; do not add completed actions to an
   escalation-only call.
 - Wire/disbursement: first tell XA to check Admin → Closing → Wire Transfers.

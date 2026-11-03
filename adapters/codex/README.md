@@ -1,5 +1,11 @@
 # Codex project adapters
 
+Bot Tasks uses `bot-task-notes/AGENTS.md` at its workspace root and the installed
+`~/.codex/skills/bot-task-notes` package. Install both files from the canonical
+`skills/bot-task-notes` folder, including its `references/local-mcp.md` fallback.
+The workspace does not use the five-field XA note contract. Explicit note
+posting and task completion remain separate actions.
+
 The project workflows require both the canonical skill package under `skills/`
 and their project-specific rules. Copying SKILL.md alone is incomplete.
 

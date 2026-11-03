@@ -39,8 +39,8 @@ appointment or a buyer viewing. Apply project output and escalation rules.
 
 Return the customer reply fence first and the internal-note fence second. The
 note states the concern, verified current status, existing thread and actual
-handoff state: prepared for review and sending. Keep ticket numbers out of the
-note. Include a short draft confirmation below; no OpsHub writes or call note.
+handoff state: prepared for review and sending. Omit the current ticket number;
+include full URLs for any different verified Zendesk tickets referenced in the note. Include a short draft confirmation below; no OpsHub writes or call note.
 
 Read the matching full-playbook section only if access, scheduling, an unresolved
 identity/stage conflict or another separate question needs a rule absent here.

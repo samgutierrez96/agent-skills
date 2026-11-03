@@ -33,7 +33,8 @@ of shared measurement reports. Reuse the same cases before/after where available
 
 For every case check factual support, current recipe, disclosure/access rules,
 exact standing wording/macros when required, channel voice, and two valid non-empty
-copy boxes. The note contains no ticket number or drafting commentary. A timing
+copy boxes. The note omits the current ticket number and drafting commentary,
+and includes the full URL of any different verified Zendesk ticket it references. A timing
 pass with a quality failure is a failed case. Heading-presence checks do not prove
 answer quality; uncertain checks remain Not verified pending operator confirmation.
 

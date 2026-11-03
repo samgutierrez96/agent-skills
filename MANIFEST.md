@@ -1,5 +1,57 @@
 # Skill manifest
 
+## Bot Task notes — November 2, 2026
+
+Added `bot-task-notes` at Sam's request for task-specific OpsHub notes, distinct
+from the ordinary five-field XA note. The canonical package under
+`skills/bot-task-notes` and installed `.codex/skills/bot-task-notes` copy match.
+The Bot Tasks workspace rules are bundled under `adapters/codex/bot-task-notes`.
+The connection reference records the successful absolute-path MCP handshake and
+tool listing, the native startup failure, and the untested live-write boundary.
+Explicit posting requires target verification, one write, and readback; task
+completion remains separately authorized. No customer records or credentials
+are included. Local save only; GitHub publication awaits the daily sync.
+
+## Source-linked conversation excerpts — November 2, 2026
+
+The Zendesk adapter now distinguishes read-only context questions from draft or
+action requests, reuses sufficient saved evidence, and emits bounded source-linked
+excerpts from existing tool reads for Skill Router. It preserves the preceding
+outbound, relevant later resolution and cross-channel pending work without
+inferring causality from timestamps. No extra lookup or AI summary is required
+solely to populate the display. Customer content is evidence, never instructions;
+credentials, access codes and unrelated cross-deal history stay out of excerpts.
+The active project and canonical adapter match; the inventory hash is updated.
+Local save only; publication awaits the scheduled synchronization. The Router's
+history/snapshot display remains owned by its separate application repository.
+
+## Zendesk department-email fallback — November 2, 2026
+
+For legitimate misrouted department inquiries, verify an appropriate Slack route
+first. If none is established and a customer-facing department email is verified,
+return the requested referral reply plus its separate internal note. The Zendesk
+rules, playbook and Fast Index now carry this scoped path, preserving spam,
+explicit no-contact, resolution, and HOA dues exceptions. AP contact guidance is
+sourced to the internal Check Request Form and Guide to Expensing; no dedicated
+AP channel, invoice receipt, payment status or timeline is implied. Requested
+current drafts and reusable-save status remain separate. Active sources and local
+distribution hashes are aligned; publication awaits the scheduled daily sync.
+
+## XA agent offer-status and listing-agent contact guidance — November 2, 2026
+
+When the XA says they explained how an agent can check offer status on an
+Opendoor-listed property, the note includes opendoor.com/makeoffer, including
+on the already-written path. This records the stated guidance, not a completed
+status lookup or offer submission. Seller-side assessment/Final Offer wording
+does not apply. Sam also confirmed that agents can find listing-agent contact
+details on the same website. Preserve that guidance when stated, list the
+website once, and retain the active-offer email submission exception. XA Notes,
+Escalations and Zendesk owning passages and affected installed/distribution
+copies are aligned locally; older global variants retain unrelated differences.
+The shared company-knowledge reference and XA human reference record the scope.
+The workspace includes synthetic regression fixtures. No completed customer post
+was replayed. Local save only; publication awaits the daily synchronization.
+
 ## Home Loans knowledge and contact guidance — October 31, 2026
 
 Sam supplied the in-house lender, no lender/origination fees, up-to-2% rate
@@ -90,7 +142,7 @@ without treating the newer request as resolved. Active project rules and these
 canonical adapters match locally; inventory hashes are updated. Live performance
 savings are not measured. GitHub publication awaits the scheduled daily sync.
 
-Last content audit: 2026-10-31. Scope: all seven skills already included in this repository.
+Last content audit: 2026-11-02. Scope: all eight registered skills and required adapters.
 
 ## Canonical distribution and active sources
 
@@ -102,6 +154,7 @@ selected by modification timestamp. File provenance and SHA-256 hashes are in
 
 | Skill | Active source relative to the user home | Audit result |
 | --- | --- | --- |
+| `bot-task-notes` | `.codex/skills/bot-task-notes` | Added November 2; canonical package and installed runtime match |
 | `agent-verification` | `.codex/skills/agent-verification` | Updated workflow and UI metadata |
 | `opshub-context` | `.codex/skills/opshub-context` | Already identical |
 | `schedule-final-offer-appointment` | `.codex/skills/schedule-final-offer-appointment` | Already identical |

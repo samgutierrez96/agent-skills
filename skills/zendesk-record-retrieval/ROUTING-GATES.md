@@ -17,8 +17,8 @@ property/retrieval ladder unless the ticket contains a separate, distinct ask.
 2. For email tickets that may be a repeated complaint, search Zendesk by the
    requester email after the exact ticket read. If a solved matching ticket
    already contains the answer, use the duplicate/no-reply close path and do
-   not run customer, property, activity, or offer lookups. Include the source
-   ticket number in the operator appendix.
+   not run customer, property, activity, or offer lookups. Include the verified
+   source ticket's full Zendesk URL in the internal note.
 3. Let the ticket shape choose the shortest path below.
 4. Run independent reads together, stop when the customer-facing answer is
    supported, and do not retrieve appendix-only context.
@@ -91,8 +91,9 @@ Before sending any draft, assemble exactly this shape:
 2. A separate plain triple-backtick internal-note fence immediately after it.
 3. An optional short appendix only after both fences.
 
-Keep ticket numbers, drafting mistakes, apologies about the draft, and process
-commentary out of the internal note. For no-send cases, put the approved
+Keep the current ticket number, drafting mistakes, apologies about the draft, and
+process commentary out of the internal note. Include full Zendesk URLs for any
+different verified tickets referenced so the threads can be connected. For no-send cases, put the approved
 `[No reply recommended. ...]` disposition in the first fence.
 
 Before emitting the draft, verify both fences are present and non-empty: the first

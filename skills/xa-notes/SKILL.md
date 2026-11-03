@@ -299,6 +299,7 @@ answer to anything listed here, and neither is a search.
 | vendor, partnership, provider, added as vendor, contractor | Part 6, "Vendors and partnership solicitations (vendor, partnership)" |
 | commission, concession, buyer agent commission | Part 6, "Commission (commission)" |
 | place an offer, how to offer, makeoffer, making an offer | Part 6, "Placing an offer on an Opendoor home (place an offer, makeoffer)" |
+| agent checking offer status on an Opendoor-listed property | Part 6, "Placing an offer — agent", offer-status guidance |
 | hoa, HOA, hoa docs, hoa documents, hoa contact | Part 6, "HOA documents (hoa)" |
 | hoa dues, HOA dues payment, pay HOA dues, HOA assessment payment | Part 6, "HOA dues payments (hoa dues payment)" |
 | home loans, mortgage, lender contact, Opendoor Home Loans | Part 6, "Opendoor Home Loans (home loans, mortgage, lender)" |
@@ -1088,6 +1089,23 @@ when the home has an active offer, instruct the agent to email
 submission. The same active-offer exception applies to backup offers.
 
 > Explained how to place an offer and pointed the agent to opendoor.com/makeoffer.
+
+**Offer-status guidance for an Opendoor-listed property:** when the XA says
+they explained how the agent can check offer status, include
+`opendoor.com/makeoffer` in Solution Offered, even on the already-written path.
+This expands the stated guidance with its required website; it does not mean
+the XA checked the status or submitted an offer. Use:
+
+> Explained how to check the offer status at opendoor.com/makeoffer.
+
+Do not apply the seller-side status-check template or add assessment/Final
+Offer timing to this resale call. Do not add this action if it was not stated.
+
+Agents can also find the listing agent's contact details at
+`opendoor.com/makeoffer` (Sam, November 2, 2026). When the XA says they gave
+this guidance, preserve it alongside any stated offer-submission or status
+guidance, with the website listed only once. Do not claim the XA checked the
+status, submitted an offer, or contacted the listing agent unless stated.
 
 When the active-offer exception was actually explained, use instead:
 
