@@ -42,7 +42,10 @@ and extra context remain on demand, with the current package rules taking priori
 - Drafting is read-only. Host connectors supply ticket/comments, customer/property,
   assessment/activity, policy or linked Slack evidence as the recipe requires.
   Tool names may differ by host; a missing capability must be reported visibly.
-  Do not send, post, merge or change records as part of a drafting request.
+  Do not send, post, merge or change records as part of a drafting request,
+  except for the narrow verified Zendesk document-handoff assignment authorized
+  in AGENTS.md. Record its actual status and recipient in the internal-note
+  draft; this does not authorize posting that note or sending customer messages.
   Exception for requested/required escalation preparation under AGENTS.md: verify
   the destination, save an unsent Slack draft when applicable, confirm its draft
   ID and open the destination. This never authorizes sending; email tickets have

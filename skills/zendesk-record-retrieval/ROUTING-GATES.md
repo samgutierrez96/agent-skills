@@ -155,10 +155,31 @@ leave profiles unchanged until identity and scope are verified.
 
 Treat a street-only address as sufficient for the first lookup attempt. Use the
 complete plaintext address provided (for example, `207 Spruce Street`) with
-`list_properties` or `pds_search_by_address`. If it returns no usable positive match, make one
-normalized retry with city/state/ZIP or the exact recipe filter. Then stop and
-report the connector gap or ask for the missing address detail. Do not issue a
-series of guessed address variants.
+`list_properties` or an available `pds_search_by_address`. If it returns no usable
+positive match, make one normalized retry. For unit addresses, use the house
+number and street without the unit suffix, then compare returned unit number,
+city, state and ZIP against the supplied address. Search indexing can distinguish
+`#`, `Unit` and `Apt`; changing one full-address suffix to another is not a reliable
+retry. Never treat the base building or a sibling unit as the requested property.
+
+Retain the exact matching `addressToken` and current engagement/flip identifiers.
+Call `get_property(address_token: ...)`; do not pass an address string, customer
+UUID or flip token as the address token. Select the current listing engagement
+for buyer access rather than an old acquisition engagement. If MCP omits required
+Flags or Home Access, open the matching property page and its **Details** panel;
+read **Flags** and **Home Access** there. Use the observed property-result href,
+or the documented `/property/{addressToken}/flip/{flipToken}` route with verified
+identifiers, and verify the displayed address/unit and listing stage after load.
+An opened customer page does not satisfy this property-page check.
+
+If both structured queries fail and the complete address is already known,
+permit one focused browser search at the OpsHub `/search?q=` route using the
+same normalized house-number/street query. Inspect only matching property rows
+and follow the exact unit's observed href. Do not repeat suffix guesses, search
+unrelated records or use unavailable legacy tools. If that bounded fallback
+also fails, report the specific lookup/permission gap; do not claim OpsHub itself
+is inaccessible or ask for information already supplied. Request only a genuinely
+missing unit/location detail or the exact property-page link when needed.
 
 ## Escalate to the full playbook when
 

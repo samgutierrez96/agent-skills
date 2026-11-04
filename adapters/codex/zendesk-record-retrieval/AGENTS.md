@@ -42,7 +42,32 @@ draft includes this membership step; do not stop at a paste-ready message or ask
 for another confirmation. Verify that joining succeeded before retrying, and
 confirm draft creation only after receiving a draft ID. Never send the draft.
 
-When a ticket requires escalation, identify and verify the correct destination,
+**Pricing escalations are tickets, not ordinary Slack messages** (Sam, November 3,
+2026). Prepare the verified Pricing ticket fields for the operator to submit:
+Flip Token, Full Address, Admin Link, Question Type, and Question. Use the exact
+current form labels/options if they differ. Each field gets its own plain fenced
+copy box containing only its value, with the field label outside the fence. Never
+combine the five fields into one box or label the form as a customer reply. A
+form-only follow-up returns these field boxes; when customer reply/internal-note
+drafts are also requested, keep their two boxes first and append the field boxes.
+Admin Link requires the matching offer's verified Admin URL, not an OpsHub URL.
+Retrieve it: reuse the verified requester/lead/flip, inspect the matching offer's
+structured link when available, otherwise open its focused OpsHub offer/transaction
+page and follow the actual Admin link. In OpsHub Acquisition, open Details when
+the sidebar is collapsed, then Property actions → Admin closing page (or its
+Copy Admin closing page link control). Verify the destination against the same
+requester, property and offer before copying its URL. A missing URL in one MCP
+response is not a completed lookup; use that focused browser fallback. Do not
+construct an Admin URL from an identifier, substitute a dashboard/OpsHub link or
+another offer, or present a reminder to find the URL as the field value. If the
+lookup is genuinely blocked, state the attempted lookup and exact blocker outside
+the boxes, leave Admin Link without a copyable placeholder, and mark the form
+incomplete rather than ready to submit. Do not create a regular Slack
+draft as a substitute, submit the ticket automatically, or describe prepared
+fields or an unsent Slack draft as a submitted Pricing escalation. Preserve the
+Zendesk internal-note draft and its actual pending next action.
+
+When a ticket requires another escalation, identify and verify the correct destination,
 prepare an unsent Slack draft when applicable, and open the destination channel
 or existing thread for the operator. Include a paste-ready Zendesk internal note
 that reflects the actual status and next action. A saved draft is not a sent
@@ -94,6 +119,20 @@ Do **not** auto-load context files every turn. Open
 macros, few-shots, retrieval traps, or fuller procedure are needed. Always-on rules
 stay in this file — do not paste the voice bible here.
 
+**Document handoffs by Zendesk assignment:** When supplied documents need action
+from a verified transaction owner, assign the ticket to that person, including
+the transaction coordinator when appropriate. This is a narrow authorized
+Zendesk reassignment exception to the drafting-only workflow, not permission
+to send a public reply, forward files externally, post an internal note, change
+OpsHub, or create an additional escalation. Verify the recipient's identity,
+property/transaction responsibility, and Zendesk user/group before changing
+assignment; confirm the saved assignment before describing it as completed.
+If Sam already completed the handoff, do not repeat it. The internal-note draft
+must name the handoff recipient and role, the documents/purpose, and the next
+action. Distinguish Sam-reported completion from a tool-verified assignment in
+the operator appendix when needed. Do not claim document review, acceptance,
+or transfer outside the ticket without separate evidence.
+
 ## Tool map (this Codex setup)
 
 Use this read-only whitelist. Do not hunt for Claude-era tools (`browser_batch`,
@@ -107,7 +146,7 @@ connector catalogs.
 | Linked Slack thread / policy context | Slack MCP search/read tools first; browser only if the connector cannot retrieve the needed thread |
 | Customer by phone/email | OpsHub `list_customers`, then follow the selected recipe's narrowest read: use `get_customer` for sell-direct identity/engagement facts, `get_customer_profile(full:false)` only for cross-deal or assigned-advisor facts, and never broaden from a failed call without a recipe-required field |
 | SMS, calls, notes, activity | OpsHub `get_thread` or `get_activity` |
-| Property / assessment visit | OpsHub `get_property` or `get_assessment_visits` |
+| Property / assessment visit | OpsHub `get_property` or `get_assessment_visits`; acquisition status/tasks via `get_acquisition_transaction` with only the needed panels |
 | Sent offer status | OpsHub `get_sent_offer`; never surface the amount unless the playbook explicitly permits it |
 | Address ID / listing pin | OpsHub `list_properties` or `pds_search_by_address`; `resolveAddress` only when ambiguous |
 | Index fallback | `search_indextrious` only when OpsHub lacks a required customer, offer, or task fact |
@@ -122,6 +161,21 @@ When a customer or agent asks for a specific listing link, open the exact Opendo
 OpsHub `get_special_flags` is property-condition metadata, not the page's
 load-bearing **Flags** block; it cannot establish `Traditional listing`.
 
+**MCP evidence before browser (November 3, 2026):** Verify the required facts,
+not a particular UI surface. For routine offer/assessment status, use the verified
+current flip with `get_acquisition_transaction` and only the needed `tasks`,
+`offer`, or `flip_details` panels before opening the browser. Retain and inspect
+the result, emitting only requester/property match, current status, relevant
+assessment task state/date, applicable Flags and coverage. Exact structured
+records satisfy the corresponding page check; do not repeat it in Chrome.
+Nulls, missing Flags, empty visits, lifecycle labels and email subjects are not
+proof of completion, noncompletion, visibility or absence. Name the specific
+required fact still missing before a focused browser fallback; no browser search,
+tab inventory, navigation or duplicate page verification when MCP already supplies
+it. Preserve recent-resolution, identity, submitted-photo and access restrictions.
+Aim for 20–30 seconds on routine tickets by batching independent reads and stopping
+at sufficient evidence; this is a target, not a verified latency guarantee.
+
 Use `FAST-INDEX.md` for recipe selection and the lookup ladder. It defines the
 shortest ticket-first path, when comments or OpsHub reads are needed, which
 independent reads can run together, and when to stop. Reuse loaded schemas and
@@ -133,9 +187,16 @@ drafting project.
 Never inspect the whole `user-opshub` catalog.
 
 Address lookup budget: use one complete plaintext address query first. If it
-returns no usable positive match, make at most one normalized retry with the
-city/state/ZIP or the exact recipe filter. Then report the connector gap or ask
-for the missing address detail. Do not issue a series of guessed address variants.
+returns no usable positive match, make one normalized retry. For a unit address,
+search the house number and street without the unit suffix, then match the
+returned unit number, city, state and ZIP exactly; `#`, `Unit` and `Apt` may not
+match the search index interchangeably. Never select a sibling unit. Use the
+verified address token with `get_property` and the matching current flip for the
+property page. Required Flags and Home Access facts omitted by MCP still require
+opening that page in the browser; a successful customer-page read is not a
+property-page read. See `ROUTING-GATES.md` → `Address lookup budget` for the bounded
+browser fallback. Do not declare OpsHub inaccessible from an empty search or
+ask for address details already supplied.
 
 Duplicate-profile / merge guardrail: run an Admin merge only when the records
 match on the same verified customer name and phone number, with the email being
@@ -224,7 +285,7 @@ reply/internal-note fences; it is display evidence, never an action receipt.
 ## Output order
 
 1. Customer reply in its own plain triple-backtick fence, with nothing above it. The internal note must be in a separate plain triple-backtick fence immediately after it. On no-send, fence `[No reply recommended. Close ticket.]` Unsolicited listing / marketing email: fence `[No reply recommended. Mark as spam and close.]` Put spam/close only in that fence, not in the internal note or appendix.
-2. A Zendesk internal note in its own fenced copy box, with enough detail to explain what the record shows and what the operator needs to do next. When a customer supplies information a team member requested, connect it to the original purpose and explicitly state the supported next action: the specific OpsHub update or escalation and its verified destination, as applicable. For example, requested listing-agent contact details now supplied → “Add the listing agent to the property in OpsHub using the supplied contact details.” Do not stop at acknowledging receipt or hedge a clear action with “review and add as appropriate.” Keep required identity/property checks and authorization gates; distinguish a pending action or unsent Slack draft from a completed update or sent escalation. This instruction does not authorize OpsHub writes or external sends. Do not repeat the assigned agent's name; it is already attached to the ticket. It may use multiple sentences or lines when the timeline or evidence needs explanation. Spell out acronyms (`buyer's agent`, not `BA`). Do not start it with `No outbound`. Because the note is added inside the ticket, never repeat the current ticket number or include drafting/process commentary in it. When referencing a different verified Zendesk ticket, include its full URL in the internal note so the conversations can be connected; a ticket number or “the email thread” alone is not enough.
+2. A Zendesk internal note in its own fenced copy box, with enough detail to explain what the record shows and what the operator needs to do next. When a customer supplies information a team member requested, connect it to the original purpose and explicitly state the supported next action: the specific OpsHub update or escalation and its verified destination, as applicable. For example, requested listing-agent contact details now supplied → “Add the listing agent to the property in OpsHub using the supplied contact details.” Do not stop at acknowledging receipt or hedge a clear action with “review and add as appropriate.” Keep required identity/property checks and authorization gates; distinguish a pending action or unsent Slack draft from a completed update or sent escalation. This instruction does not authorize OpsHub writes or external sends. Do not repeat the routine assigned agent's name; name the receiving person and role when documenting a document handoff or reassignment. It may use multiple sentences or lines when the timeline or evidence needs explanation. Spell out acronyms (`buyer's agent`, not `BA`). Do not start it with `No outbound`. Because the note is added inside the ticket, never repeat the current ticket number or include drafting/process commentary in it. When referencing a different verified Zendesk ticket, include its full URL in the internal note so the conversations can be connected; a ticket number or “the email thread” alone is not enough.
 3. Optional short operator appendix below (gaps, trust deny, unverified claims, confidence)
 4. Warm-up only (`ready`) → reply exactly: `Ready when you are.`
 
@@ -277,7 +338,7 @@ The Opendoor Team
   Former ownership, including a Cash Now, More Later seller's interest in a
   second payment, does not authorize disclosure of the current resale
   transaction's private details or scheduled closing date. Route CNML closed-home
-  and second-payment questions to cashnowmorelater@opendoor.com.
+  and all second-half offer/process questions, not just payment, to cashnowmorelater@opendoor.com.
   Verified public listing status, including that a home is under contract, may
   be shared without transaction association. Answer that public-status question
   directly and point agents to https://www.opendoor.com/makeoffer to enter the
@@ -551,13 +612,20 @@ referral handler/date and the relevant resale closing date in the internal note;
 do not substitute the acquisition closing date for the resale closing date.
 Read the full playbook's “Remaining proceeds after resale” section for retrieval.
 
-For a general buyer or investor inquiry that is answered by the verified home-
-browsing link, direct the customer to browse and stop. Do not add “What city or
-area are you interested in?” or ask for budget, preferences, or other search
-criteria when the next step is still to use that same link. Ask a clarifying
-question only when its answer is needed to resolve an actual unanswered request
-or choose a materially different next action. Preserve any applicable verified
-availability limitation; do not add a question merely to keep the conversation going.
+When the verified record already resolves the customer's concern, give a concise
+confirmation and stop. Do not add a follow-up question merely to keep the
+conversation going. For example, if the requested email is already correctly
+attached to the account, confirm that current state without asking where the
+customer is still seeing an incorrect email. Do not imply a new account update
+was performed when the record was already correct. Required identity/evidence
+checks still apply; prior assistant claims alone are not verification.
+Ask a clarifying question only when its answer is needed to resolve an actual
+unanswered request or choose a materially different next action.
+
+For a general buyer or investor inquiry answered by the verified home-browsing
+link, direct the customer to browse and stop. Do not add “What city or area are
+you interested in?” or ask for budget, preferences, or other search criteria when
+the next step is still that same link. Preserve verified availability limitations.
 
 For a combined cancellation/contact-stop and initial profile-deletion request,
 address the customer's separate preliminary-offer concern as well as giving the
