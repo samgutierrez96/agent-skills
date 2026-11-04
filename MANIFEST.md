@@ -1,5 +1,146 @@
 # Skill manifest
 
+## Ranked Zendesk document handoffs — November 4, 2026
+
+The owning Zendesk rules now distinguish reassignment from Slack escalation,
+rank relevant verified recipients by transaction responsibility and select the
+highest-ranked available eligible owner. Copied email contacts do not establish
+ownership; a verified team queue is the fallback when no individual is established.
+Explicit draft-only limits and assignment verification gates remain. Completed
+operator-reported notes/assignments must not be repeated. Synthetic acceptance
+cases cover eligibility, queue fallback, read-only requests and reported completion.
+No customer cases or fixed personal ranking are saved. Active rules, canonical
+local adapter and provenance hashes are reconciled locally; GitHub publication
+awaits the scheduled synchronization.
+
+## Driving auto-reply clarification — November 4, 2026
+
+An unavailable/driving SMS alone no longer justifies silence or closure when the
+support need is unknown. The owning Zendesk project rules and Fast Index require
+a warm invitation to explain the need when safely parked, without property
+research for a generic clarification. Known asks, verified resolutions and
+no-contact restrictions retain their gates. Added synthetic verification scenarios.
+Reconciled the entry-contract hash after confirming active/canonical content and
+existing accepted rule changes agree. Local sources, mirrors and inventory are
+consistent; publication awaits scheduled synchronization. No customer records or
+external sends/posts are included.
+
+## Conflict-aware business knowledge and Router ownership — November 4, 2026
+
+Zendesk now explicitly classifies sender/subject/body together, invokes shared KB
+research for missing/stale/conflicting business guidance and resolves source scope
+and effective dates before definitive customer wording. Unresolved claims remain
+internal gaps, not repeated saved policy. KB retrieval and company-knowledge-update
+preserve evidence/supersession and separate safe corrected drafts from blocked saves.
+The shared company skill/references remain local-only; `local_files` registers their
+ownership and hashes without importing their contents into this public repository.
+The KB upstream reference is non-editable provenance; its adaptation description is
+metadata, not a runtime packaging transformation. Active/copied sources and hashes
+are reconciled locally. Router's implementation/tests stay in its separate repo.
+No customer data or external actions; publication awaits scheduled synchronization.
+
+## Fire investigator government-agency route — November 4, 2026
+
+Saved Sam's accepted Trust & Safety referral wording in the active Zendesk,
+XA Notes and Escalations sources. Fire investigators use lawenforcement@opendoor.com
+and Government Agency Type Fire; XAs do not disclose property/seller/buyer details.
+The KB evidence, optional case-number handling, callback-intake and urgent-incident
+requirements travel with the rule. Active packages and inventory hashes are
+reconciled locally. The separate company-knowledge-update reference retains the
+cross-workflow audit outside this distribution. No customer fixtures or external
+actions; publication awaits the scheduled evening sync.
+
+## Shared business-wide KB retrieval — November 4, 2026
+
+Imported `kb-answer-for-callers` from the skill installed in Claude and confirmed
+that it matches the available Claude plugin copy. The Codex adaptation searches
+Glean, relevant Slack threads, canonical documents and official websites; it
+checks effective dates, scope, exceptions, and conflicting guidance across all
+business workflows. Position/Say remains the standalone/live-call format, not
+an override of another workflow's output contract. The unchanged Claude text is
+retained in `references/claude-original.md` for provenance, not live policy.
+Canonical package: `skills/kb-answer-for-callers`; active global install:
+`.codex/skills/kb-answer-for-callers`. Both match locally. The separately maintained
+local `company-knowledge-update` skill now uses this evidence-retrieval handoff
+without authorizing automatic saves, external writes, or publication. Its existing
+business references remain outside this public distribution. No business policy
+or customer records were imported. Local package validation and provenance checks
+are recorded in the current task; live retrieval behavior is not yet tested.
+Prepared on the existing `codex/zendesk-current-refresh` branch without switching
+or disturbing pending work. GitHub publication awaits the existing evening sync.
+
+## Under-contract viewing appointment exception — November 4, 2026
+
+Honor viewings scheduled or confirmed before the home went under contract; do not
+honor appointments booked afterward. Unknown timing requires verification, not
+automatic cancellation. Existing Zendesk AGENTS/playbook/entry already held the
+exception; corrected incomplete Fast Index and touring, backup-offer, agent-access
+and resale-listing cards, plus dependent XA Notes wording. Required identity/access
+safeguards remain. Added pre-contract, post-contract and unknown-timing verification
+cases. Active sources, distribution copies and affected inventory hashes match
+locally. The separately maintained local company-knowledge-update skill now records
+the business rule; it remains outside this repository's distribution inventory.
+The corrected-draft requirement already exists and was retained without duplication.
+No customer records, external actions or live replay. Publication awaits evening sync.
+
+## Complete Zendesk draft reviews — November 4, 2026
+
+The Fast Index now distinguishes a short correction/acknowledgment from the
+underlying support ask. The same-ticket follow-up recipe handles completeness
+questions by checking retained context and any later resolution, retrieving only
+the missing matching exchange, and returning both corrected draft boxes with a
+brief explanation in one turn. Explanation-only requests, no-reply dispositions
+and all safety/action boundaries remain unchanged. Active and canonical local
+copies and inventory hashes match. Router visibility and exact-duplicate prompt
+reduction are implemented separately in its owning application repository.
+Synthetic tests exclude customer cases; no live sends/posts are used. Production
+token/latency improvement is not measured. Publication awaits the scheduled sync.
+
+## Caller-facing Solution Offered — November 4, 2026
+
+Sam prefers Solution Offered to reflect the guidance and resolution communicated
+to the caller, not internal duplicate-profile consolidation or contact cleanup.
+Notes project preferences, the duplicate-profile passage and Account Merge output
+now omit cleanup details unless explicitly requested, preserving the stated call
+resolution and any case-specific team-lead direction without inventing scheduling
+actions. Merge execution and verification gates are unchanged. Active sources,
+canonical local copies and inventory hashes match; customer cases are excluded.
+Saved locally for the scheduled evening GitHub synchronization.
+
+## Final Offer timing inclusion preference - November 4, 2026
+
+Verified the existing Notes project personal-wording override and its canonical
+adapter: include Final Offer timing only when the XA explicitly states it in the
+current call summary. This overrides automatic inclusion by shared assessment,
+walkthrough and refresh templates without changing the timing facts. Active and
+canonical content and provenance hashes agree; no duplicate rule or customer
+case was added. Router's embedded-save/thread-continuity and save-attribution
+fixes remain in its separate repository. Publication awaits the scheduled sync.
+
+## Escalation shorthand and post-merge continuation — November 4, 2026
+
+Current XA escalation shorthand authorizes Slack send followed by the OpsHub
+CONTACT note without repeated permission prompts, including after required email,
+Admin merge and contact-cleanup gates. Explicit draft/paste-only choices and
+quoted/reported or maintenance wording remain non-authorizing. Updated the owning
+Escalations project rules, compact runtime, maintained detailed source and Account
+Merge handoff; canonical packages and provenance hashes match locally. Router
+classification and synthetic continuation tests remain in its own repository.
+No live sends/posts or customer fixtures are used. Publication awaits the daily sync.
+
+## Natural correction saves and explicit Post it commands - November 4, 2026
+
+Notes and Escalations now distinguish natural selected-correction save requests
+from customer actions. Save this, Save this please, and save what I just wrote
+do not require special rule/skill nouns; ownership and verified-save checks remain.
+For note-only commands a direct Post it starts a note post, not bare post/posted,
+reported Slack status, quoted caller wording, or a selected action mode. The newer
+escalation-shorthand mapping above authorizes the full escalation flow. Required answers
+may continue a pending authorized post; source maintenance may not. Active rules,
+runtime packages and provenance hashes match locally. Router transport changes
+remain in its own repository. No customer details or live actions were used;
+GitHub publication awaits the scheduled synchronization.
+
 ## Disputed appointment / explicit no-visit request — November 3, 2026
 
 The Zendesk Fast Index now routes disputed bookings and instructions not to send
@@ -231,7 +372,7 @@ without treating the newer request as resolved. Active project rules and these
 canonical adapters match locally; inventory hashes are updated. Live performance
 savings are not measured. GitHub publication awaits the scheduled daily sync.
 
-Last content audit: 2026-11-03. Scope: all eight registered skills and required adapters.
+Last content audit: 2026-11-04. Scope: all nine registered skills and required adapters.
 
 ## Zendesk document-handoff assignment — November 3, 2026
 
@@ -243,6 +384,16 @@ public sends, automatic note posting, OpsHub writes or external file transfer.
 Active source, adapter, package entry/router/playbook and inventory hashes are
 aligned locally; GitHub publication remains for the end-of-day task.
 
+## SMS composer handoff — November 4, 2026
+
+The active Zendesk AGENTS.md and canonical adapter now authorize placing the
+applicable SMS public reply or internal note in the verified ticket composer,
+unsubmitted for Sam. No send/post, Submit, solve/close or status change is
+authorized. Preserve existing unsent text and verify ticket identity, composer
+mode and visible content. Fast Index and portable entry exceptions align with
+this bounded authorization; source hashes are updated. Saved locally on the
+existing branch; GitHub publication remains for the end-of-day task.
+
 ## Canonical distribution and active sources
 
 This repository distributes reviewed copies of the active sources below. Project
@@ -253,6 +404,7 @@ selected by modification timestamp. File provenance and SHA-256 hashes are in
 
 | Skill | Active source relative to the user home | Audit result |
 | --- | --- | --- |
+| `kb-answer-for-callers` | `.codex/skills/kb-answer-for-callers` | Added November 4; shared business-wide retrieval, original Claude text preserved |
 | `bot-task-notes` | `.codex/skills/bot-task-notes` | Added November 2; canonical package and installed runtime match |
 | `agent-verification` | `.codex/skills/agent-verification` | Updated workflow and UI metadata |
 | `opshub-context` | `.codex/skills/opshub-context` | Already identical |
@@ -293,7 +445,7 @@ verification guide retain positive and negative synthetic decision checks.
 ## Sources outside this audit
 
 - `company-knowledge-update` is installed locally but was not previously included;
-  it remains outside the seven-skill inventory.
+  it remains outside this distribution inventory.
 - `Documents/superdojo/skills` belongs to the separate shared company repository;
   it is an upstream reference, not an import target for this audit.
 - Cursor Transfer, plugin caches, and archived copies were not treated as current

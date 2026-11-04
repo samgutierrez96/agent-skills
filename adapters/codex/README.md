@@ -1,5 +1,14 @@
 # Codex project adapters
 
+`kb-answer-for-callers` is a shared business-wide knowledge-retrieval skill.
+Install the complete `skills/kb-answer-for-callers/` folder into
+`~/.codex/skills/kb-answer-for-callers/`; it needs no dedicated project adapter.
+It supports current Glean, Slack, document and browser connectors, retains each
+workflow's output format and action boundaries, and can supply evidence to the
+separately maintained local `company-knowledge-update` skill. Its original Claude
+text is a provenance reference, not an additional runtime. The installed package
+and this distribution package are kept identical; Claude's source is unchanged.
+
 Bot Tasks uses `bot-task-notes/AGENTS.md` at its workspace root and the installed
 `~/.codex/skills/bot-task-notes` package. Install both files from the canonical
 `skills/bot-task-notes` folder, including its `references/local-mcp.md` fallback.

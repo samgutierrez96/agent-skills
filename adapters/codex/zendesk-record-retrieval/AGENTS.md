@@ -74,6 +74,21 @@ that reflects the actual status and next action. A saved draft is not a sent
 escalation: say it is prepared for review and sending until sending is verified.
 Do not send messages or submit external escalations automatically.
 
+**SMS composer handoff (Sam, November 4, 2026):** After the required retrieval and
+draft checks, place the applicable public reply or internal note directly in the
+verified SMS ticket's matching Zendesk composer and leave it unsubmitted for Sam.
+This standing preference authorizes composer entry only, not sending/posting,
+clicking Submit, solving/closing, or changing ticket status. Verify the visible
+ticket, requester, SMS channel and Public reply/Internal note mode before typing;
+preserve existing unsent text and stop if it conflicts with the intended draft.
+Do not paste a no-reply/close recommendation into a public reply; use the internal
+note composer when no customer reply is warranted. Never paste both drafts into
+one composer or put internal content in Public reply. Confirm placement only after
+checking the visible composer text and mode; if entry cannot be verified, provide
+the copy boxes and state the exact blocker. Keep the reply/internal-note boxes
+available in chat. Sam handles submission and disposition. Email workflows are
+unchanged; no ticket is acted on merely to save this preference.
+
 **SMS format rule:** When the ticket channel is SMS/text, keep the customer reply in concise text-message format. Do not use the full email sign-off (`Best, Sam, The Opendoor Team`) unless the message is an email.
 For the first outbound SMS from Sam on a ticket, include the greeting and sender introduction even when the customer has already sent multiple messages. Omit greetings on same-ticket follow-ups after Sam's initial outbound reply.
 The initial SMS greeting should identify the sender: `Hi [First], this is Sam with Opendoor.`
@@ -132,6 +147,26 @@ must name the handoff recipient and role, the documents/purpose, and the next
 action. Distinguish Sam-reported completion from a tool-verified assignment in
 the operator appendix when needed. Do not claim document review, acceptance,
 or transfer outside the ticket without separate evidence.
+
+**Ranked handoff selection (Sam, November 4, 2026):** When an unresolved ticket
+needs reassignment or an escalation, state which action is needed; do not leave
+Sam to infer it from "coordinate with" or from an internal note. For a Zendesk
+handoff, proactively give a short ranked list of relevant named recipients with
+their verified role and a brief reason, and select the highest-ranked available,
+eligible owner by default. Rank the transaction's directly responsible owner or
+closing coordinator above general team contacts. Email recipients/followers are
+not ticket assignees, and being copied alone does not establish responsibility.
+Label routing-only backups as unverified owners; do not assign to them merely
+because a stronger candidate is unavailable. If no individual owner can be
+verified, use the verified owning-team queue and disclose the individual-owner
+gap. Do not invent extra candidates or turn one case's names into a standing list.
+Verify identity, matching transaction responsibility and Zendesk eligibility before
+an authorized assignment; an explicit draft-only/read-only request remains
+non-mutating. The ranking preference does not authorize additional sends, note
+posts or Slack escalations. Name the selected recipient/role, document purpose,
+pending next action and actual handoff status in the internal-note draft. If Sam
+reports adding the note and assigning the ticket, treat that handoff as completed
+by Sam, distinguish it from tool verification and do not repeat either action.
 
 ## Tool map (this Codex setup)
 
@@ -206,6 +241,34 @@ property-specific request, also obtain the property address or another exact
 record identifier and verify the property-to-profile relationship first. If
 identity or property scope is unclear, ask for the missing detail and leave
 both profiles unchanged.
+
+## Business intent, evidence and conflicting guidance
+
+Read the sender/agency, subject, customer-written body and relevant prior exchange
+together before choosing a business route. A fire-station sender and fire-investigation
+subject are investigative-request signals, not a generic seller/buyer inquiry;
+read the matching government-agency recipe. A subject alone neither proves the
+requester's authority nor permits disclosure of private information. Distinguish
+investigations from routine fire-safety maintenance using the actual request.
+
+For company policy, services, eligibility or process questions, use the shared
+`kb-answer-for-callers` skill when the answer is missing, uncertain, potentially
+stale, or contradicted by available evidence. Research inside this Zendesk workflow;
+do not require Sam to switch skills. Retain Zendesk's output and action boundaries.
+Compare the policy owner, effective date, scope and exceptions before using a
+disputed claim. Read the needed source, not merely its title or search snippet.
+A newer timestamp alone does not supersede an explicit policy. Resolve supported
+supersession before drafting; if the conflict cannot be resolved, omit the disputed
+claim from definitive customer guidance and explain the exact uncertainty and
+required clarification internally. Never repeat old guidance merely because it is
+already saved. Preserve accepted operator direction distinctly from published policy.
+
+A requested or accepted durable business correction uses `company-knowledge-update`
+to reconcile shared knowledge and affected active workflows. Research alone does
+not authorize a save. Return corrected current draft boxes when the operator's
+correction changes them, independently of save status. A blocked policy save may
+still produce a researched draft with supported facts/uncertainty; it cannot be
+called a verified save or permission to send, post or change customer records.
 
 ## Operator feedback and efficiency reviews
 
@@ -387,8 +450,7 @@ The Opendoor Team
   ticket, reusing information already supplied; do not substitute a phone-support
   referral. Never provide a code, remote unlock, or direct access instructions
   while denial or required verification remains unresolved. Do not assert that
-  denial caused a canceled showing without evidence. An under-contract home cannot
-  be viewed, including for a backup offer. Keep the deny in the appendix only;
+  denial caused a canceled showing without evidence. An under-contract home cannot be viewed, including for a backup offer, except honor a viewing already scheduled or confirmed before the home went under contract; do not honor appointments booked after it is under contract. Keep the deny in the appendix only;
   preserve non-negotiable Trust and Safety / rental-scam restrictions.
 - **Open-house wording** → Opendoor does not host open houses. Treat the request
   as a viewing request: viewings are scheduled only during the property's available
@@ -433,6 +495,17 @@ The Opendoor Team
   the agent still cannot access the offer.
 - When an agent only says they believe the assessment was submitted, do not add
   a screenshot request unless they specifically report an access problem.
+- A driving / temporarily unavailable auto-reply is not a closing acknowledgment
+  or proof that help is unnecessary. When the support need is unknown and no
+  verified resolution or no-contact restriction applies, draft a brief, warm
+  invitation to explain what they need, for example: "How can we help you when
+  you're safely parked?" Use the normal first-SMS introduction when applicable.
+  Do not recommend silence/closure solely because the message appears automated,
+  encourage replying while driving, invent a support need, or promise a callback.
+  Reuse sufficient ticket context; a generic clarification needs no property
+  research. A known unresolved ask still gets its substantive reply and required
+  evidence checks; verified resolution, STOP and case-specific no-reply directions
+  retain their existing gates.
 - Closing acknowledgment only ("thanks") with prior resolve → recommend close; no
   full retrieval.
 

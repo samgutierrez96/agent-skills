@@ -14,9 +14,13 @@ Use `ROUTING-GATES.md` → `Targeted playbook reads` without broad searches.
 2. Use [resolution-first access](access-resolution.md) for the verified requester,
    property and concern. A later resolving call ends the route with no reply and
    an internal note naming the verified handler. Do not expand after resolution.
-3. If unresolved, verify listing stage before viewing guidance. Under contract
-   means no viewing, including for a backup offer. An appraisal/inspection is a
-   separate visit type; use its participant/appointment rules instead.
+3. If unresolved, verify listing stage and any existing appointment's timing before
+   viewing guidance. Honor a viewing scheduled or confirmed before the home went
+   under contract; do not honor one booked afterward. Unknown timing requires
+   verification, not automatic cancellation. Otherwise under contract means no new
+   viewing, including for a backup offer. Keep the identity/access safeguards below.
+   An appraisal/inspection is a separate visit type; use its participant/appointment
+   rules instead.
 4. Check actual Home Access self-tourability before deciding who may access:
    a self-tourable home permits any eligible requester after required identity
    verification; a non-self-tourable home requiring agent access needs verified

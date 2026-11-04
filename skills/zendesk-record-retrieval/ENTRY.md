@@ -43,7 +43,7 @@ and extra context remain on demand, with the current package rules taking priori
   assessment/activity, policy or linked Slack evidence as the recipe requires.
   Tool names may differ by host; a missing capability must be reported visibly.
   Do not send, post, merge or change records as part of a drafting request,
-  except for the narrow verified Zendesk document-handoff assignment authorized
+  except for unsubmitted SMS composer entry and the narrow verified Zendesk document-handoff assignment authorized
   in AGENTS.md. Record its actual status and recipient in the internal-note
   draft; this does not authorize posting that note or sending customer messages.
   Exception for requested/required escalation preparation under AGENTS.md: verify
@@ -54,8 +54,7 @@ and extra context remain on demand, with the current package rules taking priori
 Preserve AGENTS.md's same-requester/property/concern recent-notes resolution check
 for record-specific replies, including focused browser fallback when structured
 reads cannot expose required notes or Home Visits. Inbound-only and explicit fast
-paths keep their exceptions. Under-contract homes cannot be viewed, even for a
-backup offer. Agent submission normally uses `opendoor.com/makeoffer` and the
+paths keep their exceptions. Under-contract homes cannot be viewed, even for a backup offer, except honor a viewing already scheduled or confirmed before under contract; do not honor appointments booked after under contract. Agent submission normally uses `opendoor.com/makeoffer` and the
 address-entry/submission steps. When the home has an active offer, direct the
 agent to email `homes@opendoor.com`. Buyers who encounter a traditional listing
 at `opendoor.com/buy` or `opendoor.com/homes` follow its instructions to email
