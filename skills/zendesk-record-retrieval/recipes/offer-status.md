@@ -45,8 +45,15 @@ WebCustomer UUID to sell-direct `get_customer`.
   should be claimed when OpsHub Photos & Media shows no assessment photos; ask the
   customer to clarify the property and, if it is that address, explain that a new
   assessment is needed.
-  Before drafting, verify both the property page tags/Flags and the
-  **Assessments & Inspections** section. `SENT` lifecycle data or an offer email
+  Before drafting, verify the required property tags/Flags and authoritative
+  assessment status through OpsHub MCP first. Use the verified current flip's
+  `get_acquisition_transaction` with only the needed `tasks`, `offer`, or
+  `flip_details` panels, reusing fields already retained. Exact structured
+  records satisfy these checks; do not open Chrome merely because this recipe
+  names page sections. Missing or contradictory required fields justify a focused
+  page fallback, not a browser search or duplicate checks of supported facts.
+  An empty visit list or null inspection date does not establish an outstanding
+  assessment. `SENT` lifecycle data or an offer email
   does not prove that the final offer was presented. **Sent Finalizing Offer**
   means the final offer is not ready; an assessment completion date starts the
   3–5 business-day customer-facing window. If the property page header/status

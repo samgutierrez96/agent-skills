@@ -53,7 +53,8 @@ other hosts may use equivalent read-only tools without changing the evidence gat
    then `get_hoas_for_property(full:true)` before public-listing fallback or an
    unavailable-information reply. Read “Reading the OpsHub property record” for
    the HOA evidence rule; preserve the required recent-resolution check.
-   Access, appraisal, inspection, or appointment request → read
+   Access, appraisal, inspection, or appointment request, including a disputed
+   booking or instruction not to send anyone → read
    [resolution-first access](recipes/access-resolution.md). Verify recent OpsHub
    notes/activity before property research or requesting more details. Stop if
    the same concern was already resolved; use Home Visits only if still needed.
@@ -101,8 +102,17 @@ other hosts may use equivalent read-only tools without changing the evidence gat
    [appraisal utilities](recipes/appraisal-utilities.md) card. A matching card
    resolves routing ambiguity; do not load the full playbook solely because the
    inbound has a typo or vague pronoun that verified conversation can clarify.
-5. Stop when every outward claim and required gate is supported. Skip OpsHub for
-   replies supported by the inbound alone. No appendix-only retrieval or write tools.
+5. For routine offer/assessment status, use the verified current flip's OpsHub
+   `get_acquisition_transaction` with only required `tasks`, `offer`, or
+   `flip_details` panels before browser fallback. Exact structured assessment,
+   status and Flags evidence satisfies its corresponding page check; do not
+   navigate or search the browser to verify the same facts again. Missing fields
+   remain unknown: name the specific required gap before one focused browser path.
+   Target 20–30 seconds for routine cases without dropping required evidence.
+   Stop when every outward claim and required gate is supported. Skip OpsHub for
+   replies supported by the inbound alone. No appendix-only retrieval; writes
+   remain limited to AGENTS.md's verified document-handoff assignment and
+   authorized unsent Slack-draft preparation exceptions.
    Routine final-offer timing: aim for about 20 seconds with focused property,
    assessment, stage, and recent-resolution checks. Skip comments on a complete
    initial question with no indicated support exchange. Batch independent reads;
@@ -164,7 +174,7 @@ multi-part request, combine only the matching cards; keep their required gates.
 - [Simple login / account setup](SKILL.md#dashboard-links-and-account-setup)
 - [Partnership inquiry, agent referral/bonus counts, or missing transactions](recipes/partnership.md)
 - [Policy-only email](recipes/policy-only.md)
-- [CNML closed-home / second-payment / signed-release questions](SKILL.md#remaining-proceeds-after-resale) — direct to cashnowmorelater@opendoor.com. Former ownership does not authorize private resale details or scheduled closing dates; skip resale research for a routing-only reply.
+- [CNML closed-home / second-half offer-process / signed-release questions](SKILL.md#remaining-proceeds-after-resale) — direct to cashnowmorelater@opendoor.com. Former ownership does not authorize private resale details or scheduled closing dates; skip resale research for a routing-only reply.
 - [Offer-status questions on any channel](recipes/offer-status.md)
 - [Seller asking for assessment day/time](recipes/assessment-time.md)
 - [Seller asks whether Opendoor can conduct the assessment](recipes/assessment-provider.md)

@@ -1,5 +1,94 @@
 # Skill manifest
 
+## Disputed appointment / explicit no-visit request — November 3, 2026
+
+The Zendesk Fast Index now routes disputed bookings and instructions not to send
+anyone into the existing resolution-first appointment card. The card and owning
+assessment-confirmation passage require matching-slot structured status evidence,
+reuse recent resolution, and limit browser fallback to a named missing fact.
+An explicit refusal does not trigger rescheduling or app-photo advice; automated
+messages or elapsed slots do not establish cancellation or completion. Pending
+cancellation stays pending in the internal-note draft, with no new write authority.
+Active project and distribution copies match locally; inventory hashes are updated.
+No customer details are included. End-to-end latency improvement is not measured;
+GitHub publication remains pending the existing scheduled synchronization.
+
+## Pricing field copy boxes and Admin URL retrieval — November 3, 2026
+
+The active Zendesk project and canonical adapter require one value-only copy box
+per Pricing field, a focused lookup and verification of the matching Admin URL,
+and an explicit incomplete status if that lookup is blocked. No copyable reminder
+may stand in for the link. Pricing-only follow-ups are distinct from customer
+reply/internal-note drafts; no external submission is authorized. The inventory
+hash matches locally. Router display and submission guards remain in its separate
+repository. Publication awaits the scheduled daily sync.
+
+## MCP-first offer/assessment evidence — November 3, 2026
+
+Reconciled the Zendesk project rules, Fast Index, offer-status card and existing
+playbook passages: use focused acquisition MCP task/offer/flip panels before
+browser fallback. Exact authoritative structured records satisfy corresponding
+page checks; do not open Chrome to verify those facts again. Missing Flags,
+contradictory or incomplete assessment records and submitted-photo checks retain
+their evidence gates. Routine 20–30-second turnaround is a target, not a measured
+result. Active and canonical sources and inventory hashes match locally. Router
+classification/receipt-context fixes stay in its own repository. Publication is
+pending the scheduled evening synchronization; no customer fixtures are included.
+
+## Confirm resolved account information without gratuitous questions — November 3, 2026
+
+Refined Zendesk's existing clarification passage: when verified records already
+resolve a concern, confirm the current state and stop. Correct requested contact
+information already attached to an account does not require asking where an
+incorrect value is still visible or imply a new update was performed. Necessary
+clarifications, evidence/identity checks and the buyer-browsing example remain.
+No customer details are saved. Active project and canonical adapter match and
+the provenance hash is updated. Saved locally for the scheduled synchronization.
+
+## Existing-thread call-update wording — November 3, 2026
+
+Sam requested that call updates not append an unsolicited next-step question;
+the people handling the thread decide the next step. Specific questions or
+action requests remain when the XA requested them or the verified call establishes
+them. Updated the active compact Escalations runtime, its canonical package and
+the maintained detailed source; the inventory hash is reconciled. Router intent
+recognition and thread-layout fixes belong in the separate skill-router repo.
+Saved locally, awaiting the scheduled GitHub synchronization.
+
+## Deleted escalation recovery — November 3, 2026
+
+The inventory-owned Escalations runtime and canonical package now distinguish
+explicit recovery of deleted Slack/CONTACT artifacts from an ordinary duplicate
+send. Require current reads and equivalent-replacement checks, restore only
+missing requested artifacts, preserve successful steps, and stop on uncertainty
+or connector restrictions. Verification is read-only and cannot substitute old
+mutation receipts for current existence. Completed cases still accept discussion
+and explicitly requested owning-source saves without replaying customer actions.
+The inventory hash matches both copies. Router transport/state fixes remain in
+its separate repository. Saved locally; publication awaits the scheduled sync.
+
+## CNML second-half offer/process scope — November 3, 2026
+
+Sam clarified that the CNML inbox handles anything about the second-half offer
+or process, not just payment. Notes routing, standing wording and examples;
+Escalations' compact runtime; and Zendesk's playbook, first-pass pointer and
+project rules now agree. Inventory-owned packages and hashes were updated with
+the active sources. Maintained Escalations references and registered global
+variants received narrow matching edits, preserving unrelated variant content.
+Access-only handling, privacy safeguards and existing escalation boundaries are
+unchanged. Saved locally; publication awaits the scheduled daily sync.
+
+## XA Notes reference ownership reconciliation — November 2, 2026
+
+Registered the existing XA Notes `context/decisions-and-conventions.md` under
+its project adapter and mirrored its reviewed content byte-for-byte. The source
+inventory now records its ownership and hash, allowing Skill Router to reconcile
+the previously unregistered reference change without bypassing its integrity
+guard. The authoritative skill and canonical package already match. This file
+remains human reference only: it must not be loaded for ordinary notes or used
+to override `skills/xa-notes/SKILL.md`. No customer workflow was replayed.
+This reconciliation is saved locally; GitHub publication remains pending.
+
 ## Bot Task notes — November 2, 2026
 
 Added `bot-task-notes` at Sam's request for task-specific OpsHub notes, distinct
@@ -142,7 +231,17 @@ without treating the newer request as resolved. Active project rules and these
 canonical adapters match locally; inventory hashes are updated. Live performance
 savings are not measured. GitHub publication awaits the scheduled daily sync.
 
-Last content audit: 2026-11-02. Scope: all eight registered skills and required adapters.
+Last content audit: 2026-11-03. Scope: all eight registered skills and required adapters.
+
+## Zendesk document-handoff assignment — November 3, 2026
+
+Document handoffs may use a verified Zendesk reassignment to the responsible
+transaction owner, including a transaction coordinator when appropriate. The
+internal-note draft names the recipient, purpose and next action. Existing
+operator-completed handoffs are not repeated. The exception does not permit
+public sends, automatic note posting, OpsHub writes or external file transfer.
+Active source, adapter, package entry/router/playbook and inventory hashes are
+aligned locally; GitHub publication remains for the end-of-day task.
 
 ## Canonical distribution and active sources
 

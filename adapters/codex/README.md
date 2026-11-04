@@ -31,3 +31,7 @@ XA Notes also requires `xa-notes/skill-loader.md` copied to
 discovery to the full authoritative source. Preparation now loads the full skill
 before Ready; an exact source-text attachment satisfies this load without
 repeated file reads. Caller and posting rules remain in the full skill.
+
+The XA Notes `context/decisions-and-conventions.md` is a provenance-tracked
+human reference, not an additional runtime rule source. Preserve its explicit
+do-not-load boundary for ordinary notes and the authoritative skill's precedence.

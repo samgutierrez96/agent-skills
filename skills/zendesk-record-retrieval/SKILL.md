@@ -49,9 +49,13 @@ credentials, UUIDs, offer amounts, or unverified facts. Skip Gumloop. Sibling pr
 `xa-notes` (post-call notes) and `xa-quick-slack` (escalations) live in other
 ChatGPT Work folders. Follow AGENTS.md and `xa-quick-slack` for requested or
 required escalations: verify the destination, prepare an unsent Slack draft when
-applicable, confirm its draft ID, and open the destination. Never send or submit
-automatically; keep the internal note accurate about the unsent status. Email
-tickets have no OpsHub call note. Estimated/expired offers without a final offer
+applicable, confirm its draft ID, and open the destination. For supplied-document
+handoffs, apply AGENTS.md's narrow verified Zendesk-assignment exception instead
+of automatically creating a Slack escalation. Name the handoff recipient/role,
+document purpose and next action in the internal-note draft; do not repeat an
+assignment Sam already completed. Never send or submit external escalations
+automatically; keep the internal note accurate about the actual handoff or unsent
+status. Email tickets have no OpsHub call note. Estimated/expired offers without a final offer
 or contract do not trigger HSA escalation.
 
 ## Department routing when a Slack destination is unverified
@@ -973,8 +977,8 @@ the shape, the record wins, see "Stage gates the playbook".
   code in the ticket). Acknowledge that once the acquisition closed Opendoor
   became the owner, thank them for the feedback, and say we are doing our best
   to sell the home. Do not route as a closed-homes vendor ticket and do not
-  use the CNML second-payment inbox recipe unless they also asked about the
-  remaining payment.
+  use the CNML second-half offer/process inbox recipe unless they also asked about
+  that part of the offer or process.
 - **Buyer SMS asking if a named listing is still available.** Do not send a
   one-line yes/no. Glean the ticket, CUSTOMER on `primary_phone_number`, pin the
   home as an active listing, then read the property record and, if needed, the
@@ -1918,10 +1922,15 @@ lease rules. Provide verified HOA/management contacts for those details. Inspect
 all returned associations separately; null restrictions are unknown. The HOA dues
 payment rule still routes payment requests to `HOAAP@opendoor.com`.
 
-**Assessments & Inspections is the section that answers "did you get my
-assessment".** Start with `get_property` and `get_assessment_visits`. If those do
-not expose the exact completion record, read Assessments & Inspections in Chrome.
-It states completion as a fact with a date. Nothing else is a substitute:
+**Verify the authoritative assessment record, MCP first.** Start with retained
+`get_property` / `get_assessment_visits` evidence; when the exact assessment
+record is missing, use the verified current flip's `get_acquisition_transaction`
+`tasks` panel before Chrome. Inspect the matched assessment task's state,
+completion event/date and coverage, including contradictory/newer records.
+Exact structured records satisfy the corresponding **Assessments & Inspections**
+check; do not open the page merely to repeat them. If MCP still omits a required
+fact, name that gap and read the focused page section. Lifecycle labels, empty
+visits and null inspection dates are not substitutes for the authoritative record:
 
 **Mandatory exception for submitted-photo tickets:** when a seller says they
 submitted photos, asks whether the photos or assessment were received, or the
@@ -1984,6 +1993,18 @@ assessment).
 
 ## Assessment reschedules and confirmations
 
+- **Disputed booking / do not send anyone:** Use the
+  [resolution-first appointment recipe](recipes/access-resolution.md) to verify
+  the same requester, property and exact slot, recent resolution and current
+  appointment status. Preserve an explicit refusal; do not offer rescheduling
+  or app photos unless requested. Automated confirmations/check-ins and an
+  elapsed slot are not evidence of attendance, completion or cancellation.
+  Acknowledge the concern without promising that no one will attend or that
+  cancellation occurred unless verified. When unresolved, the internal note
+  identifies the appointment, supported status and pending cancellation action;
+  name a receiving team/person only when verified. Do not stop at “verify status”
+  when the matching structured appointment record can answer it. This drafting
+  workflow does not cancel appointments, post notes or send escalations.
 - **Scheduling horizon:** Support can help schedule or reschedule an eligible
   seller assessment up to 7 calendar days from today, not farther out. Ask for
   the preferred date and time within that window; if the requested date is
@@ -2113,8 +2134,15 @@ the customer's actual question and describe only the status details that answer
 it. Never reduce a record-backed status to “we are checking on the offer” when
 OpsHub shows a more specific stage.
 
-For every offer-status ticket, inspect both the property's page tags/Flags and
-the **Assessments & Inspections** section before drafting. A lifecycle record
+For every offer-status ticket, verify the required property tags/Flags and
+assessment status before drafting. Prefer exact OpsHub MCP records from the
+verified current flip; use `get_acquisition_transaction` with only the needed
+`tasks`, `offer`, or `flip_details` panels, reusing retained evidence. These
+checks require facts, not browser visits: structured records satisfying them
+must not trigger duplicate browser verification. If a required Flag, current
+status or assessment fact is missing or contradictory, name the specific gap
+before one focused page fallback. Never infer an absent restriction from an
+omitted field. A lifecycle record
 reading `SENT` or an email event saying an offer was sent does not establish that
 the final offer was presented. If the property page reads **Sent Finalizing
 Offer**, the final offer is not ready and must not be described as sent or
@@ -2287,16 +2315,21 @@ to.
 The goal is the address uuid the record hangs off. Two routes reach it, and the
 cheap one usually wins.
 
-Use a bounded retry budget: a street-only address is sufficient for the first
-lookup attempt, so make one complete plaintext query using exactly what the
-customer provided. If it returns no usable positive match, make at most one normalized retry with the
-city/state/ZIP or the exact recipe filter. Then report the connector gap or ask
-for the missing address detail. Do not issue a series of guessed address variants.
+Use the bounded retry and property-opening procedure in
+[ROUTING-GATES.md → Address lookup budget](ROUTING-GATES.md#address-lookup-budget).
+Start with the supplied plaintext address. For a failed unit-address lookup,
+the one normalized retry is a house-number/street search followed by exact
+unit/city/state/ZIP matching, not a series of `#`/`Unit`/`Apt` substitutions.
+The reference also defines the single browser-search fallback and stop condition.
 
 **Use OpsHub `list_properties` on the plaintext address first.** When it returns
 one exact current property, use its address/property identifiers and flip context.
-If it is ambiguous, empty, or lacks the listing fact the recipe needs, continue to
-PDS or Casa.
+Use its `addressToken` with `get_property`, and open the verified current property
+page when required Flags or Home Access facts are omitted by MCP. Expand
+**Details** to read **Flags** and **Home Access**; neither `get_special_flags`
+nor an opened customer page establishes those facts. Empty search results are
+not proof that OpsHub is inaccessible. PDS/Casa alternatives below apply only
+when those tools are actually available and within the same bounded lookup budget.
 
 **`pds_search_by_address` on the plaintext street address.** When it returns
 an exact non-unit match for the street, **its Address ID is the address uuid** and
@@ -2807,8 +2840,11 @@ evidence. This shortcut overrides the record gate below for this narrow reply;
 separate status, completion, or appointment questions still require their gates.
 
 **Gate first.** This whole section only applies when the assessment is genuinely
-outstanding, confirmed from Assessments & Inspections on the property page, not
-guessed from a reminder email. From `FINAL_OFFER_SENT` onward none of it is
+outstanding, confirmed from the authoritative assessment record through OpsHub
+MCP first, or a focused Assessments & Inspections page read if the required fact
+is still missing. An active task alone is not enough when completion, photos or
+newer records contradict it. Do not guess from a reminder email, null date or
+empty visit list. From `FINAL_OFFER_SENT` onward none of it is
 available, no matter how the customer worded the question. See "Stage gates the
 playbook". It also does not apply to an entry-only agent, see that section.
 
@@ -2974,6 +3010,10 @@ generic portal-failure routing for that case.
 
 ## Remaining proceeds after resale
 
+Scope clarified by Sam, November 3, 2026. Preserve the caller's stated concern;
+bare CNML/second-half shorthand must not invent a payment concern.
+
+
 For a former seller asking about remaining proceeds or a signed release after
 resale, read the ticket and the matching earlier support exchange. Apply the
 existing repeated-concern search once; retain the verified referral handler and
@@ -2988,7 +3028,8 @@ closing date. Keep any already-retrieved private facts internal; do not retrieve
 them solely to answer the former owner. Acquisition closing and a generic sold
 status do not establish resale completion or payment.
 
-Direct CNML closed-home and second-payment questions to
+Direct CNML closed-home questions and anything regarding the second half of the
+Cash Now, More Later offer or process (not just payment) to
 cashnowmorelater@opendoor.com, replacing the former Executive Experience inbox
 for this scope. Ask the customer to include the property address and forward
 earlier correspondence when relevant so the contact history is included;

@@ -285,7 +285,7 @@ answer to anything listed here, and neither is a search.
 
 | The XA types | Answer lives in |
 |---|---|
-| cnml, CNML, 2nd half, second half, cash plus, cash now more later | Part 6, "Cash Now, More Later second half payment (cnml, 2nd half)" unless they want into the home after close, then Part 4, "Previous owner on a closed Cash Now, More Later home" |
+| cnml, CNML, 2nd half, second half, cash plus, cash now more later | Part 6, "Cash Now, More Later second-half offer/process (cnml, 2nd half)" unless they want into the home after close, then Part 4, "Previous owner on a closed Cash Now, More Later home" |
 | previous owner, former owner, former seller, cnml access, wants in after close, closed home access | Part 4, "Previous owner on a closed Cash Now, More Later home" |
 | coe, COE, close of escrow, closing window, 21 to 60, 21 to 120 | Part 6, "Close of escrow (coe)" |
 | dashboard, cant see dashboard, dashboard access, sent their link, dashboard link, opendoor.com/agent | Part 5, "Dashboards, links, and access to them (dashboard, link)" |
@@ -962,7 +962,7 @@ complete as written.** If the answer is here, write it and move on. Do not open
 | Need | Where it goes |
 |---|---|
 | Opendoor Experience team customer service line | 888-352-7075 |
-| Escalated seller issues other than CNML closed-home / second-payment questions | executive.experience@opendoor.com |
+| Escalated seller issues other than CNML closed-home / second-half offer/process questions | executive.experience@opendoor.com |
 | Buyer making an offer on an Opendoor-listed home | Use the listing at opendoor.com/buy or opendoor.com/homes where direct submission is available. Special traditional listings may instruct homes@opendoor.com or a licensed agent; follow listing instructions and separately saved location eligibility. |
 | Agent making an offer on an Opendoor-listed home | Normally opendoor.com/makeoffer; when the home has an active offer, email homes@opendoor.com. |
 | Listing agreement not yet on file | support@opendoor.com |
@@ -1141,9 +1141,13 @@ requests to the general HOA contact or invent another payment path.
 
 > Advised caller to contact HOAAP@opendoor.com, the team that makes all of our HOA payments, regarding the HOA dues payment request.
 
-## Cash Now, More Later second half payment (cnml, 2nd half)
+## Cash Now, More Later second-half offer/process (cnml, 2nd half)
 
-CNML closed-home and second-payment questions go to cashnowmorelater@opendoor.com.
+CNML closed-home questions and anything regarding the second half of the Cash Now, More Later offer or process go to cashnowmorelater@opendoor.com, not just payment questions.
+
+Scope clarified by Sam, November 3, 2026. Preserve the caller's stated concern;
+bare CNML/second-half shorthand must not invent a payment concern.
+
 Former ownership does not authorize disclosure of the current resale transaction's
 private details or scheduled closing date. Do not promise a payment date or
 response time. Source: Diego Mendieta, October 30, 2026, https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1793377165539289.
@@ -1153,7 +1157,7 @@ The seller contacts the inbox themselves. Never escalate on their behalf. Write
 this sentence as it appears, address included:
 
 > Advised seller to contact cashnowmorelater@opendoor.com directly regarding
-> the second half of their Cash Now, More Later payment.
+> the second half of their Cash Now, More Later offer or process.
 
 **Write the address, never "the CNML inbox."** That description
 is a defect, not a paraphrase. This sentence is the complete answer for the
@@ -1345,7 +1349,7 @@ office." **Out of office is not the same as no advisor assigned.**
 | Questions or pricing disputes on a Final Offer **already issued** | Assigned Home Sale Advisor, else the HSA channel |
 | Seller simply waiting on a Final Offer after assessment | **No escalation.** Give the 3 to 5 business day timeline. |
 | Closing-side: close of escrow changes, late checkout, closing documents | Sales support, not the HSA |
-| Cash Now, More Later second half payment | **No escalation.** Use the confirmed line in Part 6. |
+| Cash Now, More Later second-half offer/process | **No escalation.** Use the confirmed line in Part 6. |
 | Previous owner requesting access to a closed Cash Now, More Later home | **No escalation.** Use the Part 4 previous-owner line. Never the closed homes team. Never a lockbox code. |
 | General escalated seller issues | Executive experience inbox |
 | Utilities not transferred out of Opendoor's name | Utilities team |
@@ -1814,7 +1818,7 @@ Solution Offered: Escalated to the Home Sale Advisor channel; no home sale advis
 Follow Up Link: N/A
 ```
 
-## Cash Now, More Later second half payment (cnml, 2nd half)
+## Cash Now, More Later second-half offer/process (cnml, 2nd half)
 
 Confirmed wording, address included. Never write "the CNML
 inbox" in place of the address.
@@ -1822,16 +1826,16 @@ inbox" in place of the address.
 ```
 Property Address: N/A
 
-Reason for Call: Seller called about the second half payment for their Cash Now, More Later sale.
+Reason for Call: Seller called about the second half of their Cash Now, More Later offer or process.
 
-Customer Concerns: Seller wanted to know about receiving the second half of their payment.
+Customer Concerns: Seller had questions about the second half of their Cash Now, More Later offer or process.
 
-Solution Offered: Advised seller to contact cashnowmorelater@opendoor.com directly regarding the second half of their Cash Now, More Later payment.
+Solution Offered: Advised seller to contact cashnowmorelater@opendoor.com directly regarding the second half of their Cash Now, More Later offer or process.
 
 Follow Up Link: N/A
 ```
 
-## Cash Now, More Later second half payment, no response in 72 hours (cnml, 2nd half)
+## Cash Now, More Later second-half offer/process, no response in 72 hours (cnml, 2nd half)
 
 Rare, but the confirmed next step once a seller has emailed and gotten no reply
 within 72 hours. Not an escalation, no separate contact to give.
@@ -1839,9 +1843,9 @@ within 72 hours. Not an escalation, no separate contact to give.
 ```
 Property Address: N/A
 
-Reason for Call: Seller called about the second half payment for their Cash Now, More Later sale after not receiving a response in over a week.
+Reason for Call: Seller called about the second half of their Cash Now, More Later offer or process after not receiving a response in over a week.
 
-Customer Concerns: Seller was waiting on a response about their second half payment and had not heard back after a week.
+Customer Concerns: Seller was waiting on a response about the second half of their Cash Now, More Later offer or process and had not heard back after a week.
 
 Solution Offered: Filed a consumer complaint report, since no response was received by email within 72 hours.
 
@@ -2172,7 +2176,7 @@ uploaded for the digital checkout."
     assessment was completed.
 26. **A previous owner on a closed Cash Now, More Later home was treated as a
     buyer.** No lockbox code. The Part 4 previous-owner standing line is in
-    Solution Offered. Not a second-half payment call and not a closed-homes
+    Solution Offered. Not a second-half offer/process call and not a closed-homes
     escalation.
 27. **A scheduled in-home walkthrough stays scheduled.** If they asked about an
     appointment that is already on the books (vacant property, can they complete

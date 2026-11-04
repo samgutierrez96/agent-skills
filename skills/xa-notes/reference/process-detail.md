@@ -94,8 +94,8 @@ Once the acquisition closes, the previous owner is not the property owner.
 Opendoor is. They agreed to that when they signed. If they try to enter, treat
 them as a buyer and go through buyer access guidelines. **Do not provide the
 lockbox code.** Appreciate their feedback; we own the home now and we are doing
-our best to sell it. This is not a vendor closed-home issue and not a second
-half payment call.
+our best to sell it. This is not a vendor closed-home issue and not a second-
+half offer/process call.
 
 ---
 
