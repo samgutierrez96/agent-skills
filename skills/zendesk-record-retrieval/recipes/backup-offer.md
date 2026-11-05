@@ -26,9 +26,12 @@ AGENTS.md's current agent submission URL takes priority over older URL wording.
    email as a blanket alternative or promise acceptance, a response, or an
    appointment. Keep buyer and seller paths distinct; use their existing recipe
    if the requester is not an agent.
-4. If the home is under contract, it cannot be viewed, including for a backup
-   offer. Do not route a viewing to an app, support, or showing service. Acceptance
-   of backup offers and a system permitting booking do not override this gate.
+4. Under contract means no new viewing, including for a backup offer. Honor an
+   appointment already scheduled or confirmed before the home went under contract;
+   do not honor one booked afterward. Verify unknown appointment timing before
+   deciding, and preserve required identity/access safeguards. Do not route a
+   prohibited new viewing to an app, support, or showing service. Acceptance of
+   backup offers and a system permitting booking do not override this gate.
 
 Stop when the requested acceptance/submission answer, listing stage and required
 resolution checks are supported. Skip trust, credentials, Flags or access research

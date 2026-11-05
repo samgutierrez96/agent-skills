@@ -102,8 +102,10 @@ customer, merge the remaining duplicate profiles in Admin, then verify the
 surviving OpsHub profile. Use the approved OpsHub edit flow only when the
 profile still shows a leftover duplicate email or phone entry. If the profile
 already shows exactly the confirmed primary email and phone, treat cleanup as
-verified and do not open a second browser workflow. Document the consolidation
-only after it has completed successfully.
+verified and do not open a second browser workflow. Keep consolidation and
+contact-cleanup details out of the five-field note unless the XA explicitly
+asks to document them, and only include them after successful verification.
+Internal cleanup must not replace the solution communicated to the caller.
 
 This trigger is detected from the `list_customers` result even when the
 original shorthand does not mention duplicate accounts. After the XA supplies
@@ -116,7 +118,7 @@ the account-merge skill's bounded search recovery without requiring the XA to
 repeat the request. Never guess the keeping customer, silently choose between
 emails, or post before the merge and contact cleanup are verified.
 
-For an explicit `post` or `post it`, do not rediscover tools, inspect schemas,
+For a direct `Post it`, do not rediscover tools, inspect schemas,
 or reread this file when the current paste is already-written prose. Format the
 five fields from the paste, then call the known OpsHub tools directly by their
 exact names: `mcp__opshub__list_properties`, `mcp__opshub__list_customers`,
@@ -252,10 +254,11 @@ that into the five fields.
   bullets) names the address for that need, write that address. Listing
   agreement not yet on file is always `support@opendoor.com`. Already-written
   does not keep a vague "through email" in Solution Offered.
-- **`post` / `post it` is never call content.** Strip it from the five
+- **The direct `Post it` command is never call content.** Strip it from the five
   fields. If they told the caller to send something and then wrote "they
   said they would post it," Solution Offered is that the caller would send
-  it. Then post this note (Part 11). Never write "they would post it."
+  it. Post this note only with a separate direct `Post it` command (Part 11).
+  Never write "they would post it."
 
 Example: "Buyer called to get info on how to get access to the property. I let
 them know how. They said they'll call back when they're ready." Solution
@@ -708,8 +711,13 @@ granted." An unverified caller is also not added to the property.
 - **Buyer whose identity cannot be verified** → the trust and safety wording.
   Access was not granted. Do not add return-with-a-licensed-agent on an
   Opendoor listing.
-- **Under contract** → "Advised the home is under contract and not available for
-  showings, so a viewing could not be scheduled."
+- **Under contract** → no new viewings. Honor a viewing already scheduled or
+  confirmed before the home went under contract; do not honor one booked afterward.
+  Verify unknown appointment timing before deciding; do not cancel solely because
+  the home is now under contract. Preserve required identity/access safeguards.
+  For a prohibited new viewing: "Advised the home is under contract and not
+  available for new showings, so a viewing could not be scheduled." Notes describe
+  only the guidance/action the XA reports; do not invent a verification or change.
 - **Temporarily off market** → "Advised the caller the home is temporarily off
   market and unable to schedule a viewing at this time." Customer Concerns is
   "Unable to schedule a viewing."
@@ -971,9 +979,28 @@ complete as written.** If the answer is here, write it and move on. Do not open
 | Opendoor Home Loans applications / getting a loan | opendoor.com/mortgage; 947-600-5891; mortgage@opendoor.com. Not a confirmed post-close servicing route. |
 | Vendor asking to work with Opendoor | opendoor.com/vendor-partnerships, and vendoronboarding@opendoor.com |
 | Trust and safety | trust@opendoor.com |
+| Fire investigator / government agency investigative request | Trust & Safety: lawenforcement@opendoor.com; Government Agency Type Fire for a fire investigator. |
 
 Give the contact even when an escalation is also noted. The two are not
 alternatives.
+
+## Fire investigator / government agency request
+
+Route fire investigators like other government agency investigative requests to
+Trust & Safety at `lawenforcement@opendoor.com`; log the agency type as **Fire**.
+XAs do not share property, seller or buyer details on the call. Sam's saved
+caller wording: “Please email lawenforcement@opendoor.com with your badge number,
+case number, property address, and the nature and urgency of your request.”
+Request the case number if available; it is not a prerequisite for assistance.
+Record only guidance/actions the XA reports, not an invented JIRA submission or
+completed escalation. A requested callback retains the government-agency JIRA
+intake; injury, death or an active in-progress situation retains immediate
+incident escalation. A contact referral alone does not authorize Slack or posting.
+
+Source: Sam's accepted direction, November 4, 2026; supported by
+[Law Enforcement Guidelines/Ticket](https://opendoor.zendesk.com/hc/en-us/articles/12745039690139-Law-Enforcement-Guidelines-Ticket),
+Jacob Griffith, updated March 10, 2026, retrieved November 4. Exact caller wording
+is Sam's direction, not a verbatim approved KB macro.
 
 ## Opendoor Home Loans (home loans, mortgage, lender)
 
@@ -1594,9 +1621,9 @@ Use this when the agent asked to be added, the XA told them to send the
 listing agreement, and the XA did **not** say they added them. Write
 `support@opendoor.com`. Do not swap in the add-plus-assessment template.
 
-If the paste also says **post** or **post it**, that is the OpsHub command
+If the paste also directly commands `Post it`, that is the OpsHub command
 (Part 11). Strip it. "They said they would post it" after the email ask
-means they would send the agreement; then post this note.
+means they would send the agreement; it does not authorize a note post.
 
 ```
 Property Address: N/A
@@ -2269,12 +2296,16 @@ message is the real one and should not need another file read.
 
 ## Post to the customer OpsHub page
 
-**Gate:** If this message does not contain **post** or **post it**, return the
+**Gate:** Only the XA's direct `Post it` command authorizes posting. Match
+case-insensitively, not quoted commands, caller speech, or discussion of when
+to post. Save/update/fix requests are source maintenance, not posting. A pending
+authorized post may continue after its required identity/email choice; a
+maintenance turn must not resume it. Without an authorized post, return the
 fence with **zero OpsHub**, except silent `list_properties` when Part 4 needs
 listing type and a street is in the paste. A street, phone, or email in the
 paste is not a post. Not on `ready`. Do not auto-post.
 
-**Direct command means execute.** When the XA says `post` or `post it`, that is
+**Direct command means execute.** When the XA directly says `Post it`, that is
 authorization to submit the note immediately. Do not ask for confirmation,
 permission, or a second “go ahead.” Use the OpsHub MCP workflow below only;
 never switch to browser automation.
@@ -2287,12 +2318,12 @@ property. If the note appears on a property page afterward, that is only the
 linked display of a note posted on the caller's customer page.
 
 **Same-message post counts.** The first paste in a chat can include the
-shorthand **and** `post` / `post it`. Post **this** note. Do not wait for a
+shorthand **and** the direct command `Post it`. Post **this** note. Do not wait for a
 second message after a fence. Do not treat "post it" as something the caller
-said. Strip `post` / `post it` from Reason, Concerns, and Solution Offered.
+said. Strip the direct `Post it` command from Reason, Concerns, and Solution Offered.
 If they told the caller to send a listing agreement (or anything else) and
 the paste ends with "they said they would post it," write that the caller
-would send it, then post.
+would send it; do not post without a separate direct `Post it` command.
 
 Then **post on the caller's customer page** (agent, appraiser, inspector,
 seller, or whoever called). Never the seller, listing agent, or other contact
@@ -2315,7 +2346,7 @@ pattern inspect, never inspect one-by-one, and never inspect unrelated tools.
 Later posts in this chat call the tools directly; do not inspect again, and do
 not call `whoami` again.
 
-**Fast follow-up post.** When `post` or `post it` follows a five-field note
+**Fast follow-up post.** When a direct `Post it` follows a five-field note
 already drafted in this chat, treat the skill as loaded and reuse that note.
 Do not reread `SKILL.md`, re-check templates, or inspect tool schemas. Run only
 the required lookup batch, reuse the cached operator, and create the customer

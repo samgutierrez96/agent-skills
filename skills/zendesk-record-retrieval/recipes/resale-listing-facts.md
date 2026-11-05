@@ -21,7 +21,10 @@ offers` branch. Keep this separate from seller acquisition offer-status question
 5. If directing an agent to submit, include AGENTS.md's current
    `https://www.opendoor.com/make-offer`, enter the address, and follow the prompts.
    A separate viewing request must first pass listing stage/Flags/access checks;
-   under-contract homes cannot be viewed even for backup offers.
+   under-contract homes allow no new viewings, even for backup offers. Honor a
+   viewing scheduled or confirmed before the home went under contract; do not
+   honor one booked afterward. Verify unknown timing before deciding and preserve
+   required identity/access safeguards.
 
 Stop when requested listing facts and required resolution checks are supported.
 No broad seller-profile or trust research solely for an appendix. Use the two

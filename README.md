@@ -8,9 +8,11 @@ small compatibility notes or wrappers when a host needs them.
 
 ## Current scope
 
-The repository contains eight custom skills. The October 27, 2026 audit reconciles
+The repository contains nine custom skills. The October 27, 2026 audit reconciles
 the original seven with their active Codex or project runtime sources, including
 required project rules and references. Bot Task notes was added November 2, 2026.
+The shared business-wide `kb-answer-for-callers` skill was imported from Claude
+and adapted November 4, 2026, with its unchanged upstream text retained for provenance.
 See [MANIFEST.md](MANIFEST.md) for provenance and
 [Codex adapters](adapters/codex/README.md) for installation constraints.
 

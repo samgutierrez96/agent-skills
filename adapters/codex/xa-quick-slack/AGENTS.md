@@ -18,14 +18,29 @@ Warm-up remains exactly `Ready when you are.` Escalated calls only; redirect
 non-escalated notes to `xa-post-call-notes`. Before a new property escalation, apply the skill’s existing-issue thread
 check and reuse a clear matching discussion, even outside the default
 destination channel; the XA need not say “continue the thread.”
-Never auto-send Slack, never claim
-a draft without `draft_id`, and use only verified links in `Follow Up Link`.
+The XA's current `escalate to`, `escalated to`, or `escalating to` person/team
+shorthand authorizes Slack send followed by the OpsHub CONTACT note without
+another confirmation. Preserve that authorization through required email/identity
+answers, Admin merge and verified contact cleanup, then finish the original flow.
+Explicit draft-only/paste-only or do-not-send/post requests override this mapping.
+Keep every routing, identity, coverage, thread and connector gate in the runtime.
+Never claim a draft without `draft_id`, and use only verified links in `Follow Up Link`.
 For any supplied property address, resolve and verify the OpsHub property URL
 before drafting; a missing property URL is a hard stop. Use Slack and OpsHub
 MCPs for the named-target path. Never use browser/native Slack UI automation to
 compose, paste Markdown into, edit, or repair a Slack draft. Do not narrate
 routine tool work or reread/edit the skill during ordinary live-ticket work.
 Explicit operator corrections follow the source-ownership workflow below.
+A current escalation request authorizes its send-and-post flow; `Post it` alone
+authorizes only the note for Slack already sent. Do not require either command
+again after a required merge or primary-email answer.
+Natural requests containing `save`, such as `Save this, please` or `save what I
+just wrote`, refer to the selected reusable correction, not a customer post.
+Resolve its existing owning source and verify the save without requiring special
+rule/skill wording. Saving a draft/attachment is not a workflow-rule correction.
+Quoted commands, status statements and a selected action mode are not new post
+authorization. A pending authorized post may resume after its required identity
+or primary-email answer; source maintenance never resumes that action.
 For `post it`, use the OpsHub MCP CONTACT mutation and treat a successful note
 ID as confirmation; do not open the browser just to verify the note.
 

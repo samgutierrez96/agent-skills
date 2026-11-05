@@ -2637,15 +2637,7 @@ structured read omits the required evidence.
 Do not call sell-direct `get_customer` for vendor identity or treat its failure
 as missing appointment evidence. Keep Home Visits separate from call resolution.
 
-**Under-contract viewing gate (operator correction, October 22, 2026): Homes
-under contract cannot be viewed, including agent previews or viewings intended
-for a backup offer.** Check the current listing stage before giving scheduling
-guidance. When it is in contract, explain that the home cannot be viewed while
-under contract; do not direct the requester to call, use an app, or book through
-a showing service for that viewing. Acceptance of backup offers does not permit
-a viewing. This correction supersedes older guidance that tours may continue
-until closing, even if a booking system allows an appointment. If Support
-already told the customer otherwise, directly own and correct that statement.
+**Under-contract viewing gate (operator correction, October 22, 2026): Homes under contract cannot be viewed, including agent previews or viewings intended for a backup offer, except an appointment already scheduled or confirmed before the home went under contract (including one booked while it was still eligible) must be honored.** Check the current listing stage and appointment timing before giving scheduling guidance. When it is in contract and the viewing was booked after under contract, explain that the home cannot be viewed while under contract and that the appointment cannot proceed; do not direct the requester to call, use an app, or book through a showing service for that new viewing. When a qualifying appointment was already on the books before under contract, honor it; do not cancel solely because the listing is now under contract. Acceptance of backup offers does not permit a new viewing. This correction supersedes older guidance that tours may continue until closing, even if a booking system allows an appointment. If Support already told the customer they cannot view when a pre-under-contract appointment should be honored, directly own and correct that statement.
 
 Anyone asking for "a code" means an **access code for an Opendoor home**.
 
@@ -2827,6 +2819,36 @@ sensitive path than a standard rental scam report.
 
 A rental scam victim or suspect link is a **non-negotiable deny** on home access.
 Never grant or promise access on one of these tickets.
+
+## Government agency investigations, including Fire
+
+Fire investigators are handled like other government agency investigative
+requests: route to Trust & Safety at `lawenforcement@opendoor.com` and log the
+case under Government Agency Type **Fire**. XAs do not share property, seller
+or buyer details on the call or in the ticket reply; T&S handles the request.
+Do not substitute a seller/buyer, listing-team or general-support referral.
+
+Sam's saved customer-facing wording (November 4, 2026):
+“Please email lawenforcement@opendoor.com with your badge number, case number,
+property address, and the nature and urgency of your request.”
+Use it in the normal channel-appropriate reply, not Position/Say blocks.
+The case number is requested if available, not a prerequisite for assistance.
+The internal-note draft identifies the Fire route and the actual pending action;
+never claim the case was logged, submitted or escalated without evidence.
+
+Preserve the KB intake requirements: a requested T&S callback requires the
+government-agency JIRA intake, with identity/agency/contact details, case number
+if available, property address, request and urgency. Personal injury, death in
+the home or an active in-progress situation requires immediate escalation under
+the incident procedure, not an email-only response. This guidance does not
+authorize submitting a form, sending a reply or disclosing private records.
+
+Evidence: [Law Enforcement Guidelines/Ticket](https://opendoor.zendesk.com/hc/en-us/articles/12745039690139-Law-Enforcement-Guidelines-Ticket),
+owner Jacob Griffith, updated March 10, 2026; retrieved November 4, 2026.
+The KB supports Fire as an agency type, the T&S email route, optional case
+number and urgency/callback intake. The exact wording and explicit Fire
+investigator application are Sam's accepted operational direction, not a
+verbatim approved KB macro.
 
 ## Sellers with an outstanding assessment
 

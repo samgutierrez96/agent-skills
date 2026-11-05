@@ -8,6 +8,27 @@ other hosts may use equivalent read-only tools without changing the evidence gat
 
 ## First decision
 
+- Driving / temporarily unavailable auto-reply with an unknown support need:
+  follow AGENTS.md's clarification rule, not automatic no-reply/close. Briefly
+  ask how we can help when they are safely parked; no property lookup is needed
+  for that generic invitation. Known substantive asks and verified resolution,
+  STOP or case-specific no-reply directions keep their normal evidence gates.
+
+- Classify the request from sender/agency, subject, body and relevant conversation
+  together. These signals do not verify authority to receive private details.
+  Business guidance that is missing, uncertain, stale or conflicting uses shared
+  `kb-answer-for-callers` research within Zendesk before a definitive answer.
+  Read relevant source content and resolve scope/effective-date conflicts; if
+  unresolved, withhold the disputed claim and state the gap internally. Do not
+  reuse saved wording merely because it exists. See AGENTS.md's business-evidence
+  gate; research does not itself authorize a durable save or external action.
+
+- Fire investigator / fire department investigative request → Trust & Safety,
+  `lawenforcement@opendoor.com`, not a seller/buyer or listing-team referral.
+  Read [government agency investigations](SKILL.md#government-agency-investigations-including-fire).
+  Use the saved referral wording, protect property/seller/buyer details, and
+  preserve urgent-escalation and callback-intake requirements.
+
 - **Offer refresh trouble:** OpsHub MCP → exact address → current primary
   initial/estimated offer. A positively current offer may establish the refresh
   is done, but `SENT` / a new sent date alone does not prove it is viewable.
@@ -27,6 +48,11 @@ other hosts may use equivalent read-only tools without changing the evidence gat
    alongside the ticket in one awaited parallel block when supported. Inspect both
    results before routing. Add comments only for a needed thread or newest inbound.
    Verify ticket, requester, channel and latest customer intent.
+   A short correction or acknowledgment is not the whole support request. If
+   its preceding question/ask is absent, use the retained thread or one focused
+   requester SMS/thread read to identify the unresolved concern before drafting.
+   Stop once the reply and internal note cover it; do not restart unrelated
+   property research. Completeness reviews use [same-ticket follow-up](recipes/same-ticket-follow-up.md).
    If Zendesk MCP is unavailable, continue with a targeted Glean ticket lookup
    or one focused live Zendesk read; verify ticket number, requester, channel,
    and newest inbound. Missing Zendesk tools alone is not a stop condition.
@@ -111,7 +137,7 @@ other hosts may use equivalent read-only tools without changing the evidence gat
    Target 20–30 seconds for routine cases without dropping required evidence.
    Stop when every outward claim and required gate is supported. Skip OpsHub for
    replies supported by the inbound alone. No appendix-only retrieval; writes
-   remain limited to AGENTS.md's verified document-handoff assignment and
+   remain limited to AGENTS.md's unsubmitted SMS composer entry, verified document-handoff assignment and
    authorized unsent Slack-draft preparation exceptions.
    Routine final-offer timing: aim for about 20 seconds with focused property,
    assessment, stage, and recent-resolution checks. Skip comments on a complete
@@ -201,10 +227,13 @@ multi-part request, combine only the matching cards; keep their required gates.
   resolved this concern, recommend no reply and name its handler in the internal
   note. If required history remains unreadable, withhold the reply and report the
   blocker; do not ask the customer for details merely missing from a failed read.
-- Under contract → no viewings, including agent previews for backup offers.
-  Check listing stage before scheduling guidance. Do not route an in-contract
-  viewing to phone support, an app, or a showing service. Backup-offer acceptance
-  and a system allowing booking do not override this gate.
+- Under contract → no new viewings, including agent previews for backup offers.
+  Honor an appointment already scheduled or confirmed before the home went under
+  contract; do not honor one booked afterward. Verify listing stage and appointment
+  timing before scheduling guidance; unknown timing is not grounds for automatic
+  cancellation. Do not route a prohibited new viewing to phone support, an app,
+  or a showing service. Backup-offer acceptance and a system allowing booking do
+  not override this gate.
 - Two separate non-empty plain triple-backtick boxes: customer reply first with
   nothing above it, then internal note. Omit the current ticket number and process
   commentary; include full URLs for any different verified Zendesk tickets referenced. No-send still uses its required bracketed disposition.

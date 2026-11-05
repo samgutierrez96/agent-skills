@@ -38,7 +38,8 @@ preparation, before replying Ready; the first caller must reuse that loaded skil
 
 - Ordinary notes use zero tools, except the full skill's explicitly allowed
   silent listing-type check.
-- Only explicit `post` or `post it` authorizes OpsHub lookup and posting.
+- Only a direct `Post it` command authorizes OpsHub lookup and posting.
+  Save/update/fix requests and quoted or reported commands do not.
 - On a post, use the caller's customer page, not merely the property owner;
   use one parallel lookup batch, reuse `whoami`, then create the note.
 - Use known OpsHub tools directly. Do not enumerate tools, inspect schemas

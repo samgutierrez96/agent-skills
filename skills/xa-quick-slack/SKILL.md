@@ -5,9 +5,41 @@ description: Fast OpsHub notes and Slack escalation drafts for Opendoor XAs.
 
 # XA Quick Slack — runtime
 
-## Workflow commands — verified 2026-10-26
+## Workflow commands — updated 2026-11-04
 
-- `send and post it` / `send and post` explicitly authorizes the complete flow:
+Fire investigators / fire department investigative requests use the government
+agency Trust & Safety route: `lawenforcement@opendoor.com`, agency type **Fire**.
+XAs do not share property, seller or buyer details on the call. Sam's saved line:
+“Please email lawenforcement@opendoor.com with your badge number, case number,
+property address, and the nature and urgency of your request.” Case number is
+requested if available. A requested callback retains government-agency JIRA
+intake; injury, death or an active in-progress situation retains immediate incident
+escalation, not email-only handling. This route is not a generic Slack escalation
+or permission to submit a form. Notes reflect actual actions, never an invented
+submission. Source: Sam's November 4, 2026 accepted direction and
+[Law Enforcement Guidelines/Ticket](https://opendoor.zendesk.com/hc/en-us/articles/12745039690139-Law-Enforcement-Guidelines-Ticket)
+(Jacob Griffith; updated March 10, retrieved November 4, 2026). Exact line is Sam's
+wording, not a verbatim approved KB macro.
+
+The XA's current escalation shorthand, including `escalate to [person/team]`,
+`escalated to [person/team]`, `escalating to [person/team]`, and `fo escalate hsa`,
+authorizes the full call-escalation flow: send Slack, capture its permalink,
+then post the five-field OpsHub CONTACT note. Do not ask whether to draft or
+send, or require `send and post it` / `Post it` again. Complete required identity,
+primary-email, Admin merge and contact-cleanup gates first, then continue that
+same authorized flow immediately. An email-only answer supplies the pending
+choice; it does not reset the escalation to paste-only. Retain verified caller,
+property, recipient, channel/thread, coverage and successful action receipts.
+
+An explicit `draft it`, `draft it/post it`, draft-only, paste-only, preview-only,
+or do-not-send/post instruction overrides automatic execution. Bare names,
+urgency, quoted commands, caller statements and reports of an already-completed
+escalation do not authorize new actions. Discussion, source corrections and
+saving guidance never resume a pending escalation. A selected mode alone does
+not authorize a post without the XA's action request. For an already-sent Slack
+message, the XA's direct `Post it` command authorizes only the CONTACT note.
+
+- `send and post it` explicitly authorizes the complete flow:
   send the verified escalation through `slack_send_message`, capture the returned
   `message_link`, then post the five-field OpsHub CONTACT note using
   `CreateCustomerNote`. Do both in the same turn without another confirmation.
@@ -29,7 +61,8 @@ description: Fast OpsHub notes and Slack escalation drafts for Opendoor XAs.
   execution status; resolve whether it was sent before attempting another send.
 - `draft it` (including `draft it/post it`) remains draft-only. `post it` alone
   means Slack was already sent: find its permalink and post only the CONTACT
-  note. Paste-only remains the default without an explicit action command.
+  note. Paste-only remains the default when no current escalation or other
+  explicit action request is present.
 - Slack Connect remains draft-only. Workflow-form channels retain their form
   gates below. If a tool or channel prevents sending, complete the safe work
   available and report the specific blocker without claiming completion.
@@ -357,7 +390,7 @@ exact match, stop and name the missing verified property URL; do not guess.
 
 ### Authoritative meaning of `post it`
 
-When the XA says `post it`, `POST IT`, or `I sent the Slack message`, treat the
+When the XA directly says `post it` or `POST IT`, treat the
 Slack message as already sent. Do not create, edit, or discuss a draft. Search
 for the real Slack permalink, then post the corresponding CONTACT note to
 OpsHub with the Slack permalink first in `Follow Up Link`.
@@ -370,7 +403,7 @@ permalink, then upload the exact five-field note to the caller's CONTACT page.
 Do not call `slack_send_message`. Do not print anything to the XA until the
 finished note. Order:
 
-The XA may say only `post it` or `posted` as shorthand for “the Slack message
+The XA may say `post it` as shorthand for “the Slack message
 and any related workflow ticket were already submitted; now post the
 corresponding note to OpsHub with every verified Slack permalink and property
 link.” Treat that as the posted-Slack path every time. In this project, the XA
@@ -387,7 +420,7 @@ not send, edit, or create another Slack message, and do not tell the XA that the
 Slack message is still unsent. Resolve the real Slack permalink and post the
 corresponding OpsHub CONTACT note.
 
-If the XA clarifies “post it on OpsHub,” “post the note,” or similar after a
+If the XA clarifies “post it on OpsHub” after a
 draft/post-it exchange, treat it as a clarification of the same ticket. Do not
 restart the ticket, ask them to repeat the request, or bounce the permalink
 back to them before completing the channel lookup and CONTACT-note path.
@@ -559,8 +592,9 @@ not search Slack plugin docs when a draft is enough. Slack Connect / draft-only
 is only `#external-listings-mgmt` (`C02CKQDH2QG`).
 
 For `send and post it`, use the Workflow commands above. `draft it/post it`
-remains draft-only. When the XA says Slack is already posted, use its verified
-permalink and post only the CONTACT note as described above.
+remains draft-only. When the XA says Slack is already posted and directly
+commands `Post it`, use its verified permalink and post only the CONTACT note
+as described above.
 
 ## Immediate behavior
 
@@ -626,7 +660,8 @@ There is no missing-property-link exception for a supplied address.
   Do not send that memo on paste-only tickets or above the note. Send it once
   until the XA actually starts a new chat.
 - Scope is escalated calls. Redirect non-escalated notes to `xa-post-call-notes`.
-- Paste-only is the default. `draft it` creates an unsent Slack draft.
+- Current escalation shorthand authorizes send-and-post as defined above.
+  Without an action request, paste-only is the default. `draft it` creates an unsent Slack draft.
   `send and post it` sends Slack and posts the CONTACT note in the same turn.
   `post it` alone posts the CONTACT note with the already-sent Slack permalink.
 

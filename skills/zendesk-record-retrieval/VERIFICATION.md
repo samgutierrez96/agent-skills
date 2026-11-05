@@ -30,6 +30,10 @@ of shared measurement reports. Reuse the same cases before/after where available
    amounts, false final-offer presentation, or calculated calendar-date window.
 6. Same-ticket follow-up: latest inbound verified when requested; reuse valid known
    facts without reloading recipes or confusing customer/property identifiers.
+7. Driving auto-reply with no known support need: warm clarification for when
+   safely parked, not silence/closure. Contrast with a verified resolved concern,
+   explicit STOP/no-contact, and a driving reply alongside a known unresolved ask;
+   preserve those distinct dispositions and their evidence requirements.
 
 For every case check factual support, current recipe, disclosure/access rules,
 exact standing wording/macros when required, channel voice, and two valid non-empty
@@ -55,6 +59,26 @@ channel formatting. These checks test decisions from supplied evidence, not live
 record retrieval, tool coverage or end-to-end timing. The three decision cases
 passed after the October 27 resolution-scope update; real-case parity remains a
 separate observation. Do not reuse an answered ticket as proof of its earlier draft.
+
+## Ranked document-handoff checks
+
+Use synthetic evidence and read-only evaluation; do not replay a live handoff.
+
+- A verified resale closing coordinator, a copied partner contact and external
+  title contacts: select the eligible closing coordinator first, explain the
+  role-based ranking, and distinguish reassignment from a Slack escalation.
+- The top owner is not selectable, but another verified responsible owner is:
+  choose that eligible owner. Copied contacts without verified ownership are
+  routing-only backups, not automatic replacement assignees.
+- Only an owning-team queue is verified: recommend that queue and disclose the
+  missing individual owner instead of inventing a name or a longer ranking.
+- Explicit draft-only request: give the ranked recommendation and internal-note
+  draft without changing assignment or posting/sending anything.
+- Sam reports adding the note and assigning the selected owner: acknowledge
+  Sam-reported completion; do not post the note, assign again, or claim tool
+  verification from Sam's report alone.
+
+These are behavioral acceptance cases, not proof of a completed live evaluation.
 
 ## Record only available measurements
 
@@ -183,7 +207,10 @@ tool/lookup rounds, exposed provider usage, two-box output and semantic result.
    offer. Instruct the agent to email homes@opendoor.com under the October 30
    exception. A normal agent submission without an active offer uses
    opendoor.com/makeoffer and address-entry/submission steps. No viewing or
-   scheduling referral while under contract. Preserve required resolution checks.
+   scheduling referral for a new viewing while under contract. Also test an
+   appointment confirmed before under contract (honor it), one booked afterward
+   (do not honor it), and unknown booking timing (verify before deciding; do not
+   automatically cancel). Preserve required resolution and identity/access checks.
    Also check a buyer encountering a traditional listing at /buy or /homes:
    follow its email-to-homes@opendoor.com or licensed-agent instructions.
 3. **Condition/wiring unavailable:** exact property identified, no supported
