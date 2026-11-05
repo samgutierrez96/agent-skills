@@ -417,7 +417,9 @@ selected by modification timestamp. File provenance and SHA-256 hashes are in
 Workspace rules for the three project skills are preserved under
 `adapters/codex/<skill>/AGENTS.md`. Zendesk's four on-demand context files are
 also bundled there. Read `adapters/codex/README.md` before installation.
-The Zendesk ENTRY rules path is translated to the repository layout; all other
+The Zendesk ENTRY rules path is translated to the repository layout. The non-editable
+Claude KB provenance reference retains its original text with trailing blank lines
+normalized to one terminal newline; its upstream file is unchanged. All other
 copied runtime content is byte-for-byte identical to its recorded active source.
 
 The older globally registered XA Notes, XA Quick Slack, and Zendesk copies are

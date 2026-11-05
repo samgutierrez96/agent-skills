@@ -11,8 +11,9 @@
     {
       "source": "Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/a3d65a9f-4ad4-4e52-9c15-75f952f81874/dc80edf9-228a-4198-b28b-a1754f6f9c58/skills/kb-answer-for-callers/SKILL.md",
       "destination": "skills/kb-answer-for-callers/references/claude-original.md",
-      "sha256": "9bd5f3a7318e19fbf2f9ea9d0df84899ddc41719db632e3e97bea76101d1ea0f",
-      "editable": false
+      "sha256": "ca29e56f29f8bc4f7e7f093bba8806a19bd71095570165553fee716387cc77de",
+      "editable": false,
+      "transformation": "Provenance-only copy: remove trailing blank lines, retaining one terminal newline; upstream source is unchanged"
     },
     {
       "source": ".codex/skills/bot-task-notes/SKILL.md",

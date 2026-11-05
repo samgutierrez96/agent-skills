@@ -42,4 +42,3 @@ Distinguish "published policy says X" from "practice is actually Y" when both ap
 ## Style
 
 Concise. No preamble, no recap of the search process. Cite sources with links at the end under `Sources:`.
-
