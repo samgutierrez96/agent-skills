@@ -726,6 +726,9 @@ Rules:
   described what the caller saw. Summarize the caller’s concern in Customer
   Concerns and the explanation or action in Solution Offered; omit play-by-play
   and unrelated detail.
+- For an access call about a scheduled appointment, keep the XA-supplied
+  appointment context in Reason for Call. This note context is not an
+  instruction to repeat it in Slack.
 
 ## Note patterns and routing
 
@@ -968,6 +971,10 @@ Role <customer-url|Customer Name> situation in one line.
   Slack prose. Do not add redundant caller contact details.
   A returned `draft_id` confirms creation only, not correct rendering.
 - Drop “asked to speak with their advisor” from Slack; the mention conveys it.
+- Keep “called for a scheduled appointment” in the OpsHub note, not the Slack
+  message. This applies to new posts and thread replies: describe the access
+  issue, attempted fixes and outcome without that appointment introduction,
+  unless the XA explicitly requests it in Slack.
 - XA-supplied Zendesk ticket: Slack as
   `<https://opendoor.zendesk.com/agent/tickets/NNNNNNN|Zendesk ticket NNNNNNN>`
   and the same URL in Follow Up Link. Never invent a ticket.

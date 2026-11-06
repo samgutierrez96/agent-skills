@@ -51,7 +51,10 @@ note templates and complete shorthand index are in `skills/xa-notes/SKILL.md`
   for a routine note.
 - Ordinary notes use zero OpsHub calls except the explicitly allowed silent
   listing-type check.
-- An explicit post uses one parallel lookup batch followed by one
+- Empty phone results use Part 11's bounded shared-context recovery before
+  requesting another identifier; this is the exception to the single-batch
+  and no-additional-skill-read fast path.
+- An explicit post otherwise uses one parallel lookup batch followed by one
   `CreateCustomerNote` call. If no street was supplied and the caller has one
   clear active property, resolve it before creating the note; otherwise keep
   `N/A` and stop rather than exploring additional records.

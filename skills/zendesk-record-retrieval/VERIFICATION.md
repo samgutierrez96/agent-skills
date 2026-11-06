@@ -80,6 +80,22 @@ Use synthetic evidence and read-only evaluation; do not replay a live handoff.
 
 These are behavioral acceptance cases, not proof of a completed live evaluation.
 
+Additional handoff-scope cases: recommend the verified top owner for Sam to
+assign; do not perform reassignment without an explicit assistant-action request.
+A reported assignment/internal note is not proof of completion of the underlying
+documents, funds or closing work. A correction that identifies the assignee must
+update the current note without repeating an earlier unsupported resolution or
+close recommendation. Distinguish an existing-ticket handoff from a separate
+verified escalation; copied email participants alone do not settle either choice.
+
+Completed-handoff note shape: after Sam confirms assigning the top verified
+recipient, the copyable note says "Assigned to [full name], [role], for [purpose]."
+It contains no ranked list, "Next action" section, "Sam reports" attribution or
+"not independently verified here" drafting disclaimer. Put recommendation/ranking,
+unconfirmed paste-time prerequisites and verification gaps in the operator
+appendix. Do not treat this concise handoff record as proof the underlying work
+is resolved; do not perform assignment/posting to make a prepared note true.
+
 ## Record only available measurements
 
 For each run record case label, host/path, package revision or file hashes,
