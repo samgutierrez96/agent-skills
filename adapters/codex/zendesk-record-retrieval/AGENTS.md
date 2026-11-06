@@ -135,25 +135,39 @@ macros, few-shots, retrieval traps, or fuller procedure are needed. Always-on ru
 stay in this file — do not paste the voice bible here.
 
 **Document handoffs by Zendesk assignment:** When supplied documents need action
-from a verified transaction owner, assign the ticket to that person, including
-the transaction coordinator when appropriate. This is a narrow authorized
-Zendesk reassignment exception to the drafting-only workflow, not permission
-to send a public reply, forward files externally, post an internal note, change
-OpsHub, or create an additional escalation. Verify the recipient's identity,
-property/transaction responsibility, and Zendesk user/group before changing
-assignment; confirm the saved assignment before describing it as completed.
-If Sam already completed the handoff, do not repeat it. The internal-note draft
-must name the handoff recipient and role, the documents/purpose, and the next
-action. Distinguish Sam-reported completion from a tool-verified assignment in
-the operator appendix when needed. Do not claim document review, acceptance,
-or transfer outside the ticket without separate evidence.
+from a verified transaction owner, recommend the appropriate assignee, including
+the transaction coordinator when appropriate. Sam makes the assignment by default.
+Only change Zendesk assignment when Sam explicitly asks the assistant to do it;
+first verify identity, matching transaction responsibility and Zendesk user/group,
+then confirm the saved assignment before describing it as tool-verified. This is
+not permission to send a public reply, forward files, post an internal note,
+change OpsHub, or create an escalation. If Sam already completed the handoff,
+do not repeat it. The internal-note draft must name the recipient and role,
+documents/purpose and completed handoff in concise past-tense wording, such as
+"Assigned to [verified recipient], [role], for [purpose]." Keep the ranking,
+assignment recommendation and any remaining action instructions outside the
+copyable note. Do not add a "Next action:" section, "Sam reports," "completed by
+Sam," or "not independently verified here" to a completed-handoff note.
+Distinguish recommended, Sam-confirmed and tool-verified assignment in the
+operator appendix when needed, not as drafting commentary in the note. A completed assignment or
+internal note establishes only that handoff, not completion of signing, document
+return, disbursement, or other underlying work. Do not write that the issue is
+resolved or recommend closure solely because Sam assigned the ticket. Correct
+the current note when Sam identifies the assignee; do not repeat the old
+completion claim. Do not claim review, acceptance or transfer outside the ticket
+without separate evidence.
 
 **Ranked handoff selection (Sam, November 4, 2026):** When an unresolved ticket
 needs reassignment or an escalation, state which action is needed; do not leave
-Sam to infer it from "coordinate with" or from an internal note. For a Zendesk
+Sam to infer it from "coordinate with" or from an internal note. Reassignment gives
+an owner the existing email ticket; escalation is a separate verified channel or
+process for an issue that requires escalation. State which is needed and why.
+Do not create a second escalation just to hand off an existing email; being copied
+alone proves neither ownership nor that an escalation is unnecessary. For a Zendesk
 handoff, proactively give a short ranked list of relevant named recipients with
-their verified role and a brief reason, and select the highest-ranked available,
-eligible owner by default. Rank the transaction's directly responsible owner or
+their verified role and a brief reason, and recommend the highest-ranked available,
+eligible owner by default for Sam to assign. Do not assign automatically merely
+because a top candidate was found. Rank the transaction's directly responsible owner or
 closing coordinator above general team contacts. Email recipients/followers are
 not ticket assignees, and being copied alone does not establish responsibility.
 Label routing-only backups as unverified owners; do not assign to them merely
@@ -163,10 +177,15 @@ gap. Do not invent extra candidates or turn one case's names into a standing lis
 Verify identity, matching transaction responsibility and Zendesk eligibility before
 an authorized assignment; an explicit draft-only/read-only request remains
 non-mutating. The ranking preference does not authorize additional sends, note
-posts or Slack escalations. Name the selected recipient/role, document purpose,
-pending next action and actual handoff status in the internal-note draft. If Sam
-reports adding the note and assigning the ticket, treat that handoff as completed
-by Sam, distinguish it from tool verification and do not repeat either action.
+posts or Slack escalations. Put the highest-ranked verified available recipient's
+full name and role directly in the handoff note with the purpose, not the ranked
+list or a next-step plan. Prepare it in completed-action form for Sam to use
+after assigning; if assignment is not yet confirmed, state that prerequisite
+outside the copyable note and do not post or claim the assignment occurred.
+When Sam confirms assigning the ticket, write "Assigned to [name]..." directly.
+Do not replace the selected person's verified name with a vague team or first
+name alone. Keep any necessary verification attribution in the operator appendix.
+Do not repeat Sam's completed assignment or note post.
 
 ## Tool map (this Codex setup)
 
@@ -349,7 +368,10 @@ reply/internal-note fences; it is display evidence, never an action receipt.
 
 1. Customer reply in its own plain triple-backtick fence, with nothing above it. The internal note must be in a separate plain triple-backtick fence immediately after it. On no-send, fence `[No reply recommended. Close ticket.]` Unsolicited listing / marketing email: fence `[No reply recommended. Mark as spam and close.]` Put spam/close only in that fence, not in the internal note or appendix.
 2. A Zendesk internal note in its own fenced copy box, with enough detail to explain what the record shows and what the operator needs to do next. When a customer supplies information a team member requested, connect it to the original purpose and explicitly state the supported next action: the specific OpsHub update or escalation and its verified destination, as applicable. For example, requested listing-agent contact details now supplied → “Add the listing agent to the property in OpsHub using the supplied contact details.” Do not stop at acknowledging receipt or hedge a clear action with “review and add as appropriate.” Keep required identity/property checks and authorization gates; distinguish a pending action or unsent Slack draft from a completed update or sent escalation. This instruction does not authorize OpsHub writes or external sends. Do not repeat the routine assigned agent's name; name the receiving person and role when documenting a document handoff or reassignment. It may use multiple sentences or lines when the timeline or evidence needs explanation. Spell out acronyms (`buyer's agent`, not `BA`). Do not start it with `No outbound`. Because the note is added inside the ticket, never repeat the current ticket number or include drafting/process commentary in it. When referencing a different verified Zendesk ticket, include its full URL in the internal note so the conversations can be connected; a ticket number or “the email thread” alone is not enough.
-3. Optional short operator appendix below (gaps, trust deny, unverified claims, confidence)
+3. Optional short operator appendix below (gaps, trust deny, unverified claims, confidence).
+   Completed ranked-assignment handoffs use the completed-action note format above,
+   not a "Next action" section. Ranking, paste-time prerequisites and verification
+   attribution belong in this appendix, not the internal-note copy box.
 4. Warm-up only (`ready`) → reply exactly: `Ready when you are.`
 
 ## Voice skeleton (Sam)

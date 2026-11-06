@@ -50,9 +50,11 @@ field blank. Explicit posts use resolved caller/property values.
   reason.
 - Optimize for latency and token use: use the already-known OpsHub tool names
   directly, never enumerate or filter the tool catalog, and do not make
-  exploratory or duplicate lookup calls. After the first post, reuse the
-  cached operator token and only run the required property and caller lookups
-  in parallel before creating the note.
+  exploratory or duplicate lookup calls. An empty phone result takes Part 11's
+  bounded shared-context recovery before asking for more identity; its exact
+  shared-skill read, retry and fallback are the fast-path exception. After the
+  first post, reuse the cached operator token and only run the required property
+  and caller lookups in parallel before creating the note.
 - Do not edit the skill during ordinary call drafting. Explicit operator
   corrections follow the owning-source save workflow below; use fresh
   instruction context afterward without replaying a completed post.

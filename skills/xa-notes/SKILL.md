@@ -124,8 +124,10 @@ five fields from the paste, then call the known OpsHub tools directly by their
 exact names: `mcp__opshub__list_properties`, `mcp__opshub__list_customers`,
 `mcp__opshub__whoami`, `mcp__opshub__get_customer_profile`, and
 `mcp__opshub__call_operation`. Use one parallel lookup batch, then the minimum
-required profile lookup and `CreateCustomerNote` call. Do not use tool catalogs,
-`ALL_TOOLS`, schema discovery, browser automation, or filesystem searches.
+required profile lookup and `CreateCustomerNote` call. An empty phone result
+must take the bounded recovery path in Part 11 before asking for more identity.
+Do not use tool catalogs, `ALL_TOOLS`, schema discovery, browser automation,
+or filesystem searches.
 
 The first `CreateCustomerNote` attempt always uses this exact payload shape:
 `operation_name: "CreateCustomerNote"` and
@@ -158,8 +160,10 @@ except silent `list_properties` when Part 4 needs listing type and a street
 is in the paste.
 
 After warm-up, do not Read, grep, search, or slice this file for a normal note
-or post — including grepping for a heading, a template, or Part 11. Skill-file
-tools are allowed later only when the XA explicitly asks to edit the skill.
+or post — including grepping for a heading, a template, or Part 11. The only
+additional post-time skill read is the exact shared `opshub-context/SKILL.md`
+required by Part 11 after an empty phone lookup; it does not reload this file.
+Otherwise skill-file tools are allowed later only for explicit skill maintenance.
 After that edit, start a **new** chat before more notes.
 
 # FAST ROUTING GATE — run before drafting
@@ -2332,6 +2336,8 @@ with the call identifies the caller and therefore the target customer page.
 
 Allowed tools, exact names, namespace **`user-opshub`**: `list_properties`,
 `list_customers`, `get_customer_profile`, `whoami`, `call_operation`.
+`global_search` and `get_customer` are additionally allowed only for the
+bounded empty-phone recovery below; they do not authorize posting.
 
 **Silent tools.** No visible sentence until the fence plus the one-line post
 result. A tool turn has **no** assistant text, including “I’ll load the note
@@ -2434,10 +2440,21 @@ Then:
    returned in the skill-read turn, do not run it again. Reuse that operator
    for later posts; do not call `whoami` again in this chat. The property is
    lookup context only; **never write the note on the property or flip**. The
-   customer UUID from `list_customers` is the `contextIdentifier` for
-   `CreateCustomerNote` only after any duplicate-profile merge has completed.
+   verified caller UUID is the `contextIdentifier` for `CreateCustomerNote`
+   only after any required duplicate-profile merge has completed.
+   **Empty phone lookup:** before requesting a name, email or page link,
+   silently load the installed shared `opshub-context` skill at
+   `~/.codex/skills/opshub-context/SKILL.md` once (reuse if already loaded)
+   and apply its **Empty phone lookup recovery** procedure. This is the
+   exception to the single-batch/no-repeat fast path, not permission for
+   exploratory searches. Reuse recovered caller identity in this same pending
+   post, with the original note and duplicate-write/merge guards intact.
+   Never resume a completed post or post during source maintenance.
+   If the shared skill is unavailable, report that blocker rather than
+   claiming the customer does not exist or guessing the recovery procedure.
 2. **Customer is the caller.** When a caller phone, email, or name was
-   supplied, post to the matching customer UUID from `list_customers`.
+   supplied, post to the verified matching customer UUID from `list_customers`
+   or the bounded empty-phone recovery above.
    Always post to the caller record matched by the supplied phone or email.
    A unique record whose normalized phone matches the supplied caller phone
    is a valid posting target even when its name is blank or email is missing.

@@ -41,7 +41,9 @@ preparation, before replying Ready; the first caller must reuse that loaded skil
 - Only a direct `Post it` command authorizes OpsHub lookup and posting.
   Save/update/fix requests and quoted or reported commands do not.
 - On a post, use the caller's customer page, not merely the property owner;
-  use one parallel lookup batch, reuse `whoami`, then create the note.
+  use one parallel lookup batch, reuse `whoami`, then create the note. Empty
+  phone results must take the full skill's bounded shared-context recovery
+  before requesting another identifier.
 - Use known OpsHub tools directly. Do not enumerate tools, inspect schemas
   preemptively, browse, or search files.
 

@@ -1,5 +1,50 @@
 # Skill manifest
 
+## Bounded empty-phone lookup recovery — November 5, 2026
+
+The shared `opshub-context` owner now distinguishes an empty search from an
+absent customer: one normalized fresh retry, then one bounded global-search
+fallback with exact current-phone verification. A unique verified caller remains
+valid without a name/email; conflicting, incomplete or failed lookups stay blocked.
+Later operator follow-ups may refresh the phone lookup without repeating the
+fallback or cycling through unavailable identifiers. No customer creation,
+completed-post replay or new action permission is granted.
+
+XA Notes explicitly invokes that shared procedure after an empty phone search;
+its full skill, CORE, project adapter and discovery loader preserve the normal
+single-batch fast path with this narrow exception. The installed shared skill,
+active Notes sources, canonical packages and inventory hashes are reconciled.
+Maintenance fixtures contain only synthetic identities and reserved 555 numbers.
+No live sends/posts or customer-case fixtures are used; GitHub publication awaits
+the scheduled evening synchronization.
+
+Local checks: both skill validators, ten source/mirror/hash comparisons, 118
+focused Router unit tests, 17 routing and nine fast-path regression cases, the
+synthetic Notes browser reuse/recovery check, and whitespace checks passed.
+Sixteen recovery decision fixtures are structurally checked acceptance scenarios,
+not a completed live-model/connector behavioral evaluation.
+
+## Completed ranked-handoff note wording — November 4, 2026
+
+Zendesk places the highest-ranked verified recipient's full name, role and
+purpose directly in a concise "Assigned to" handoff note for Sam's completed
+assignment. Ranking, next-step plans, paste-time prerequisites and verification
+attribution remain outside the copyable note. No automatic customer action or
+underlying-work completion claim is authorized. Active rules, canonical adapter,
+synthetic acceptance criteria and inventory hashes match locally; no customer
+case or fixed personal ranking is saved. Publication awaits scheduled sync.
+
+## Manual assignment and distinct escalation scope — November 4, 2026
+
+Zendesk recommends the highest-ranked verified eligible owner for Sam to assign;
+the assistant changes assignment only on an explicit request. An existing email
+handoff is distinct from a separate verified escalation. Operator-reported
+assignment/note completion does not establish completion of the underlying work
+or justify closure. Active and canonical rules, synthetic acceptance cases and
+inventory hashes are reconciled locally. No customer cases or fixed names were
+saved; publication remains with the scheduled sync. Router recovery/intent fixes
+belong to its separate application repository.
+
 ## Ranked Zendesk document handoffs — November 4, 2026
 
 The owning Zendesk rules now distinguish reassignment from Slack escalation,
@@ -372,7 +417,7 @@ without treating the newer request as resolved. Active project rules and these
 canonical adapters match locally; inventory hashes are updated. Live performance
 savings are not measured. GitHub publication awaits the scheduled daily sync.
 
-Last content audit: 2026-11-04. Scope: all nine registered skills and required adapters.
+Last content audit: 2026-11-05. Scope: all nine registered skills and required adapters.
 
 ## Zendesk document-handoff assignment — November 3, 2026
 

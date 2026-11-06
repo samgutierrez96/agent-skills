@@ -1,0 +1,276 @@
+{
+  "purpose": "Synthetic, tool-free maintenance decision cases. Never load these fixtures during customer work or invoke live actions to evaluate them.",
+  "cases": [
+    {
+      "id": "initial_empty",
+      "state": {
+        "request": "Post it",
+        "caller_phone": "+1 (202) 555-0101",
+        "country": "US",
+        "lookup_results": [
+          {
+            "tool": "list_customers",
+            "phone": "+1 (202) 555-0101",
+            "customers": []
+          }
+        ]
+      },
+      "expected": {
+        "action": "retry_phone",
+        "phone": "+12025550101"
+      }
+    },
+    {
+      "id": "normalized_still_refresh",
+      "state": {
+        "request": "Post it",
+        "caller_phone": "+12025550101",
+        "lookup_results": [
+          {
+            "tool": "list_customers",
+            "phone": "+12025550101",
+            "customers": []
+          }
+        ]
+      },
+      "expected": {
+        "action": "retry_phone",
+        "phone": "+12025550101"
+      }
+    },
+    {
+      "id": "retry_empty",
+      "state": {
+        "request": "Post it",
+        "caller_phone": "+12025550101",
+        "initial_empty": true,
+        "retry_empty": true,
+        "other_identifier": null
+      },
+      "expected": {
+        "action": "global_search",
+        "phone": "+12025550101"
+      }
+    },
+    {
+      "id": "nameless_retry_match",
+      "state": {
+        "request": "Post it",
+        "caller_phone": "+12025550101",
+        "initial_empty": true,
+        "retry_customers": [
+          {
+            "uuid": "11111111-1111-4111-8111-111111111111",
+            "full_name": "",
+            "email": null,
+            "phone_numbers": "202-555-0101"
+          }
+        ]
+      },
+      "expected": {
+        "action": "resolved",
+        "customer_id": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    {
+      "id": "global_hit_needs_verification",
+      "state": {
+        "request": "Post it",
+        "caller_phone": "+12025550101",
+        "initial_empty": true,
+        "retry_empty": true,
+        "global_hits": [
+          {
+            "type": "customer",
+            "uuid": "11111111-1111-4111-8111-111111111111",
+            "title": "202-555-0101"
+          }
+        ]
+      },
+      "expected": {
+        "action": "get_customer",
+        "customer_id": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    {
+      "id": "other_phone_verified",
+      "state": {
+        "request": "Post it",
+        "caller_phone": "+12025550101",
+        "initial_empty": true,
+        "retry_empty": true,
+        "global_results_complete": true,
+        "global_customer_count": 1,
+        "verified_candidates": [
+          {
+            "uuid": "11111111-1111-4111-8111-111111111111",
+            "name": "",
+            "email": null,
+            "phone_number_other": "+12025550101"
+          }
+        ]
+      },
+      "expected": {
+        "action": "resolved",
+        "customer_id": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    {
+      "id": "two_matching_records",
+      "state": {
+        "request": "Post it",
+        "caller_phone": "+12025550101",
+        "retry_customers": [
+          {
+            "uuid": "11111111-1111-4111-8111-111111111111",
+            "name": "Synthetic A",
+            "phone": "+12025550101"
+          },
+          {
+            "uuid": "22222222-2222-4222-8222-222222222222",
+            "name": "Synthetic B",
+            "phone": "+12025550101"
+          }
+        ]
+      },
+      "expected": {
+        "action": "ambiguous"
+      }
+    },
+    {
+      "id": "exhausted_no_identifiers",
+      "state": {
+        "request": "No name or email. Just post to that number.",
+        "caller_phone": "+12025550101",
+        "initial_empty": true,
+        "retry_empty": true,
+        "fallback_empty": true,
+        "alternative_already_requested": true,
+        "available_alternatives": [],
+        "fresh_lookup_this_followup": "empty"
+      },
+      "expected": {
+        "action": "blocked"
+      }
+    },
+    {
+      "id": "later_followup_refresh",
+      "state": {
+        "request": "No name or email. Just post to that number.",
+        "caller_phone": "+12025550101",
+        "initial_empty": true,
+        "retry_empty": true,
+        "fallback_empty": true,
+        "alternative_already_requested": true,
+        "available_alternatives": [],
+        "fresh_lookup_this_followup": false
+      },
+      "expected": {
+        "action": "retry_phone",
+        "phone": "+12025550101"
+      }
+    },
+    {
+      "id": "direct_customer_url",
+      "state": {
+        "request": "Post it",
+        "caller_phone": "+12025550101",
+        "customer_url": "https://opshub.apps.opendoor.com/customers/11111111-1111-4111-8111-111111111111",
+        "record_verified": false
+      },
+      "expected": {
+        "action": "get_customer",
+        "customer_id": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    {
+      "id": "tool_error_not_empty",
+      "state": {
+        "request": "Post it",
+        "caller_phone": "+12025550101",
+        "lookup_error": "Authentication unavailable"
+      },
+      "expected": {
+        "action": "blocked"
+      }
+    },
+    {
+      "id": "maintenance_not_post",
+      "state": {
+        "request": "Fix the standing lookup instructions",
+        "caller_phone": "+12025550101",
+        "pending_old_post": true,
+        "initial_empty": true
+      },
+      "expected": {
+        "action": "no_action"
+      }
+    },
+    {
+      "id": "completed_post_not_replayed",
+      "state": {
+        "request": "Why did that lookup fail?",
+        "caller_phone": "+12025550101",
+        "completed_post_receipt": true,
+        "initial_empty": true
+      },
+      "expected": {
+        "action": "no_action"
+      }
+    },
+    {
+      "id": "suffix_not_identity",
+      "state": {
+        "request": "Post it",
+        "caller_phone": "+12025550101",
+        "initial_empty": true,
+        "retry_empty": true,
+        "global_results_complete": true,
+        "global_customer_count": 1,
+        "verified_candidates": [
+          {
+            "uuid": "11111111-1111-4111-8111-111111111111",
+            "phone": "+13035550101"
+          }
+        ],
+        "alternative_already_requested": true,
+        "available_alternatives": []
+      },
+      "expected": {
+        "action": "blocked"
+      }
+    },
+    {
+      "id": "incomplete_not_unique",
+      "state": {
+        "request": "Post it",
+        "caller_phone": "+12025550101",
+        "initial_empty": true,
+        "retry_empty": true,
+        "global_results_complete": false,
+        "global_customer_count": 5,
+        "verified_candidates": [
+          {
+            "uuid": "11111111-1111-4111-8111-111111111111",
+            "phone": "+12025550101"
+          }
+        ],
+        "remaining_candidates": "unknown"
+      },
+      "expected": {
+        "action": "blocked"
+      }
+    },
+    {
+      "id": "ordinary_note_no_lookup",
+      "state": {
+        "request": "Seller asked about assessments. I explained the next steps.",
+        "caller_phone": "+12025550101",
+        "post_authorized": false
+      },
+      "expected": {
+        "action": "no_action"
+      }
+    }
+  ]
+}
