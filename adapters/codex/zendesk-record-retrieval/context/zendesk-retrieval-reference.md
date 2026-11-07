@@ -47,6 +47,15 @@ pds_get_property(casa_id)                         → physical facts only
 
 ### Lifecycle stage — always establish this first
 
+First select the requester/property-matched current record from **Qualified
+flips** only, never **Unqualified flips**. Verify qualification through explicit
+structured evidence or the exact property's qualified section; newest/primary,
+`ACTIVE`, `is_latest_offer` or a lifecycle value alone is insufficient. Qualified
+expired offer plus unqualified denial is expired, not denied. Unknown/ambiguous
+qualification remains unresolved; do not infer denial/no offer or select a record
+from the unqualified set. The same selection gate applies to offer and TASK
+fallbacks below; keep record-selection details internal.
+
 Use `get_customer_profile` and read the engagement `domain_state`. If OpsHub omits
 it, use the CUSTOMER index on the customer UUID.
 

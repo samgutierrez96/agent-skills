@@ -410,7 +410,14 @@ The Opendoor Team
 
 - Do not reply solely to repeat a request already visible in the email thread or say its answer is pending. When the thread already asks the right person for confirmation, wait for a substantive answer unless Support has a useful new fact or next step. This does not make a customer's clarification of an unresolved concern a closing acknowledgment: provide a brief, courteous acknowledgment when needed, especially when the operator requests a reply. Do not repeat an outstanding request, imply resolution, or promise an unverified action.
 
-- **Stage gates the playbook** — `domain_state` wins over customer wording; do not
+- **Qualified flips only:** Property-specific status, assessment, routing and next
+  steps must use the requester/property-matched current **Qualified flips** record,
+  never **Unqualified flips**. A newer/primary unqualified denial cannot override
+  a qualified expired offer. Verify qualification explicitly through MCP or the
+  exact property's qualified section; primary/recency/`ACTIVE` alone is not proof.
+  Missing or ambiguous qualification means unresolved status, not denial/no offer.
+  Keep flip details internal; see the full playbook's `Lifecycle stage` gate.
+- **Stage gates the playbook** — the qualified flip's `domain_state` wins over customer wording; do not
   invent next steps the stage rules out.
 - **Never assert** unverified actions, offer amounts, access paths, or email bodies
   (OpsHub email rows = subject only).

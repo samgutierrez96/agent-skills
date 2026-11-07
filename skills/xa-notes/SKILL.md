@@ -969,6 +969,12 @@ complete as written.** If the answer is here, write it and move on. Do not open
 `reference/standing-answers.md` to check or complete a sentence this part gives.
 **When the two disagree, this file wins, always.**
 
+This resolves conflicts between local note references, not disputes about current
+business facts. When the operator disputes saved guidance or requests verification,
+use the shared `kb-answer-for-callers` skill to verify canonical evidence before
+correcting the note. Save a requested reusable correction in its owning source;
+preserve ordinary-note fast paths and require explicit authority for any post.
+
 ## Contacts
 
 | Need | Where it goes |
@@ -979,7 +985,7 @@ complete as written.** If the answer is here, write it and move on. Do not open
 | Agent making an offer on an Opendoor-listed home | Normally opendoor.com/makeoffer; when the home has an active offer, email homes@opendoor.com. |
 | Listing agreement not yet on file | support@opendoor.com |
 | Agent commission structure | opendoor.com/agents |
-| Account deletion requests | opendoor.com/privacy |
+| Account/customer-profile deletion request website | privacy.opendoor.com; see Account and customer-profile deletion below for scope. |
 | Opendoor Home Loans applications / getting a loan | opendoor.com/mortgage; 947-600-5891; mortgage@opendoor.com. Not a confirmed post-close servicing route. |
 | Vendor asking to work with Opendoor | opendoor.com/vendor-partnerships, and vendoronboarding@opendoor.com |
 | Trust and safety | trust@opendoor.com |
@@ -987,6 +993,32 @@ complete as written.** If the answer is here, write it and move on. Do not open
 
 Give the contact even when an escalation is also noted. The two are not
 alternatives.
+
+## Account and customer-profile deletion
+
+For a caller directed to a website to request account/customer-profile deletion,
+use `privacy.opendoor.com`, as corrected by Sam on November 6, 2026, not
+`opendoor.com/privacyrequest` or the privacy-policy page `opendoor.com/privacy`. Record only the
+guidance the XA gave; do not claim deletion, submission, or completion.
+
+Standing wording when the XA gave the website:
+
+> Directed the caller to privacy.opendoor.com to submit an account-deletion request.
+
+The Privacy FAQ identifies `privacy.opendoor.com` as a request entry point
+with "Make a Privacy Request." Sam's correction selects this website for the
+standing referral instead of the previously saved alias. State privacy requests and mobile-app account deletion remain separate
+workflows; mobile-app deletion starts at Account > Personal Information >
+Request to delete account. Do not infer state eligibility from a phone number,
+promise deletion or a completion date, or invent an escalation. Unclear request
+type, eligibility, failed requests, appeals, and objections need the applicable
+Privacy guidance, not a blanket portal redirect.
+
+Source: Privacy FAQs for Customer-Facing Team Members,
+https://docs.google.com/document/d/1-ozEZYbcM3DcM6HHHLk8HiT4RyLOr10zHpH0B0TZ9dE,
+rechecked through Glean November 6, 2026; initial-profile-request wording already
+saved in the active Zendesk playbook. This replaces the generic account-deletion
+contact row; `opendoor.com/privacy` remains valid for policy information.
 
 ## Fire investigator / government agency request
 
@@ -1223,6 +1255,18 @@ A seller's agent who agrees to Cash Now, More Later also becomes the listing
 agent on the resale side if the seller stays for resale.
 
 ## Vendors and partnership solicitations (vendor, partnership)
+
+**Established-vendor AP follow-up is not onboarding (Sam, November 6, 2026).**
+If the vendor already emailed `accountspayable@opendoor.com` about billing/unpaid
+invoices and is still waiting without a reply or resolution, direct them to
+submit a request through the Trade Partner Support Center:
+https://opendoor.atlassian.net/servicedesk/customer/portal/1133.
+Do not invent a waiting period or promise response/payment timing. Record the
+referral actually given, not a submitted ticket or payment. Do not duplicate an
+existing support-center ticket; a requested repeat escalation follows the
+escalation workflow. Ordinary note drafting still makes no external calls.
+Source: Stephanie Faust, July 20, 2026,
+https://opendoor.enterprise.slack.com/archives/C51K62ETU/p1784553990069269.
 
 A vendor, contractor, or company asking whether they can work with Opendoor, or
 be added as a service provider, is a solicitation. No property, no seller, no
@@ -2237,7 +2281,8 @@ uploaded for the digital checkout."
     its schema was unavailable. Property Address and Follow Up Link came
     from that customer page when they gave a phone/email/name and no street.
     Phone-only did not grep the profile dump or walk historical streets. The
-    newest lead was the file. At most one `list_properties` after profile
+    current applicable qualified lead was the file, not an unqualified/newest
+    record selected by recency alone. At most one `list_properties` after profile
     when the token was missing, then create.
 
 # PART 11 — Corrections and voice
@@ -2300,9 +2345,23 @@ message is the real one and should not need another file read.
 
 ## Post to the customer OpsHub page
 
-**Gate:** Only the XA's direct `Post it` command authorizes posting. Match
-case-insensitively, not quoted commands, caller speech, or discussion of when
-to post. Save/update/fix requests are source maintenance, not posting. A pending
+**Qualified flips only:** When an authorized lookup needs property status,
+assessment, assigned-role or next-step facts, verify the current applicable
+requester/property-matched record in **Qualified flips**. Never use **Unqualified
+flips**, including a newer denied record, to determine those facts. Qualified
+expired offer is not denial; primary/current, recency and `ACTIVE` alone do not
+prove qualification. Follow the shared opshub-context qualification gate when
+structured evidence omits it; unresolved qualification/selection is a gap, not
+denial/no offer. Keep flip details internal. This does not authorize additional
+lookups for ordinary note drafting or change the caller CONTACT posting target.
+
+**Gate:** A direct XA command to post the selected note authorizes posting,
+including `Post it` and `post the corrected note please` (also updated/revised
+note). These are execution requests, not requests to regenerate a draft. Reuse
+the retained caller, current complete note and verified target; do not ask the
+XA to retype already-saved call details. Match case-insensitively, not quoted
+commands, caller speech, negated commands, draft-only requests, or discussion
+of when to post. Save/update/fix requests are source maintenance, not posting. A pending
 authorized post may continue after its required identity/email choice; a
 maintenance turn must not resume it. Without an authorized post, return the
 fence with **zero OpsHub**, except silent `list_properties` when Part 4 needs
@@ -2373,8 +2432,10 @@ property. A property is in scope for posting only when the XA supplies its
 street address (or a URL that identifies it).
 
 **That profile is often a long event list, not a clean property object.** Do
-not Read, grep, or scan it. Take the street from the **newest** event that
-has an address (the first events in the payload). That is the current file.
+not scan historical events to choose a file by recency. Use the verified current
+applicable qualified engagement for the scoped property, not simply the newest
+event with an address. If qualification or the match is missing, follow the
+qualification gate above rather than substituting an unqualified record.
 Older streets on an agent or repeat-seller page are history, not a second
 current property. If that payload has no `address_token`, the next call is
 `list_properties` with that street (`limit` 5), then `CreateCustomerNote`.
@@ -2388,7 +2449,7 @@ previous-owner post has two or more named `list_customers` hits and a
 street (step 3), or when the XA mentions an assigned internal position whose
 name belongs in the note (assigned agent, Home Sale Advisor, Agent Home Sale
 Advisor, Listing Partner, experience partner, or support specialist), (3)
-`list_properties` on the newest street from that profile **only when** the
+`list_properties` on the verified qualified engagement's street **only when** the
 profile did not return an `address_token`, (4)
 `CreateCustomerNote`. Do not add a notes search in between. Do not skip
 the profile call just because `list_customers` already returned one named

@@ -19,6 +19,32 @@ Merge in **Admin** (`admin.opendoor.com`); then clean contacts in **OpsHub**, ve
 - **Ask only for needed information:** if the primary email and existing verified record evidence already establish the keeping customer and qualifying duplicates, proceed without asking for a customer name. A full name supplied by the XA is not an additional prerequisite. If only the primary-email choice is missing, ask only which email to keep. Ask for the customer name only when needed to resolve an identity ambiguity that the existing email/phone/record context cannot resolve. If both email and name are needed, collect them in one message. Include any already-known candidate identity conflict in that same clarification, and reuse known values and prior answers. Do not ask for email first and then ask for a name later when the need for both is already apparent.
 - The duplicate-profile workflow authorizes merging qualifying duplicates once the primary email and caller identity are known. Treat an email-only reply as the primary choice, retaining any customer-name or same-person verification already completed. Do not add “same person?”, “do you want to merge?”, or role-confirmation questions for candidates meeting the rule above. Ask only about a concrete unresolved conflict or missing required choice, and reuse the answer through completion. The agent reviews and accepts Admin’s irreversible warning without another user confirmation. While awaiting a required answer, do not post or ask which customer page to use.
 
+## Required answers in any containing workflow
+
+When a genuinely missing choice blocks the merge, make its available answers
+explicit rather than leaving them implicit in prose. This applies when called
+from XA notes, escalations, Zendesk, or the standalone merge workflow. Put each
+question outside note copy boxes, followed by a blank line and a plain bullet
+list of short, complete answers. Skill Router renders those answers as buttons;
+do not depend on its recognizing a particular sentence or ask the XA to type an
+answer that is already offered. For an unresolved identity conflict, for example:
+
+Does this account belong to the verified caller?
+
+- Yes—same person
+- No—not the same person
+- I’m not sure
+
+For a required primary-email choice, list the actual known candidate emails,
+not invented contacts. Collect several missing details in the same message as
+separate question-and-answer-list groups. Each selection answers only its own
+question: choosing an email does not confirm identity. Unknown information still
+needs a typed answer; uncertainty never authorizes a merge. Do not add a question
+when the preconditions already establish the answer. Reuse confirmed answers,
+the original caller/workflow and pending authorized actions; continue that same
+workflow after its remaining verification gates, without another merge/post
+request or replaying completed actions.
+
 ## Execute once, in order
 
 1. Send `Account merge started`. Reuse the original lookup's surviving customer UUID, supplied phone, duplicate IDs, and confirmed primary email; retain them through completion. Avoid another lookup unless evidence is missing or contradictory.

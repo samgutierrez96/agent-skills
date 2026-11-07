@@ -1,11 +1,11 @@
 {
-  "audited_on": "2026-11-05",
+  "audited_on": "2026-11-06",
   "scope": "Seven previously audited custom skills plus bot-task-notes added November 2, 2026, kb-answer-for-callers added November 4, 2026, and their runtime dependencies",
   "files": [
     {
       "source": ".codex/skills/kb-answer-for-callers/SKILL.md",
       "destination": "skills/kb-answer-for-callers/SKILL.md",
-      "sha256": "eb00b79a45a2ee716897c352733d35926cac7456897ac8a913e5b89ea7d1e01d",
+      "sha256": "415ffc855a87f7c17afc44c126298b6c8c2a349c0c6a0f811f278c9f86112dfd",
       "provenance": "Claude skill adapted November 4, 2026 for shared business-wide retrieval, available connectors, workflow output compatibility, and company-knowledge-update evidence handoff"
     },
     {
@@ -18,7 +18,7 @@
     {
       "source": ".codex/skills/bot-task-notes/SKILL.md",
       "destination": "skills/bot-task-notes/SKILL.md",
-      "sha256": "9fe69fdf227aab0faa762098987ca84dc2c825155f99fde6d947310f9faf741f"
+      "sha256": "75e8ee995070ffce35d51ed3ba5429ca425a86db08c517193168dd0e9e5166b7"
     },
     {
       "source": ".codex/skills/bot-task-notes/references/local-mcp.md",
@@ -33,7 +33,7 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/AGENTS.md",
       "destination": "adapters/codex/xa-notes/AGENTS.md",
-      "sha256": "848c8363d428c7b729d2ec0bd9fe7bf0e0047e13fdac8bf7985a189bd8816cfc"
+      "sha256": "56b01f433d647bf610aade30e7b1d22dfaa210ae6525fac7e60712cb8eda9a95"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/context/decisions-and-conventions.md",
@@ -48,27 +48,27 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/AGENTS.md",
       "destination": "adapters/codex/zendesk-record-retrieval/AGENTS.md",
-      "sha256": "c542059cf1b8e0b676ac6d048d9230a22840c4b06477ee59f8cf9da4a5963009"
+      "sha256": "7774cce0b79304854c2f4c84e990c5a5676fd7937d9937c4ae76f33c45ad3b2b"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/decisions-and-conventions.md",
       "destination": "adapters/codex/zendesk-record-retrieval/context/decisions-and-conventions.md",
-      "sha256": "ed257d3596ab6caa85be82360c47cf96b1293160e89b65bf6d743506000391b1"
+      "sha256": "bd2a7a34de713e125c19043bd448f6f1a1b4f29869d65bca2ece9b76e5d37817"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/drafting-procedure.md",
       "destination": "adapters/codex/zendesk-record-retrieval/context/drafting-procedure.md",
-      "sha256": "5d80340c2b414590f7a5ff8d1d720780304f6bf4a47e42f0e6ec32ced4d261ed"
+      "sha256": "8b9aa3b61404ad9e98686ca3643807beef2bb79fc8c9f52f5cbf2829905125a8"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/zendesk-retrieval-reference.md",
       "destination": "adapters/codex/zendesk-record-retrieval/context/zendesk-retrieval-reference.md",
-      "sha256": "bf776be468c7eaac1279df2abb5437b998a8fa360c743933a315edf297fa64d1"
+      "sha256": "d27308ab57a4c1187a14f5d7092ae8f361381530021f11ff0b987b7fe6852cde"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/zendesk-voice-and-rules.md",
       "destination": "adapters/codex/zendesk-record-retrieval/context/zendesk-voice-and-rules.md",
-      "sha256": "ba09511f088424a40e1cb3b14d6ed93498e8fe1d6678e87c7fa2731c32d59807"
+      "sha256": "0f415fb4666b4807228efbb7d9e3e224435b0902439b0d75e130071c3f2da982"
     },
     {
       "source": ".codex/skills/agent-verification/SKILL.md",
@@ -83,7 +83,7 @@
     {
       "source": ".codex/skills/opshub-context/SKILL.md",
       "destination": "skills/opshub-context/SKILL.md",
-      "sha256": "5b90fd3c57336513bae88fa150cc8bdb866c45d6734d5136328931e86882d586"
+      "sha256": "20ee3132f67b9c4c17a20e3270bee84dbe699c46229944368073a20688a5492a"
     },
     {
       "source": ".codex/skills/opshub-context/references/phone-lookup-recovery-cases.json",
@@ -93,7 +93,7 @@
     {
       "source": ".codex/skills/schedule-final-offer-appointment/SKILL.md",
       "destination": "skills/schedule-final-offer-appointment/SKILL.md",
-      "sha256": "2ff32171454c8d615672be7be101812f2e0e11f33613de3cf893ece80987a606"
+      "sha256": "d100f63bf8aa534860e61a933708cf89ef5c498721d6b5e6f078c86e57030bcc"
     },
     {
       "source": ".codex/skills/schedule-final-offer-appointment/agents/openai.yaml",
@@ -103,17 +103,17 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "1605c006d1ff8dd98d770d1c04f6e945d6383b8cbd106cb93db7bb15f45d391f"
+      "sha256": "3956d73e0fe7d06e283f84fca2e0cb0338960d58636add4746e35c7a212ab54d"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/CORE.md",
       "destination": "skills/xa-notes/CORE.md",
-      "sha256": "6d7f1c8ed205b4eb3207d1aeec78c7e3025b4df6eb4d62c2a5baeed3ce2844f3"
+      "sha256": "3b614b3b02efea2a1ac4d6f1afa7ec54353e64312346e23bb7610a71cf76355d"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/SKILL.md",
       "destination": "skills/xa-notes/SKILL.md",
-      "sha256": "ddd4db38d0bf227d61a65b127e746891e35b95e9f43819f8b0a650c65b4eafbc"
+      "sha256": "7e0fd8113c8c1da5eba27a4a011bd29e49cb251197c18d305d908a053d01f84a"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/reference/process-detail.md",
@@ -133,18 +133,18 @@
     {
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/SKILL.md",
       "destination": "skills/xa-quick-slack/SKILL.md",
-      "sha256": "95a66cb44947f2387ff0bc2e01499c5cbea79e1ebfceb7148a4ada8043b18f3a"
+      "sha256": "f2388f655b694d56ad9af2b3b399460be9667263d10eac36692282626a19d771"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ENTRY.md",
       "destination": "skills/zendesk-record-retrieval/ENTRY.md",
-      "sha256": "d17f1906f056fa5d0c635e5aeba35aa5180358e8bdb3efd909bc5e81e352ac8b",
+      "sha256": "cf8930cc3231b9ad1e7bb5a7e01606379932131bd813bebecaf20b3d9933dd1a",
       "transformation": "Repository layout: rules path points to adapters/codex/zendesk-record-retrieval/AGENTS.md"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/FAST-INDEX.md",
       "destination": "skills/zendesk-record-retrieval/FAST-INDEX.md",
-      "sha256": "a3a0c2a78e6ad41259c1bb832f916bb65fca9541f87761cbf95b1209f92fc6ae"
+      "sha256": "277b937dfa4d729471651044bef13e505c5a80da417fe78c57db9ca7bdefb6fc"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ROUTING-GATES.md",
@@ -154,12 +154,12 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/SKILL.md",
       "destination": "skills/zendesk-record-retrieval/SKILL.md",
-      "sha256": "d08ec7f2a4c31abcad8187c180d0fb50febaa6076bf7b6a48059380386768917"
+      "sha256": "f5f716e609a2c442771c9aa49b7a02bf41e4827a3337c0f494147a0adaffcb43"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/VERIFICATION.md",
       "destination": "skills/zendesk-record-retrieval/VERIFICATION.md",
-      "sha256": "9c39ca224a782f273a8473a49060942b178c538e2d02da9a0fbae155f62ba2e2"
+      "sha256": "25d926ecaf0bb8502edfff6bee790468fcffd0c03de7a08d50394191c498b999"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/access-resolution.md",
@@ -209,7 +209,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/offer-status.md",
       "destination": "skills/zendesk-record-retrieval/recipes/offer-status.md",
-      "sha256": "6a76c046f0c6b3075a00b48b7d443968e38abd7173167532f28a0971c4b09fe9"
+      "sha256": "2e908236b5d91e249d7160111e10c16528fd630613963ea8be278aeb93c5eac3"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/open-house.md",
@@ -306,7 +306,7 @@
     {
       "source": ".codex/skills/company-knowledge-update/SKILL.md",
       "owner": "company-knowledge-update",
-      "sha256": "90f9f4a3033dc0042388a60f28b5fc5be5087175d6d96f4186fda55e1bb30591"
+      "sha256": "3da6399328db8c7e2c0fb6ef1d7bcc63ad9e48c1ac4e4f4e475e3d8e859180c8"
     },
     {
       "source": ".codex/skills/company-knowledge-update/references/agent-representation-tracking-2026-10.md",
@@ -331,7 +331,17 @@
     {
       "source": ".codex/skills/company-knowledge-update/references/privacy-deletion-2026-10.md",
       "owner": "company-knowledge-update",
-      "sha256": "0eda01eaed184169020a2fc5c843c5891079f0dc12ae5d7314afb8f4bdebf9c0"
+      "sha256": "a9b90cb7dbefa05d4e17d80164295488b3dbea7e320682215c32c3fe0e4a8787"
+    },
+    {
+      "source": ".codex/skills/company-knowledge-update/references/qualified-flips-only-2026-11.md",
+      "owner": "company-knowledge-update",
+      "sha256": "be8ea580c890f33d39c9335d743178dd88bbaa8c15a8be9bd00f573870815a7a"
+    },
+    {
+      "source": ".codex/skills/company-knowledge-update/references/vendor-ap-follow-up-2026-11.md",
+      "owner": "company-knowledge-update",
+      "sha256": "27679b7ad57cae8e5e36f788fac6978f56ede6b1907cd5df20259d9341273d52"
     }
   ]
 }

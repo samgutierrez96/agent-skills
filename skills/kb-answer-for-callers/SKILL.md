@@ -87,6 +87,20 @@ or knowledge update). Do not force Position/Say blocks into a different required
 format or add an unnecessary caller script to an internal-only task. Preserve
 customer-record verification gates and existing permissions for sends or writes.
 
+## Saved vendor AP follow-up — November 6, 2026
+
+For an established vendor still waiting without a reply or resolution after
+emailing `accountspayable@opendoor.com` about billing/unpaid invoices, direct them
+to submit a request through the Trade Partner Support Center. Do not invent a
+waiting threshold or promise response/payment timing. New-vendor onboarding is
+separate; do not create duplicate tickets for an already-filed support request.
+Read the local shared company-knowledge-update reference
+`references/vendor-ap-follow-up-2026-11.md` in that skill for the verified link,
+July 20 Slack reply, supporting evidence and scoped reconciliation with older
+FAQ escalation wording. The reference is local-only, not bundled here. If it is
+unavailable or newer evidence conflicts, retrieve the supporting sources through
+Glean/Slack and apply the evidence/conflict gates above rather than guessing.
+
 ## Handoff to company-knowledge-update
 
 Use this skill to research and validate evidence. Use the separate

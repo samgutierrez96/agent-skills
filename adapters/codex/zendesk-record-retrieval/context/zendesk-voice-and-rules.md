@@ -257,6 +257,12 @@ A customer or agent is **never** told they have "more than one offer request," "
 
 Internally, multiple `ACTIVE` records on one `address.uuid` — even several flagged `is_latest_offer = true` — is **normal**. Those are separate flips / property engagements. Not a duplicate, not an anomaly, not something to surface. Differing headline prices across those records are not competing offers.
 
+Only the verified requester/property-matched current **Qualified flips** record
+may determine property status or next steps. Never use **Unqualified flips**,
+including a newer/primary denial, to override a qualified expired offer. Expired
+is not denied. Missing or ambiguous qualification remains unresolved, not denial
+or no offer. Keep these internal selection details out of customer wording.
+
 - **Multiple properties** under one contact → fine to mention toggling between addresses.
 - **Multiple offer records on one property** → never mentioned, in any form.
 
@@ -369,6 +375,8 @@ Add **only** the matching follow-up block when they push it. Do not stack unused
 > Thank you for your interest in our listing! Our knowledge of the home may be limited as we have never occupied it. However, everything we do know about the home is listed on the property Seller's Disclosure. Have you been able to take a look at the Seller's Disclosure? If not, let me know and I'd be happy to email it to you.
 >
 > We are committed to selling homes that are safe, clean, and overall functional. We encourage and welcome buyers to have their own inspection performed on the home once their offer is accepted.
+
+**Seller's disclosure facts on Opendoor listings.** When Opendoor is the seller, answer questions about installation years, condition history, or similar facts from the seller's disclosure and other shareable listing records. Do not say the prior owner reported something that the seller has not verified, or otherwise contrast a prior owner's claim with an unverified seller. Opendoor is the seller on these listings; that framing reflects poorly on us. State what the disclosure lists, attach or offer the disclosure when appropriate, and say plainly what remains unconfirmed without implying we are passing along unverified prior-owner statements.
 
 ### Condition / age-of-systems questions
 > The previous seller has never occupied this property, so we encourage an independent, professional home inspection to verify the condition of the property and determine the cost of repairs, if any.

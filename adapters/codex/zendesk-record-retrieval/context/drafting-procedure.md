@@ -34,7 +34,7 @@ search_indextrious(
 ```
 
 Add as needed:
-- `{field:"offer.is_latest_offer", operator:"EQUALS", value:"true"}` → current offer only
+- `{field:"offer.is_latest_offer", operator:"EQUALS", value:"true"}` → latest within one flip only, not proof of qualification/current applicability
 - `{field:"offer.va_traits.has_completed_ssva", operator:"EQUALS", value:"true"}` → self-serve assessment **completed**
 - `{field:"offer.va_traits.has_completed_orva", operator:"EQUALS", value:"true"}` → on-site assessment **completed**
 - **`indexes:["TASK"]` with `address.uuid` → whether an assessment is SCHEDULED** (`Task Type: seller_full_assessment`, `Status: CONFIRMED`). `va_traits` does not cover scheduling. Always check TASK before telling anyone to schedule or complete an assessment — the appointment may already be booked. Appointment date is not projected; get it from the operator or OpsHub.
@@ -46,6 +46,14 @@ Add as needed:
 - **Glean `search` for the Zendesk Help Center article** whenever the question touches fees, valuation, process, or timelines. The HC is indexed and carries approved customer-facing language — e.g. "Agent Acquisition" (assessments must be in the Key App, no pre-existing photos), "Service Charge" (never quote a fee percentage; stay high-level, HSA explains at the final offer call), "Sell Direct" (4-6 days to final offer after assessment). Use the approved wording rather than composing an explanation.
 
 ### Always establish lifecycle stage first
+
+For acquisition status, assessment, assigned-role and next-step evidence, first
+verify the requester/property-matched current **Qualified flips** record. Never
+use **Unqualified flips**, even a newer/primary denied record, instead. A qualified
+expired offer follows expiry/refresh guidance, not denial. Explicit qualification
+evidence or the exact property's qualified section is required; missing/ambiguous
+qualification is unresolved, not denial/no offer. Apply this gate to index/TASK
+results too; the authoritative playbook's `Lifecycle stage` passage governs.
 
 ```
 search_indextrious(indexes:["RENOVATION"],

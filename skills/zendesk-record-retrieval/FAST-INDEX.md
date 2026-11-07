@@ -8,6 +8,23 @@ other hosts may use equivalent read-only tools without changing the evidence gat
 
 ## First decision
 
+- Established vendor waiting after emailing `accountspayable@opendoor.com`
+  about billing/unpaid invoices → submit a request through the Trade Partner
+  Support Center, https://opendoor.atlassian.net/servicedesk/customer/portal/1133.
+  No invented waiting period or response/payment promise; do not repeat only
+  the AP referral or send to onboarding. No property/offer lookup for routing
+  alone. Existing support ticket → no duplicate; read the full playbook's
+  `Vendor AP follow-up` passage for repeat-escalation and evidence boundaries.
+
+- **Qualified flips only:** For every property-specific status/next-step lookup,
+  select the requester-matched current flip from OpsHub **Qualified flips** first.
+  Never use **Unqualified flips**, including a newer denied record, to determine
+  status, routing or next steps. Qualified expired offer ≠ denial. Primary/current,
+  recency and `ACTIVE` alone do not establish qualification. If MCP omits it,
+  inspect the exact property's Qualified flips section; if none can be verified
+  or selection is ambiguous, report the gap rather than infer denial/no offer.
+  See `Lifecycle stage`; keep internal flip details out of customer wording.
+
 - Driving / temporarily unavailable auto-reply with an unknown support need:
   follow AGENTS.md's clarification rule, not automatic no-reply/close. Briefly
   ask how we can help when they are safely parked; no property lookup is needed
@@ -30,7 +47,7 @@ other hosts may use equivalent read-only tools without changing the evidence gat
   preserve urgent-escalation and callback-intake requirements.
 
 - **Offer refresh trouble:** OpsHub MCP → exact address → current primary
-  initial/estimated offer. A positively current offer may establish the refresh
+  initial/estimated offer on the verified qualified flip. A positively current offer may establish the refresh
   is done, but `SENT` / a new sent date alone does not prove it is viewable.
   This shortcut is only for explicit refresh-only trouble, not resending an
   unseen or expired offer. Resend/visibility requests keep normal assessment
@@ -63,8 +80,9 @@ other hosts may use equivalent read-only tools without changing the evidence gat
    Load that card and discover only its required schemas together when independent.
    Batch required playbook sections by exact heading using `ROUTING-GATES.md` →
    `Targeted playbook reads`; do not search repeatedly for the same rule.
-   Confirmed denial / Opendoor walked away from an offer → stop after the
-   decision is established. Support cannot give a specific denial reason. Do not
+   Confirmed denial / Opendoor walked away from an offer → stop only after the
+   current decision is verified on the applicable qualified flip. An unqualified
+   denial or a ticket's denial wording is not enough. Support cannot give a specific denial reason. Do not
    investigate assessment, pricing, expired-offer or property history to explain
    it, and do not imply a further lookup can provide a specific reason. Answer
    briefly; target about 20 seconds. Separate substantive asks retain their gates.
@@ -154,6 +172,12 @@ other hosts may use equivalent read-only tools without changing the evidence gat
    exact address match, use the returned listing URL or at most one focused
    public Opendoor search. No repeated searches, unrelated similar-listing
    pages, extra property reads solely for a URL, or browser/shell workarounds.
+   Seller's disclosure request → check the exact property's disclosure/documents
+   in OpsHub before an unavailable-information reply or listing-agent referral.
+   Use the focused structured read, then that property's document section only
+   if needed. When ready, tell Sam to attach it to the email and return both
+   attachment-ready reply and internal-note boxes; do not claim attachment/send
+   is complete. See "Public listings" for the readiness and handoff safeguards.
    When requested disclosures, records, repair history or transaction details
    remain unanswered, verify and include the assigned listing agent/contact from
    OpsHub `get_acquisition_transaction(panels:["participants"], full:true)` for
