@@ -30,6 +30,10 @@ and extra context remain on demand, with the current package rules taking priori
   assessment and offer evidence to that requester. Empty or failed results are
   unknown. Never invent facts, actions, identifiers, email bodies or credentials.
 - Preserve stage and disclosure gates: one property → one offer outward; do not
+  use Unqualified flips. Verify the requester/property-matched current Qualified
+  flips record before status/next-step decisions. An unqualified denial cannot
+  override a qualified expired offer; unknown qualification is unresolved, not
+  denial/no offer. Primary/recency alone is not qualification evidence. Do not
   expose internal facts or restricted amounts. Assessment completion, photo
   presence and final-offer presentation are separate facts. Final-offer timing is
   relative: 3–5 business days after assessment completion, never a calculated window.

@@ -80,10 +80,28 @@ already-resolved thread; this is not a rule to answer every automated invoice.
 Accounts Payable contact: `accountspayable@opendoor.com`, verified November 2,
 2026 from the Accounts Payable Check Request Form's questions contact and the
 Guide to Expensing's invoice-submission guidance. This does not establish a
-dedicated AP Slack channel, vendor-specific procedure, invoice receipt or payment
+dedicated AP Slack channel, invoice receipt or payment
 status, or a payment timeline. HOA dues payments retain `HOAAP@opendoor.com`.
 Sources: https://docs.google.com/forms/d/1WPkUWBZFOrkVi_IlBVZ_TGB2ub5MoS5037NuLmpm0SA
 and https://drive.google.com/file/d/15ktZSmtJLnvkLZBHcQKlkLVZeXqn9zWw.
+
+**Vendor AP follow-up (Sam, November 6, 2026):** When an established vendor
+has already emailed `accountspayable@opendoor.com` about billing/unpaid invoices
+and is still waiting without a reply or resolution, direct them to submit a
+request at the Trade Partner Support Center:
+https://opendoor.atlassian.net/servicedesk/customer/portal/1133.
+Do not just repeat the AP referral or use new-vendor onboarding. No fixed
+waiting period is established; do not invent one or promise response/payment
+timing. A routing-only answer needs no property/offer lookup. Preserve verified
+resolution and no-contact gates; never claim a request was submitted unless
+verified. If a support-center ticket already exists, do not file another; repeat
+escalations use the verified #vendor-feedback / @trade-partners route under the
+existing action permissions. HOA dues retain `HOAAP@opendoor.com`.
+Evidence: Stephanie Faust's July 20, 2026 reply,
+https://opendoor.enterprise.slack.com/archives/C51K62ETU/p1784553990069269?thread_ts=1784550596.460069&cid=C51K62ETU.
+Sam's accepted follow-up direction puts the support-center request before the
+older Vendor Overview billing FAQ's direct Slack step for this scope; the
+article's separate existing-ticket/repeat-escalation safeguard is retained.
 
 **Same-ticket escalation deduplication:** Before preparing a follow-up Slack
 draft, compare the newest customer reply with the verified message already posted
@@ -1340,8 +1358,9 @@ the shape, the record wins, see "Stage gates the playbook".
   walkthrough. Glean the ticket, CUSTOMER on the **requester** phone (Glean SMS
   often lists the Opendoor support line first), one OpsHub customer read, then the
   property record for assessment status and the page Flags fallback before offering
-  any path. If a banner says a newer flip exists, open primary for Flags/pipeline,
-  then see "stale flip vs primary" under Sellers with an outstanding assessment.
+  any path. If a banner says a newer flip exists, verify its membership in
+  **Qualified flips** before using Flags/pipeline; never follow an unqualified
+  primary. See "stale flip vs primary" under Sellers with an outstanding assessment.
   Draft: existing photos cannot be uploaded because the assessment requires live
   photos through the Opendoor Key App; offer three paths in the same first
   reply — (1) Opendoor Key App live photos at the home, (2) self-schedule an
@@ -1804,7 +1823,9 @@ Measured on a real five-ticket session that ran roughly 3 million effective toke
   search for something a single correct call would return.
 - A CUSTOMER lookup on a long-tenured customer returns every property engagement
   ever created, which can be twenty-five or more near-identical blocks. Budget for
-  that, and read only the newest few and the one that is ACTIVE.
+  that: select the current applicable qualified engagement matched to the
+  requester/property, not simply the newest few or one marked ACTIVE. Unqualified
+  engagements cannot supply status/next-step evidence; see `Lifecycle stage`.
 - **`get_customer` is sell-direct lead-shaped.** On `is_agent` / buyer-tour
   records it often returns Lead not found. Do not treat that 404 as a reason to
   dump `get_customer_profile`. For “was this already handled?” use
@@ -2092,6 +2113,23 @@ asserting the link works, and keep the setup inference in the appendix.
 
 ## Lifecycle stage
 
+**Qualified flips only (Sam, November 5, 2026):** Before reading lifecycle,
+offer, assessment, Flags or assigned-role evidence, verify that the flip belongs
+to OpsHub's **Qualified flips** set and matches the requester and exact property.
+Exclude **Unqualified flips** from status and next-step decisions, even if newer
+or marked primary/current. Then choose the current applicable qualified flip;
+recency, `ACTIVE`, `is_latest_offer`, a primary banner or an isolated
+`domain_state` value does not independently prove qualification. Qualification
+is separate from offer expiry: a qualified flip may show an expired offer.
+An unqualified denial must never override that expired status or trigger the
+denial stop. Use the qualified offer's verified refresh/expiry guidance instead,
+without promising eligibility or a new offer. If structured reads do not expose
+qualification, inspect the exact property's Qualified flips section before
+following a transaction link. Missing/empty qualified results, ambiguous qualified
+matches or unavailable qualification are unresolved, not denial/no offer; report
+the specific gap and do not substitute an unqualified record. Keep flip-selection
+details internal. This applies to all property-specific recipes and fallbacks.
+
 Stage lives in `property_engagements.domain_state` on the **CUSTOMER** record, not
 on listing state. Read it first from OpsHub `get_customer` /
 `get_customer_profile`. If that structured result omits the engagement field, fall
@@ -2186,11 +2224,11 @@ accepted" FlipEvent, are flip-side and stay internal.
 
 **Refresh already complete — current primary offer first:** For a seller having
 trouble refreshing an offer, use OpsHub MCP to resolve the exact address and
-inspect its current primary offer before following an older lead from SMS or
+inspect its current applicable qualified flip's offer before following a lead from SMS or
 advisor history. `get_customer_profile(address_token:..., full:false)` can expose
 leads and latest offer states; `get_acquisition_transaction` with only
 `flip_details` and `offer`, followed by `get_sent_offer` when needed, verifies the
-selected current record. A current initial/estimated offer with positive current
+selected qualified record. A current initial/estimated offer with positive current
 status and no expired/denied status can establish that the refresh is complete,
 but `SENT`, a new `sentAt`, and draft underwriting do not establish dashboard
 availability or override a verified **Finalizing / Sent Finalizing Offer** status.
@@ -2212,10 +2250,11 @@ and any operator-verified current page state support the answer. Assessments and
 page-only Flags remain required when a separate timing, assessment, final-offer,
 or access claim depends on them. Target about 20 seconds; emit only the relevant
 status fields from retained MCP responses. A denial stop applies only after
-verifying it is the current applicable decision, not merely a historical lead.
+verifying the current applicable qualified flip's decision, never an unqualified
+or merely historical lead.
 
-**Confirmed offer denial / Opendoor walked:** When the ticket or verified record
-establishes that Opendoor declined or walked away from making an offer, stop the
+**Confirmed offer denial / Opendoor walked:** Only after the applicable qualified
+flip establishes the current denial/walk decision, stop the
 offer-status lookup. Support cannot provide a specific denial reason. Do not
 research assessments, expired offers, pricing, property history, or additional
 records to explain the decision. Use the confirmed decision and briefly explain
@@ -2403,7 +2442,7 @@ record with a price, photos, and ownership populated.
 - Zendesk display names can differ from the customer record surname. Never verify
   identity off the ticket name.
 - An agent may have **more than one** property sitting at `PRELIM_OFFER_SENT`.
-  Check every ACTIVE engagement and name each address, otherwise a second file
+  Check each applicable qualified ACTIVE engagement and name each address, otherwise a second file
   stalls.
 - An operator verifying a listing agent off the public listing (their name on the
   active Zillow or MLS listing) and then adding them to the transaction is normal
@@ -2507,6 +2546,25 @@ required-document guidance do not prove that offer was received/reviewed or that
 the property-specific concern was resolved. If the home has sold, reply that it
 has sold and is no longer available for offers. A no-reply disposition requires
 a later answer resolving this actual property's concern, not merely a newer SMS.
+
+For a seller's disclosure request, check the exact property's disclosure/document
+availability in OpsHub before concluding it is unavailable or referring the
+requester to the listing agent. Use a focused structured read when it exposes
+the document; if availability is still missing, inspect that property's document
+section in OpsHub. A public listing without a download or an earlier promised
+upload date does not establish current OpsHub availability. Preserve requester/
+property and disclosure-authorization checks.
+
+When the matching completed disclosure is available, tell Sam explicitly to attach
+it to the email and provide a concise attachment-ready customer reply plus the
+separate internal note. Sam's explicit confirmation of readiness supports a revised
+draft without replaying completed lookups; distinguish that confirmation from a
+new tool verification in the operator appendix. Keep attachment/send as pending
+in the internal note until verified. Customer wording such as "I've attached..."
+is for use after Sam attaches the correct file, with that prerequisite outside
+the copy boxes. Do not attach, send, post or update records without authorization.
+If the focused check fails or the document is not ready, state the exact gap and
+use the verified listing-agent next step below.
 
 For buyer requests for seller disclosures, inspection/service records, repair
 history, or transaction circumstances that the public listing does not answer,
@@ -2896,8 +2954,10 @@ when they already said they cannot be there. `Remote Market - App Only` does
 named. Say "an in-home walkthrough". No video walkthrough exists, say so plainly
 and offer help by phone.
 
-**Stale flip vs primary.** When a banner says a newer or primary flip exists, open
-primary for Flags and pipeline. For a direct-seller SMS about assessment or photos,
+**Stale flip vs primary.** A newer/primary banner is a navigation lead, not proof
+of qualification. Verify the current applicable flip in **Qualified flips**
+before using its Flags and pipeline; never follow an unqualified primary instead.
+For a direct-seller SMS about assessment or photos,
 still use the seller outstanding-assessment paths above (Opendoor Key App,
 dashboard IWT self-schedule, or we help schedule) even if primary is labeled Agent Acq, as long
 as the SMS customer is the seller or customer on the file and the assessment is
@@ -2995,11 +3055,15 @@ read together with the FAQ's conditional objection-response sections.
 
 For an initial customer-profile deletion request matching this case, the
 customer-facing body is: “To request deletion of your customer profile, please
-visit https://www.opendoor.com/privacyrequest and click ‘Make a Privacy Request’
+visit https://privacy.opendoor.com and click ‘Make a Privacy Request’
 to get started.” Use the normal email greeting and sign-off. Do not append a
 property-removal disclaimer or create a Slack draft/workflow escalation at this
 stage. Recommend this response without claiming it was sent. A later appeal,
 verified Privacy direction, or other applicable escalation rule takes priority.
+
+Website corrected by Sam November 6, 2026: use `privacy.opendoor.com`,
+not the previously saved `opendoor.com/privacyrequest` alias. This is Sam's
+operational referral correction; preserve approved Privacy objection macros.
 
 **State privacy requests and mobile-app account deletion are separate workflows.**
 A portal failure does not by itself establish a technical problem or eligibility.

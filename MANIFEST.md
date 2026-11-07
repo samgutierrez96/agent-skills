@@ -1,5 +1,74 @@
 # Skill manifest
 
+## Direct corrected-note posting commands — November 6, 2026
+
+XA Notes recognizes direct commands such as “post the corrected note please”
+as posting authority for the retained caller and selected draft, alongside
+“Post it.” The posting gate, compact warm-up contract and Codex project adapter
+agree locally. Draft-only, negated, quoted and reported wording remains
+non-operational; correcting or saving guidance alone never posts. Active and
+canonical copies plus inventory hashes are reconciled. No customer-case data
+or live posting is used for validation; publication awaits the evening sync.
+
+## Explicit corrected-note repost override — November 6, 2026
+
+Sam's XA Notes project rules now honor an explicit repost after an operator
+reports an error, even when the address/body matches the prior post. This narrow
+override bypasses the shared duplicate skip without another confirmation; changed
+identity/property still requires resolution. Corrections and maintenance alone
+grant no posting authority and never replay completed actions. Active rules,
+canonical adapter and provenance hash are reconciled locally on the existing
+codex/zendesk-current-refresh branch. No customer details are saved; GitHub
+publication remains queued for the existing evening synchronization.
+
+## Vendor AP follow-up — November 6, 2026
+
+Saved Sam's support-center next step for established vendors still waiting after
+emailing Accounts Payable. Shared KB retrieval, Zendesk's playbook/fast path,
+XA Notes and the Escalations runtime carry the scoped guidance with no invented
+waiting period or response/payment promise. Prospective-vendor onboarding, HOA
+dues and existing-ticket repeat-escalation safeguards remain separate. The
+evidence/audit reference stays local-only under company-knowledge-update;
+ownership hashes and canonical distribution copies are reconciled locally.
+Claude provenance, inactive legacy copies and unrelated edits are untouched.
+No customer details or live external actions are included. Publication awaits
+the existing evening sync on codex/zendesk-current-refresh.
+
+## Explicit merge answers in every containing workflow — November 6, 2026
+
+The shared account-merge owner now emits each genuinely required finite question
+with explicit bulleted answers, including identity uncertainty and known primary
+email candidates. Notes, Escalations, Zendesk and standalone merge invocations
+share this output contract instead of relying on Router to recognize a sentence.
+Independent decisions stay separate; an email choice cannot confirm identity,
+uncertainty grants no merge authority, and already-established answers do not
+produce extra confirmation questions. The original workflow and pending action
+scope remain; completed actions must not be repeated. The installed source,
+canonical package and inventory hash are reconciled locally. Router's shared
+renderer and synthetic browser regressions belong to its own repository. No
+customer fixture or live action is included; publication awaits the evening sync.
+
+## Qualified flip selection across property workflows — November 5, 2026
+
+Sam's operational correction requires the requester/property-matched current
+Qualified flips record for property status, offer, assessment, assigned-role,
+routing and next-step decisions. Unqualified flips are excluded even when newer
+or marked primary; an unqualified denial cannot override a qualified expired
+offer. Unknown or ambiguous qualification is unresolved, not denial/no offer.
+Zendesk's active rules/playbook/fast path/recipe/context, XA Notes, Escalations,
+shared OpsHub context, Bot Tasks and final-offer scheduling carry the gate.
+Account Merge and Agent Verification have no conflicting flip-status selector.
+No customer case is included. Shared company knowledge remains local-only with
+inventory hashes; packages/adapters are reconciled locally. Synthetic acceptance
+criteria do not constitute live-model validation. Publication awaits scheduled sync.
+
+Local checks passed: seven skill validators, 78 source-catalog tests, 17 routing
+and nine fast-path regressions, supplied XA Notes fixtures (four shape cases
+skipped), 58 editable source/mirror comparisons, seven local-only hashes and
+both repository whitespace checks. A fresh company snapshot verifies all five
+Router workflow owners and shared knowledge. No live customer actions were used;
+fresh-model qualified-flip behavior is not yet measured.
+
 ## Bounded empty-phone lookup recovery — November 5, 2026
 
 The shared `opshub-context` owner now distinguishes an empty search from an
@@ -94,6 +163,23 @@ requirements travel with the rule. Active packages and inventory hashes are
 reconciled locally. The separate company-knowledge-update reference retains the
 cross-workflow audit outside this distribution. No customer fixtures or external
 actions; publication awaits the scheduled evening sync.
+
+## Account-deletion request entry point — November 6, 2026
+
+Reconciled XA Notes with the initial customer-profile request path already saved
+in Zendesk and rechecked in the Privacy FAQ through the shared KB retrieval skill:
+use privacy.opendoor.com for a request, as corrected by Sam November 6,
+not the previously saved opendoor.com/privacyrequest alias or general privacy-policy page.
+The scoped guidance preserves state-request versus mobile-app deletion distinctions,
+eligibility uncertainty and no-promise/no-invented-action limits. Operator-disputed
+business facts use canonical KB evidence without widening ordinary-note lookups.
+The active XA runtime and canonical distribution match; only the affected passages
+in the older global XA install were reconciled. Zendesk's active request referral
+and canonical distribution were updated to the same direct website;
+Escalations held no conflicting request contact. The local-only privacy knowledge
+reference and inventory hashes were updated. No customer data was saved to sources.
+Local validation passed; GitHub publication remains for the evening task on the
+existing codex/zendesk-current-refresh branch.
 
 ## Shared business-wide KB retrieval — November 4, 2026
 
@@ -417,7 +503,7 @@ without treating the newer request as resolved. Active project rules and these
 canonical adapters match locally; inventory hashes are updated. Live performance
 savings are not measured. GitHub publication awaits the scheduled daily sync.
 
-Last content audit: 2026-11-05. Scope: all nine registered skills and required adapters.
+Last content audit: 2026-11-06. Scope: all nine registered skills and required adapters.
 
 ## Zendesk document-handoff assignment — November 3, 2026
 

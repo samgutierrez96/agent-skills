@@ -31,6 +31,27 @@ Slack, post a note, or invent a relationship between a customer and property.
 Run independent phone and address lookups in parallel when both are present.
 Keep the raw captured values and source URL in the result.
 
+## Qualified flip selection — all consumers
+
+When a downstream workflow needs property lifecycle, offer, assessment, assigned
+role, routing or next-step facts, select only the requester/property-matched
+current flip in OpsHub **Qualified flips**. Exclude **Unqualified flips** even
+if newer or marked primary/current. Verify qualification explicitly in structured
+evidence; if omitted, inspect the exact property's Qualified flips section before
+following its transaction link. Recency, `ACTIVE`, `is_latest_offer`, a primary
+banner or a `domain_state` value alone does not prove membership in that set.
+Qualification is not offer validity: a qualified flip can have an expired offer.
+An unqualified denial cannot override it or justify a denial/no-next-steps reply.
+Use the qualified offer's verified expiry/refresh guidance without promising a
+new offer. If no qualified record can be verified, or multiple qualified matches
+remain ambiguous, return unresolved engagement/status with the specific warning;
+never substitute an unqualified record or infer denial/no offer. Preserve the
+verified customer/property identity separately. Keep selection details internal.
+
+This is a record-reading gate, not permission to perform lookups for an ordinary
+note draft or to send, post, book or change records. Source: Sam's November 5,
+2026 operational correction; no independent policy-change claim is made.
+
 ## Empty phone lookup recovery
 
 A successful empty search is not proof that the customer record does not exist:

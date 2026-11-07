@@ -11,6 +11,14 @@ token; reserve the single normalized address retry until that evidence is availa
 A verified property token avoids a broad cross-deal profile lookup. Never pass a
 WebCustomer UUID to sell-direct `get_customer`.
 
+- **Qualified flip selection first:** Use only the requester/property-matched
+  current flip in **Qualified flips**, never **Unqualified flips**. Verify
+  qualification through explicit MCP evidence or the exact property's qualified
+  section before using offer/assessment/Flags facts. Newest/primary/`ACTIVE`
+  alone is insufficient. Qualified expired offer plus unqualified denial follows
+  the expired-offer/refresh path, not the denial stop. Missing or ambiguous
+  qualification blocks a definitive status answer; do not infer denial/no offer.
+
 - **Refresh-only exception:** Follow `Offers` → “Refresh already complete —
   current primary offer first.” Verify the current primary initial/estimated
   offer through OpsHub MCP before treating an older lead as expired or denied.

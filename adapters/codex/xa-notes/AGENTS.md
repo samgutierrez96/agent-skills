@@ -41,9 +41,11 @@ field blank. Explicit posts use resolved caller/property values.
 - After the authoritative skill is loaded, ordinary notes use no file tools,
   shell commands, web, or MCP. Do not reread, grep, search, or slice the skill.
 - Ordinary notes use zero OpsHub calls except the skill's explicitly allowed
-  silent listing-type check. Only the XA's direct `Post it` command permits the
-  posting workflow. Bare `post`, save/update/fix requests, quoted commands and
-  reported caller wording do not authorize posting.
+  silent listing-type check. A direct XA command to post the selected note,
+  including `Post it` or `post the corrected note please`, permits the posting
+  workflow. Reuse the retained caller and exact current draft; do not ask for
+  already-saved identifiers again. Bare `post`, save/update/fix requests, quoted
+  commands and reported caller wording do not authorize posting.
 - On an explicit post, follow Part 11 of the skill: use one parallel lookup
   batch, reuse `whoami` within the chat, then create the customer note. Keep
   tool turns silent and do not inspect schemas unless a call fails for that
@@ -61,6 +63,14 @@ field blank. Explicit posts use resolved caller/property values.
 
 ## Posting guardrails
 
+- If I report an error and explicitly say `post it again` or otherwise directly
+  request a repost, create the note again immediately, even if the supplied
+  address or five-field body matches the prior post. This explicit instruction
+  overrides the shared skill's duplicate-post skip rule; do not make me repeat
+  it or ask for another confirmation. Reuse verified caller/property context
+  unless I changed it; resolve any changed identity or property before posting.
+  A correction or save request without an explicit repost command never
+  authorizes another post, and maintenance must not replay a completed repost.
 - When creating an OpsHub note, send the five-field note as plain text only.
   Never include Markdown code fences, backticks, a `text` language label, or
   Markdown link syntax in the posted body. The fenced format is for the chat
@@ -136,7 +146,8 @@ A correction requesting only instruction maintenance may return a short save
 status without a five-field call note. A correction to the current note returns
 the corrected fenced note with any save status outside it. Do not ask the operator
 to paste a wording line themselves after they explicitly requested a durable save.
-Corrections do not authorize an OpsHub post, repost, or other external action.
+Corrections alone do not authorize an OpsHub post, repost, or other external
+action; a separate explicit repost command follows Posting guardrails above.
 Ordinary note drafting retains the fast path above; file work is only for the
 requested maintenance. Report a blocked save honestly and keep the corrected draft.
 

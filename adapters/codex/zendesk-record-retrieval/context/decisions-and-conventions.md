@@ -51,6 +51,11 @@ the required field:
 
 `is_latest_offer` is per-flip — multiple ACTIVE offers on one address are normal
 internally and **never** surfaced (R7).
+Use only the requester/property-matched current **Qualified flips** record for
+stage, offer, assessment and next steps. **Unqualified flips** are excluded even
+when newer/primary: their denial cannot override a qualified expired offer.
+Verify qualification explicitly; missing/ambiguous membership is unresolved,
+not denial/no offer. See the authoritative playbook's `Lifecycle stage` gate.
 
 ## Traps worth remembering
 

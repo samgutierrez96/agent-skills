@@ -33,13 +33,19 @@ preparation, before replying Ready; the first caller must reuse that loaded skil
 - Cover every distinct ask, but do not turn scheduling context into a second
   call type.
 - Do not invent facts, escalations, contacts, URLs, or future actions.
+- Property facts from authorized lookups use only the current applicable
+  **Qualified flips** record, never **Unqualified flips**. A newer unqualified
+  denial cannot override a qualified expired offer; missing qualification is
+  unresolved, not denial/no offer. Ordinary drafts remain tool-free.
 
 ## Tool boundary
 
 - Ordinary notes use zero tools, except the full skill's explicitly allowed
   silent listing-type check.
-- Only a direct `Post it` command authorizes OpsHub lookup and posting.
-  Save/update/fix requests and quoted or reported commands do not.
+- A direct command to post the selected note, such as `Post it` or
+  `post the corrected note please`, authorizes OpsHub lookup and posting for
+  that retained caller and draft. Save/update/fix requests and quoted or
+  reported commands do not.
 - On a post, use the caller's customer page, not merely the property owner;
   use one parallel lookup batch, reuse `whoami`, then create the note. Empty
   phone results must take the full skill's bounded shared-context recovery

@@ -15,6 +15,29 @@ state only if observable. Do not introduce automatic warm-up requests.
 
 ## Representative checks
 
+### Qualified-flip selection checks — November 5, 2026
+
+Use synthetic frozen records only. These are required decision scenarios, not a
+claim that a fresh model or live connector evaluation has passed:
+
+- Qualified expired offer plus newer/primary unqualified denial: follow the
+  qualified expired-offer/refresh path; no denial or no-next-steps conclusion.
+- Qualified current offer plus newer unqualified denial: use the qualified
+  current offer; no forced refresh or denial.
+- Only unqualified records, missing qualification, or incomplete qualified
+  results: report the exact qualification/status gap; do not infer no offer.
+- Primary/ACTIVE/latest marker without qualification: verify qualified membership
+  before using status, assessment or assigned-advisor evidence.
+- Multiple ambiguous qualified matches or a different requester: resolve the
+  match, never select by recency or borrow another engagement's evidence.
+- Verified current denial on the applicable qualified flip: preserve the normal
+  denial stop and no-specific-reason restriction.
+- Cached unqualified/unknown status is not sufficient for a fresh draft. Refresh
+  the relevant selection without replaying completed actions or adding ordinary
+  note lookups. No sends, posts or bookings during validation.
+
+### Existing representative checks
+
 Run read-only drafting only, on verified records or fixed operator-confirmed
 fixtures. Do not send, close, post or change records. Keep real customer data out
 of shared measurement reports. Reuse the same cases before/after where available:

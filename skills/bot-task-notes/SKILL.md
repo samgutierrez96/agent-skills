@@ -72,8 +72,12 @@ only when separately requested, with the exact task verified.
    to start with list_properties(address=...). Prefer an explicit task link or
    stable ID; use get_task for task context and get_customer_profile or
    get_property only as needed to confirm the associated engagement.
-2. Verify the intended engagement/flip and customer association. Do not pick an
-   arbitrary newest flip, assume the property owner was a third-party caller,
+2. Verify the intended qualified engagement/flip and customer association. Use
+   only **Qualified flips**, never **Unqualified flips**, for property status,
+   next steps or flip-targeted posting. Follow opshub-context's qualification gate;
+   newest/primary alone is insufficient. An unqualified denial cannot override a
+   qualified expired offer. Missing or ambiguous qualification blocks flip selection,
+   not proof of denial/no offer. Do not assume the property owner was a third-party caller,
    or post across ambiguous matches. Ask only for the missing discriminator.
 3. Read the current tool schema. For an acquisition engagement's internal note,
    use create_acq_note(body=..., flip_token=..., category="NOTE"). Send the plain

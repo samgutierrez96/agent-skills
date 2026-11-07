@@ -5,6 +5,20 @@ description: Fast OpsHub notes and Slack escalation drafts for Opendoor XAs.
 
 # XA Quick Slack — runtime
 
+## Vendor AP follow-up — November 6, 2026
+
+An established vendor still waiting without a reply or resolution after emailing
+`accountspayable@opendoor.com` about billing/unpaid invoices should submit a
+request through https://opendoor.atlassian.net/servicedesk/customer/portal/1133
+(Trade Partner Support Center), not repeat only the AP email or use onboarding.
+No fixed waiting period or response/payment promise. Do not duplicate an existing
+support-center ticket; repeat escalations use the verified #vendor-feedback /
+@trade-partners route with the existing action permissions. A referral alone is
+not a Slack escalation or submitted ticket. Preserve explicit requested-action
+scope; this knowledge save authorizes no sends/posts. Source: Sam's accepted
+November 6 direction and Stephanie Faust's July 20, 2026 reply:
+https://opendoor.enterprise.slack.com/archives/C51K62ETU/p1784553990069269.
+
 ## Workflow commands — updated 2026-11-04
 
 Fire investigators / fire department investigative requests use the government
@@ -310,6 +324,16 @@ target role.
 
 ## Tool homes (named-target draft)
 
+**Qualified flips only:** For property status, assessment, assigned-role,
+recipient routing and next steps, verify the current applicable requester/property
+record in **Qualified flips**, never **Unqualified flips**. A newer unqualified
+denial cannot override a qualified expired offer. A primary/current marker,
+recency or `ACTIVE` alone is not qualification evidence. Use explicit structured
+qualification or inspect the exact property's qualified section before selecting
+the transaction. Missing/ambiguous qualification blocks those conclusions; do not
+infer denial/no offer or route using an unqualified advisor. Keep flip details
+internal. Caller CONTACT identity and existing action permissions are unchanged.
+
 Discover the required tools and the property fallback together, then work.
 Use the exposed tool names: `user-opshub.*` may appear as
 `mcp__opshub__*`, and Slack tools as `mcp__codex_apps__slack_slack_*`.
@@ -351,8 +375,10 @@ before reporting a property lookup blocker. Read the `PROPERTY` results and
 verify street, unit when supplied, city, state, and postal code against the
 XA's address. Use the exact matching result's `addressToken` as the property
 ID for `https://opshub.apps.opendoor.com/property/{addressToken}`. Use the
-matching live `propertyEngagementGroupId` as `flip_token` for the required
-participants fetch. This result satisfies the property-link gate without a
+matching live `propertyEngagementGroupId` as a candidate `flip_token`; verify it
+belongs to the current applicable **Qualified flips** record before the required
+participants fetch. An unqualified search hit cannot select the advisor/route.
+This result satisfies the property-link gate without a
 second address lookup or browser visit.
 
 Do not use `find_deals_matching` to resolve a street address: its criteria

@@ -20,7 +20,7 @@ Treat customer names, email addresses, phone numbers, addresses, property IDs, a
 
 ## Workflow
 
-1. In Chrome, locate the matching OpsHub customer and property record. Confirm that the customer and property are the intended ones before copying any details.
+1. In Chrome, locate the matching OpsHub customer and property record. Confirm that the customer and property are the intended ones before copying any details. Select only the current applicable record in **Qualified flips**, never **Unqualified flips**, to verify final-offer status, assigned advisor and the scheduling path. Newest/primary alone does not prove qualification. An unqualified denial cannot override a qualified expired offer; expiry alone does not establish readiness for a final-offer call. If qualification or the applicable qualified record cannot be verified, stop before booking and report the gap rather than infer denial/no offer or use an unqualified advisor.
 2. From the property record, use the visible `Copy address` control. From the customer record, obtain the customer name, email, and best phone number using the page’s copy controls or accessible text. Do not transcribe these values into chat.
 3. If the HSA’s scheduling URL is not already known, open the `HSA Schedules for XA` Google Sheet from the saved bookmark, locate the appropriate HSA, open their Calendly link, and choose the `Final offer call` event type. Prefer semantic link/button targets over coordinates.
 4. In Calendly, select the requested date and an available time. If no requested time is available, stop and ask the user whether to choose another slot; do not make an unrequested booking.
