@@ -302,6 +302,7 @@ answer to anything listed here, and neither is a search.
 | fo, FO, final offer, offer pending, refresh, withdrawn, withdrawn offer, expired, expired offer, confirm refreshed, confirm offer was refreshed | Part 5, "Assessment, offers, timelines" |
 | lockbox not opening, key not opening, won't open, home issue, HQI | Part 6, "Incident reports (incident)" — write the ticket the XA named; do not route as an access call |
 | verified info, access, lockbox, appraiser, inspector, showing | The expansion table below, plus Part 4 |
+| appraisal scheduler, appraisal scheduling company | Part 4, "Appraisal scheduler referral" |
 | traditional listing, trad listing | Part 4, "Traditional listing vs Opendoor listing" |
 | vendor, partnership, provider, added as vendor, contractor | Part 6, "Vendors and partnership solicitations (vendor, partnership)" |
 | commission, concession, buyer agent commission | Part 6, "Commission (commission)" |
@@ -648,6 +649,18 @@ and no appointment, on any row.
 
 **A third party verifies by calling in.** Being named by the customer is not
 verification.
+
+## Appraisal scheduler referral
+
+Keep an appraisal scheduler distinct from the appraiser. When the XA reports
+this referral, use the wording below; do not apply the appraiser's `verified
+info` expansion or claim an appointment was scheduled or a code was provided.
+Preserve any different or additional guidance actually stated on the call.
+
+> Let the scheduler know to have the appraiser call us directly to confirm their information. If the appraiser is unable to reach out to us, advised them to contact the buyer's agent for access information.
+
+Source: Sam's requested reusable call wording, November 9, 2026. This records
+the referral given, not completed verification or scheduling.
 
 **The buyer row is narrow:** a verified buyer with a scheduled appointment, on
 an **Opendoor listing**. Do not add the return-with-a-licensed-agent line on

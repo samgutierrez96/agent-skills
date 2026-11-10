@@ -94,6 +94,40 @@ message, the XA's direct `Post it` command authorizes only the CONTACT note.
   rejection through browser/native UI or resend through another destination.
   Preserve an existing draft; create a fallback draft only if none exists.
 
+## Caller and requested contact notes — November 9, 2026
+
+When an escalation identifies two customer-side people for the same issue,
+such as a seller/buyer caller and the agent to contact, or an agent caller and
+their client, the authorized note-posting flow posts the same five-field CONTACT
+note to both verified customer pages. This is not a rule to post to every name:
+internal escalation recipients, coverage people and incidental mentions are not
+additional customer-note destinations. Keep the actual caller and requested
+contact distinct in the note; do not change who called for the second page.
+
+Resolve each person's own customer UUID and their relationship to this case,
+using existing verified context first and a bounded targeted lookup only when
+missing. Never reuse the caller's UUID for a different person or infer identity
+from a shared name/property. Distinct people are not duplicate accounts; apply
+the existing Admin duplicate-profile gate separately for each person's actual
+duplicate profiles, never merge the caller with their agent/client. Deduplicate
+the destination UUIDs after any required merge.
+
+Within the current authorized send-and-post or note-only request, use one
+CreateCustomerNote call per distinct verified CONTACT UUID, with the same exact
+note body and verified follow-up links. Retain a separate successful receipt for
+each page. A confirmed note on one page does not complete the other page; never
+repeat a successful post or resend Slack to recover the remaining note. If a
+destination is ambiguous, unavailable or its post is unconfirmed, preserve the
+successful receipts and state exactly which page remains unresolved, under the
+existing identity and mutation-retry gates. Claim both posted only with both
+successful receipts. Explicit single-page or draft-only scope takes precedence.
+
+“I already posted it” is historical context, not new posting authority. A request
+to save this behavior for future use updates guidance only, even when the case
+already has posted notes; do not post, resend or resume that case. A report of a
+manual post must not be converted into a tool-confirmed receipt. Source-save
+confirmation remains separate from the case's posting outcomes.
+
 ## Deleted-action recovery and current verification
 
 An explicit XA request to repost or restore a deleted escalation is a recovery
@@ -873,12 +907,37 @@ For these, never call `slack_send_message_draft` or `slack_send_message`.
 Never search Slack, Glean, or project files for how to file the ticket.
 When the XA says the workflow ticket was already filed or says `post it`, do
 search for that submitted ticket as a related Slack artifact and include its
-verified permalink in the OpsHub note alongside the main escalation link.
-After the OpsHub note, provide a clearly labeled, paste-ready field pack and
-name the workflow the XA must open. Fill only facts and identifiers actually
+verified permalink in the OpsHub note, alongside a separate main escalation
+link only when one actually exists. A workflow ticket can be the sole Slack
+artifact. Already-filed plus a request to post the note is note-only: do not
+send Slack, create a draft, refile the ticket, or require the form again.
+For a ticket not yet filed, after the OpsHub note provide a clearly labeled,
+paste-ready field pack with each known field or suggested text in its own copy
+box, and name the workflow the XA must open when verified. Fill only facts and identifiers actually
 supplied or resolved; never invent a flip token, URL, category, or assignee.
 Label this section `--- WORKFLOW TICKET ---`, not `--- SLACK ---`.
 
+Write ticket fields and Slack messages as Sam, the XA submitting them. Use
+first person for Sam's own question or request, never “XA is asking” or “the XA
+wants guidance.” For example, “I'm checking that the guidance is correct.”
+Keep the caller's statements attributed to the caller; this wording preference
+does not turn an unverified explanation into a confirmed fact.
+
+- `#homebuilder-escalations` — **Homebuilder Escalation**: `Address`,
+  `Escalation Type`, `Context`, `Owner`, and `Inform` (optional). Sam clarified
+  on November 9, 2026 that Owner is Sam, the submitting XA, and Inform is
+  Spencer Jenkins for this channel and workflow. Owner and Inform are Slack
+  person selections, not Context prose. Keep the existing field pack intact
+  when revising its wording. Do not apply these person defaults to other
+  channels or workflows; do not invent an unverified escalation-type option.
+
+- `#xa-painpoints` uses workflow tickets, not regular messages (Sam's
+  November 9, 2026 clarification). Do not attempt a compose-box send or draft.
+  Exact workflow name, fields and selectors are not yet verified: provide the
+  known facts as copyable suggested text, not invented field labels/options,
+  and identify the remaining form selections as manual. If the XA already
+  filed it and requests the note, use the submitted-ticket lookup above and
+  post only the CONTACT note after the existing identity and receipt gates.
 - `#keyapp-escalations` (`C09B9U17KR9`) — **Key App Escalation** ticket:
   `Agent Email` (optional), `Full Address` (optional), `OpsHub Link` (optional),
   and `Escalation/Feedback/Question`. Provide each field in its own copy box.

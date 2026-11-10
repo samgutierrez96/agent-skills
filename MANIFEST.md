@@ -1,5 +1,38 @@
 # Skill manifest
 
+## Homebuilder workflow ownership and first-person requests — November 9, 2026
+
+Sam clarified the Homebuilder Escalation workflow in #homebuilder-escalations:
+Owner is Sam, the submitting XA; Inform is Spencer Jenkins. These person
+defaults are scoped to that channel/workflow, not other escalations. The active
+runtime also writes Sam's ticket questions in first person rather than “XA is
+asking,” while preserving caller attribution and factual uncertainty. Active
+source, distribution and inventory hash match locally. No ticket, message or
+customer note was submitted; publication awaits the scheduled evening sync.
+
+## Caller and requested-contact notes — November 9, 2026
+
+Sam's future escalation rule is saved in the inventory-owned compact runtime
+and its distribution package: when caller and requested agent/client contact
+are different customer-side people, the authorized CONTACT-note flow covers both
+verified customer pages with the same note and separate receipts. Internal
+escalation recipients and incidental names are excluded. Identity, duplicate
+account, explicit scope and mutation-retry gates remain intact. Manual-post
+reports and future-guidance saves do not authorize replaying completed actions.
+Active source, distribution and inventory hash are reconciled locally; ordinary
+daytime publication remains queued for the existing evening task.
+
+## Appraisal scheduler referral wording — November 9, 2026
+
+Saved Sam's reusable scheduler-referral example in XA Notes Part 4 and its
+shorthand index. The existing third-party verification rule remains unchanged:
+record the referral to have the appraiser call directly or contact the buyer's
+agent for access information, without claiming completed verification, code
+disclosure or scheduling. Active source, canonical distribution and the older
+global install receive the same narrow addition; unrelated variant content is
+preserved. A synthetic, customer-free fixture covers the distinction. Saved
+locally on codex/zendesk-current-refresh for the existing evening publication.
+
 ## Direct corrected-note posting commands — November 6, 2026
 
 XA Notes recognizes direct commands such as “post the corrected note please”
@@ -503,7 +536,7 @@ without treating the newer request as resolved. Active project rules and these
 canonical adapters match locally; inventory hashes are updated. Live performance
 savings are not measured. GitHub publication awaits the scheduled daily sync.
 
-Last content audit: 2026-11-06. Scope: all nine registered skills and required adapters.
+Last content audit: 2026-11-09. Scope: all nine registered skills and required adapters.
 
 ## Zendesk document-handoff assignment — November 3, 2026
 
