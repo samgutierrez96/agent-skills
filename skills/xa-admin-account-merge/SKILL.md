@@ -1,6 +1,6 @@
 ---
 name: xa-admin-account-merge
-description: Consolidate duplicate Opendoor customer profiles while posting an OpsHub XA note or escalation. Auto-use when `list_customers` returns multiple real profiles with distinct emails or the same normalized caller phone and compatible identity, including a named profile with no email, or when shorthand mentions duplicate accounts or account cleanup.
+description: Resolve shared-phone customer matches while posting an OpsHub XA note or escalation; merge verified same-person duplicates and remove a confirmed misassigned caller number from unrelated profiles. Auto-use when `list_customers` returns multiple real profiles with distinct emails or the same normalized caller phone and compatible identity, including a named profile with no email, or when shorthand mentions duplicate accounts or account cleanup.
 ---
 
 # XA Admin Account Merge
@@ -9,11 +9,12 @@ description: Consolidate duplicate Opendoor customer profiles while posting an O
 
 Target **under two minutes of execution for the Admin merge and verified OpsHub contact cleanup**, starting once the primary email and caller identity are confirmed, when Admin and OpsHub respond normally. Ask for any required details together before starting; user response time is outside this execution target. Resume the original note/escalation immediately after verification; separate Slack routing or posting work adds its own time. This is a performance target, never a reason to skip checks or claim success early. Prioritize few tool round trips, small outputs, and reuse of verified context.
 
-Merge in **Admin** (`admin.opendoor.com`); then clean contacts in **OpsHub**, verify, and post the original XA note/escalation. Never substitute an OpsHub merge or contact edit for the Admin merge.
+Merge verified same-person duplicates in **Admin** (`admin.opendoor.com`); then clean contacts in **OpsHub**, verify, and post the original XA note/escalation. Unrelated-person matches take the separate phone-cleanup path below, never a merge. Never substitute an OpsHub contact edit for a required Admin merge.
 
 ## Preconditions
 
 - Use the applicable XA caller verification. Reuse verification already completed in this workflow.
+- **Unnamed phone-only exception:** once the caller and keeping profile are verified, merge a remaining unnamed profile whose only contact is that same normalized caller phone into the keeping profile in Admin. Blank or generic placeholder names do not supply another person's identity. This is a qualifying duplicate even without an email or compatible personal name; do not ask for another identity confirmation, try to strip its sole phone, or block because OpsHub has no phone-removal control. Inspect the full candidate before submission: a different person's displayed name or other conflicting identity evidence excludes this exception and stays on the separate identity/phone-cleanup path. Preserve the selected caller, primary email, original phone and all merge-result/posting verification guards. This exception overrides the compatible-name requirement below only for this unnamed, phone-only case.
 - Resolve the keeping customer and property from the verified caller context. A candidate in that customer’s **Potential Duplicates** list qualifies when its normalized phone matches the verified caller phone and its displayed name is compatible: a matching first name with a missing surname is sufficient. An Agent role, absent surname, or different email spelling is not by itself conflicting identity. Reuse an XA confirmation that the profiles belong to the same person. Potential Duplicates is a candidate list, not proof for unrelated people: a shared phone alone with no compatible name or prior XA confirmation, an affirmative name/phone conflict, or unresolved property scope requires clarification before submission.
 - A named profile with the same normalized verified caller phone is a duplicate candidate even when its email is blank. Apply the compatible-identity or prior XA same-person confirmation rule above; missing email alone never excludes it. Keep the confirmed primary-email profile and inspect its Potential Duplicates in Admin. Ignore only true placeholders such as `Client-####` with no independent compatible identity or verified matching phone; do not classify a named, matching-phone profile as a stub just because it has no email. Without a duplicate signal, return to the original note/escalation skill.
 - **Ask only for needed information:** if the primary email and existing verified record evidence already establish the keeping customer and qualifying duplicates, proceed without asking for a customer name. A full name supplied by the XA is not an additional prerequisite. If only the primary-email choice is missing, ask only which email to keep. Ask for the customer name only when needed to resolve an identity ambiguity that the existing email/phone/record context cannot resolve. If both email and name are needed, collect them in one message. Include any already-known candidate identity conflict in that same clarification, and reuse known values and prior answers. Do not ask for email first and then ask for a name later when the need for both is already apparent.
@@ -35,8 +36,12 @@ Does this account belong to the verified caller?
 - No—not the same person
 - I’m not sure
 
-For a required primary-email choice, list the actual known candidate emails,
-not invented contacts. Collect several missing details in the same message as
+For a required primary-email choice, list the actual known candidate emails
+with their displayed profile names, not invented contacts. Offer these matches
+in the first clarification instead of a bare email-entry question when the
+lookup already supplied them. Retain typed entry for another email or unknown
+information. Selecting a name/email identifies the caller’s account, not
+ownership of every shared-phone match. Collect several missing details in the same message as
 separate question-and-answer-list groups. Each selection answers only its own
 question: choosing an email does not confirm identity. Unknown information still
 needs a typed answer; uncertainty never authorizes a merge. Do not add a question
@@ -44,6 +49,53 @@ when the preconditions already establish the answer. Reuse confirmed answers,
 the original caller/workflow and pending authorized actions; continue that same
 workflow after its remaining verification gates, without another merge/post
 request or replaying completed actions.
+
+## Unrelated-profile phone cleanup
+
+Classify each retained match separately using the verified caller and selected
+name/email. Merge only qualifying same-person duplicates. A concrete unresolved
+name/identity conflict requires the separate identity question above; an email
+selection alone never confirms identity or an incorrect phone assignment.
+Retain the existing compatible-identity rule for a missing surname, Agent role,
+or different email spelling. An unnamed, phone-only profile with the same
+normalized verified caller number qualifies for the unnamed-profile exception
+below; do not treat a missing name as a conflicting name. A profile displaying
+another person's name does not qualify for that exception and must not be merged
+on the strength of the shared number alone.
+
+When the XA or verified record evidence confirms that a mismatched-name profile
+belongs to a different person and the caller’s number is misassigned there,
+remove only that normalized caller number from that unrelated profile in OpsHub.
+This is the standing cleanup path; do not request another merge or cleanup
+command once the required identity/phone facts are established. Preserve a
+legitimately shared household, business, or agent number. If shared use or phone
+ownership is uncertain, ask only that unresolved question and make no removal.
+Never merge unrelated people, delete their accounts, remove their emails or
+other numbers, or overwrite their names with the selected caller.
+
+Retain each exact unrelated customer UUID and the verified caller’s original
+number. Inspect that target’s identity and full contact lists immediately before
+editing. Use the schema-supported contact-list replacement or scoped Customer
+Info editor described below, not guessed fields. Remove only entries matching
+the normalized caller number and save once, preserving every other contact and
+unrelated field. Never apply the keeping-customer “sole primary phone/email”
+cleanup to an unrelated account. If removal of its only or primary phone is
+rejected, stop and report that blocker; do not invent a replacement, choose
+another contact as primary without support, or delete the account.
+
+After each save, freshly read the complete contact lists to verify the caller
+number is absent and every other contact is unchanged. Also verify the selected
+caller still retains the original number. Reuse verified cleanup on resume;
+inspect an uncertain save before retrying, never blindly repeat a write.
+
+For a mixed set, complete steps 1–7 for qualifying same-person duplicates, then
+perform unrelated-profile phone cleanup before step 8 posts. If no same-person
+duplicates remain, skip Admin entirely, perform only this cleanup, and resume
+the original authorized note/escalation against the selected caller UUID under
+the existing posting guards. Keep the original request pending while required
+identity or misassignment answers, cleanup, or verification are blocked; report
+the exact blocker. Report verified phone cleanup, never an Admin merge, for a
+cleanup-only result. Maintenance requests never authorize live customer edits.
 
 ## Execute once, in order
 
@@ -54,7 +106,7 @@ request or replaying completed actions.
 5. Immediately after the final click, send `Merge submitted — checking Admin result`. This is not a success receipt. Inspect the automatically refreshed surviving Admin profile and the merge-success checkmark/confirmation. Continue the visible **Merge → I'm sure. Merge them.** sequence for each remaining distinct, qualifying unmerged account, including named matching-phone profiles with no email, until no distinct unmerged accounts remain. **A duplicate entry may remain after a successful merge.** When the success checkmark/confirmation is present and the remaining entry resolves to the same surviving account with matching name, normalized phone and primary email (including the same surviving UUID when displayed), the merge is complete; do not merge that account into itself, require the sidebar or search results to become empty, or block the original post because the linked entry is still listed. These merged entries share notes, so post once to the confirmed surviving customer, not once per entry. Reuse an XA's explicit confirmation that the merge completed, including their supplied result screenshot, rather than restarting the merge or repeatedly asking them to resolve an already-merged entry. Matching names/contact details or a generic keeping-customer checkmark alone, without a completed merge or explicit XA confirmation, do not prove that distinct accounts were merged. Confirm any genuinely remaining distinct account once; skip manual refresh loops, full event histories, and contact cleanup in Admin. If submission has an uncertain outcome and no completion evidence, inspect the current state before any retry; never blindly repeat an irreversible merge. Once the merge is confirmed, continue steps 6–8 without reopening it.
 6. After verifying the Admin merge, send `Admin merge verified — checking contact cleanup`. Open the surviving OpsHub customer using the retained UUID and inspect the **full email and phone lists**. Keep only the confirmed primary email. If the XA lookup supplied a phone, keep that exact number as the sole primary phone and remove all others; otherwise preserve the existing phone list. Prefer one `edit_customer` update for the desired email/phone lists **only when their field names and replacement behavior are known from the tool or editor schema**. A generic `fields` object alone does not establish list support; do not guess keys or try speculative writes. If list fields are unsupported or the update fails, use the customer editor, remove extra contacts in one pass, and save once. Preserve unrelated contact fields. If already correct, skip the write.
 7. Perform **one fresh read** of the surviving OpsHub profile after cleanup; verify the complete lists show only the primary email and, when supplied, only the original phone with the same number. A read tool suffices only if it exposes the full lists; otherwise reopen/refresh the profile UI. Compact `list_customers` results, a primary-email-only response, and Admin's merge confirmation are insufficient.
-8. After verification, immediately resume the original authorized XA workflow, not a new draft-only task. A current escalation request such as `escalate to [person/team]` authorizes sending Slack and posting the CONTACT note: complete the escalation's routing/thread/coverage gates, send once, capture its verified permalink, then post the five-field note once to the surviving caller UUID. Do not ask whether to create a draft or send/post, and do not require another `send and post it` or `Post it`. Preserve an explicit draft-only/paste-only or do-not-send/post choice instead. For an authorized note-only task, post only that note. Reuse an already-successful Slack receipt and finish only the pending note; inspect uncertain outcomes before retrying. If this is a resumed run and the note is already confirmed posted, do not post it again. Send `Account merge completed — primary email and phone verified` outside the note only after the required cleanup and note posting succeed. Close the task window/tabs when done.
+8. After verification, including required unrelated-profile phone cleanup above, immediately resume the original authorized XA workflow, not a new draft-only task. A current escalation request such as `escalate to [person/team]` authorizes sending Slack and posting the CONTACT note: complete the escalation's routing/thread/coverage gates, send once, capture its verified permalink, then post the five-field note once to the surviving caller UUID. Do not ask whether to create a draft or send/post, and do not require another `send and post it` or `Post it`. Preserve an explicit draft-only/paste-only or do-not-send/post choice instead. For an authorized note-only task, post only that note. Reuse an already-successful Slack receipt and finish only the pending note; inspect uncertain outcomes before retrying. If this is a resumed run and the note is already confirmed posted, do not post it again. Send `Account merge completed — primary email and phone verified` outside the note only after the required cleanup and note posting succeed. Close the task window/tabs when done.
 
 ## Enter compatibility — reproduced October 22
 
@@ -121,6 +173,6 @@ action to refresh it.
 
 ## Failure and output
 
-If Admin is unavailable after the search sequence and bounded wait above, report the blocker; do not merge in OpsHub. **A failed or delayed Admin search does not authorize posting the note to the chosen email profile. Keep the note pending until merge and cleanup are verified.** Recover in the current run without requiring the user to repeat the merge request. If cleanup fails after an Admin merge, report **merge succeeded; cleanup blocked**, stop before posting/completion, and never reopen or redo the Admin merge. If posting alone fails, report verified merge/cleanup and the posting blocker accurately. Never attempt to reverse a merge.
+If a same-person Admin merge is required and Admin is unavailable after the search sequence and bounded wait above, report the blocker; do not merge in OpsHub. Admin availability is not a gate for the unrelated-profile cleanup-only path. **A failed or delayed Admin search does not authorize posting the note to the chosen email profile. Keep the note pending until merge and cleanup are verified.** Recover in the current run without requiring the user to repeat the merge request. If cleanup fails after an Admin merge, report **merge succeeded; cleanup blocked**, stop before posting/completion, and never reopen or redo the Admin merge. If posting alone fails, report verified merge/cleanup and the posting blocker accurately. Never attempt to reverse a merge.
 
 Keep merge statuses outside the OpsHub note. Internal consolidation and contact cleanup are not the caller-facing solution: omit them from the five-field note unless the XA explicitly asks to document them. Preserve the original call resolution and guidance the XA gave the caller, including any stated scheduling restriction or team-lead direction. Never replace that solution with a merge summary or claim a scheduling action merely because a merge succeeded. If the XA requests merge documentation, include it only after verification and avoid unnecessary personal data.

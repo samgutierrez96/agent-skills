@@ -1,5 +1,28 @@
 # Skill manifest
 
+## Unnamed phone-only duplicate profiles — November 10, 2026
+
+The account-merge owner now treats a remaining unnamed, phone-only profile with
+the verified caller's normalized number as a qualifying Admin merge candidate,
+not an unrelated-contact removal blocker. A different displayed person's name
+does not qualify for this exception. Existing caller/keeping-record verification,
+Admin result checks and completed-action guards remain intact. Active source,
+distribution and inventory hashes are saved locally for the evening sync; no
+live customer merge, contact edit or post is performed for this correction.
+
+## Escalations qualification lookup — November 10, 2026
+
+The owning compact runtime now performs the address-scoped ListLeadsByAddress
+read before asking the XA to confirm qualification omitted by compact tools.
+It matches the verified seller CONTACT UUID, requires explicit qualification,
+and uses that lead token for participants. Identifier separation, ambiguity,
+read-failure and completed-action guards remain intact. The detailed maintenance
+source agrees and is registered with a local-only ownership hash; synthetic
+acceptance cases contain no customer data. Slack's
+external-channel restriction and draft fallback are unchanged. Active source,
+distribution and inventory hashes are saved locally for the evening sync;
+fresh live-model behavior is not established by static/local checks.
+
 ## Homebuilder workflow ownership and first-person requests — November 9, 2026
 
 Sam clarified the Homebuilder Escalation workflow in #homebuilder-escalations:
@@ -536,7 +559,7 @@ without treating the newer request as resolved. Active project rules and these
 canonical adapters match locally; inventory hashes are updated. Live performance
 savings are not measured. GitHub publication awaits the scheduled daily sync.
 
-Last content audit: 2026-11-09. Scope: all nine registered skills and required adapters.
+Last content audit: 2026-11-10. Scope: all nine registered skills and required adapters.
 
 ## Zendesk document-handoff assignment — November 3, 2026
 

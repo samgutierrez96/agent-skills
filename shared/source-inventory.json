@@ -1,5 +1,5 @@
 {
-  "audited_on": "2026-11-09",
+  "audited_on": "2026-11-10",
   "scope": "Seven previously audited custom skills plus bot-task-notes added November 2, 2026, kb-answer-for-callers added November 4, 2026, and their runtime dependencies",
   "files": [
     {
@@ -48,7 +48,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/AGENTS.md",
       "destination": "adapters/codex/zendesk-record-retrieval/AGENTS.md",
-      "sha256": "7774cce0b79304854c2f4c84e990c5a5676fd7937d9937c4ae76f33c45ad3b2b"
+      "sha256": "e8433b38a53778d61d40ddfd784276431dee5e62613480281942fe1a7efcae5e"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/decisions-and-conventions.md",
@@ -103,7 +103,7 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "3956d73e0fe7d06e283f84fca2e0cb0338960d58636add4746e35c7a212ab54d"
+      "sha256": "e8d2b66b2c94c090ee005729ae590f96d8182230ed28d91ae1aeb7351ce8a458"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/CORE.md",
@@ -113,7 +113,7 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/SKILL.md",
       "destination": "skills/xa-notes/SKILL.md",
-      "sha256": "18443fb9b9ff89c400ae6d1bdc0d689206adfd1ff821ec12b7e8c19419810c6e"
+      "sha256": "1e8290a07803a4dadb7f80fa3a7cd9f373bdc33a43b786d0009956607f35d4a2"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/reference/process-detail.md",
@@ -133,7 +133,7 @@
     {
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/SKILL.md",
       "destination": "skills/xa-quick-slack/SKILL.md",
-      "sha256": "acd6a27cdb5fe685cd4ff8eb4e0067884f2ec67728d991d8831989b4dfcb5441"
+      "sha256": "7b9cae9836e25a0f2e1bf27547a8bc785d1d096b9171e428eb43bdfa2d3e2fb3"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ENTRY.md",
@@ -154,7 +154,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/SKILL.md",
       "destination": "skills/zendesk-record-retrieval/SKILL.md",
-      "sha256": "f5f716e609a2c442771c9aa49b7a02bf41e4827a3337c0f494147a0adaffcb43"
+      "sha256": "44567eb9f31f999788ce69fd19c65b99b6a21b0509b6db3603c5fdba9bb60a2e"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/VERIFICATION.md",
@@ -300,6 +300,11 @@
       "source": "Documents/ChatGPT Work/XA Post Call Notes/.agents/skills/xa-notes/SKILL.md",
       "destination": "adapters/codex/xa-notes/skill-loader.md",
       "sha256": "010355b5036ca15e02fd21978427c5ffd3d7d5d0b6fe7d88973fced4c18ab47c"
+    },
+    {
+      "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/reference/qualification-recovery-cases.json",
+      "destination": "skills/xa-quick-slack/reference/qualification-recovery-cases.json",
+      "sha256": "59c92c0dc526db435aaa9f324341d21f6f8e40fba94d83e0f74383194c25c547"
     }
   ],
   "local_files": [
@@ -342,6 +347,11 @@
       "source": ".codex/skills/company-knowledge-update/references/vendor-ap-follow-up-2026-11.md",
       "owner": "company-knowledge-update",
       "sha256": "27679b7ad57cae8e5e36f788fac6978f56ede6b1907cd5df20259d9341273d52"
+    },
+    {
+      "source": "Documents/ChatGPT Work/Escalations/skills/xa-quick-slack/SKILL.md",
+      "owner": "xa-quick-slack",
+      "sha256": "8f209f46f8bd0b7cc597f2e8ab13114020cd657fbadab28f533860b013b1ba64"
     }
   ]
 }
