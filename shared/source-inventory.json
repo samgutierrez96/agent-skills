@@ -1,5 +1,5 @@
 {
-  "audited_on": "2026-11-10",
+  "audited_on": "2026-11-11",
   "scope": "Seven previously audited custom skills plus bot-task-notes added November 2, 2026, kb-answer-for-callers added November 4, 2026, and their runtime dependencies",
   "files": [
     {
@@ -103,7 +103,7 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "e8d2b66b2c94c090ee005729ae590f96d8182230ed28d91ae1aeb7351ce8a458"
+      "sha256": "b5985785f0e41398340fd9640ee266f0bebc05950c542898696b7335427ab948"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/CORE.md",
@@ -154,7 +154,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/SKILL.md",
       "destination": "skills/zendesk-record-retrieval/SKILL.md",
-      "sha256": "44567eb9f31f999788ce69fd19c65b99b6a21b0509b6db3603c5fdba9bb60a2e"
+      "sha256": "5c69fa18449d5ad313b486a4adc5c9758df265c85ef89e0b7b013b4f2f510daa"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/VERIFICATION.md",
@@ -164,7 +164,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/access-resolution.md",
       "destination": "skills/zendesk-record-retrieval/recipes/access-resolution.md",
-      "sha256": "d4fbd1f89ee34ded1517384e51fd0179bc10ad2f433fc0f25a0f5032cf1bd48c"
+      "sha256": "e0b1e3ab0fe3c7a432049f9f4dd4413fc9bb7b01aa38656cc1638406fd85cbbb"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/agent-verification.md",
@@ -284,7 +284,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/unsolicited-email.md",
       "destination": "skills/zendesk-record-retrieval/recipes/unsolicited-email.md",
-      "sha256": "e8a88a3e246340fe5a22313c523a67496fedd3ff6ef22b320da57464fc5008ff"
+      "sha256": "fd949b1fa5f5e64ab36b8bb00cde8e4c3ae8e2cf3de0f54f251919ca9b40f590"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/vacant-assessment.md",

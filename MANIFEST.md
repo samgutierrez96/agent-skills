@@ -1,5 +1,40 @@
 # Skill manifest
 
+## Admin search repair and continuation — November 11, 2026
+
+The account-merge owner's existing Enter recovery now diagnoses persistent input
+failures and requests only the actual browser repair. Store and unpacked installs
+are distinguished; a version mismatch is not proof that updating fixes Enter.
+Confirmed identities and successful action receipts survive repair/continuation,
+without defaulting to a manual merge or repeating completed actions. Existing
+focus, search-sequence and mutation-verification boundaries remain intact.
+Active source, canonical distribution and inventory hash are saved locally for
+evening publication. No customer records, live merge or posting are included.
+
+## Stale caller-number attachments after merge — November 11, 2026
+
+The account-merge owner's existing unrelated-profile cleanup rule now explicitly
+preserves the verified caller's merged account while removing only that caller's
+confirmed misassigned number from other people's OpsHub profiles. Full contact
+lists, expanded disclosures and the scoped editor must be inspected before
+claiming a sole-phone/removal blocker; full identity and UUID prevent treating
+parts of one person's name as separate targets. Other legitimate contacts and
+existing primary state remain unchanged. Active source, distribution and
+inventory hash are saved locally for the scheduled evening sync. No customer
+identifiers, live contact edits, merges or posts are included.
+
+## Completed assessments after missed-visit reports — November 10, 2026
+
+Zendesk's existing completion-evidence gate now explicitly stops redundant
+attendance questions after authoritative completion, checks the matched offer
+before giving finalization timing, and recognizes a presented/viewed final offer
+as later resolution of a missed-assessment-only concern. The access-resolution
+recipe routes through that gate before rescheduling. Separate unresolved concerns
+and explicit reply requests remain intact; completion alone is not proof of
+final-offer delivery. Active source, canonical distribution and inventory hashes
+are saved locally on the existing branch for evening publication. No customer
+details, customer-record changes, sends or posts are included.
+
 ## Unnamed phone-only duplicate profiles — November 10, 2026
 
 The account-merge owner now treats a remaining unnamed, phone-only profile with
@@ -559,7 +594,7 @@ without treating the newer request as resolved. Active project rules and these
 canonical adapters match locally; inventory hashes are updated. Live performance
 savings are not measured. GitHub publication awaits the scheduled daily sync.
 
-Last content audit: 2026-11-10. Scope: all nine registered skills and required adapters.
+Last content audit: 2026-11-11. Scope: all nine registered skills and required adapters.
 
 ## Zendesk document-handoff assignment — November 3, 2026
 

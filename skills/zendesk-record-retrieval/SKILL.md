@@ -249,7 +249,9 @@ completed. A narrow visit-history read may omit relevant appointment details, so
 not characterize the history as empty unless the complete appointment record was
 actually checked. Treat the strongest available assessment evidence as load-bearing
 and do not tell the customer that another assessment is needed when completion is
-otherwise confirmed.
+otherwise confirmed. Do not ask whether the assessment happened or keep the
+missed-visit concern open solely because a narrower visit record does not confirm
+attendance after authoritative completion is recorded.
 
 When multiple customer leads exist for the same address, every assessment photo,
 offer, and stage fact must be tied to the ticket requester’s customer or lead before
@@ -273,8 +275,12 @@ the shared property alone.
 For this evidence check, the linked acquisition transaction's `seller_full_assessment`
 task is load-bearing: `status: CLOSED`, `closeCode: assessment_completed`, and a
 `completedAt` timestamp establish completion even when `get_assessment_visits`
-still returns an upcoming visit. Use the dated task completion for the customer-facing
-3–5 business-day final-offer window.
+still returns an upcoming visit. Check the matched offer's current final-offer
+state before giving timing guidance: a verified presentation or `finalOfferViewedAt`
+means the final offer is already available, not still awaiting finalization.
+Completion alone does not prove final-offer delivery. Use the dated task completion
+for the 3–5 business-day window only when the final offer is still being finalized.
+For an earlier missed-assessment message, confirmed later completion and a final offer already presented or viewed support no reply/close when there is no newer unresolved question or separate concern. When the operator explicitly requests a supported customer-facing final-offer-ready update, draft that update when the record supports issuance (for example a presented or viewed final offer). An earlier missed-visit concern already resolved, or the absence of a newer customer-written question, does not by itself require retaining no-reply or close instead of that operator-requested notification. Assessment completion and final-offer issuance remain separate facts; do not describe the offer as ready when the record only supports finalizing or other prepared-but-unreleased status. Preserve any independent complaint or explicit customer request for a reply; do not close unrelated work merely because the assessment is complete.
 
 Internal notes must contain only operationally useful customer context, verified
 record facts, and the next action. Do not include drafting errors, corrections,
@@ -696,10 +702,16 @@ already resolves the category. Three shortcuts are common enough to name:
   describes their interest in working with Opendoor, asks about referral or agent
   programs, training, compensation, or a working relationship, or provides a
   resume/accomplishments for consideration. Use the Partnership inquiry recipe;
-  do not use the unsolicited-marketing no-send disposition. Treat an email as an
-  unsolicited listing/marketing email only when it is a blast pitching a specific
+  do not use the unsolicited-marketing no-send disposition. When an agent asks whether Opendoor can purchase a home they represent, or a direct
+  seller asks whether Opendoor can purchase their own home, including a client's listed
+  home with a named address, treat it as a genuine selling inquiry. Use
+  `recipes/unsolicited-email.md` and [Submission surfaces](#submission-surfaces): agents
+  on a client home use `opendoor.com/agent`; unrepresented homeowners use `opendoor.com`.
+  Do not use the unsolicited spam/close disposition merely because a listing address is
+  named.
+  Treat an email as an unsolicited listing/marketing email only when it is a blast pitching a specific
   home or service (listing copy, beds/baths, price, tracking links, or a generic
-  promotion) with no genuine partnership or support ask. In that case, fence
+  promotion) with no genuine partnership, selling, or support ask. In that case, fence
   `[No reply recommended. Mark as spam and close.]` and do not repeat spam/close
   in the internal note or appendix. Do not resolve the street they pitched.
 - **A mass vendor marketing SMS** (home warranty or similar promo: Attention
@@ -1144,6 +1156,9 @@ the shape, the record wins, see "Stage gates the playbook".
   as-is) and ticket 4921761 (First Premier Home Warranty blast, no-send).
 - **Unsolicited listing / marketing email** (brokerage blast pitching a home for
   sale: beds, baths, list price, listing copy, tracking links; no support ask).
+  **Exception:** an agent or seller asking whether Opendoor can purchase a named
+  home they represent or are selling is a selling inquiry; use the triage selling
+  guidance and `recipes/unsolicited-email.md`, not this spam/close path.
   Glean the ticket. Open the ticket page only if Glean truncated the comment or
   omitted status/tags. **Stop.** Do not CUSTOMER-lookup, do not open OpsHub, do
   not resolve or pull the street they pitched, and do not draft a customer reply.
@@ -1438,6 +1453,27 @@ the shape, the record wins, see "Stage gates the playbook".
   Include the official Help Center guide when useful:
   `https://help.opendoor.com/selling/getting-your-offer/self-assessment-photos`.
   Use the exact product name **Opendoor Key App**, not “the Key app.”
+- **Photos captured in the wrong app sections (Sam, November 2026):** When the
+  customer asks whether they must drag or rearrange photos already taken in the
+  **Opendoor Key App** because some are in the wrong sections, tell them they do
+  not need to move those photos. Pricing can review photos taken during the
+  assessment even when they are in the wrong sections; once the assessment is
+  complete, they can submit it without rearranging the photos. Do not add
+  unnecessary troubleshooting such as asking for screenshots of the photo cards
+  when the ticket thread, verified internal guidance, or kb-answer-for-callers
+  research already supports this answer.
+- **Incomplete sections blocking submission (Sam, November 11, 2026):** When
+  incomplete photo sections prevent the customer from submitting the assessment
+  in the **Opendoor Key App**, do not promise a manual completion, force the
+  assessment into a finished status, or send the case to technical review merely
+  to see whether saved photos can count. Tell the customer that Support cannot
+  force it into a completed assessment status from our side. Explain that they
+  need to go to the property, pick the room in the app, and delete the photo for
+  that room or delete the room, and that they can add a room and take photos for
+  the rooms that still need coverage. Offer that they may call (888) 352-7075 at
+  the property if they want guidance on how to do that. Keep the wrong-section
+  reassurance above separate: missing or incomplete sections that block submit
+  are not solved by pricing review alone.
 - **Agent asking for the "listing information page" on an Opendoor-owned home,
   tagged `resale__listed_home_info`, often because they are not a member of the
   MLS that carries it.** Three calls, no OpsHub read at all. Glean the ticket,
@@ -2027,6 +2063,16 @@ assessment).
   the HSA directory (see the per-type recipe). That is the path, not
   (888) 352-7075 and not an XA callback. Chloe or other missed outbound FO calls
   do not change it.
+- **Pre–final-offer contact (Sam, November 10, 2026):** When the seller is still
+  completing the assessment and has no presented final offer yet, Support handles
+  their questions in the ticket and at (888) 352-7075. The Home Sale Advisor
+  pathway applies at the actual final-offer stage (`FINAL_OFFER_SENT` and the
+  per-type final-offer recipe), not while assessment photos or scheduling are
+  still outstanding. Do not describe the absence of an assigned Home Sale Advisor
+  as a failed or unverified lookup; it is stage-based. Do not share a named
+  acquisition participant or other acquisition-role contact as the seller’s Home
+  Sale Advisor. Preserve separate routes for a final offer already prepared but
+  unreleased, an existing presented final offer, and a signed contract.
 - For every other “speak with someone” ask, tell them to reply to the ticket or
   call (888) 352-7075, and leave the next move with them.
 - Reporting a prior call attempt and voicemail is fine as history, but do not chain
@@ -2586,12 +2632,18 @@ the copy boxes. Do not attach, send, post or update records without authorizatio
 If the focused check fails or the document is not ready, state the exact gap and
 use the verified listing-agent next step below.
 
-For buyer requests for seller disclosures, inspection/service records, repair
-history, or transaction circumstances that the public listing does not answer,
-include a useful listing-agent next step. Verify the assigned listing agent and
-contact details from the exact property's OpsHub participants first: use the
-verified flip token with `get_acquisition_transaction(panels:["participants"],
-full:true)` and select the participant whose role is `RESALE_AGENT`. The tool's
+When a **buyer** requests the seller's disclosure, include the verified
+Opendoor property listing URL in the customer reply and tell them they can
+download the seller's disclosure from `opendoor.com/buy` by entering the
+property address, or from that listing page when the public fetch shows a
+disclosure download. If they also ask Support to email the file, preserve the
+OpsHub attach handoff below. For other buyer requests for seller disclosures,
+inspection/service records, repair history, or transaction circumstances that
+the public listing does not answer, include a useful listing-agent next step.
+Verify the assigned listing agent and contact details from the exact property's
+OpsHub participants first: use the verified flip token with
+`get_acquisition_transaction(panels:["participants"], full:true)` and select the
+participant whose role is `RESALE_AGENT`. The tool's
 acquisition-page name does not exclude resale participants. Do not substitute
 public syndication attribution or a brokerage number for the verified internal
 assignment and direct contact. A `get_resale_transaction` response with only a
@@ -3017,8 +3069,9 @@ for each tool. Preserve the recent-resolution and requester/property identity ga
 Establish prelim versus final from `domain_state` before replying. A preliminary
 estimate is comps and public records only, with nobody having seen the home, and
 the final can come back different once the assessment captures actual condition.
-Give them a reason to keep going, and offer to walk them through **how to complete**
-the assessment rather than what it involves. Do not imply the final will be higher.
+Give them a reason to keep going, and explain the applicable next steps—especially **how to complete**
+the assessment toward the final offer—rather than asking whether they want to continue
+exploring an offer or similar yes/no continuation questions. Do not imply the final will be higher.
 
 An explicit STOP or equivalent request to stop sending messages or offers is a
 no-reply signal on any channel. Do not draft a customer confirmation; provide

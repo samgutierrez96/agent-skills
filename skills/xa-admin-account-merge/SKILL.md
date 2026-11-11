@@ -67,20 +67,39 @@ When the XA or verified record evidence confirms that a mismatched-name profile
 belongs to a different person and the caller’s number is misassigned there,
 remove only that normalized caller number from that unrelated profile in OpsHub.
 This is the standing cleanup path; do not request another merge or cleanup
-command once the required identity/phone facts are established. Preserve a
+command once the required identity/phone facts are established. A verified caller
+merge does not finish cleanup while that caller's number remains misassigned to
+another person's OpsHub profile. Keep the caller's correct merged profile, email
+and original phone intact; remove the stale attachment only from each verified
+unrelated profile. A different displayed name plus a shared number alone does
+not establish misassignment; reuse the XA's explicit confirmation or verified
+record evidence rather than asking again for an already-established fact. Preserve a
 legitimately shared household, business, or agent number. If shared use or phone
 ownership is uncertain, ask only that unresolved question and make no removal.
 Never merge unrelated people, delete their accounts, remove their emails or
 other numbers, or overwrite their names with the selected caller.
 
 Retain each exact unrelated customer UUID and the verified caller’s original
-number. Inspect that target’s identity and full contact lists immediately before
-editing. Use the schema-supported contact-list replacement or scoped Customer
+number. Match targets by exact UUID and full displayed identity, not name
+fragments; one person's multi-part name does not establish several profiles.
+Inspect that target’s identity and full contact lists immediately before
+editing, expanding any additional-number disclosure and reading every phone row
+in the scoped Customer Info editor. A compact lookup, a collapsed list, or a
+single inspected input cannot establish that the caller number is its only phone.
+If current evidence shows another number, resolve an earlier sole-phone claim
+against the fresh complete list before reporting a blocker. Use the
+schema-supported contact-list replacement or scoped Customer
 Info editor described below, not guessed fields. Remove only entries matching
 the normalized caller number and save once, preserving every other contact and
 unrelated field. Never apply the keeping-customer “sole primary phone/email”
-cleanup to an unrelated account. If removal of its only or primary phone is
-rejected, stop and report that blocker; do not invent a replacement, choose
+cleanup to an unrelated account. When other legitimate numbers are present,
+remove only the misassigned caller number and retain those numbers and their
+existing primary state. Do not stop merely because the profiles were already
+merged or a compact tool omits a removal action: inspect the supported scoped
+editor before declaring removal unavailable. If a fresh complete read and the
+supported editor/schema establish that removal is unavailable, or an actual
+save rejects removal of its only or primary phone, stop and report the exact
+target and observed restriction; do not invent a replacement, choose
 another contact as primary without support, or delete the account.
 
 After each save, freshly read the complete contact lists to verify the caller
@@ -118,7 +137,9 @@ await tools.mcp__browser_mcp__browser_press_key({key: "\r", code: "Enter"});
 
 `"\r"` means one carriage-return character. This preserves the XA's Enter sequence without scripted form submission.
 
-**Known false negative:** this call can report `key-not-delivered` despite successful submission. Wait up to 30 seconds and verify the actual matching result, identity/email, and search URL before retrying or stopping. Continue when verified; a filled input alone is insufficient. If no result or submit state appears, refocus the completed input and retry once, then wait again. Report a blocker if still unsuccessful. Never steal focus or resubmit while loading.
+**Known false negative:** this call can report `key-not-delivered` despite successful submission. Wait up to 30 seconds and verify the actual matching result, identity/email, and search URL before retrying or stopping. Continue when verified; a filled input alone is insufficient. If no result or submit state appears, refocus the completed input in its task tab without bringing Chrome forward and retry once, then wait again. Never steal focus or resubmit while loading.
+
+If the bounded retry still has no result, call `browser_provide_feedback` once for this obstacle and use its actual diagnosis. An extension/server version mismatch is a browser-repair blocker, not a missing merge authorization. Distinguish a Chrome Web Store install from an unpacked install before recommending a fix: refreshing local unpacked files does not update a store installation. Relay the supported update/reload or connection-repair step; do not promise that a newer version fixes Enter until a read-only search verifies it. Never silently replace the extension or enable a second competing copy. If repair requires the operator, ask only for that repair and retain the keeping/duplicate IDs, confirmed answers, original pending workflow and successful action receipts. Do not default to asking the operator to merge manually. After repair or a short “continue”/“try again,” inspect current state and resume only the unfinished authorized steps; do not repeat the same failed search indefinitely, reopen a confirmed merge, resend successful Slack or repost a confirmed note.
 
 ## After-search UI fast path
 

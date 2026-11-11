@@ -38,7 +38,11 @@ Apply project rules. Check resolution before drafting or expanding retrieval.
    requested. Stop this branch once the acknowledgment and pending action are
    supported; do not fall through to generic rescheduling guidance. These reads
    do not authorize cancellation, posting or escalation.
-6. For a missed/canceled Showami visit, read any escalation thread linked in the
+6. For a reported missed assessment, first apply the full playbook's **Tabbed
+   property evidence** and recorded `seller_full_assessment` completion gate,
+   including its matched final-offer check and later-resolution stop. Do not
+   continue to attendance questions or rescheduling when that gate resolves the
+   concern. If a missed/canceled Showami visit remains unresolved, read any escalation thread linked in the
    notes through Slack before asking about the later call's outcome. Verify the
    property and appointment chronology; do not apply an older cancellation to a
    newer slot. A call disposition alone is not resolution. If the provider
