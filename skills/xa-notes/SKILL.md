@@ -90,7 +90,9 @@ email alone does not make a profile a stub. Ignore only true `Client-####` or
 other placeholders without independent compatible identity or verified matching
 phone. Open the confirmed primary-email profile first in Admin and inspect
 Potential Duplicates under `xa-admin-account-merge`. Ask
-the XA only for the primary email if that choice is missing. Ask for a customer
+the XA only for the primary email if that choice is missing, listing known
+name/email matches as explicit answers for buttons instead of asking the XA to
+retype a known email. Ask for a customer
 name only when existing email/phone/record evidence cannot resolve identity;
 if both are needed, ask together in the same message. Otherwise proceed using
 the verified context. Reuse the answer without a second merge confirmation.
@@ -98,8 +100,14 @@ If the XA directly supplies an email after the duplicate signal, that email is
 the explicit primary-selection answer; do not ask the same question again.
 Once the XA supplies that email, trigger
 the `xa-admin-account-merge` workflow: use the matching profile as the keeping
-customer, merge the remaining duplicate profiles in Admin, then verify the
-surviving OpsHub profile. Use the approved OpsHub edit flow only when the
+customer, merge only qualifying same-person duplicates in Admin, then verify
+the surviving OpsHub profile. Selecting an email does not confirm that all
+shared-phone matches belong to the caller. Resolve concrete identity conflicts
+separately. For confirmed unrelated profiles with a misassigned caller number,
+follow the merge skill’s unrelated-profile phone-cleanup path; preserve other
+contacts and legitimate shared numbers, and never merge unrelated people. If
+no same-person duplicates remain, skip Admin and complete only the required
+phone cleanup and verification before resuming the original authorized post. Use the approved OpsHub edit flow only when the
 profile still shows a leftover duplicate email or phone entry. If the profile
 already shows exactly the confirmed primary email and phone, treat cleanup as
 verified and do not open a second browser workflow. Keep consolidation and
@@ -109,7 +117,9 @@ Internal cleanup must not replace the solution communicated to the caller.
 
 This trigger is detected from the `list_customers` result even when the
 original shorthand does not mention duplicate accounts. After the XA supplies
-the primary email, run the merge workflow first. If Admin completes the merge,
+the primary email, run the merge skill’s classification and applicable cleanup
+path first; an email choice is not same-person confirmation. If a required
+Admin merge completes,
 resume the original note and posting workflow against the surviving customer
 UUID. If Admin is unavailable or the merge cannot be completed, keep the
 note pending and report the blocker. A confirmed primary email identifies the
@@ -313,7 +323,7 @@ answer to anything listed here, and neither is a search.
 | home loans, mortgage, lender contact, Opendoor Home Loans | Part 6, "Opendoor Home Loans (home loans, mortgage, lender)" |
 | hodw, HODW | Acronyms table below |
 | rental scam, rsv, RSV, facebook, scammed | Part 8, "Rental scam calls (rental scam, rsv)" |
-| walk, cancel, cancellation | Part 9, "Walk or cancellation (walk, cancel)" |
+| walk, cancel, cancellation, why we walked, why walked, walked why | Part 9, "Walk or cancellation (walk, cancel)" |
 | checkout, dco, DCO, lco, LCO, keys | Part 9, "Checkout (checkout, dco)" |
 | sd, SD, abad, ABAD, disclosure | Part 6, "Seller's disclosure (sd, disclosure)" |
 | listing agreement, add agent, added to account, attached the listing agreement, make sure they were added, seller called for info, info on the offer, have their agent call, respect the listing agreement, send the listing agreement, through email | Part 6, "Listing agreements (listing agreement)" — seller asking for offer or file info with an agent already on an agreement is Part 9, "Seller with a listing agent asking for offer or file info." If they also said the assessment is already complete and they added the agent, Part 9, "Agent added, assessment already complete." If they told the agent to email the agreement and did **not** say they added them, Part 9, "Agent sending the listing agreement, not yet added" |
@@ -2161,6 +2171,13 @@ Follow Up Link: N/A
 Do not write that the seller is walking unless they said so. Asking about
 post-diligence results and sounding hesitant is not walking.
 
+**Seller called to ask why Opendoor walked:** Do not ask the XA what they told
+the seller. We do not give callers the reason for the walk. Write the note from
+what the XA stated on the call. When the shorthand is only that the seller asked
+why we walked, Solution Offered must not disclose an internal walk reason; use
+what they reported, or if they gave no other action, let the seller know we
+cannot share the reason for the walk.
+
 **Walk status shared without the reason** → the note says both, that the status
 was shared and the reason was withheld. Never imply they were given the reason.
 
@@ -2571,7 +2588,8 @@ Then:
    identity. Collect both in one message when both are needed; stop only for
    required answers. Reuse known values and prior identity confirmations.
    Once the XA answers, use the confirmed email's UUID as the keeping customer. Follow `xa-admin-account-merge` and post only after the
-   Admin merge and surviving OpsHub contact cleanup are verified. If blocked,
+   applicable same-person Admin merge and contact cleanup, or the unrelated-profile
+   phone-cleanup-only path, are verified under that skill. If blocked,
    keep the note pending and report the blocker; do not post merely because
    the primary UUID is known. Never pick the property owner for an agent,
    appraiser, inspector, or vendor call.

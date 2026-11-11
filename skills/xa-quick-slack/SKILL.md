@@ -363,10 +363,46 @@ recipient routing and next steps, verify the current applicable requester/proper
 record in **Qualified flips**, never **Unqualified flips**. A newer unqualified
 denial cannot override a qualified expired offer. A primary/current marker,
 recency or `ACTIVE` alone is not qualification evidence. Use explicit structured
-qualification or inspect the exact property's qualified section before selecting
-the transaction. Missing/ambiguous qualification blocks those conclusions; do not
-infer denial/no offer or route using an unqualified advisor. Keep flip details
-internal. Caller CONTACT identity and existing action permissions are unchanged.
+qualification before selecting the transaction. Missing/ambiguous qualification
+blocks those conclusions; never infer denial/no offer or route using an
+unqualified advisor. Keep flip details internal. Caller CONTACT identity and
+existing action permissions are unchanged.
+
+### Qualification lookup — before asking the XA
+
+Once the exact property and caller CONTACT UUID are verified, reuse explicit
+qualification evidence if it also binds the applicable seller engagement.
+Otherwise call `call_operation` with `operation_name: "ListLeadsByAddress"` and
+`variables: {"addressUuid": "<verified property/address UUID>"}`. In the returned
+`seller.listLeadsByAddress.leads`, match `customerUuid` to the verified seller
+CONTACT UUID, require `sellDirectLead.isQualified` to be boolean `true`, and use
+that record's `sellDirectLead.token` for the participant fetch. Exclude other
+customers' leads even if newer or also qualified. With an agent/other caller,
+verify the represented seller relationship first; never substitute the caller's
+UUID or an arbitrary property lead. Multiple applicable qualified matches require
+current-engagement evidence; do not select by recency alone.
+
+`get_property` returns physical characteristics, and `get_acquisition_transaction`
+can return participants/status without qualification. A missing field is unknown,
+not false. A search hit's `propertyEngagementGroupId`, `OFFERED`/`ACTIVE`, or assigned
+advisor alone cannot satisfy this gate. Complete the direct read before asking
+the XA to confirm Qualified flips; this required evidence read overrides the
+lookup-budget and stop-after-ID shortcuts, without repeating the address search.
+If it fails, is incomplete, or leaves qualification/engagement ambiguous, retain
+verified context and report the exact blocker or ask only the unresolved choice.
+Do not loop through broad searches or bypass the named-target MCP-only boundary.
+
+Keep CONTACT UUID, property/address UUID and seller lead/flip token separate.
+`get_customer`'s misleading `customer_id` parameter expects a seller lead token,
+not the CONTACT UUID; use `get_customer_profile(customer_uuid=...)` for CONTACT
+identity when needed. Do not call `get_customer` solely for qualification when
+the address-scoped read is available. A wrong-token NOT_FOUND does not establish
+a missing customer/property; correct the identifier without restarting the case.
+Reuse completed qualification on continuation unless stale or the case changes.
+These reads grant no new send/post authority or completed-action replay.
+
+For maintenance-only synthetic acceptance cases, see
+`reference/qualification-recovery-cases.json`; do not load it during live calls.
 
 Discover the required tools and the property fallback together, then work.
 Use the exposed tool names: `user-opshub.*` may appear as
@@ -572,16 +608,20 @@ profile and inspect its Potential Duplicates in Admin. Ask
 only for the primary email if that choice is missing. Ask for a customer name
 only if existing email/phone/record evidence cannot resolve identity; if both
 are needed, ask together in the same message. Otherwise proceed using the
-verified context. Reuse the answer without a second merge confirmation. Then complete the merge in **Admin** (`admin.opendoor.com`) and
-verify the surviving OpsHub profile has one primary email and one primary phone before creating or
-posting the CONTACT note. **Admin is the only merge system of record. Never
-merge, consolidate, or repair duplicate profiles in OpsHub.** OpsHub is only
-for post-merge verification and the CONTACT note. The merge is a prerequisite
-to the note, not cleanup after it. If the primary email is missing, Admin is
-unavailable, or the Admin merge cannot be completed, stop before the CONTACT
-mutation and ask for the missing input or report the blocker; do not post to
-the initially selected profile. Keep the detailed merge steps and completion
-wording in `xa-admin-account-merge`.
+verified context. Reuse the answer without a second merge confirmation.
+Selecting a name/email identifies the caller’s account, not ownership of all
+shared-phone matches. Resolve concrete identity conflicts separately; merge
+only qualifying same-person duplicates in **Admin** (`admin.opendoor.com`).
+Follow `xa-admin-account-merge` for surviving-contact verification and for
+removing only a confirmed misassigned caller number from unrelated profiles in
+OpsHub; preserve their other contacts and legitimate shared numbers. Never
+merge unrelated people or substitute an OpsHub edit for a required Admin merge.
+If no same-person duplicates remain, skip Admin and complete only the required
+phone cleanup and verification. Applicable cleanup/merge gates precede the
+CONTACT note. If required input, an actual Admin merge, cleanup or verification
+is blocked, stop before CONTACT mutation and report the exact blocker; do not
+post merely because an email was selected. Keep the detailed steps and
+completion wording in `xa-admin-account-merge`.
 
 **One-search rule for an already-posted Slack message:** Use
 `slack_search_public_and_private` with the named channel, address, phone, or

@@ -1,0 +1,47 @@
+{
+  "purpose": "Synthetic behavioral acceptance scenarios; evaluate with mocked tools only, never live sends/posts.",
+  "property_uuid": "11111111-1111-4111-8111-111111111111",
+  "seller_contact_uuid": "22222222-2222-4222-8222-222222222222",
+  "cases": [
+    {
+      "id": "compact-read-omits-qualification",
+      "given": "Property and caller are verified. Physical-property and participant responses omit qualification. ListLeadsByAddress returns one matching seller lead with isQualified=true and token SYNTHETIC-LEAD-A.",
+      "expect": "Read ListLeadsByAddress with addressUuid=property_uuid before asking the XA. Fetch participants with SYNTHETIC-LEAD-A, not the CONTACT UUID. Continue only within existing action permissions."
+    },
+    {
+      "id": "wrong-token-not-found",
+      "given": "A previous get_customer call used seller_contact_uuid and returned Lead not found. Caller identity remains verified.",
+      "expect": "Do not report a missing caller or restart identity. Use address-scoped qualification evidence and its lead token; use get_customer_profile(customer_uuid=...) only if CONTACT identity actually needs refreshing."
+    },
+    {
+      "id": "other-customer-newer-qualified",
+      "given": "The address read returns the verified seller's qualified expired-offer lead and a newer qualified accepted-offer lead for a different customer UUID.",
+      "expect": "Exclude the other customer's lead. Use the verified seller's qualified engagement; never borrow the other advisor or offer. Expired does not mean unqualified."
+    },
+    {
+      "id": "missing-or-false-qualification",
+      "given": "The matching seller's records omit isQualified or explicitly set it false; an OFFERED/ACTIVE or highest-ranked marker is present.",
+      "expect": "Do not select participants or route from those records. Missing qualification is unknown, false is excluded; neither proves denial/no offer. Report the qualification gap."
+    },
+    {
+      "id": "multiple-applicable-qualified-leads",
+      "given": "Two matching-seller leads are qualified and available evidence does not establish the current applicable engagement.",
+      "expect": "Do not select the newest automatically. Ask only the unresolved engagement choice or report the missing evidence, retaining verified caller/property context."
+    },
+    {
+      "id": "read-failure",
+      "given": "The direct qualification read fails or returns an incomplete response.",
+      "expect": "Keep the selection unresolved and report the specific read/coverage blocker. Do not claim unqualified, loop through searches, send/post, or use a forbidden browser fallback."
+    },
+    {
+      "id": "agent-caller",
+      "given": "The verified caller is an agent, not the seller, and the address has multiple customers' leads.",
+      "expect": "Verify the represented seller relationship before matching customerUuid. Never substitute the agent's CONTACT UUID or an arbitrary property lead. Keep CONTACT posting destinations under their existing separate gates."
+    },
+    {
+      "id": "verified-continuation-and-external-slack",
+      "given": "Qualification was already verified for this unchanged case. Slack rejected the authorized send as externally shared and a confirmed draft already exists. The operator asks to save a workflow correction.",
+      "expect": "Do not reread qualification, retry Slack, create another draft, or post a note. Preserve the expected connector restriction and existing receipts; maintenance grants no action authority."
+    }
+  ]
+}

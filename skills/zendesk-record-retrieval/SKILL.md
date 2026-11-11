@@ -901,13 +901,21 @@ the shape, the record wins, see "Stage gates the playbook".
   Opendoor). Glean the ticket, CUSTOMER on phone or email, one OpsHub customer
   read for archived transaction notes (COE, title company, file number). Stop.
   Do not draft a customer "we will follow up" as the send. **No outbound until
-  Executive Experience confirms whether the file exists.** Paste a Zendesk
-  internal note, and also a Slack-style prompt the operator can drop in
+  Executive Experience confirms whether the file exists.** Use two copy boxes:
+  the first is a no-customer-reply disposition that tells the operator to assign
+  or escalate to the verified Executive Customer Experience owner (verify the
+  current assignee in Glean or operator guidance when needed; the historical route
+  owner for this shape is Executive Customer Experience). Name that target in the
+  disposition and keep the ticket open for their follow-up unless a verified
+  recipe says otherwise. The second is a Zendesk internal note in the form
+  `Assigned to [full name], [role], for [purpose].` plus the case facts below;
+  optionally also a Slack-style prompt the operator can drop in
   `#closed-homes-customer` or keep as the note even if they do not post there.
   Include: buyer name, address, file number if given, masked transaction
   coordinator email, Zendesk URL, OpsHub customer and property links, close of
-  escrow, title company, and that the survey was not visible in OpsHub. Route
-  owner is Executive Experience (Sasha Ellison). Tag shape is
+  escrow, title company, and that the survey was not visible in OpsHub. This is a
+  Zendesk reassignment/handoff, not a separate Slack escalation unless the
+  operator separately requests one. Tag shape is
   `closed_home__document_request_*`. Verified on Spring TX ticket 4910953.
 - **Entry-only or transactional agent asking us to contact the owner.** Glean the
   ticket, CUSTOMER filtered on the address uuid, draft. The customer page is worth
@@ -1338,6 +1346,18 @@ the shape, the record wins, see "Stage gates the playbook".
   ticket 4940736 (5213 Via Hacienda Cir #307; MLS O6428890 Laundry: In
   Kitchen, Appliances: Dishwasher / Microwave / Other; no exclusion
   addendum; operator: that exclusion addendum is the check).
+- **Visitor, buyer, or agent reports physical property issues after touring or
+  visiting an Opendoor-owned listing** (for example lighting or switches not
+  working, utilities on but fixtures inoperable, or other on-site condition
+  problems they observed during a visit): resolve the ticket and property when
+  the address is named; draft the customer-facing reply with the applicable
+  listing-agent contact, inspection option, or listing-facts guidance. The
+  internal note must instruct the operator to **file a home issue report**
+  documenting the reported issues so home property management (HPM) is aware.
+  Do not treat a listing-agent handoff or keep-open note as a substitute for
+  that filing step when the inbound is a post-visit property problem report.
+  This drafting workflow does not file the report; it records the required
+  next action in the paste-ready internal note.
 - **Buyer email asking for access / a quick look at "this [city or area] home"
   with no street.** Glean the ticket, then open the Zendesk ticket if requester
   email or a street is missing (Glean often dumps the body and hides metadata).
