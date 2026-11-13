@@ -29,4 +29,5 @@ force-push or guess how to resolve conflicting authoritative sources. Verify the
 remote commit and content and distinguish pending integration from updated main.
 This supersedes earlier routine-push wording that could imply immediate main
 integration. Skill Router's app source stays in its own repository; this repo
-continues to distribute the nine registered skill packages and adapters.
+continues to distribute the ten registered skill packages and adapters, including
+the shared `browser-navigation` owner for cross-project browser selection/timing.

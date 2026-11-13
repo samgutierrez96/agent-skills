@@ -1,5 +1,15 @@
 # Codex project adapters
 
+All custom workflow skills use the shared `browser-navigation` owner only when
+a browser is actually needed. Install the complete `skills/browser-navigation/`
+folder into `~/.codex/skills/browser-navigation/`. Add a global Codex AGENTS
+instruction to use that skill across projects, preferring the connected ChatGPT
+Chrome integration and keeping Agent 360 as a capability/runtime fallback.
+Preserve connector-first/no-browser fast paths and existing background-window
+and confirmation rules. The private timing logger never belongs in a customer
+note, plugin cache or public telemetry log. No MCP endpoint for the native
+desktop extension is implied by this installation.
+
 `kb-answer-for-callers` is a shared business-wide knowledge-retrieval skill.
 Install the complete `skills/kb-answer-for-callers/` folder into
 `~/.codex/skills/kb-answer-for-callers/`; it needs no dedicated project adapter.

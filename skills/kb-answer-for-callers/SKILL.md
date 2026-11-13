@@ -5,6 +5,11 @@ description: Find current, source-backed Opendoor business knowledge across Glea
 
 # KB Answer for Callers — shared business knowledge
 
+When this workflow actually requires a browser, follow the shared
+`browser-navigation` skill at `~/.codex/skills/browser-navigation/SKILL.md`
+(packaged alongside this skill). Prefer the new ChatGPT Chrome integration;
+retain direct-connector, no-browser, background-window and authorization gates.
+
 This is a business-wide evidence-retrieval skill, not a Zendesk-only playbook
 or a static encyclopedia. Use it wherever a workflow needs current Opendoor
 business information. Retrieve the evidence behind the answer rather than

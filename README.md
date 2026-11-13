@@ -8,11 +8,16 @@ small compatibility notes or wrappers when a host needs them.
 
 ## Current scope
 
-The repository contains nine custom skills. The October 27, 2026 audit reconciles
+The repository contains ten custom skills. The October 27, 2026 audit reconciles
 the original seven with their active Codex or project runtime sources, including
 required project rules and references. Bot Task notes was added November 2, 2026.
 The shared business-wide `kb-answer-for-callers` skill was imported from Claude
 and adapted November 4, 2026, with its unchanged upstream text retained for provenance.
+The shared `browser-navigation` skill was added November 12, 2026: prefer the
+connected ChatGPT Chrome integration when browser work is required and record
+private timings. After the Chrome-only test, Sam explicitly re-enabled Agent 360
+later that day for required browser work in Skill Router. Keep sufficient direct
+connectors first; restoration never resumes or replays a customer action.
 See [MANIFEST.md](MANIFEST.md) for provenance and
 [Codex adapters](adapters/codex/README.md) for installation constraints.
 

@@ -5,6 +5,11 @@ description: "Retrieval playbook for Opendoor Zendesk ticket drafting — Zendes
 
 # Zendesk record retrieval, Opendoor XA
 
+When this workflow actually requires a browser, follow the shared
+`browser-navigation` skill at `~/.codex/skills/browser-navigation/SKILL.md`
+(packaged alongside this skill). Prefer the new ChatGPT Chrome integration;
+retain direct-connector, no-browser, background-window and authorization gates.
+
 Retrieval reference for drafting customer-facing Zendesk replies. Voice, formatting,
 and the hard business rules for the reply itself live in the project instructions
 and are deliberately not duplicated here.
@@ -777,9 +782,11 @@ verified phone/email and verify the displayed identity; never substitute a selle
 acquisition activity for the requester's notes. Do not replace these safeguards
 with inference.
 
-For a required page, use `browser_navigate` → `browser_wait` →
-`browser_get_page_content`. Load only those required browser schemas together and
-reuse them. If Chrome is unavailable, say so plainly, name what could not be
+For a required page, prefer the new ChatGPT Chrome integration through the shared
+`browser-navigation` skill: bind the page, wait for the required visible section,
+and read only that section. Use Agent 360's `browser_navigate` → `browser_wait` →
+`browser_get_page_content` only for a concrete native capability/runtime gap;
+record the reason and reuse the selected surface. If Chrome is unavailable, say so plainly, name what could not be
 checked, and diagnose the connection fix without asking Sam to paste the needed
 OpsHub/Zendesk section. Do not quietly
 present a thinner record as complete.

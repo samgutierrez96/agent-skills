@@ -24,8 +24,9 @@ only reports `loaded` does not satisfy the load.
 ## Fast path
 
 For ordinary notes without `post`, use `N/A` for both `Property Address` and
-`Follow Up Link` when the XA did not provide those values. Never leave either
-field blank. Explicit posts use resolved caller/property values.
+`Follow Up Link` when the XA did not provide those values and the skill's
+filed-report lookup did not verify a matching link. Never leave either field
+blank. Explicit posts use resolved caller/property values.
 
 - On warm-up (`ready`, skill attachment, a path-only message, or a new chat
   with no call shorthand), reuse a full authoritative source attachment when present.
@@ -39,7 +40,9 @@ field blank. Explicit posts use resolved caller/property values.
   authoritative skill once in bounded chunks before drafting. Do not expose the
   loading step.
 - After the authoritative skill is loaded, ordinary notes use no file tools,
-  shell commands, web, or MCP. Do not reread, grep, search, or slice the skill.
+  shell commands, web, or MCP except the skill's scoped read-only filed-report
+  link lookup and silent listing-type check. Do not reread, grep, search, or
+  slice the skill.
 - Ordinary notes use zero OpsHub calls except the skill's explicitly allowed
   silent listing-type check. A direct XA command to post the selected note,
   including `Post it` or `post the corrected note please`, permits the posting
@@ -47,7 +50,10 @@ field blank. Explicit posts use resolved caller/property values.
   already-saved identifiers again. Bare `post`, save/update/fix requests, quoted
   commands and reported caller wording do not authorize posting.
 - On an explicit post, follow Part 11 of the skill: use one parallel lookup
-  batch, reuse `whoami` within the chat, then create the customer note. Keep
+  batch, reuse `whoami` within the chat, then create a new customer note.
+  For an authorized correction to a verified posted note, use Part 11's
+  `UpdateCustomerNote` path with the retained same-call note ID instead;
+  no duplicate create/delete or repeated unchanged-context lookups. Keep
   tool turns silent and do not inspect schemas unless a call fails for that
   reason.
 - Optimize for latency and token use: use the already-known OpsHub tool names
@@ -79,12 +85,18 @@ field blank. Explicit posts use resolved caller/property values.
 ## Browser safety
 
 - Never navigate, type, click, or switch tabs in the user's active Chrome
-  window. Browser MCP work must use a separate unfocused window, created with
-  `new_tab: true`, `eget_vindue: true`, and `fokuser: false`.
+  window. Use the shared `browser-navigation` skill: prefer the new ChatGPT
+  Chrome integration only when its documented controls can create/reuse a
+  separate background task window. A tab group is not a separate window.
+  Otherwise retain Agent 360 as the background-capable fallback, using
+  `new_tab: true`, `eget_vindue: true`, and `fokuser: false` when supported.
 - Never call `browser_switch_tab` with `bring_to_front: true` in this project.
   If an action cannot land without taking focus, stop and report the blocker;
   do not risk acting in the user's typing tab.
 - Close the separate browser task window when the workflow is complete.
+
+- Record timing locally only for an actual browser fallback; ordinary notes and
+  warm-ups still perform no browser discovery or benchmark work.
 
 - Treat shorthand as shorthand. Apply the exact expansion-table wording from
   the authoritative skill before drafting; for example, `appraiser` plus
@@ -93,7 +105,10 @@ field blank. Explicit posts use resolved caller/property values.
 - For an explicit post with a property, resolve the caller's OpsHub customer
   page and use the exact OpsHub property-page URL in `Follow Up Link`.
   Never substitute a customer-facing tour link, an internal address token, or
-  `N/A` when the caller's page has the property.
+  `N/A` when the caller's page has the property. Preserve the matching filed-report
+  Slack permalink or ticket URL alongside it under the skill's link-placement
+  rules. Mentioning a filed report triggers only that bounded read-only lookup,
+  never another report, Slack send or unrequested note post.
 - If the skill content is summarized, truncated, or not reliably visible,
   reload the exact authoritative sections before drafting. Do not reconstruct
   shorthand expansions or posting-link rules from memory.

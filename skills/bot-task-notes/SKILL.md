@@ -5,6 +5,11 @@ description: Draft concise OpsHub Bot Task notes from an XA's completed task or 
 
 # Bot Task Notes
 
+When this workflow actually requires a browser, follow the shared
+`browser-navigation` skill at `~/.codex/skills/browser-navigation/SKILL.md`
+(packaged alongside this skill). Prefer the new ChatGPT Chrome integration;
+retain direct-connector, no-browser, background-window and authorization gates.
+
 Turn the operator's account of completed work into a paste-ready internal OpsHub
 note. This is the task-specific counterpart to XA post-call notes, not the
 five-field XA template. Do not create Slack messages or customer-facing replies.
