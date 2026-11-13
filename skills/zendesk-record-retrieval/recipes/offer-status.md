@@ -75,6 +75,13 @@ WebCustomer UUID to sell-direct `get_customer`.
   When the customer confirms a property whose prior offer is expired and asks
   what happened or what to do next, tell them the next step is to refresh the
   offer; do not frame it as starting an unrelated new offer request.
+  When they ask to refresh the offer, request a new offer, or similar but the
+  verified qualified record still shows a preliminary offer stage with the
+  assessment not complete, tell them they are in the preliminary-offer stage
+  and that completing the assessment is the next step toward the final offer.
+  Do not stop at acknowledgment or pending verification when a narrow status
+  read already establishes that stage and path; follow the applicable
+  preliminary/assessment guidance rather than the refresh-only shortcut.
   When the customer reports that the address they enter on opendoor.com is not
   accepted for an offer request, screenshots can still help clarify a display or
   entry issue, but clearly explain that if the site will not accept the property's

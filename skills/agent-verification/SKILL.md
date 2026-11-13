@@ -5,12 +5,18 @@ description: Review an Alfred agent-verification task, verify the agent record, 
 
 # Agent Verification
 
+When this workflow actually requires a browser, follow the shared
+`browser-navigation` skill at `~/.codex/skills/browser-navigation/SKILL.md`
+(packaged alongside this skill). Prefer the new ChatGPT Chrome integration;
+retain direct-connector, no-browser, background-window and authorization gates.
+
 Resolve the matching OpsHub customer, check live agent credentials, and close the matching Alfred review. Target **under 120 seconds** for an authenticated, exact-match run. Preserve identity checks and verify saved results; do not trade correctness for the timer.
 
 ## Outcome and wording
 
 - An exact matching **High confidence · 100** result is preauthorized for **Allow + Verified**. Do not ask for confirmation. An older denial alone does not override this result.
 - A score is meaningful only for the matching customer's identifiers. Missing, ambiguous, below-100, or materially inconsistent live results require operator review; do not guess.
+- When operator review is genuinely required, state the evidence and blocker briefly, then ask one explicit decision with listed answers: **Allow + Verified**, **Deny**, **Leave unchanged**. An answer retains this customer's context; it does not waive identity/evidence checks. Request a denial reason if not established. Do not ask again after an exact matching 100 result already authorizes closure.
 - For Allow/Verified, Alfred's “Why is this user trustworthy?” must contain only **Confirmed and verified**.
 - OpsHub notes are permitted. For Allow/Verified, use only **Confirmed and verified** unless the operator requests more detail. Add relevant, evidence-based red flags only when final HAS is **Deny**. Do not copy historical flags forward as current findings without supporting evidence.
 - Agent credential verification does not establish that government ID validation passed. Do not claim checks that were not performed.
@@ -31,21 +37,22 @@ These entry points remove the need to search local files, company knowledge, or 
 
 - Prefer OpsHub `list_customers` with the supplied exact phone or email. Select the exact matching record and cache its UUID, name, phone, and email. Do not select a similarly named person.
 - Use a customer-detail MCP read only if it supports that resolved identifier and returns the needed agent fields. `get_customer` previously interpreted a customer UUID as a lead token and failed: do not repeat that call with a UUID unless its contract is corrected. `get_customer_profile(full=true)` previously returned a large activity history, not the needed agent fields: do not use it for this lookup.
-- Open or reuse the exact OpsHub customer-detail page. Read **Customer Info** and **Agent Info** once for MLS ID, license number, and current statuses; cache the returned identifiers. Avoid expanding communications, activity history, or AI summaries to retrieve agent data.
+- Open the exact OpsHub customer-detail page in the workflow's separate Chrome window (see browser execution rules); reuse its bound tab on continuation. Read **Customer Info** and **Agent Info** once for MLS ID, license number, and current statuses; cache the returned identifiers. Avoid expanding communications, activity history, or AI summaries to retrieve agent data.
 
 ### 2. Prepare the case (budget: 20–50 seconds)
 
-- Open or reuse Alfred User Reviews and refresh once. Check the current queue for the matching open Requires Verification Review, including remaining pages when needed; do not create a duplicate just because the first page lacks it.
+- Open or reuse Alfred User Reviews within that workflow window and refresh once. Check the current queue for the matching open Requires Verification Review, including remaining pages when needed; do not create a duplicate just because the first page lacks it.
 - If no matching open case exists, select **+ New Case**. Search the exact phone or email, select the result matching the cached customer, set **Requires Verification Review**, and select **Create** once. Wait for the dialog to disappear before any retry. Newly created cases may appear on the last queue page.
 - Select the matching case, choose **Claim and Begin** if unclaimed, and open **Review Case**. Cache its case ID/link. If the link opens a new tab, bind that tab; do not keep clicking the original link. When a popup does not open, navigate to the actual href read from the link.
 - Open **View Full Results** and read the available identity evidence once. Missing Mitek results mean ID validation was not established; they do not alone negate a matching agent credential result.
 
 ### 3. Run the live lookup (budget: 50–80 seconds)
 
-- Use Computer Use (`cua_repl`) for Agent Verification from the start. Its form and results are inside nested iframes; a blank top-level page-content response is not an empty app. Inspect the accessibility tree, or documented frame-scoped locators, instead of repeatedly reading the top-level document.
+- Use a background-capable bound browser page for Agent Verification from the start, such as documented frame-scoped locators in `cua_repl`. Its form and results are inside nested iframes; a blank top-level page-content response is not an empty app. Read the bound frames rather than repeatedly reading the top-level document. Native app accessibility/keyboard control is a foreground fallback only with the operator's permission, not a way to bypass the background-window requirement.
 - Populate only cached, current OpsHub identifiers using **LAST NAME**, **FIRST NAME**, **MLS ID**, **LICENSE NUMBER**, **PHONE**, **EMAIL**. Leave unavailable fields blank. Batch the known field fills and one **Search** click in one tool call, followed by a state read.
 - Wait for a result state rather than clicking Search again while “querying Snowflake” is shown. Read the matching candidate's tier, score, and identifier matches. A large result count can include weak first-name matches; assess the exact matching candidate, not the total count. Multiple rows for the same agent across MLS sources are not by themselves conflicting identities.
 - Matching High confidence · 100 proceeds immediately to closure. Surface an actual live mismatch for review.
+- A credential match is not the finished task. Continue to the cached Alfred case and verify closure/statuses; do not stop at a lookup-only summary or require the operator to type “allow” to resume an already-authorized exact match.
 
 ### 4. Close and verify (budget: 80–110 seconds)
 
@@ -61,11 +68,13 @@ Report only the verified result: `Case: closed | Outcome: [actual HAS] | Agent: 
 ## Browser execution rules that prevent stalls
 
 - Give one short starting update, then surface only meaningful mismatches, blockers, or delays. Use masked identifiers in chat. If work exceeds 60 seconds, give a brief update about what remains.
-- Prefer one browser-control surface for the UI workflow: `cua_repl` in Chrome, including Alfred and OpsHub. Reuse tab bindings. List tabs once when needed; do not create duplicates or repeatedly initialize the browser tools.
-- Use semantic labels or current accessibility indices. After actions, read fresh state before selecting the next dependent control. Batch deterministic actions on already-observed controls and the resulting state read; do not batch clicks that depend on a new dialog or menu you have not observed.
+- Start each new verification workflow in a **new, separate background Chrome window**, using the signed-in work profile, and keep OpsHub, Alfred and Agent Verification there. Keep the operator's current window in front: do not activate, raise, or switch its tabs. A new tab or colored tab group in the operator's existing window is not a separate window. Use supported background window creation and bound-page controls; if the available surface requires foreground keyboard/mouse input, report that limitation and ask before taking focus. Do not silently fall back to the operator's window or promise background execution through a foreground-only surface.
+- Prefer the new ChatGPT Chrome integration through `cua_repl`, including Alfred and OpsHub, following the shared `browser-navigation` skill. Verify its documented window controls satisfy the separate-background-window rule before acting; otherwise use an allowed fallback and record the capability gap. Bind the workflow window and its tabs once, then reuse those bindings for fast navigation and continuations of the same verification; do not open another window for every step. List tabs once when needed; do not create duplicates or repeatedly initialize the browser tools.
+- Use semantic labels or current accessibility indices scoped to the bound workflow page. Never send app-global keyboard input or reuse numbered controls after a tab/window/focus change; reacquire the intended page and fresh state first, without raising it over the operator's window. Batch deterministic actions on already-observed controls and the resulting state read; do not batch clicks that depend on a new dialog or menu you have not observed.
 - Prefer a targeted section or accessibility diff over full HTML/full activity dumps. Do not print tool catalogs or repeated shared tool instructions: discover exact tool names and only the needed schema.
 - Use condition-based waits supported by the browser, such as a dialog disappearing, a result heading appearing, or Case Closed becoming visible. No fixed sleeps. When the page is still loading, wait for that specific transition instead of taking repeated identical full-page snapshots.
-- If Browser MCP is used and input reports it did not land because the tab is inactive, switch to the intended tab before retrying. Check “maybe landed” actions before repeating; a stale immediate read does not prove a failed mutation. Do not cycle through failing clicks in the background.
+- For Alfred's customer selector, verify the scoped input actually changed and the search produced a settled result/options state. A text value alone does not prove the application received its search event. If no options appear, check focus, loading and input delivery, then try one supported alternate input method on the bound control. Do not cycle through the same phone/email/name with repeated blind clicks or key presses. Report an unconfirmed search/input blocker separately from an explicit settled “no matches” response. Preserve the resolved customer and credential match while blocked; do not reopen the account or rerun the lookup just to retry selection.
+- If input reports it did not land because the tab is inactive, use a supported non-activating bound-page method or report the background-control limitation; do not steal focus to retry. Check “maybe landed” actions before repeating; a stale immediate read does not prove a failed mutation.
 - If an iframe cannot be read by a top-level browser tool, switch immediately to Computer Use accessibility or documented frame locators. Do not spend several calls proving the top-level content is blank.
 - Do not reopen completed stages or reread a verified fact through multiple surfaces. After Case Closed and the refreshed OpsHub statuses are established, finish.
 - Stay within the authorized verification workflow. Unexpected destructive or unrelated irreversible actions require explicit authorization.
@@ -96,6 +105,6 @@ action to refresh it.
 
 ## Timing and validation
 
-Record elapsed wall time from first lookup to verified final state when executing a real case. Aim for the stage budgets above, adjusting for actual network latency. At 90 seconds, complete closure and final checks without optional history exploration. At 120 seconds, if still incomplete, report the concrete delayed stage and continue useful work; do not skip checks or claim success to meet the target.
+Record elapsed wall time from first lookup to verified final state when executing a real case, using the shared browser timing logger for separate browser/workflow durations, failures and fallback reasons. Do not compare this full workflow time to a single browser block. Aim for the stage budgets above, adjusting for actual network latency. At 90 seconds, complete closure and final checks without optional history exploration. At 120 seconds, if still incomplete, report the concrete delayed stage and continue useful work; do not skip checks or claim success to meet the target.
 
 This is a performance target, not a measured guarantee. Login, unavailable services, nonmatching results, and required operator review can exceed it. Validate future runs with their actual elapsed times; never create or modify an extra live customer case merely to benchmark the skill.

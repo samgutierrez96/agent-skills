@@ -18,4 +18,6 @@ build/
 coverage/
 tmp/
 *.log
+__pycache__/
+browser-benchmarks/
 

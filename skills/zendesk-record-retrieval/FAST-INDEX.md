@@ -244,9 +244,10 @@ multi-part request, combine only the matching cards; keep their required gates.
 - OpsHub MCP auth/read failure does not waive required recent-resolution checks.
   Use the signed-in browser directly at `https://opshub.apps.opendoor.com/search?q=`
   plus URL-encoded verified phone/email; open the observed result and read recent
-  notes after loading. Prefer the available `browser_mcp` read connector
-  (`browser_navigate` → `browser_wait` → `browser_get_page_content`); switch
-  interfaces only for a concrete capability gap, without browser/auth debugging.
+  notes after loading. Prefer the new ChatGPT Chrome integration through the
+  shared `browser-navigation` skill, with a bound page and focused ready-state
+  read. Retain `browser_mcp` only for a concrete capability/runtime gap and
+  record that reason; do not perform browser/auth debugging during a draft.
   Never use obsolete `opshub.opendoor.com`. If a later call
   resolved this concern, recommend no reply and name its handler in the internal
   note. If required history remains unreadable, withhold the reply and report the

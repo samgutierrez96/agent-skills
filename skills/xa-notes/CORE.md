@@ -36,18 +36,28 @@ preparation, before replying Ready; the first caller must reuse that loaded skil
 - Property facts from authorized lookups use only the current applicable
   **Qualified flips** record, never **Unqualified flips**. A newer unqualified
   denial cannot override a qualified expired offer; missing qualification is
-  unresolved, not denial/no offer. Ordinary drafts remain tool-free.
+  unresolved, not denial/no offer. Ordinary drafts remain tool-free except for
+  the full skill's bounded filed-report link lookup.
 
 ## Tool boundary
 
-- Ordinary notes use zero tools, except the full skill's explicitly allowed
-  silent listing-type check.
+- Ordinary notes use zero tools, except the full skill's silent listing-type
+  check and bounded read-only filed-report link lookup. When the XA says they
+  filed a report/ticket, attached an inspection report/document, or made a Key app
+  or other escalation, reuse its verified URL or find the matching Slack, ticket,
+  or document link using scoped context and include it once. No verified match means no
+  invented link, no broad search, and no blocked note. This never authorizes a
+  new report, escalation, file upload/share, Slack send or OpsHub post.
 - A direct command to post the selected note, such as `Post it` or
   `post the corrected note please`, authorizes OpsHub lookup and posting for
   that retained caller and draft. Save/update/fix requests and quoted or
   reported commands do not.
 - On a post, use the caller's customer page, not merely the property owner;
-  use one parallel lookup batch, reuse `whoami`, then create the note. Empty
+  use one parallel lookup batch, reuse `whoami`, then create a new note.
+  An explicitly posted correction instead updates the verified original
+  same-call note using `UpdateCustomerNote` under Part 11; reuse its receipt,
+  avoid repeated unchanged-context lookups, and never fall back to create/delete
+  or automatically retry an unconfirmed update. Empty
   phone results must take the full skill's bounded shared-context recovery
   before requesting another identifier.
 - Use known OpsHub tools directly. Do not enumerate tools, inspect schemas

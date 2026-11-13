@@ -1,11 +1,11 @@
 {
-  "audited_on": "2026-11-11",
-  "scope": "Seven previously audited custom skills plus bot-task-notes added November 2, 2026, kb-answer-for-callers added November 4, 2026, and their runtime dependencies",
+  "audited_on": "2026-11-12",
+  "scope": "Ten custom skills, shared browser selection/timing, project adapters and registered runtime dependencies",
   "files": [
     {
       "source": ".codex/skills/kb-answer-for-callers/SKILL.md",
       "destination": "skills/kb-answer-for-callers/SKILL.md",
-      "sha256": "415ffc855a87f7c17afc44c126298b6c8c2a349c0c6a0f811f278c9f86112dfd",
+      "sha256": "89075234e58d8b291da162f3985b33a9c28b02c1beea19ced66592c0a0a5e5d4",
       "provenance": "Claude skill adapted November 4, 2026 for shared business-wide retrieval, available connectors, workflow output compatibility, and company-knowledge-update evidence handoff"
     },
     {
@@ -18,7 +18,7 @@
     {
       "source": ".codex/skills/bot-task-notes/SKILL.md",
       "destination": "skills/bot-task-notes/SKILL.md",
-      "sha256": "75e8ee995070ffce35d51ed3ba5429ca425a86db08c517193168dd0e9e5166b7"
+      "sha256": "31446e8a9a2693b9b37f8c651bc110dcea41971b91f48afcade96a45d68e6ec3"
     },
     {
       "source": ".codex/skills/bot-task-notes/references/local-mcp.md",
@@ -33,7 +33,7 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/AGENTS.md",
       "destination": "adapters/codex/xa-notes/AGENTS.md",
-      "sha256": "56b01f433d647bf610aade30e7b1d22dfaa210ae6525fac7e60712cb8eda9a95"
+      "sha256": "b1177a3b39be0584900945a52e3cf3b5130d994a0eb4a6800a290bf74641f04e"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/context/decisions-and-conventions.md",
@@ -48,7 +48,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/AGENTS.md",
       "destination": "adapters/codex/zendesk-record-retrieval/AGENTS.md",
-      "sha256": "e8433b38a53778d61d40ddfd784276431dee5e62613480281942fe1a7efcae5e"
+      "sha256": "572ed418118162b9116073448ca28b4fb8fae88e3c71b3871b2c8f31c48e6d1b"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/decisions-and-conventions.md",
@@ -73,7 +73,7 @@
     {
       "source": ".codex/skills/agent-verification/SKILL.md",
       "destination": "skills/agent-verification/SKILL.md",
-      "sha256": "2d1cf49fb1fe6e9fb004aa87faf748ce028dcc43e64ae002b068b9fff872f7aa"
+      "sha256": "3539954e7802feb565080c415264c151c082bef5b18bb4831de63d979ff72d7c"
     },
     {
       "source": ".codex/skills/agent-verification/agents/openai.yaml",
@@ -83,7 +83,7 @@
     {
       "source": ".codex/skills/opshub-context/SKILL.md",
       "destination": "skills/opshub-context/SKILL.md",
-      "sha256": "20ee3132f67b9c4c17a20e3270bee84dbe699c46229944368073a20688a5492a"
+      "sha256": "480a75d6ae49bd14301aca290d50fff7d51b244788b8817eaeeb61e361d85897"
     },
     {
       "source": ".codex/skills/opshub-context/references/phone-lookup-recovery-cases.json",
@@ -93,7 +93,7 @@
     {
       "source": ".codex/skills/schedule-final-offer-appointment/SKILL.md",
       "destination": "skills/schedule-final-offer-appointment/SKILL.md",
-      "sha256": "d100f63bf8aa534860e61a933708cf89ef5c498721d6b5e6f078c86e57030bcc"
+      "sha256": "8cd56b343c17b3382b8687a7515fcfb9e52e9e286f5a37650cf144a124df4269"
     },
     {
       "source": ".codex/skills/schedule-final-offer-appointment/agents/openai.yaml",
@@ -103,17 +103,17 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "b5985785f0e41398340fd9640ee266f0bebc05950c542898696b7335427ab948"
+      "sha256": "574046d026735323cde974a688dbcc48dcd33ce48b20bce6b73628796d912c70"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/CORE.md",
       "destination": "skills/xa-notes/CORE.md",
-      "sha256": "3b614b3b02efea2a1ac4d6f1afa7ec54353e64312346e23bb7610a71cf76355d"
+      "sha256": "bc7a493f7339dafb41e93ea756a54c05ee6ac1201817011a47105838678dae47"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/SKILL.md",
       "destination": "skills/xa-notes/SKILL.md",
-      "sha256": "1e8290a07803a4dadb7f80fa3a7cd9f373bdc33a43b786d0009956607f35d4a2"
+      "sha256": "ef202522fb1510493c2c8bf6a3f3028499ba68792278d256a4a600647f0e5744"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/reference/process-detail.md",
@@ -133,7 +133,7 @@
     {
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/SKILL.md",
       "destination": "skills/xa-quick-slack/SKILL.md",
-      "sha256": "7b9cae9836e25a0f2e1bf27547a8bc785d1d096b9171e428eb43bdfa2d3e2fb3"
+      "sha256": "441e07ca10d33b499bfbe25af048a9c1186e588cb6be16100d40a4b6e13a5d07"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ENTRY.md",
@@ -144,7 +144,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/FAST-INDEX.md",
       "destination": "skills/zendesk-record-retrieval/FAST-INDEX.md",
-      "sha256": "277b937dfa4d729471651044bef13e505c5a80da417fe78c57db9ca7bdefb6fc"
+      "sha256": "e6fa958cf38b737df6c4fc74f001f5388b72bb6c4a2e69b6a7555f827d636f69"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ROUTING-GATES.md",
@@ -154,7 +154,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/SKILL.md",
       "destination": "skills/zendesk-record-retrieval/SKILL.md",
-      "sha256": "5c69fa18449d5ad313b486a4adc5c9758df265c85ef89e0b7b013b4f2f510daa"
+      "sha256": "b56811d2d15e15e21bf52d4b1581a1f881b812d1815df31af0b19ed1ffe13b86"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/VERIFICATION.md",
@@ -209,7 +209,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/offer-status.md",
       "destination": "skills/zendesk-record-retrieval/recipes/offer-status.md",
-      "sha256": "2e908236b5d91e249d7160111e10c16528fd630613963ea8be278aeb93c5eac3"
+      "sha256": "b12fa30a7d26e17884563b3e52a93315356c4eb48d2c5938b3234a7a0fdc48d0"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/open-house.md",
@@ -305,6 +305,30 @@
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/reference/qualification-recovery-cases.json",
       "destination": "skills/xa-quick-slack/reference/qualification-recovery-cases.json",
       "sha256": "59c92c0dc526db435aaa9f324341d21f6f8e40fba94d83e0f74383194c25c547"
+    },
+    {
+      "source": ".codex/skills/browser-navigation/SKILL.md",
+      "destination": "skills/browser-navigation/SKILL.md",
+      "sha256": "97c212ee6ce9fb68bf52cd7834e11f0ee5bfe36b28c4084ee4d5512ba5c1953b",
+      "provenance": "Shared browser selection and private metadata-only timing owner added November 12, 2026; canonical repository package and complete installed folder agree"
+    },
+    {
+      "source": ".codex/skills/browser-navigation/references/timing.md",
+      "destination": "skills/browser-navigation/references/timing.md",
+      "sha256": "d731febe5a8931066e04263386d59ae7c7a4c65b35d6b9ccf79d9dcbed9128e2",
+      "provenance": "Shared browser selection and private metadata-only timing owner added November 12, 2026; canonical repository package and complete installed folder agree"
+    },
+    {
+      "source": ".codex/skills/browser-navigation/scripts/browser_timing.py",
+      "destination": "skills/browser-navigation/scripts/browser_timing.py",
+      "sha256": "fa6b5484d3cf912e219d580dde5cb31f44927b3e5d99e8fcd14aa848f895d67d",
+      "provenance": "Shared browser selection and private metadata-only timing owner added November 12, 2026; canonical repository package and complete installed folder agree"
+    },
+    {
+      "source": ".codex/skills/browser-navigation/scripts/test_browser_timing.py",
+      "destination": "skills/browser-navigation/scripts/test_browser_timing.py",
+      "sha256": "5dd7b019f67eb8aa69c7df43c287b91c1d71f5118cab0f96d2083a39378cb044",
+      "provenance": "Shared browser selection and private metadata-only timing owner added November 12, 2026; canonical repository package and complete installed folder agree"
     }
   ],
   "local_files": [
@@ -351,7 +375,13 @@
     {
       "source": "Documents/ChatGPT Work/Escalations/skills/xa-quick-slack/SKILL.md",
       "owner": "xa-quick-slack",
-      "sha256": "8f209f46f8bd0b7cc597f2e8ab13114020cd657fbadab28f533860b013b1ba64"
+      "sha256": "bcfc2d4230ca7b27a551bca233506ed369b259637ee0e7ea5332de409fedf577"
+    },
+    {
+      "source": ".codex/AGENTS.md",
+      "owner": "browser-navigation",
+      "sha256": "ce770a3c2f7b3b92c396e1174c5e0ce210b926cb7f9116fd31bbb20cd687c478",
+      "provenance": "Global browser preference routes all projects to the shared owner; unrelated publication guidance preserved"
     }
   ]
 }

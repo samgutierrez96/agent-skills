@@ -5,6 +5,11 @@ description: Resolve the customer and property currently in scope for an OpsHub 
 
 # OpsHub Context
 
+When this workflow actually requires a browser, follow the shared
+`browser-navigation` skill at `~/.codex/skills/browser-navigation/SKILL.md`
+(packaged alongside this skill). Prefer the new ChatGPT Chrome integration;
+retain direct-connector, no-browser, background-window and authorization gates.
+
 Use this skill as the shared identity layer before a downstream workflow needs
 to write a note, draft an escalation, or otherwise act on a customer/property.
 

@@ -1,5 +1,115 @@
 # Skill manifest
 
+## Automatic completed-work links in XA Notes — November 12, 2026
+
+The inventory-selected Notes skill now reuses or retrieves the matching link
+when the operator mentions a filed ticket/report, attached inspection report or
+document, home issue, TPM request, Key app escalation or similar completed work.
+Scoped connector reads are bounded; unrelated/ambiguous results, generic help
+pages and unsent drafts do not qualify. Missing links do not block a ready note.
+Preserve the OpsHub property link and distinguish a file link from its parent
+ticket/thread. This grants no new send, upload, share, report creation or repost
+authority. Active skill, compact core, project adapter and canonical hashes are
+reconciled locally. No customer workflow was replayed; GitHub publication awaits
+the existing evening sync.
+
+## Agent 360 re-enabled — November 12, 2026
+
+Sam explicitly re-enabled Agent 360 after the earlier same-day Chrome-only test.
+The shared browser owner and global Codex rule now permit its configured MCP
+connection for required UI work in Router while native worker Chrome access
+remains unverified. Its existing Codex server is enabled again and its original
+command and arguments are restored to the default legacy MCP configuration.
+Direct connectors and no-browser fast paths stay first. Background-window,
+identity, action-time approval, caller isolation and duplicate-action guards
+remain unchanged. Reconnection never resumes a pending customer workflow.
+Canonical/installed guidance and inventory hashes are reconciled locally;
+publication remains with the existing evening sync.
+
+## Merge continuation and first-pass escalation facts — November 12, 2026
+
+Sam corrected the approval wording later the same day: confirmed keeping email,
+original phone and qualifying identity carry the existing authorized merge,
+contact cleanup, verification and original posting forward without a generated
+browser-approval prompt or proceed/stop choices. Admin's irreversible warning is
+reviewed by the agent, not turned into another XA decision. Both the merge owner
+and shared browser guidance preserve genuine missing facts, identity conflicts,
+changed scope, actual tool/access restrictions, failed steps and uncertain-action
+verification. No runtime permission setting is changed or bypassed.
+
+The escalation runtime and detailed maintenance source now require inspecting
+the supplied phone's returned identity fields and completing a bounded exact
+profile/fallback read before asking the XA for information already available.
+The XA's explicit current/requested closing dates and purpose are conveyed as a
+request, without unsolicited arithmetic corrections or repeat confirmation.
+Distinct new-home and Opendoor closings are not conflated. Competing explicit
+requested dates remain a real clarification; no actual schedule is changed.
+No customer data is included and no customer workflow is replayed. Active
+sources, canonical copies and inventory hashes are saved locally for evening
+publication; local validation is not proof of future live-model behavior.
+
+During the earlier Chrome-only test, the account-merge owner removed its Agent
+360 fallback and scripted-DOM recipes. The later restoration above supersedes
+that transport restriction. Router may use Agent 360 again, preserving the native
+surface's read-only scripting boundary and all other workflow safeguards.
+The shared browser owner reuses established workflow authorization without
+invented confirmation stops and still forbids evading actual tool restrictions.
+Active installed sources, canonical packages and inventory hashes are reconciled
+locally for the evening sync. This maintenance change does not perform a live
+merge, contact edit or post, or demonstrate live workflow success.
+
+## Shared native browser preference and timing — November 12, 2026
+
+Added the canonical `browser-navigation` package and complete global install.
+All nine custom workflow owners reference it; the global Codex AGENTS preference
+covers other projects without editing vendor caches, archives or case snapshots.
+Notes, Zendesk, Agent Verification and Account Merge retain connector/evidence,
+authorization and separate-background-window gates while preferring the connected
+ChatGPT Chrome integration. Admin's Enter/script compatibility guidance is scoped
+to Agent 360 fallback. Router runtime boundaries are documented in its own repo;
+legacy SDK MCP configuration is retained, not falsely represented as migrated.
+
+The shared logger records private metadata-only browser/workflow timings, outcome,
+retry/fallback and comparable clock/cache/order fields. Matched read-only pairs
+exclude duplicates and incompatible contexts; normal tasks are never replayed.
+Unit tests use synthetic data. A public-page smoke check verified both surfaces
+can read the same test tab; it is not a navigation/workflow speed comparison.
+The native API rejected the optional visibility flag, so no unsupported promise
+of separate background window creation is made. Local validation passed: 14
+timing tests, 89 source-catalog tests, seven project-parity tests, ten skill
+validators and 74 source/mirror/local-hash checks. Both repository whitespace
+checks passed. No matched speed conclusion or live customer action is claimed;
+GitHub publication remains with the evening sync.
+
+## Separate agent-verification browser window — November 12, 2026
+
+Agent Verification starts each new workflow in a separate background signed-in
+Chrome window, leaving the operator's foreground window and tabs untouched.
+Foreground-only controls require disclosure/permission instead of focus stealing.
+Fast bound-tab reuse
+is retained within that window and for the same workflow's continuations; a tab
+group in the operator's window does not satisfy the window requirement. The
+active source, distribution and inventory hash agree locally. Exact-match runs
+must continue through verified Alfred closure rather than stopping at lookup;
+genuine review decisions list Allow + Verified, Deny and Leave unchanged.
+Selector retries distinguish unconfirmed input from a settled no-match response
+and retain current-customer evidence. Skill checks and
+source reconciliation do not establish live browser behavior or timing; no
+customer workflow was replayed. Publication awaits the existing evening sync.
+
+## Mixed escalation and post-it wording — November 12, 2026
+
+Clarified the existing authorization owner's whole-request precedence: embedded
+post-it wording alongside a current escalation request retains send-then-post,
+while standalone post-it, already-sent/filed reports and note-only scope remain
+note-only. Draft-only restrictions, identity/routing/thread checks and uncertain
+action guards remain intact. Channel clarifications preserve pending authority.
+Active runtime, detailed maintenance source, distribution and inventory hashes
+are reconciled locally. The Router's matching authorization-order fix and
+synthetic regression tests live in its separate canonical application repository.
+No customer records or live sends/posts are part of this correction; publication
+remains with the existing evening synchronization task.
+
 ## Admin search repair and continuation — November 11, 2026
 
 The account-merge owner's existing Enter recovery now diagnoses persistent input

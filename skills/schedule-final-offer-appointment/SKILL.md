@@ -5,6 +5,11 @@ description: Schedule a seller’s final-offer advisor appointment through the a
 
 # Schedule Final Offer Appointment
 
+When this workflow actually requires a browser, follow the shared
+`browser-navigation` skill at `~/.codex/skills/browser-navigation/SKILL.md`
+(packaged alongside this skill). Prefer the new ChatGPT Chrome integration;
+retain direct-connector, no-browser, background-window and authorization gates.
+
 Use this skill when an Experience Advocate needs to arrange a seller’s final-offer call with a home sale advisor and document the interaction in OpsHub. Use Computer Use for the browser workflow because the recorded flow depends on the visible OpsHub, Google Sheets, Calendly, and (when applicable) Twilio interfaces.
 
 ## Inputs

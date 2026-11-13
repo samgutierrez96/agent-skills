@@ -5,6 +5,11 @@ description: Fast OpsHub notes and Slack escalation drafts for Opendoor XAs.
 
 # XA Quick Slack — runtime
 
+When this workflow actually requires a browser, follow the shared
+`browser-navigation` skill at `~/.codex/skills/browser-navigation/SKILL.md`
+(packaged alongside this skill). Prefer the new ChatGPT Chrome integration;
+retain direct-connector, no-browser, background-window and authorization gates.
+
 ## Vendor AP follow-up — November 6, 2026
 
 An established vendor still waiting without a reply or resolution after emailing
@@ -19,7 +24,7 @@ scope; this knowledge save authorizes no sends/posts. Source: Sam's accepted
 November 6 direction and Stephanie Faust's July 20, 2026 reply:
 https://opendoor.enterprise.slack.com/archives/C51K62ETU/p1784553990069269.
 
-## Workflow commands — updated 2026-11-04
+## Workflow commands — updated 2026-11-12
 
 Fire investigators / fire department investigative requests use the government
 agency Trust & Safety route: `lawenforcement@opendoor.com`, agency type **Fire**.
@@ -44,6 +49,16 @@ primary-email, Admin merge and contact-cleanup gates first, then continue that
 same authorized flow immediately. An email-only answer supplies the pending
 choice; it does not reset the escalation to paste-only. Retain verified caller,
 property, recipient, channel/thread, coverage and successful action receipts.
+
+Resolve the whole current request before applying the standalone `post it`
+shortcut. In new call shorthand, `post it` embedded alongside a current
+`escalated to [person/team/channel]` request retains the full send-and-post flow;
+it is not an assertion that Slack was already sent. Minor spelling noise does
+not cancel otherwise clear escalation shorthand. An explicit already-sent/filed
+report or note-only scope remains note-only; explicit draft-only/do-not-send/post
+limits still win. A channel-name clarification retains the pending authorized
+action and verified context; do not ask for send permission again merely because
+no existing message was found. Search misses never prove an uncertain send failed.
 
 An explicit `draft it`, `draft it/post it`, draft-only, paste-only, preview-only,
 or do-not-send/post instruction overrides automatic execution. Bare names,
@@ -486,7 +501,8 @@ exact match, stop and name the missing verified property URL; do not guess.
 
 ### Authoritative meaning of `post it`
 
-When the XA directly says `post it` or `POST IT`, treat the
+For standalone `post it` / `POST IT`, or an explicit already-sent/note-only
+request, treat the
 Slack message as already sent. Do not create, edit, or discuss a draft. Search
 for the real Slack permalink, then post the corresponding CONTACT note to
 OpsHub with the Slack permalink first in `Follow Up Link`.
@@ -499,7 +515,9 @@ permalink, then upload the exact five-field note to the caller's CONTACT page.
 Do not call `slack_send_message`. Do not print anything to the XA until the
 finished note. Order:
 
-The XA may say `post it` as shorthand for “the Slack message
+Apply the whole-request precedence in Workflow commands first; embedded
+`post it` in a new authorized escalation is not this already-sent path.
+The XA may say standalone `post it` as shorthand for “the Slack message
 and any related workflow ticket were already submitted; now post the
 corresponding note to OpsHub with every verified Slack permalink and property
 link.” Treat that as the posted-Slack path every time. In this project, the XA
@@ -848,7 +866,16 @@ Rules:
   partner even when its state is `CONTINGENCIES_RELEASED`.
 - Close date, late checkout, digital checkout, checkout photos, settlement
   statement, closing documents, or missing/incorrect contract documents:
-  acquisition sales support in `#support-hsa-escalations`, not HSA or title,
+  Preserve the XA's explicit current and requested dates as the caller's
+  request, not a completed/approved schedule change. Do not correct their
+  explanation or ask them to reconfirm those dates merely because a relative
+  phrase appears inconsistent. “One day before the new-home closing” compares
+  two closings, not the requested date with the old Opendoor date. Do not infer
+  an unstated new-home closing date. For an escalation, convey the supplied
+  dates and purpose faithfully; omit a computed interval the XA did not request.
+  Ask only when competing explicit dates leave the requested date genuinely
+  unresolved; creating an actual schedule change retains its own validation.
+  Route to acquisition sales support in `#support-hsa-escalations`, not HSA or title,
   unless the verified named target is a Listing Partner / resale agent or
   resale transaction coordinator. Participant role is authoritative: when the
   named target resolves to `RESALE_AGENT`, `RESALE_TC`, or Listing Partner,
@@ -1302,9 +1329,16 @@ completing the same named-target gates.
 
 Caller lookup contract:
 - Call `list_customers` in `user-opshub` in the parent block with `phone` and
-  `limit: 5`. Match the XA-typed name to a customer UUID; it also returns
-  email, but not engagements or `is_agent`. Same-name rows on that phone are
-  still linkable.
+  `limit: 5`. Inspect all returned candidate names, emails and customer UUIDs
+  in that first response. The XA need not supply a name/email already resolved
+  by a unique phone match compatible with the stated caller role/company.
+  If compact identity is incomplete, use one `get_customer_profile` read for
+  that exact candidate; use the bounded fallback below only for a genuine gap.
+  Complete the permitted lookup before asking the XA, in the same run. Never
+  make “look again” a prerequisite or require email merely to format a note.
+  A company label alone does not prove personal identity; conflicting people
+  or multiple plausible matches require only the unresolved identity choice.
+  `list_customers` does not establish engagements or `is_agent`.
 - If OpsHub is unavailable, not unique, or engagement type/state is required
   to route correctly, fall back once in the parent to `search_indextrious` on
   index `CUSTOMER`, query `customer`, filtered by
