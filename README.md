@@ -8,7 +8,7 @@ small compatibility notes or wrappers when a host needs them.
 
 ## Current scope
 
-The repository contains ten custom skills. The October 27, 2026 audit reconciles
+The repository contains eleven custom skills. The October 27, 2026 audit reconciles
 the original seven with their active Codex or project runtime sources, including
 required project rules and references. Bot Task notes was added November 2, 2026.
 The shared business-wide `kb-answer-for-callers` skill was imported from Claude
@@ -20,6 +20,11 @@ later that day for required browser work in Skill Router. Keep sufficient direct
 connectors first; restoration never resumes or replays a customer action.
 See [MANIFEST.md](MANIFEST.md) for provenance and
 [Codex adapters](adapters/codex/README.md) for installation constraints.
+
+`caller-follow-up` was added November 13, 2026 for thread-based callback briefs:
+current case status, drafted talking points, requested information, suggested
+questions and commitment boundaries. It complements KB retrieval and does not
+send messages or perform outreach.
 
 This repository intentionally does not copy the full `superdojo` repository or
 every `SKILL.md` found in the Obsidian vault. Those sources include shared

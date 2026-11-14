@@ -7,8 +7,10 @@ description: Fast OpsHub notes and Slack escalation drafts for Opendoor XAs.
 
 When this workflow actually requires a browser, follow the shared
 `browser-navigation` skill at `~/.codex/skills/browser-navigation/SKILL.md`
-(packaged alongside this skill). Prefer the new ChatGPT Chrome integration;
-retain direct-connector, no-browser, background-window and authorization gates.
+(packaged alongside this skill). Follow its runtime-specific selection: configured
+Agent 360 in Router while native worker access remains unverified; supported
+native Chrome in desktop chats. Retain direct-connector, no-browser,
+background-window and authorization gates.
 
 ## Vendor AP follow-up — November 6, 2026
 

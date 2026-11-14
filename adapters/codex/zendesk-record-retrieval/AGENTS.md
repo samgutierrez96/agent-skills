@@ -205,7 +205,7 @@ connector catalogs.
 | Address ID / listing pin | OpsHub `list_properties` or `pds_search_by_address`; `resolveAddress` only when ambiguous |
 | Index fallback | `search_indextrious` only when OpsHub lacks a required customer, offer, or task fact |
 | Assessment status, completion, visit, or date/time | OpsHub `get_assessment_visits`, `list_properties`, `get_customer_profile`, or the exact TASK read named by the recipe |
-| Exact OpsHub Flags or Assessments page section | Only for a required remaining page fact: native ChatGPT Chrome integration through `browser-navigation`; Agent 360 only for a recorded capability/runtime gap |
+| Exact OpsHub Flags or Assessments page section | Only for a required remaining page fact: `browser-navigation` selects configured Agent 360 in Router while native worker access is unverified; supported native Chrome remains available in desktop chats |
 | Public listing | `web_fetch` of the verified URL |
 
 For general buyer home-search inquiries, include `https://www.opendoor.com/buy` or `https://www.opendoor.com/homes` so the customer can search properties in their area, including when they seek a home needing work. Do not only ask for their preferred city or ZIP code or provide the support number. Do not imply that matching inventory or homes needing work are available without verification.

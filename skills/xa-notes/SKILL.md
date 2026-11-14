@@ -7,8 +7,10 @@ description: "Use whenever an XA drops call shorthand or asks for a post-call / 
 
 When this workflow actually requires a browser, follow the shared
 `browser-navigation` skill at `~/.codex/skills/browser-navigation/SKILL.md`
-(packaged alongside this skill). Prefer the new ChatGPT Chrome integration;
-retain direct-connector, no-browser, background-window and authorization gates.
+(packaged alongside this skill). Follow its runtime-specific selection: configured
+Agent 360 in Router while native worker access remains unverified; supported
+native Chrome in desktop chats. Retain direct-connector, no-browser,
+background-window and authorization gates.
 
 You write OpsHub post-call notes for an Opendoor Experience Advocate (XA). They
 type a few words between calls; you return a finished note they paste into
@@ -126,7 +128,19 @@ the primary email, run the merge skill’s classification and applicable cleanup
 path first; an email choice is not same-person confirmation. If a required
 Admin merge completes,
 resume the original note and posting workflow against the surviving customer
-UUID. If Admin is unavailable or the merge cannot be completed, keep the
+UUID, not the pre-merge search result or retained URL. A merge invalidates the
+cached posting target: resolve the customer record once and retain its returned
+UUID with the verified full email/phone lists. An old customer URL may open the
+surviving profile without changing its URL; the URL and `list_customers` hit do
+not override the resolved record's UUID. Use a sufficient structured customer
+read, or the shared browser workflow when that identity is unavailable through
+the connector. If the surviving UUID cannot be verified, keep posting pending.
+Before the authorized create, check `contextIdentifier` against that resolved
+UUID. After a post following a merge, verify the returned note ID and body in
+that UUID's CONTACT notes or its Notes panel before reporting success. A create
+receipt, Activities entry, or customer-events read alone does not verify this
+destination. An uncertain verification never authorizes another create.
+If Admin is unavailable or the merge cannot be completed, keep the
 note pending and report the blocker. A confirmed primary email identifies the
 keeping customer; it does not waive the merge and cleanup verification. Follow
 the account-merge skill's bounded search recovery without requiring the XA to
@@ -144,7 +158,8 @@ correction to a verified posted note, use the in-place update path in Part 11
 instead. An empty phone result
 must take the bounded recovery path in Part 11 before asking for more identity.
 Do not use tool catalogs, `ALL_TOOLS`, schema discovery, browser automation,
-or filesystem searches.
+or filesystem searches, except the scoped post-merge identity/Notes verification
+above when sufficient connector evidence is unavailable.
 
 The first `CreateCustomerNote` attempt always uses this exact payload shape:
 `operation_name: "CreateCustomerNote"` and
@@ -2572,7 +2587,9 @@ Then:
    for later posts; do not call `whoami` again in this chat. The property is
    lookup context only; **never write the note on the property or flip**. The
    verified caller UUID is the `contextIdentifier` for `CreateCustomerNote`
-   only after any required duplicate-profile merge has completed.
+   only after any required duplicate-profile merge has completed. After a merge,
+   replace stale search/URL/cache IDs with the verified resolved record UUID
+   under the post-merge identity/Notes verification above.
    **Empty phone lookup:** before requesting a name, email or page link,
    silently load the installed shared `opshub-context` skill at
    `~/.codex/skills/opshub-context/SKILL.md` once (reuse if already loaded)
@@ -2585,7 +2602,8 @@ Then:
    claiming the customer does not exist or guessing the recovery procedure.
 2. **Customer is the caller.** When a caller phone, email, or name was
    supplied, post to the verified matching customer UUID from `list_customers`
-   or the bounded empty-phone recovery above.
+   or the bounded empty-phone recovery above, unless a merge resolved that
+   identity to a surviving UUID; the verified surviving UUID takes precedence.
    Always post to the caller record matched by the supplied phone or email.
    A unique record whose normalized phone matches the supplied caller phone
    is a valid posting target even when its name is blank or email is missing.

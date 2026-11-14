@@ -16,7 +16,9 @@ connector reads, or add browsing to warm-ups and note-only tasks.
 ## Select once, preserve the workflow
 
 - In the desktop environment, use `mcp__cua_repl` and the documented `cua`
-  browser entry point. Read the returned API documentation; use only supported
+  browser entry point. This desktop-only preference does not apply to Router
+  app-server/CLI/SDK workers, even when they inherit desktop tool names.
+  Read the returned API documentation; use only supported
   methods. Use the signed-in work profile, name the session, and retain bound
   browser/page handles. Use fresh state and page-scoped controls, including
   documented frame locators for nested iframes. Never carry numeric accessibility
@@ -30,6 +32,10 @@ connector reads, or add browsing to warm-ups and note-only tasks.
   or SDK workers have native access; never invent a native MCP endpoint. An
   empty top-level read is not proof of an empty iframe; use the selected
   surface's documented frame/page controls.
+  For required Agent 360 work, read [references/agent360-execution.md](references/agent360-execution.md)
+  and load its tested guard once alongside setup. Reuse it to batch routine
+  steps and resolve uncertain background clicks with fresh read-only state,
+  never automatic retries. Do not probe native Chrome first in Router.
 - Existing project safety rules win: a separate background window remains a
   separate window, not merely a tab group. Use only documented window controls;
   if the native surface cannot satisfy this constraint, report the blocker.
