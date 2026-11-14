@@ -60,9 +60,7 @@ blank. Explicit posts use resolved caller/property values.
   directly, never enumerate or filter the tool catalog, and do not make
   exploratory or duplicate lookup calls. An empty phone result takes Part 11's
   bounded shared-context recovery before asking for more identity; its exact
-  shared-skill read, retry and fallback are the fast-path exception. After the
-  first post, reuse the cached operator token and only run the required property
-  and caller lookups in parallel before creating the note.
+  shared-skill read, retry and fallback are the fast-path exception. After the first post, reuse the cached operator token and run the required property and caller lookups in parallel before creating the note. On an explicit repost under Posting guardrails, or when the retained draft says the XA filed a report, ticket, or document and no verified report link is already retained, also run the skill's bounded filed-report link lookup in the same parallel batch before create.
 - Do not edit the skill during ordinary call drafting. Explicit operator
   corrections follow the owning-source save workflow below; use fresh
   instruction context afterward without replaying a completed post.
@@ -85,10 +83,12 @@ blank. Explicit posts use resolved caller/property values.
 ## Browser safety
 
 - Never navigate, type, click, or switch tabs in the user's active Chrome
-  window. Use the shared `browser-navigation` skill: prefer the new ChatGPT
-  Chrome integration only when its documented controls can create/reuse a
-  separate background task window. A tab group is not a separate window.
-  Otherwise retain Agent 360 as the background-capable fallback, using
+  window. Use the shared `browser-navigation` skill's runtime selection:
+  Skill Router app-server/CLI/SDK workers start with configured Agent 360 while
+  their native Chrome connection remains unverified; do not probe native first.
+  Desktop chats may use supported native Chrome when its documented controls
+  provide a separate background task window. A tab group is not a separate
+  window. For Agent 360 use
   `new_tab: true`, `eget_vindue: true`, and `fokuser: false` when supported.
 - Never call `browser_switch_tab` with `bring_to_front: true` in this project.
   If an action cannot land without taking focus, stop and report the blocker;

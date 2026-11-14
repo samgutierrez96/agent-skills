@@ -7,8 +7,9 @@ description: Review an Alfred agent-verification task, verify the agent record, 
 
 When this workflow actually requires a browser, follow the shared
 `browser-navigation` skill at `~/.codex/skills/browser-navigation/SKILL.md`
-(packaged alongside this skill). Prefer the new ChatGPT Chrome integration;
-retain direct-connector, no-browser, background-window and authorization gates.
+(packaged alongside this skill). Router uses configured Agent 360 while native
+worker Chrome remains unverified; desktop chats may use supported native Chrome.
+Retain direct-connector, no-browser, background-window and authorization gates.
 
 Resolve the matching OpsHub customer, check live agent credentials, and close the matching Alfred review. Target **under 120 seconds** for an authenticated, exact-match run. Preserve identity checks and verify saved results; do not trade correctness for the timer.
 
@@ -33,6 +34,11 @@ These entry points remove the need to search local files, company knowledge, or 
 
 ## One-pass execution
 
+For Router UI work, read [references/execution.md](references/execution.md) once
+and load its tested controls and exact readback probes in the initial setup
+call. Reuse them between identity/evidence decisions instead of rebuilding
+selectors or returning to the model after each field, click and status read.
+
 ### 1. Resolve once (budget: 0–20 seconds)
 
 - Prefer OpsHub `list_customers` with the supplied exact phone or email. Select the exact matching record and cache its UUID, name, phone, and email. Do not select a similarly named person.
@@ -48,7 +54,7 @@ These entry points remove the need to search local files, company knowledge, or 
 
 ### 3. Run the live lookup (budget: 50–80 seconds)
 
-- Use a background-capable bound browser page for Agent Verification from the start, such as documented frame-scoped locators in `cua_repl`. Its form and results are inside nested iframes; a blank top-level page-content response is not an empty app. Read the bound frames rather than repeatedly reading the top-level document. Native app accessibility/keyboard control is a foreground fallback only with the operator's permission, not a way to bypass the background-window requirement.
+- Use the selected surface's documented bound frame controls for Agent Verification from the start (Agent 360 in Router). Its form and results are inside nested iframes; a blank top-level page-content response is not an empty app. Read the bound frames rather than repeatedly reading the top-level document. Native app accessibility/keyboard control is a foreground fallback only with the operator's permission, not a way to bypass the background-window requirement.
 - Populate only cached, current OpsHub identifiers using **LAST NAME**, **FIRST NAME**, **MLS ID**, **LICENSE NUMBER**, **PHONE**, **EMAIL**. Leave unavailable fields blank. Batch the known field fills and one **Search** click in one tool call, followed by a state read.
 - Wait for a result state rather than clicking Search again while “querying Snowflake” is shown. Read the matching candidate's tier, score, and identifier matches. A large result count can include weak first-name matches; assess the exact matching candidate, not the total count. Multiple rows for the same agent across MLS sources are not by themselves conflicting identities.
 - Matching High confidence · 100 proceeds immediately to closure. Surface an actual live mismatch for review.
@@ -65,17 +71,22 @@ These entry points remove the need to search local files, company knowledge, or 
 
 Report only the verified result: `Case: closed | Outcome: [actual HAS] | Agent: [actual status] | Confidence: [tier and score]`. Mention a saved OpsHub note if added. Report a concrete blocker when closure or statuses cannot be verified. Never claim completion based only on a click.
 
+In Router, use the exact final readback probe after all requested customer work
+to durably preserve observed closure/statuses. Then close workflow-created tabs
+and deliver immediately. No help commands, new tool discovery or optional
+logging may delay the result; missing confidence telemetry must not be invented.
+
 ## Browser execution rules that prevent stalls
 
 - Give one short starting update, then surface only meaningful mismatches, blockers, or delays. Use masked identifiers in chat. If work exceeds 60 seconds, give a brief update about what remains.
 - Start each new verification workflow in a **new, separate background Chrome window**, using the signed-in work profile, and keep OpsHub, Alfred and Agent Verification there. Keep the operator's current window in front: do not activate, raise, or switch its tabs. A new tab or colored tab group in the operator's existing window is not a separate window. Use supported background window creation and bound-page controls; if the available surface requires foreground keyboard/mouse input, report that limitation and ask before taking focus. Do not silently fall back to the operator's window or promise background execution through a foreground-only surface.
-- Prefer the new ChatGPT Chrome integration through `cua_repl`, including Alfred and OpsHub, following the shared `browser-navigation` skill. Verify its documented window controls satisfy the separate-background-window rule before acting; otherwise use an allowed fallback and record the capability gap. Bind the workflow window and its tabs once, then reuse those bindings for fast navigation and continuations of the same verification; do not open another window for every step. List tabs once when needed; do not create duplicates or repeatedly initialize the browser tools.
+- Select the browser once through the shared `browser-navigation` skill: Agent 360 in Router while native worker access remains unverified, supported native Chrome in desktop chats. Verify its documented window controls satisfy the separate-background-window rule before acting; otherwise report the capability gap. Bind the workflow window and its tabs once, then reuse those bindings for fast navigation and continuations of the same verification; do not open another window for every step. List tabs once when needed; do not create duplicates or repeatedly initialize the browser tools.
 - Use semantic labels or current accessibility indices scoped to the bound workflow page. Never send app-global keyboard input or reuse numbered controls after a tab/window/focus change; reacquire the intended page and fresh state first, without raising it over the operator's window. Batch deterministic actions on already-observed controls and the resulting state read; do not batch clicks that depend on a new dialog or menu you have not observed.
 - Prefer a targeted section or accessibility diff over full HTML/full activity dumps. Do not print tool catalogs or repeated shared tool instructions: discover exact tool names and only the needed schema.
 - Use condition-based waits supported by the browser, such as a dialog disappearing, a result heading appearing, or Case Closed becoming visible. No fixed sleeps. When the page is still loading, wait for that specific transition instead of taking repeated identical full-page snapshots.
 - For Alfred's customer selector, verify the scoped input actually changed and the search produced a settled result/options state. A text value alone does not prove the application received its search event. If no options appear, check focus, loading and input delivery, then try one supported alternate input method on the bound control. Do not cycle through the same phone/email/name with repeated blind clicks or key presses. Report an unconfirmed search/input blocker separately from an explicit settled “no matches” response. Preserve the resolved customer and credential match while blocked; do not reopen the account or rerun the lookup just to retry selection.
 - If input reports it did not land because the tab is inactive, use a supported non-activating bound-page method or report the background-control limitation; do not steal focus to retry. Check “maybe landed” actions before repeating; a stale immediate read does not prove a failed mutation.
-- If an iframe cannot be read by a top-level browser tool, switch immediately to Computer Use accessibility or documented frame locators. Do not spend several calls proving the top-level content is blank.
+- If an iframe cannot be read by a top-level browser tool, use the selected surface's documented bound frame controls immediately. Foreground-only accessibility remains subject to operator permission. Do not spend several calls proving the top-level content is blank.
 - Do not reopen completed stages or reread a verified fact through multiple surfaces. After Case Closed and the refreshed OpsHub statuses are established, finish.
 - Stay within the authorized verification workflow. Unexpected destructive or unrelated irreversible actions require explicit authorization.
 

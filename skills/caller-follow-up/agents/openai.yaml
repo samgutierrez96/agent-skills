@@ -1,0 +1,4 @@
+interface:
+  display_name: "Caller Follow-Up"
+  short_description: "Call talking points and information to collect"
+  default_prompt: "Use $caller-follow-up to read this thread and prepare a caller update, questions to ask, and information to collect."

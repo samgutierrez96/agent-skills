@@ -1,7 +1,19 @@
 {
-  "audited_on": "2026-11-12",
-  "scope": "Ten custom skills, shared browser selection/timing, project adapters and registered runtime dependencies",
+  "audited_on": "2026-11-13",
+  "scope": "Eleven custom skills, shared browser selection/timing, project adapters and registered runtime dependencies",
   "files": [
+    {
+      "source": ".codex/skills/caller-follow-up/SKILL.md",
+      "destination": "skills/caller-follow-up/SKILL.md",
+      "sha256": "77168b9475601d1b72be5c429fccd4a251d2414a1737aa22464ad9a68277fa88",
+      "provenance": "Added November 13, 2026 at Sam's request; canonical authoring source is this repository's skills/caller-follow-up package; installed source path records the identical desktop runtime, not a separate owner"
+    },
+    {
+      "source": ".codex/skills/caller-follow-up/agents/openai.yaml",
+      "destination": "skills/caller-follow-up/agents/openai.yaml",
+      "sha256": "40bd6a50854e5b44588d792edbb31ddfbc40732c81a4ead20434c183d48b2949",
+      "provenance": "Caller Follow-Up display and invocation metadata; canonical repository and installed desktop runtime agree"
+    },
     {
       "source": ".codex/skills/kb-answer-for-callers/SKILL.md",
       "destination": "skills/kb-answer-for-callers/SKILL.md",
@@ -33,7 +45,7 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/AGENTS.md",
       "destination": "adapters/codex/xa-notes/AGENTS.md",
-      "sha256": "b1177a3b39be0584900945a52e3cf3b5130d994a0eb4a6800a290bf74641f04e"
+      "sha256": "e6dc21ad5955a7d0bb1b253b58963faf25511016c21366f0a0d23618e4eefdb6"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/context/decisions-and-conventions.md",
@@ -48,7 +60,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/AGENTS.md",
       "destination": "adapters/codex/zendesk-record-retrieval/AGENTS.md",
-      "sha256": "572ed418118162b9116073448ca28b4fb8fae88e3c71b3871b2c8f31c48e6d1b"
+      "sha256": "7daf288102d12a2e5fa285f156836d963654fa2b9b3c891a072f648b4da9dac5"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/decisions-and-conventions.md",
@@ -73,7 +85,7 @@
     {
       "source": ".codex/skills/agent-verification/SKILL.md",
       "destination": "skills/agent-verification/SKILL.md",
-      "sha256": "3539954e7802feb565080c415264c151c082bef5b18bb4831de63d979ff72d7c"
+      "sha256": "937d4aea414da7bf63660b222736034476a770225ba555f7d4ac9dd45a0882d5"
     },
     {
       "source": ".codex/skills/agent-verification/agents/openai.yaml",
@@ -103,7 +115,7 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "574046d026735323cde974a688dbcc48dcd33ce48b20bce6b73628796d912c70"
+      "sha256": "92c476f6246c650eb468f2b6f819bf0a23a0f14a57422fd9f5a3f6ebc89e44d7"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/CORE.md",
@@ -113,7 +125,7 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/SKILL.md",
       "destination": "skills/xa-notes/SKILL.md",
-      "sha256": "ef202522fb1510493c2c8bf6a3f3028499ba68792278d256a4a600647f0e5744"
+      "sha256": "a1af9ef5f1e2fca50d2fed971572a96b4b961928f28a06cdf6d93ca146bfc066"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/reference/process-detail.md",
@@ -133,7 +145,7 @@
     {
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/SKILL.md",
       "destination": "skills/xa-quick-slack/SKILL.md",
-      "sha256": "441e07ca10d33b499bfbe25af048a9c1186e588cb6be16100d40a4b6e13a5d07"
+      "sha256": "777f26931c7031908718be9f70f895f764525687766b9a6afd03a730d8063b66"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ENTRY.md",
@@ -309,7 +321,7 @@
     {
       "source": ".codex/skills/browser-navigation/SKILL.md",
       "destination": "skills/browser-navigation/SKILL.md",
-      "sha256": "97c212ee6ce9fb68bf52cd7834e11f0ee5bfe36b28c4084ee4d5512ba5c1953b",
+      "sha256": "8fa90ce1b39c1b878edb5ae41a62d95c75f3b56650a322e697f1d42acc24c609",
       "provenance": "Shared browser selection and private metadata-only timing owner added November 12, 2026; canonical repository package and complete installed folder agree"
     },
     {
@@ -329,6 +341,60 @@
       "destination": "skills/browser-navigation/scripts/test_browser_timing.py",
       "sha256": "5dd7b019f67eb8aa69c7df43c287b91c1d71f5118cab0f96d2083a39378cb044",
       "provenance": "Shared browser selection and private metadata-only timing owner added November 12, 2026; canonical repository package and complete installed folder agree"
+    },
+    {
+      "source": ".codex/skills/browser-navigation/references/agent360-execution.md",
+      "destination": "skills/browser-navigation/references/agent360-execution.md",
+      "sha256": "a867181a8ccc8d43cbeebbddf9933b711f6d4d66e7949d8a7f21d1ce50539ddb",
+      "provenance": "Guarded Agent 360 orchestration and synthetic regression coverage added November 13, 2026; canonical and installed copies agree"
+    },
+    {
+      "source": ".codex/skills/browser-navigation/scripts/agent360_guard.js",
+      "destination": "skills/browser-navigation/scripts/agent360_guard.js",
+      "sha256": "3fcd08d4329e0e3a39b76096ee14bc4197ea9b584f1cc359bec361102177a65c",
+      "provenance": "Guarded Agent 360 orchestration and synthetic regression coverage added November 13, 2026; canonical and installed copies agree"
+    },
+    {
+      "source": ".codex/skills/browser-navigation/scripts/test_agent360_guard.mjs",
+      "destination": "skills/browser-navigation/scripts/test_agent360_guard.mjs",
+      "sha256": "426a5cfe3b58f845e8a9755fd69605948809e5015d0d14254b7b5683a3e0bde4",
+      "provenance": "Guarded Agent 360 orchestration and synthetic regression coverage added November 13, 2026; canonical and installed copies agree"
+    },
+    {
+      "source": ".codex/skills/agent-verification/references/execution.md",
+      "destination": "skills/agent-verification/references/execution.md",
+      "sha256": "40d1e9478b0a5086d75bd81c01200dbd94824ff6770a13109aa32c21425999b9"
+    },
+    {
+      "source": ".codex/skills/agent-verification/scripts/read_case.js",
+      "destination": "skills/agent-verification/scripts/read_case.js",
+      "sha256": "40bcbc7f13f6f9768763121740cf66eb3e56c052fab7ef2ad1bbae9a99cbb852"
+    },
+    {
+      "source": ".codex/skills/agent-verification/scripts/read_customer.js",
+      "destination": "skills/agent-verification/scripts/read_customer.js",
+      "sha256": "ee1cc19d7047a60c9cf7528c9b3dd81621b13fb432fe6e32c8030a1ff4444de6"
+    },
+    {
+      "source": ".codex/skills/agent-verification/scripts/final_customer.js",
+      "destination": "skills/agent-verification/scripts/final_customer.js",
+      "sha256": "3f0d6eb3c864d50773c4663ce0daf51f661502c4e6367f23072afbdae598e8fa"
+    },
+    {
+      "source": ".codex/skills/agent-verification/scripts/checkpoint.py",
+      "destination": "skills/agent-verification/scripts/checkpoint.py",
+      "sha256": "22a99b4758385f09dd67149ae63630a9996b6331fdbd36ce3fa16b25eb54a9bc",
+      "runtime_role": "workflow-checkpoint-v1"
+    },
+    {
+      "source": ".codex/skills/agent-verification/scripts/controls.js",
+      "destination": "skills/agent-verification/scripts/controls.js",
+      "sha256": "00b8230abb8182e8bb1cb6c33e9142923206bdd8bd01232be509079361228879"
+    },
+    {
+      "source": ".codex/skills/agent-verification/scripts/test_controls.mjs",
+      "destination": "skills/agent-verification/scripts/test_controls.mjs",
+      "sha256": "3271744de28acb5aeaa72a2fb290d782222c0f80e491251bb3eaa20929b28a60"
     }
   ],
   "local_files": [

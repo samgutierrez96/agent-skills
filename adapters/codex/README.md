@@ -1,5 +1,12 @@
 # Codex project adapters
 
+`caller-follow-up` is a standalone call-preparation skill. Its canonical authoring
+source is `skills/caller-follow-up/` in this repository. Install that complete
+folder, including `agents/openai.yaml`, at `~/.codex/skills/caller-follow-up/`.
+Keep the installed runtime byte-for-byte identical; no project adapter or Skill
+Router application change is required for this desktop installation. It drafts
+status updates and collection questions, not post-call notes or external actions.
+
 All custom workflow skills use the shared `browser-navigation` owner only when
 a browser is actually needed. Install the complete `skills/browser-navigation/`
 folder into `~/.codex/skills/browser-navigation/`. Add a global Codex AGENTS

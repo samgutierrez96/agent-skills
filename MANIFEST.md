@@ -1,5 +1,67 @@
 # Skill manifest
 
+## Agent verification execution repair — November 13, 2026
+
+The inventory-owned verification package now includes tested, Agent-360-only
+observed-control helpers and exact read-only customer/case/final probes. Router
+loads an explicitly registered owner checkpoint interpreter from the reconciled
+source snapshot; business evidence rules remain in this package. One exact input
+account, bound case closure and matching saved statuses are required. Missing
+case identity cannot become success; clicks/prose are never completion evidence.
+Final readback occurs after requested customer work, followed by short tab cleanup
+and immediate delivery, not help/tool discovery or optional logging. Stale
+native-first Router wording is replaced with the shared runtime-specific owner.
+
+Synthetic controls and interruption tests passed. An actual isolated Router
+worker completed one loopback save and one frame search without either page
+reporting focus, in 74.428 seconds. This is not Alfred/OpsHub acceptance or a
+live verification latency guarantee. No customer task was replayed. Active
+runtime files, canonical package and inventory hashes are saved locally;
+GitHub publication remains with the scheduled evening synchronization.
+
+## Caller Follow-Up — November 13, 2026
+
+Added `caller-follow-up` at Sam's request to turn a case conversation into a
+caller-ready update and a checklist of what to ask and collect. The skill reads
+the full available thread, date-stamps its latest evidence, distinguishes team
+requests from suggested questions, and preserves uncertainty and commitment
+boundaries. It prepares a call brief only; it does not send, call or post.
+No originating customer case content or identifiers are bundled.
+
+Canonical authoring source: `skills/caller-follow-up/` in this repository.
+Installed desktop runtime: `.codex/skills/caller-follow-up/`. Both files, including
+UI metadata, are identical and recorded in the inventory. The existing working
+branch is preserved; local saves await the normal end-of-day publication task.
+
+## Merge execution repair — November 13, 2026
+
+Reconciled stale native-first wording in the Notes/Escalations skills and
+Notes/Zendesk project adapters with the shared runtime-specific browser owner.
+Router starts required UI work with Agent 360 while native worker access remains
+unverified; desktop chats retain supported native Chrome. The merge owner uses
+the plural OpsHub customer route and recognizes a 404 before waiting on controls.
+The shared package now includes a tested, no-I/O orchestration guard: decode
+nested MCP JSON, batch already-decided steps, verify uncertain background clicks
+with fresh read-only state, and stop unresolved outcomes without retrying writes.
+Identity/warning reviews, unfocused windows and existing posting receipts remain
+required. Synthetic helper tests make no browser calls; they do not establish a
+new live timing result. Active sources, canonical packages and inventory hashes
+are saved locally for the evening sync; maintenance replays no customer actions.
+
+## Admin customer-search recovery before merge handoff — November 12, 2026
+
+The inventory-selected account-merge skill now distinguishes successful key
+delivery from a submitted Admin search. When Enter leaves the exact email in
+the field without a settled match, inspect the visible Sort By control and use
+one supported selection of its alternate observed ordering to trigger search.
+Verify the actual exact-email customer row and numeric Admin link, excluding
+New Customer even when its URL contains the query, then continue the retained
+workflow in the same run. Preserve the original authorization and receipts;
+this search-only recovery never retries an uncertain merge, save, send or post.
+Missing controls, failed recovery and settled no-match results retain a specific
+blocker and pending note. Active runtime and canonical package/hash are saved
+locally; customer actions are not replayed by this maintenance update.
+
 ## Automatic completed-work links in XA Notes — November 12, 2026
 
 The inventory-selected Notes skill now reuses or retrieves the matching link
@@ -736,6 +798,7 @@ selected by modification timestamp. File provenance and SHA-256 hashes are in
 
 | Skill | Active source relative to the user home | Audit result |
 | --- | --- | --- |
+| `caller-follow-up` | `.codex/skills/caller-follow-up` | Added November 13; canonical repository source and installed runtime match |
 | `kb-answer-for-callers` | `.codex/skills/kb-answer-for-callers` | Added November 4; shared business-wide retrieval, original Claude text preserved |
 | `bot-task-notes` | `.codex/skills/bot-task-notes` | Added November 2; canonical package and installed runtime match |
 | `agent-verification` | `.codex/skills/agent-verification` | Updated workflow and UI metadata |
