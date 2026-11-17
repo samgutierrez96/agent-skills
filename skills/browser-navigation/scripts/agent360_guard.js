@@ -56,5 +56,10 @@
     return results;
   }
 
-  return Object.freeze({ read, step, steps });
+  // Agent 360 1.31.0 sends text:'' for key:'Enter'; that delivers keydown but
+  // does not trigger Chromium's implicit form submission. Its documented key
+  // and code fields can carry the carriage-return character instead. Use only
+  // on an observed read-only search form, never to submit a mutation/warning.
+  const searchEnter = Object.freeze({ key: "\r", code: "Enter" });
+  return Object.freeze({ read, step, steps, searchEnter });
 })()

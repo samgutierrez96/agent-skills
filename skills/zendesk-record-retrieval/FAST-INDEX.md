@@ -8,6 +8,23 @@ other hosts may use equivalent read-only tools without changing the evidence gat
 
 ## First decision
 
+- **Agent asks to send/upload existing photos for a client's assessment or
+  offer:** use [agent assessment photos](recipes/agent-assessment-photos.md)
+  directly. This self-contained card replaces a broad “Per-type recipes” read
+  for that branch. Reuse sufficient supplied ticket evidence; verify only the
+  required association, qualified stage/assessment and resolution gates, then
+  stop. Completed-assessment claims or a separate substantive ask keep their
+  matching recipe and evidence requirements.
+
+- Requested ticket merge, or a split conversation found by the existing related-ticket
+  check → [ticket consolidation](recipes/ticket-merge.md). Read the matched
+  conversations together before drafting; recommend one continuing ticket and
+  preserve the other ticket's full URL. Verify requester, exact property when
+  relevant, concern and chronology, not just subjects. Do not auto-merge, auto-close,
+  or add a new broad search to every ticket. A merge requires Sam's authorization
+  of exact sources and destination plus an actual merge capability; ordinary
+  ticket updates are not merges. Missing capability → verified manual handoff.
+
 - Established vendor waiting after emailing `accountspayable@opendoor.com`
   about billing/unpaid invoices → submit a request through the Trade Partner
   Support Center, https://opendoor.atlassian.net/servicedesk/customer/portal/1133.
@@ -115,7 +132,9 @@ other hosts may use equivalent read-only tools without changing the evidence gat
    street-address phrase when supplied; otherwise use the verified requester
    email. Run it alongside required recipe/section reads. SMS may repeat an email
    under another address. Read matching candidate comments and verify the customer,
-   exact property, same concern, prior answer and chronology. A solved/closed
+   exact property, same concern, prior answer and chronology. A split unresolved
+   conversation uses [ticket consolidation](recipes/ticket-merge.md); related
+   history can inform the draft without permission to merge. A solved/closed
    answer with no changed circumstance or substantive new question takes the
    no-reply/close path; stop retrieval and put the source number in the appendix.
    Status, a name/address alone, or email subjects do not establish resolution.
@@ -228,6 +247,7 @@ multi-part request, combine only the matching cards; keep their required gates.
 - [Offer-status questions on any channel](recipes/offer-status.md)
 - [Seller asking for assessment day/time](recipes/assessment-time.md)
 - [Seller asks whether Opendoor can conduct the assessment](recipes/assessment-provider.md)
+- [Agent asks to send or upload existing assessment photos](recipes/agent-assessment-photos.md)
 - [Preliminary offer next steps](recipes/preliminary-next-steps.md)
 - [Seller says they are working with an agent or asks whether the agent can meet instead](recipes/seller-with-agent.md)
 - [Seller SMS with a vacant home and lockbox for a same-day assessment](recipes/vacant-assessment.md)
@@ -265,7 +285,8 @@ multi-part request, combine only the matching cards; keep their required gates.
 - Match every record fact to this requester and property. Missing/empty evidence
   is unknown. Resolve contradictory completion/stage evidence before drafting.
 - Photos, video, app, walkthrough, upload or completion questions require the
-  matching full-playbook recipe before drafting, including exact product names.
+  matching full-playbook recipe before drafting, including exact product names;
+  the self-contained agent assessment photos card satisfies this for its narrow branch.
 - Stage-sensitive offer/assessment questions require property header Flags/status
   and Assessments & Inspections, with focused browser fallback if structured reads
   omit them. Do not infer presentation from SENT, or photos from Complete alone.

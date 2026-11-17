@@ -24,3 +24,9 @@ read the matching full-playbook section before drafting; this card is the first 
   missing credentials, not a phone-support-only referral. Never provide a code,
   remote unlock, or direct entry while denial/verification is unresolved; preserve
   non-negotiable Trust and Safety and rental-scam restrictions.
+- When the customer asks specific questions about showing length, lockbox signage,
+  or whether additional access is required, address those questions in the
+  customer reply together with any ask about whether the appointment occurred or
+  help is still needed. State what the verified confirmation or record supports
+  and what remains unverified; do not answer only with whether they completed the
+  tour or still need help.

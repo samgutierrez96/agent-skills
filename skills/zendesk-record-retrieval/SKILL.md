@@ -63,6 +63,16 @@ automatically; keep the internal note accurate about the actual handoff or unsen
 status. Email tickets have no OpsHub call note. Estimated/expired offers without a final offer
 or contract do not trigger HSA escalation.
 
+## Related-ticket consolidation
+
+When a related-ticket check finds a split conversation, or Sam requests a ticket
+merge, use [ticket consolidation](recipes/ticket-merge.md). Read both sides of the
+conversation before drafting, recommend one continuing ticket, and preserve source
+links and outstanding asks. Actual merging is a separately authorized operation,
+not part of ordinary read-only drafting or an OpsHub customer-account merge.
+The recipe defines capability checks, merge direction, internal-note privacy and
+post-merge verification; missing MCP merge support must not become a claimed merge.
+
 ## Department routing when a Slack destination is unverified
 
 For a legitimate misrouted department inquiry, search Slack/internal knowledge
@@ -160,7 +170,9 @@ describe the ticket facts first, not the operator's drafting or handling activit
 **Load the fast index once per chat.** Read
 `skills/zendesk-record-retrieval/FAST-INDEX.md` first for routine tickets, retrieve
 the ticket, then read the named card in `recipes/` and the matching full-playbook
-section when required by that card or a safety gate. For hard, ambiguous, or
+section when required by that card or a safety gate. The self-contained
+`recipes/agent-assessment-photos.md` card replaces the broad section read for its
+narrow branch; do not load both for the same rule. For hard, ambiguous, or
 multi-record tickets needing the complete playbook, use explicitly bounded chunks
 of at most 200 lines and 12,000 characters each with labeled continuations. Inspect
 all required parts; independent chunks may run together within the output budget.
@@ -1440,17 +1452,9 @@ the shape, the record wins, see "Stage gates the playbook".
   an access contact, and do not proceed with the
   direct-seller assessment path until the agent information is collected.
 - **Agent asking how to upload existing photos, assessment still outstanding.**
-  Do **not** use the direct-seller three-path recipe. Two dependent rounds: Glean
-  the ticket, then `resolveAddress` (or PDS) plus CUSTOMER on the address uuid
-  and TASK on that uuid in the same block. `is_agent: true` +
-  `PRELIM_OFFER_SENT` + `seller_full_assessment` / `agent_full_assessment`
-  IN_PROGRESS is the whole answer. **Stop.** Do not open the property page for
-  Flags, photos, or notes, and do not query `SELL_DIRECT_OFFER`. Entry-only is
-  when they refuse the assessment and ask us to work the owner; asking how to
-  upload is the opposite. Draft: existing photos cannot be uploaded; Opendoor
-  Key App live photos at the home; reply here or call (888) 352-7075 if they get
-  stuck in the app. No walkthrough. Verified on Rowlett TX ticket 4910782 (602
-  Winners Cir) that scored sent as-is.
+  Use the complete [agent assessment photos](recipes/agent-assessment-photos.md)
+  card directly. It owns this narrow branch's evidence path, exceptions, answer
+  and stop condition; do not also read this entire section for the same recipe.
 - **Assessment photo question framed as an alternative upload (including a video
   versus photo question).** Keep the customer-facing answer focused on the
   required action: download the **Opendoor Key App** and take all assessment

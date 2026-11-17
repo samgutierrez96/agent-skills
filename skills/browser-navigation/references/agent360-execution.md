@@ -57,3 +57,41 @@ Discover only exact missing tool declarations, once, in the same call as other
 independent setup. Do not print the browser catalog. Router uses Agent 360 first
 while its native connection remains unverified; do not spend a native probe on
 each customer run. A read-only helper test is not proof of live browser reliability.
+
+## Search-form Enter compatibility
+
+For an observed read-only search form whose focused input is verified, use
+`tools.mcp__browser_mcp__browser_press_key(guard.searchEnter)`. The payload is
+`{key: "\r", code: "Enter"}` (an actual carriage-return character, not the two
+literal backslash/r characters). Agent 360 1.31.0's ordinary `key: "Enter"`
+sends no character text: its `landed:true` can mean keydown was received while
+Chromium never performed implicit form submission. An isolated Chromium form
+test reproduces zero submissions for that payload and one for `searchEnter`.
+No extension edits, DOM writes, scripted submit/events or application handlers
+are required. This test does not establish live-site success.
+
+Call this search-only input once outside `guard.step` and retain its raw reply.
+In the verified live search, this character payload reported `key-not-delivered`
+while the exact candidate actually loaded. Always follow it with a focused
+read-only result check, including after that warning; do not repeat the input.
+Continue only from the actual matching visible candidate or settled search
+state, never from the warning or acknowledgement alone. This narrow search
+compatibility handling does not change `guard.step`'s hard-failure behavior for
+other actions and never recovers or retries an uncertain mutation.
+
+Read the search input, its scoped form and existing results first; click the
+actual visible input through the documented UI tool if it is not focused. Send
+this search-only input once, then verify the settled matching result or explicit
+search state with a focused read/wait. If ordinary Enter already failed and no
+mutation was submitted, this is one distinct search recovery, not another
+identical Enter retry. Retain the user's confirmed answers throughout. A filled
+field or `landed:true` alone is never a submitted search, empty-result proof or
+merge receipt. Stop on a real unresolved capability/search failure after this
+bounded recovery, not for another identity/merge approval.
+
+Never use this payload to accept an irreversible warning, merge, save contacts,
+send Slack, post a note or retry an uncertain mutation. Those use their reviewed
+visible controls and original receipt guards. Regression:
+`node scripts/test_agent360_search_enter.mjs` from this package, with the
+existing Playwright dependency available via `NODE_PATH`; it launches only an
+isolated headless browser and never attaches to working Chrome.

@@ -107,6 +107,10 @@ in one independent block when possible. Do not read `recipes/ticket-only.md` aft
 sections together by their exact headings, not repeated broad keyword searches;
 see `ROUTING-GATES.md` → `Targeted playbook reads`. Dependent record IDs still
 wait for verification; a missing or failed read is not a pass.
+The self-contained `recipes/agent-assessment-photos.md` card contains its complete
+narrow recipe; it replaces, rather than adds to, a broad full-playbook read for
+that branch. Reuse sufficient server-supplied Zendesk ticket/comment evidence,
+inspecting its identity, freshness and coverage instead of repeating those reads.
 For hard, ambiguous, or multi-record tickets, first read matching full-playbook
 sections. If the complete playbook is required, read it in explicitly bounded
 chunks of at most 200 lines and 12,000 characters each, with labeled continuations;
@@ -189,7 +193,9 @@ Do not repeat Sam's completed assignment or note post.
 
 ## Tool map (this Codex setup)
 
-Use this read-only whitelist. Do not hunt for Claude-era tools (`browser_batch`,
+Use this read-only whitelist for retrieval. A separately authorized ticket merge
+uses the narrow workflow below, not an ordinary update/close call.
+Do not hunt for Claude-era tools (`browser_batch`,
 `get_page_text`, `ToolSearch`, `mcp__claude-in-chrome__*`) or inspect unrelated
 connector catalogs.
 
@@ -251,6 +257,26 @@ opening that page in the browser; a successful customer-page read is not a
 property-page read. See `ROUTING-GATES.md` → `Address lookup budget` for the bounded
 browser fallback. Do not declare OpsHub inaccessible from an empty search or
 ask for address details already supplied.
+
+**Zendesk ticket consolidation (Sam, November 16, 2026):** When a required
+related-ticket check reveals a split conversation, read the matched tickets
+together and recommend one continuing ticket so the question, prior answer,
+attachments and newest follow-up are not lost. Follow
+`skills/zendesk-record-retrieval/recipes/ticket-merge.md` for source/destination
+selection, authorization, internal merge notes and verification. A matching
+name, address or subject alone is not enough. Use Zendesk MCP first; the current
+connector exposes no merge action, and `update_ticket` / `batch_update_tickets`
+cannot substitute for one. If that remains true at execution, report the exact
+missing capability and provide the verified manual handoff; do not claim a merge.
+Saving this process does not authorize live merges. Sam must authorize the exact
+source ticket(s) and destination before execution; ordinary drafting remains
+read-only. This is a Zendesk ticket merge, not an OpsHub/Admin customer merge.
+When recommending an uncompleted merge, label its operator-appendix section
+`Possible ticket merge` outside all copy boxes. Include the verified source →
+continuing ticket direction and full links, brief reason, outstanding ask, and
+current approval/capability blocker. Router promotes that section into a visible
+review notice. Do not use this label for a rejected match, a completed merge or
+generic process advice. This is a review-time flag, not a background inbox alert.
 
 Duplicate-profile / merge guardrail: run an Admin merge only when the records
 match on the same verified customer name and phone number, with the email being
@@ -407,6 +433,16 @@ The Opendoor Team
 - For a general home-selling question, ask directly for the customer's question. When the customer is clearly discussing their own home, ask directly for that property's address and include Opendoor's support number, (888) 352-7075, so they can get help by phone. Request an address only when the customer raises a specific property or the answer requires property-specific help.
 
 ## Hard gates (never violate)
+
+- **Preserve customer meaning and negation:** In both the customer reply and
+  internal note, preserve the actual message's meaning, negation, conditions and
+  access restrictions. A statement that an in-home walkthrough cannot be
+  performed while guests are staying is not a welcome, authorization or request
+  to schedule around them. Apply the operator's explicit clarification without
+  reversing it or importing permission from another message. For a targeted
+  correction, change only the affected wording and preserve everything else.
+  Save only this general guidance, never customer identifiers, contact details
+  or case-specific facts in standing instructions.
 
 - Do not reply solely to repeat a request already visible in the email thread or say its answer is pending. When the thread already asks the right person for confirmation, wait for a substantive answer unless Support has a useful new fact or next step. This does not make a customer's clarification of an unresolved concern a closing acknowledgment: provide a brief, courteous acknowledgment when needed, especially when the operator requests a reply. Do not repeat an outstanding request, imply resolution, or promise an unverified action.
 

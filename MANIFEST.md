@@ -1,5 +1,87 @@
 # Skill manifest
 
+## Search-only Enter submission repair — November 16, 2026
+
+An isolated Chromium form reproduces Agent 360 1.31.0 delivering ordinary Enter
+without implicit submission. The shared guard exposes a documented key/code
+carriage-return payload for observed read-only search forms only; regression
+coverage verifies one submission, preserved required-field validation and no
+unrelated form action. The merge owner applies this to the merge-candidate
+search before handing a known phone back to the operator, retaining confirmed
+identity/email answers and existing mutation receipts. No extension patch,
+scripted form events, hidden application API or relaxed merge guard is used.
+Canonical/installed copies and inventory hashes are saved locally for the
+evening publication task. Synthetic acceptance is not live merge acceptance.
+
+The subsequent explicitly authorized Router continuation verified the live
+search, Admin merge, full saved contacts and carried-over original note, with
+no resend or repost. The search payload can yield a false key-delivery warning;
+the reference now requires a fresh read-only candidate check without repeating
+the input, leaving all generic action failure/receipt guards unchanged. No
+customer identifiers are stored here.
+
+## Split-contact seller merge detection — November 16, 2026
+
+The account-merge owner now compares a seller caller's phone-profile UUID with
+the matched property's email-only customer UUID, even when phone search returns
+one result and Admin does not suggest the duplicate. Notes and Escalations route
+that signal to the shared merge owner before sending/posting. Reuse sufficient
+context or one scoped property-profile read; ask only for missing same-person
+and keeping-email facts as separate choices. Complementary contacts alone do
+not authorize merging; same-UUID rows, unrelated people and a lone email-only
+account remain excluded. Existing verification, receipt and no-replay guards
+remain intact. Active sources and canonical copies are saved locally on the
+existing branch with reconciled inventory hashes for the evening sync. No live
+merge, contact edit, browser operation, send or post is part of this correction.
+
+## Zendesk agent-photo lookup efficiency — November 16, 2026
+
+Extracted the existing agent existing-photo recipe into one self-contained card
+and linked it from the project adapter, Fast Index, playbook and routing gate.
+It reuses sufficient server-supplied ticket/comment evidence, narrows record
+reads to required requester/qualified-flip/stage/assessment/resolution gates and
+stops at sufficient evidence. A required missing fact still permits its focused
+fallback; conflicting/completed assessments retain their existing branches.
+This changes retrieval efficiency, not customer policy or action authorization.
+
+The active Zendesk workspace and canonical copies are identical and inventory
+hashes include the new card. Source ownership/revision checks and skill validation
+pass; Router's isolated tests cover the transport/reuse side without live customer
+or browser actions. Fresh-draft model latency/quality acceptance remains unverified.
+Saved locally on `codex/zendesk-current-refresh`; publication awaits the existing
+evening task. Router application changes remain in their separate repository.
+
+## Zendesk ticket consolidation — November 16, 2026
+
+Added a focused ticket-merge recipe and routed the active Zendesk project rules,
+Fast Index and playbook to it. Related conversations are read together; exact
+source/destination authorization, internal merge comments and post-merge evidence
+are required before reporting completion. The exposed Zendesk MCP currently has
+no merge action, so the workflow reports that capability gap and prepares a
+verified manual handoff rather than simulating a merge with updates/closure.
+This does not authorize live ticket changes or OpsHub customer-account merges.
+No recording/customer identifiers are included. Active workspace and canonical
+copies are saved locally on the existing branch for evening publication.
+
+The active Zendesk output rule now labels uncompleted recommendations
+`Possible ticket merge` outside the copy boxes, with verified direction/links,
+reason, outstanding ask and current blocker. Router owns the visible review
+notice; the recommendation and match decisions stay in this owning workflow.
+Rejected/completed merges and generic advice do not use the candidate label.
+This adds no background inbox alert or execution authority. Active project
+adapter and canonical distribution match; provenance hash reconciled locally.
+
+## Live-work maintenance boundary — November 16, 2026
+
+The shared browser-navigation owner now distinguishes maintenance permission
+from live ticket/browser operations: isolated synthetic testing, no request
+stop/replay, service restart, working-tab reload or live test prompts without
+explicit action-specific permission. Authorized edits bind the ticket/draft
+version, preserve other fields and keep background results on their original
+record. Installed source and canonical distribution are identical; inventory
+hash updated. No customer workflow was used for validation. Local save only;
+publication remains with the scheduled evening sync.
+
 ## Agent verification execution repair — November 13, 2026
 
 The inventory-owned verification package now includes tested, Agent-360-only
@@ -787,6 +869,23 @@ authorized. Preserve existing unsent text and verify ticket identity, composer
 mode and visible content. Fast Index and portable entry exceptions align with
 this bounded authorization; source hashes are updated. Saved locally on the
 existing branch; GitHub publication remains for the end-of-day task.
+
+## Merge surviving-name choice and bounded read-back — November 16, 2026
+
+The account-merge owner distinguishes same-person verification, primary email
+and surviving personal-name selection. Malformed occupational/duplicated name
+fields or unresolved spellings produce independent explicit answer buttons with
+the proposed first/last split; already-confirmed corrected names are reused.
+The selected fields are saved and checked alongside contacts, preserving roles
+and unrelated profile data. Complete contact evidence is reused, customer UUIDs
+are not passed to lead-token lookups, and a matching note read-back ends that
+stage without repeated DOM/history discovery. A bounded failed read-back reports
+its actual blocker without repeating a mutation or obscuring completed cleanup.
+
+The active source, canonical distribution and inventory hash are reconciled
+locally. Synthetic Router regressions cover independent name/email/identity
+choices and one-option corrections across Notes, retained tasks and Escalations.
+No live customer action was replayed; publication remains for the daily sync.
 
 ## Canonical distribution and active sources
 
