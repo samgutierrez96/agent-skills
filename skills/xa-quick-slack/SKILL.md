@@ -617,6 +617,15 @@ or a response without a note ID, do not retry automatically because the note
 may already exist. Never turn a clear, correctable validation failure into a
 request for the XA to repeat `post it`.
 
+For an authorized seller/previous-owner post, apply the merge skill's **Split
+phone/email seller profiles** check against the matched property's customer,
+even with one phone-search result. Distinct caller-phone and email-only seller
+UUIDs trigger that workflow without a shared contact or operator duplicate
+keyword. Reuse retained evidence; otherwise make its one scoped property-profile
+read. Ask only for its unresolved identity/keeping-email answers and keep the
+send/post pending until its required merge and verification finish. A unique
+phone hit or property match does not bypass this check.
+
 **Duplicate-profile gate:** Apply the `xa-admin-account-merge` workflow to
 escalations as well as ordinary XA notes. When the caller lookup returns
 multiple real customer profiles with distinct email addresses, or a named

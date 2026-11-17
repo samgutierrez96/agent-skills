@@ -63,6 +63,19 @@ connector reads, or add browsing to warm-ups and note-only tasks.
 - Preserve user tabs. Clean up only agent-created task tabs/windows according
   to the surface's documented lifecycle; keep a handoff only when necessary.
 
+## Maintenance must not interrupt live work
+
+Debugging or skill/project maintenance does not authorize operating customer
+tickets or the user's active browser. Test with synthetic records in an isolated
+browser; never stop/replay requests, restart a service, reload a working tab or
+submit test prompts into live conversations without explicit permission for that
+action. For an authorized draft edit, bind the exact ticket and draft version
+before editing and verify them again immediately before applying it. A different
+open ticket is not a substitute target. Background results belong to their
+original record and must not replace the currently visible ticket. Preserve
+other draft fields and unsent text; keep draft saving separate from reusable
+guidance and external sending/posting.
+
 ## Time real work without adding work
 
 For browser tasks, capture timestamps in the existing orchestration calls, then

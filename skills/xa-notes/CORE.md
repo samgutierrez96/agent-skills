@@ -43,8 +43,9 @@ preparation, before replying Ready; the first caller must reuse that loaded skil
 
 - Ordinary notes use zero tools, except the full skill's silent listing-type
   check and bounded read-only filed-report link lookup. When the XA says they
-  filed a report/ticket, attached an inspection report/document, or made a Key app
-  or other escalation, reuse its verified URL or find the matching Slack, ticket,
+  reports completed work in their own words, including filing a report, starting
+  a ticket, sending Slack or continuing a thread, or attaching an inspection
+  report/document, reuse its verified URL or find the matching Slack, ticket,
   or document link using scoped context and include it once. No verified match means no
   invented link, no broad search, and no blocked note. This never authorizes a
   new report, escalation, file upload/share, Slack send or OpsHub post.

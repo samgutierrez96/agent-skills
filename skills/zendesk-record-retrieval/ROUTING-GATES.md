@@ -78,7 +78,9 @@ authority for disclosure and stage rules.
 
 **Recipe-before-draft guardrail:** If the ticket mentions photos, videos, an app,
 virtual assessment, walkthrough, upload, or assessment completion, read the matching
-section of the workspace `SKILL.md` before drafting. Generic Glean or Help Center
+section of the workspace `SKILL.md` before drafting. For the narrow agent
+existing-photo branch, the complete `recipes/agent-assessment-photos.md` card
+satisfies this read; do not load the broad playbook section as well. Generic Glean or Help Center
 wording is supporting evidence only and must not override a workspace recipe or
 operator correction. Preserve exact customer-facing product names and required paths
 from the recipe (for example, **Opendoor Key App** for live assessment photos).

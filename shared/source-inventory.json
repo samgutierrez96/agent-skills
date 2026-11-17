@@ -1,5 +1,5 @@
 {
-  "audited_on": "2026-11-13",
+  "audited_on": "2026-11-16",
   "scope": "Eleven custom skills, shared browser selection/timing, project adapters and registered runtime dependencies",
   "files": [
     {
@@ -60,7 +60,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/AGENTS.md",
       "destination": "adapters/codex/zendesk-record-retrieval/AGENTS.md",
-      "sha256": "7daf288102d12a2e5fa285f156836d963654fa2b9b3c891a072f648b4da9dac5"
+      "sha256": "f4dbb4453268432270a1d9e09466ab8a0196c3d9f3c0365ad8c80e52a9153b05"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/decisions-and-conventions.md",
@@ -115,17 +115,17 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "92c476f6246c650eb468f2b6f819bf0a23a0f14a57422fd9f5a3f6ebc89e44d7"
+      "sha256": "8fafc4a5d2c80cf6038c5e91a567a3681d5f2aadcf6747d3b925baa7f3d6180e"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/CORE.md",
       "destination": "skills/xa-notes/CORE.md",
-      "sha256": "bc7a493f7339dafb41e93ea756a54c05ee6ac1201817011a47105838678dae47"
+      "sha256": "0d650829cde5460eb3ce6737fd1f1dff141f52cc85b68e1f7f36c433204994b5"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/SKILL.md",
       "destination": "skills/xa-notes/SKILL.md",
-      "sha256": "a1af9ef5f1e2fca50d2fed971572a96b4b961928f28a06cdf6d93ca146bfc066"
+      "sha256": "e3324fc8aa512a3860364ff7254f1c80d2fde5766933afe9ae902d0afa46a673"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/reference/process-detail.md",
@@ -145,7 +145,7 @@
     {
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/SKILL.md",
       "destination": "skills/xa-quick-slack/SKILL.md",
-      "sha256": "777f26931c7031908718be9f70f895f764525687766b9a6afd03a730d8063b66"
+      "sha256": "3275fb75e256544f30462641fae0c2ef1fa21d1dd5b8d5455da67c545fab00aa"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ENTRY.md",
@@ -156,17 +156,17 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/FAST-INDEX.md",
       "destination": "skills/zendesk-record-retrieval/FAST-INDEX.md",
-      "sha256": "e6fa958cf38b737df6c4fc74f001f5388b72bb6c4a2e69b6a7555f827d636f69"
+      "sha256": "264db09947e50c9792626297a71ca94e88ea3ab4e76e796df12ccca1a5354edb"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ROUTING-GATES.md",
       "destination": "skills/zendesk-record-retrieval/ROUTING-GATES.md",
-      "sha256": "d25ade1fe6b8448adc1e77f7a0811b318458e08f9b0ae8e24857df17056c70e7"
+      "sha256": "636f2b2bdf978ff22c4ed3f18f8b763e4a134d2c4cab43d786ea9b88c1aeb427"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/SKILL.md",
       "destination": "skills/zendesk-record-retrieval/SKILL.md",
-      "sha256": "b56811d2d15e15e21bf52d4b1581a1f881b812d1815df31af0b19ed1ffe13b86"
+      "sha256": "73cb493ee0e2b82a22f4043262729f7dacfb744935c6e49a9799dc6221976466"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/VERIFICATION.md",
@@ -264,6 +264,11 @@
       "sha256": "460cc656c86dd8fe7447f87458b99f041f39edec2fd112fe82f366772d44611d"
     },
     {
+      "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/ticket-merge.md",
+      "destination": "skills/zendesk-record-retrieval/recipes/ticket-merge.md",
+      "sha256": "d07b8a968879ce88ffe97ffc3d506d3a7e4c70616806062af52b78802f0b6fff"
+    },
+    {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/seller-with-agent.md",
       "destination": "skills/zendesk-record-retrieval/recipes/seller-with-agent.md",
       "sha256": "ee3312173b6fa60afb28a0b0ad56fa856ed6bdd946c90f20dd31e62849fe15e8"
@@ -286,7 +291,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/touring-access.md",
       "destination": "skills/zendesk-record-retrieval/recipes/touring-access.md",
-      "sha256": "277872e2a222abc8ea8aa3d854d6bf8ff42a1e4964123941f25fa4aed4762bb4"
+      "sha256": "29ac1086a8a7efbacd7f9eeb0e46ac42a23a4a0ca5b1109bcc4684b4719b1f9d"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/unrelated-request.md",
@@ -321,7 +326,7 @@
     {
       "source": ".codex/skills/browser-navigation/SKILL.md",
       "destination": "skills/browser-navigation/SKILL.md",
-      "sha256": "8fa90ce1b39c1b878edb5ae41a62d95c75f3b56650a322e697f1d42acc24c609",
+      "sha256": "eb5a6240184cdb3b66f5b2838f90ceae90e7d37ed8940beb563df1a70d13f6e5",
       "provenance": "Shared browser selection and private metadata-only timing owner added November 12, 2026; canonical repository package and complete installed folder agree"
     },
     {
@@ -345,13 +350,13 @@
     {
       "source": ".codex/skills/browser-navigation/references/agent360-execution.md",
       "destination": "skills/browser-navigation/references/agent360-execution.md",
-      "sha256": "a867181a8ccc8d43cbeebbddf9933b711f6d4d66e7949d8a7f21d1ce50539ddb",
+      "sha256": "d6a5d642ac9ad573fbb965a42bb535dbc8b6cd771f47c8a6f89f58c4c4139a84",
       "provenance": "Guarded Agent 360 orchestration and synthetic regression coverage added November 13, 2026; canonical and installed copies agree"
     },
     {
       "source": ".codex/skills/browser-navigation/scripts/agent360_guard.js",
       "destination": "skills/browser-navigation/scripts/agent360_guard.js",
-      "sha256": "3fcd08d4329e0e3a39b76096ee14bc4197ea9b584f1cc359bec361102177a65c",
+      "sha256": "f1f0fc19b5f38db41172e136c5ccbca1026efd878237d9e534f14443bd7eae8c",
       "provenance": "Guarded Agent 360 orchestration and synthetic regression coverage added November 13, 2026; canonical and installed copies agree"
     },
     {
@@ -395,6 +400,17 @@
       "source": ".codex/skills/agent-verification/scripts/test_controls.mjs",
       "destination": "skills/agent-verification/scripts/test_controls.mjs",
       "sha256": "3271744de28acb5aeaa72a2fb290d782222c0f80e491251bb3eaa20929b28a60"
+    },
+    {
+      "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/agent-assessment-photos.md",
+      "destination": "skills/zendesk-record-retrieval/recipes/agent-assessment-photos.md",
+      "sha256": "788867835da849637fd5ecc66a38014727a5da006a7b38fab7364a36b77f779e"
+    },
+    {
+      "source": ".codex/skills/browser-navigation/scripts/test_agent360_search_enter.mjs",
+      "destination": "skills/browser-navigation/scripts/test_agent360_search_enter.mjs",
+      "sha256": "64d49bfb60950d22795ed2c63f0299cc1d366044c3de1387df0e02dd57e525c0",
+      "provenance": "Synthetic headless search-only Enter regression added November 16, 2026; no live Chrome or customer actions"
     }
   ],
   "local_files": [

@@ -87,6 +87,15 @@ This safeguard applies to every skill used in this workflow.
 
 ## LATENCY-CRITICAL POST FAST PATH
 
+For an authorized seller/previous-owner post, apply the merge skill's **Split
+phone/email seller profiles** check against the matched property's customer,
+even with one phone-search result. Distinct caller-phone and email-only seller
+UUIDs trigger that workflow without a shared contact or operator duplicate
+keyword. Reuse retained evidence; otherwise make its one scoped property-profile
+read. Ask only for its unresolved identity/keeping-email answers and keep the
+send/post pending until its required merge and verification finish. A unique
+phone hit or property match does not bypass this check.
+
 ### Duplicate customer profiles
 
 When a caller identifier returns multiple real profiles with distinct emails,
@@ -2711,7 +2720,11 @@ placement request from the XA. Include each URL only once. If they named an
 action (included in evidence, attached the listing agreement), write that
 action too.
 
-**Completed-work links are automatic.** When the XA says they filed/submitted
+**Completed-work links are automatic and meaning-based, not exact keywords.**
+When the XA says they continued/replied to a thread, sent something through
+Slack, started/opened a ticket, or describes equivalent completed work, retrieve
+and include its verified permalink without a separate request. This also applies
+when they say they filed/submitted
 a ticket, incident report, home issue report, HQI or TPM request; attached or
 shared an inspection report or other supporting document; or made a Key app or
 other escalation, include the matching Slack permalink, ticket URL, or accessible
@@ -2728,7 +2741,17 @@ use connected read-only Slack, ticket, or document tools with the supplied
 property address, exact ticket/report reference, or verified retained context for
 this same call. A bare "filed a ticket" or "attached a report" with no identifying
 context does not justify a broad search.
-For Slack, search the exact property address plus the reported issue/report type.
+For Slack, use the best retained identifier, not only an exact address phrase:
+reuse an existing same-call ticket/note receipt or thread reference, then search
+by the reported issue and scoped property, caller or known author/time. A thread
+may identify the property only by its OpsHub URL/token. Reuse an already-read
+customer note's matching link; when scoped caller context exists but no link is
+retained, one targeted read of that caller's recent notes may be the initial
+lookup. Do not select another property's thread merely because its caller
+matches. A conflicting property needs clarification or the XA's explicit link
+selection. Use authorized private-channel search when needed, respecting the
+connector's access/consent requirements; an empty public search is not proof
+that no thread exists. Keep the lookup budget below across these alternatives.
 If the XA identifies a ticket system and ticket ID, or a specific document/
 attachment record, read that record directly instead of guessing its URL or
 searching every system. For an inspection report, match the property and report
