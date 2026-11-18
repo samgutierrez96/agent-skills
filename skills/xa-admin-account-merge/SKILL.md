@@ -18,6 +18,16 @@ Target **under two minutes of execution for the Admin merge and verified OpsHub 
 
 Merge verified same-person duplicates in **Admin** (`admin.opendoor.com`); then clean contacts in **OpsHub**, verify, and post the original XA note/escalation. Unrelated-person matches take the separate phone-cleanup path below, never a merge. Never substitute an OpsHub contact edit for a required Admin merge.
 
+The complete current source attached by the runtime counts as loaded; apply it
+without rereading this file. On a real profile conflict, reuse the first lookup
+and any required property-identity check, then return the missing caller/identity
+and contact-choice questions together as independent explicit answer lists. Do
+not delay that clarification for browser setup, execution-reference reads,
+unrelated customer history or a newly regenerated note. A known shared phone
+does not prove same-person ownership; keep the original post pending. Once the
+answers satisfy the gates, continue the retained authorized workflow immediately
+using those facts and completed-action receipts, not another round of lookups.
+
 ## Preconditions
 
 - Use the applicable XA caller verification. Reuse verification already completed in this workflow.
@@ -161,95 +171,18 @@ cleanup-only result. Maintenance requests never authorize live customer edits.
 7. Perform **one fresh read** of the surviving OpsHub profile after cleanup; verify the complete lists show only the primary email and, when supplied, only the original phone with the same number. If a corrected name was selected, save its exact first/last fields with the contact cleanup in step 6 and verify those fields in this same read, preserving roles and all unrelated fields. If the fresh complete step-6 read already proves every desired field is correct and no write is needed, it satisfies this check. A read tool suffices only if it exposes the full lists; otherwise reopen the scoped editor once. Use `get_customer_profile(customer_uuid=...)` only if its documented response supplies the missing fields; `get_customer` takes a lead/address token, not a customer UUID. Extract only the relevant fields from a large response, never dump event history. Compact `list_customers` results, a primary-email-only response, and Admin's merge confirmation are insufficient. Retain the successful read and immediately send `Contact cleanup verified — continuing the original task`; do not recheck contacts during posting. If the editor/read fails, allow one state-based recovery with a readiness wait up to 10 seconds; if still unavailable, report the exact unverified fields and stop rather than cycle through selectors, reloads and alternate tools.
 8. After verification, including required unrelated-profile phone cleanup above, immediately resume the original authorized XA workflow, not a new draft-only task. A current escalation request such as `escalate to [person/team]` authorizes sending Slack and posting the CONTACT note: complete the escalation's routing/thread/coverage gates, send once, capture its verified permalink, then post the five-field note once to the surviving caller UUID. Do not ask whether to create a draft or send/post, and do not require another `send and post it` or `Post it`. Preserve an explicit draft-only/paste-only or do-not-send/post choice instead. For an authorized note-only task, post only that note. Reuse an already-successful Slack receipt and finish only the pending note; inspect uncertain outcomes before retrying. If this is a resumed run and the note is already confirmed posted, do not post it again. Send `Account merge completed — primary email and phone verified` outside the note only after the required cleanup and note posting succeed. Close the task window/tabs when done.
 
-## Search submission and same-run recovery
+## Execution detail and reuse
 
-For Agent 360 search forms, load the current shared guard and use its tested
-`searchEnter` payload as documented in `browser-navigation/references/agent360-execution.md`.
-This also applies to the keeping record's merge-candidate search, which has no
-Sort By control. Reuse the exact keeping record/merge page and retained caller
-identifier; verify the visible search field is focused, fill the original caller
-phone, submit once with `browser_press_key(guard.searchEnter)`, then read the
-settled candidate list and select the exact qualifying account. If ordinary
-Enter already reported delivery without a result, use this distinct search-only
-recovery before handing work back to the XA; do not cycle through phone formats,
-search for an OpsHub UUID as an assumed Admin search key, or ask the XA to type
-or submit a known phone while this supported recovery is available. No scripted
-submit, Angular handler, synthetic DOM event, focus stealing or duplicate-account
-creation. Keep the confirmed same-person answer and keeping email through the
-recovery and continuation; a search failure does not invalidate either answer.
-If the candidate is already selected or a merge may have been submitted, inspect
-that state first and never resubmit a search or merge blindly. Continue the
-reviewed merge/cleanup/existing-note verification when the exact target appears;
-report a precise blocker only if this bounded search recovery actually fails.
+Before an actual browser step, read [browser execution](references/browser-execution.md)
+once together with the required shared browser-navigation guidance. This reference
+contains the search submission/recovery, state-based Admin navigation, scoped
+contact-editor recovery and browser batching procedures used by steps 2–7.
+It is not a prerequisite for asking the initial missing caller/identity/email
+question. Reuse its current contents and verified context; do not restart
+discovery or read browser procedures while the XA answer is still missing.
+A refreshed entry source invalidates older execution-reference reads: reload
+the current reference once only when browser work next becomes necessary.
 
-A filled field or `Enter` reporting `landed: true` proves neither submission nor
-an empty search result. Verify the settled customer result, not merely the input
-value. With native Chrome, use the observed scoped input's documented
-`press("Enter")`; with Agent 360, use its documented fill/key controls. After the
-initial bounded result wait (up to 10 seconds), read the current URL, visible
-search input value, visible customer-result rows and the scoped **Sort By**
-control together. An unchanged Customers URL without the submitted query and
-only **New Customer** is an unsubmitted/stalled search, not proof that the
-customer is absent. Do not spend the only recovery repeating an ineffective
-Enter or ask the XA to open Admin while the following visible recovery is usable.
-
-When the full confirmed email is still in the search field and results have not
-settled, inspect the visible `select[ng-model="admin_customers_index.sort_search_by"]`
-and its actual options. If **Most Recent Event** is selected and **Most Recent SMS**
-is available, select **Most Recent SMS** once through the documented UI control
-(Agent 360: `browser_select_option`). If **Most Recent SMS** is selected, use the
-observed **Most Recent Event** option instead. This changes only search ordering
-and triggers Admin's search through its normal UI; it does not edit a customer.
-Do not toggle back, reload, switch browser surfaces, repeat Enter, invoke Angular
-handlers, dispatch scripted events or call hidden APIs. If the input is wrong,
-correct it through documented input controls before this single recovery.
-A missing/ambiguous/disabled control, failed selection or uncertain selection
-requires a focused state check; never assume the recovery landed.
-
-After selection, wait up to 10 seconds for settled results and inspect the actual
-row containing the exact confirmed email with its numeric Admin href. **New
-Customer** (including `/new?mode=search&query=...`) is never a customer result;
-a URL query or a successful sort alone is not an identity match. If the keeping
-record is verified, continue step 4 in this run with the retained identities,
-authorization and posting receipts. Do not stop for another "try again", ask the
-XA to repeat confirmed information, or close the task window between recovery
-and continuation. If matching results already appeared, skip recovery.
-
-If this one distinct UI recovery is unavailable, fails, or still yields no
-verified match after the bounded wait, stop with the observed search/access
-blocker and keep the note pending. Distinguish a settled no-match result from a
-search that never submitted; report which occurred and the recovery attempted.
-Ask for operator intervention only when that specific remaining blocker
-requires it. This recovery applies only before a merge submission. It never
-authorizes retrying a merge, contact save, Slack send or note post; inspect
-uncertain mutations and reuse verified receipts under their existing guards.
-
-## After-search UI fast path
-
-Use these selectors observed in the October 22 run as starting points, validating them against the current page. Rediscover only if absent, ambiguous, or changed. Keep the Customers-first search sequence above unchanged.
-
-- **Admin navigation:** use the current URL, keeping UUID, and visible controls as the state. A customer can open directly on `/links`; do not reopen the record or click Links again in that state. A ready merge form for that customer ends navigation immediately. Otherwise, click the visible Links control only when Links is still needed, then click the visible Merge control. Before either click, if that target is hidden, open the visible `button[uib-tooltip="Switch tabs"]` **once and wait until the target itself is visible** before clicking. A successful menu-button click does not prove the menu has rendered. Links can close the menu; re-check Merge visibility before reopening it. Do not toggle a menu when the intended target is already visible.
-- **Collapsed details and hidden matches:** if Switch tabs and the intended link are both hidden, allow a short readiness wait (up to 3 seconds). In the October 26 run, `info_outline` was the visible details control while navigation was collapsed; the generic `button[ng-click="$emit($ctrl.eventName)"]` matched a hidden button and failed. Inspect only that control and its surrounding customer header. If a unique visible details toggle is identified there, open it once, then wait for visible navigation. Never click the generic `$emit` selector or an unrelated info button. If the control cannot be identified safely, report that specific blocker.
-- **Visible target selection:** inspect all matches with `querySelectorAll` and select the unique visible, enabled match in the current customer pane. Check dimensions and computed visibility; do not assume `querySelector` returns the visible match. If duplicate hidden markup precedes the visible element, use a documented locator scoped to the verified visible element; native evaluation must not mutate the DOM. Do not force-click hidden elements. Re-query after each navigation change; stale element references and mere DOM existence are not readiness checks.
-- **Bounded menu recovery:** if the intended target remains hidden after opening the menu, read its state once and allow one recovery based on that evidence. Stop and report a navigation blocker if it still fails. Do not cycle through Switch tabs → Links → Switch tabs repeatedly. Never wait for the merge form after a rejected Merge-link click; repair navigation first.
-- **Candidate selection is the next action:** when the keeping customer and a qualifying candidate are already visible, select that candidate in the same guarded orchestration call as the focused candidate read. Do not wait for a Merge button before selecting a candidate; selection reveals it. Read the selected customer’s identity and the visible warning-button state together. If a missing surname or Agent label is the only new information, proceed under the qualification rule above without another user question. A true placeholder without independent compatible identity or verified matching phone can remain in the sidebar; missing email alone is never a reason to skip a named matching-phone candidate.
-- **Merge-page readiness:** wait for `input[ng-model="customer_merge.query"]`, not the nonexistent `Merge Customers` heading that cost 10 seconds in the October 22 run. Read keeping identity/email and candidate identities once. Select the qualifying duplicate; wait for the candidate details and visible `button[ng-click="customer_merge.warned = true"]`. Generic `button:text(Merge)` previously selected a hidden control. Read the selected target and keeping identity, then click that precise visible button. Read the displayed irreversible warning once before clicking visible `button[ng-click="customer_merge.merge()"]`. If already at the final warning, do not repeat the first button. After submission, inspect success and remaining duplicates once. If Admin is still loading, use a bounded result wait of up to 30 seconds and inspect the result once more; report an unverified submission if it remains unresolved, preserving the keeping and duplicate IDs for recovery. A timeout never authorizes another final Merge click. On an interrupted run, inspect that result before any further merge action. Match the candidate by the inspected email/phone or retained ID rather than a name-only click; keep final submission separate from an unreviewed warning.
-- **OpsHub contact-editor fast path:** after Admin verification, navigate once to the retained OpsHub customer UUID. If contact inputs are already visible, read them directly. Otherwise inspect the customer header, **Customer Info** card and its visible Edit control together. On a wide layout, **Customer Info → Edit is already visible**; click that control immediately, without opening Details or waiting for a Details button. Customer Info and Agent Info both have an Edit button: scope to the smallest visible card/container whose heading is exactly Customer Info and select its unique visible, enabled Edit. Do not require a single Edit across the whole page, inspect each Edit in separate calls, or use Agent Info’s Edit. Use a documented locator scoped to that unique visible button; do not add temporary DOM attributes. Only use visible Details when Customer Info/Edit is actually collapsed; then wait for the scoped Customer Info Edit and open it. Group navigation → ready-state/scoped control resolution → Edit → input-ready check → full contact read in one guarded orchestration call. Do not return to reasoning between those routine steps. If the card has not rendered, wait for its actual ready state; a failed click must stop later actions. One focused DOM read of `input[name^="emails."]` and `input[name^="phones."]` should capture every contact's name, value, primary state, and associated remove control. Observed controls: `button[title="Remove email"]`, `button[title="Remove phone"]`, and `button[aria-pressed]` for primary state. Do not probe an empty dialog selector and then dump the page or re-extract input HTML. If inputs are not ready, wait for them.
-- Remove only the inspected non-primary contacts using their current rows, highest indexes first to handle renumbering; re-query after each removal. Execute those known removals sequentially in one orchestration call, stopping on failure. Read the desired lists once, save once, then reload/reopen once and read the complete saved lists for final verification. Do not inspect the saved page and then perform a second redundant verification before reopening the editor.
-
-## Efficiency rules
-
-- **Round trips dominate latency:** the October 26 trace had about 82 seconds between orchestration calls, plus substantial delivery overhead beyond the browser tool’s own execution time. A working click can take 0.2 seconds internally and nearly 7 seconds end to end. Minimize separate calls and repeated discovery rather than adding waits or merely shortening narration. These measurements do not establish an intentional pause or a server-side merge delay.
-- **Ready-screen execution:** after a focused read establishes identity and the next visible control, issue the next action immediately. Read keeping/candidate identity, candidate selectors, and readiness together when the merge form opens; do not follow with another link/HTML inventory. After candidate selection, combine selected-identity and warning-button readiness in one read. After reviewing it, group opening the warning with reading the full warning and final-button readiness. Once that warning and the exact targets are reviewed under the established authorization, submit immediately and group submission with a bounded result check. Preserve the identity and irreversible-warning review boundaries; do not add further discovery between a completed review and its action.
-- **No startup catalog scan:** use the selected browser surface's known, documented controls. Use the selected surface's documented bound-page operations; Agent 360 is re-enabled for Router. Load a missing declaration only when required by the runtime, without repeating the shared manual. Do not enumerate the catalog, rediscover schemas, reload skills, or repeat verified customer lookups.
-- **Batch by decision boundary:** use the tested `agent360_guard.js` and its usage reference from the shared browser skill for Agent 360 batches; it decodes nested MCP JSON and stops dependent actions on hard failures. An `ok:false` / `maybe_landed:true` background click allows only a fresh read of the expected state, then continuation if verified, never an automatic click retry. Use one orchestration call for session-tab check → unfocused Admin open. Group Customers click → input-ready wait → fill → compatible Enter → result wait → focused result read in another. After identity review, group keeping-record open → guarded Links/menu navigation → merge-ready wait → focused candidate read. Execute calls sequentially with an explicit success/state guard after each dependent action; stop the batch on failure. Logging a failed result with `text()` and continuing is not a guard. Hidden-element errors and `found: false` must prevent later clicks and waits. For `maybe_landed`, unknown, or unverified outcomes, inspect the current page before deciding the next action. Treat only the documented Enter false negative by checking the result page. Return to reasoning when identity, candidate selection, or the irreversible warning requires review, rather than after every routine click. Never batch the final merge across an unreviewed confirmation.
-- **Native scripting boundary:** evaluation is read-only. Use documented scoped locators for clicks, fills, keypresses and contact removal; never use temporary DOM attributes, scripted submissions, hidden application state or direct merge API calls. For Router, use the reauthorized Agent 360 surface when native access is unavailable; if neither surface meets the workflow requirements, report the concrete blocker.
-- **Read field values, not labels:** Admin identity fields are editable inputs; `innerText` can return only “First Name / Last Name / Email” and omit their values. Read visible input `.value` together with the keeping/removing section’s UUID, email, phone and control visibility in one focused result. Avoid slicing around guessed text markers or dumping the candidate’s unrelated Agent settings, tasks or event history. Repeat only for a missing required value or actual state change.
-- Read visible identity sections and relevant control state together. Omit full-page text, input inventories, parent `outerHTML`, hidden warnings, and unrelated customer forms. An identity/confirmation read replaces repeated top/tail/HTML probes; repeat only when missing or contradictory.
-- Prefer focused DOM/text reads over screenshots and full-page dumps. Return only the relevant customer identity, merge state, or complete contact lists; skip unrelated histories and page content.
-- Batch independent reads when useful. Keep merge, cleanup, verification, and posting sequential. Browser actions share page state: do not parallelize them or batch across a confirmation that still needs inspection.
-- Use the page's ready/result state instead of fixed sleeps. Readiness waits return as soon as the target is ready; a 10/30-second timeout is a ceiling, never an instruction to pause after a successful check. Do not insert a sleep, status polling loop or extra discovery between a ready candidate and selection, or between a reviewed warning and submission. Keep routine reasoning brief. Send the start, submission, verified-cleanup-stage, and completion statuses at their actual transitions, outside the note. If a stage lasts 30 seconds, report the current concrete blocker or pending check; never leave only `Account merge started` visible for minutes. Do not imply submission or completion before the corresponding action or verification.
-- Do not repeat a successful check without new conflicting evidence. Exceeding 60 seconds does not permit omitting verification or leaving additional real duplicates unhandled.
 - **Finish posting verification once:** retain the original note body, surviving UUID and successful creation receipt. If a read-back is required by the containing workflow, use one focused current-note read or the visible note card on that exact customer; compare the full intended body and available author/time evidence. Once it matches, verification is done even if the UI does not expose the returned note ID as a DOM attribute. Do not search the whole page/history, inspect note HTML/ancestors or rediscover tools after that match. A receipt without the required read-back, a text fragment alone, or an unrelated old note is insufficient. If read-back cannot be established, use one focused recovery, then report `note accepted; read-back unverified` with the concrete blocker; never post again or claim failure of already-verified cleanup. Keep cleanup and posting statuses distinct so the operator can see what is actually pending.
 
 ## Operator corrections and source ownership

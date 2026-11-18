@@ -58,6 +58,22 @@ discovery to the full authoritative source. Preparation now loads the full skill
 before Ready; an exact source-text attachment satisfies this load without
 repeated file reads. Caller and posting rules remain in the full skill.
 
+Preparation reads only the full skill when it is absent; CORE is an optional
+compatibility summary, not an additional warm-up requirement. The retained
+workspace `.cursor/` loader describes superseded compact-only preparation and
+is not the configured Codex/Router note entry. It remains untouched for legacy
+compatibility; no current Cursor behavior or live worker refresh is asserted.
+Mirror `xa-notes/PROJECT.md` to the workspace root as maintenance documentation.
+Mirror `xa-notes/tests/latency-log.md` as the measurement protocol only, never
+as extra caller context. Keep actual observations local/private and outside
+this distribution. Source consistency alone does not establish restored speed.
+
+XA Notes' offline quality suite lives in this adapter's `xa-notes/scripts/`
+and `xa-notes/tests/` folders. Mirror those four registered maintenance files
+at the same relative workspace paths; do not add them to live skill loading.
+See `xa-notes/tests/README.md` for fixture versus candidate-output validation
+and its explicit limits. Historical observed-output files stay local and unchanged.
+
 XA Notes' empty-phone recovery also requires the shared `opshub-context` package
 installed at `~/.codex/skills/opshub-context/`. Only an empty phone lookup loads
 that exact shared skill on demand; routine notes and successful initial lookups

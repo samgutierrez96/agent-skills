@@ -55,6 +55,24 @@ or authorization to repeat the demonstrated action.
   Do not select the destination as another source; unrelated suggested tickets
   are not evidence of a match.
 
+## Manual steps for the operator
+
+Router displays the marked excerpt below directly from this verified source,
+including for older saved recommendations. Opening it is read-only; it is not
+merge authorization. Keep the procedure here rather than in Router UI rules.
+
+<!-- operator-guide:start -->
+This is a suggestion to combine Zendesk conversations, not customer accounts. Review both tickets first. If the direction is unclear or the people, property or concern differ, stop and keep them separate.
+
+1. Open the proposed source ticket in Zendesk. The source is the ticket being merged away; the destination is the ticket you will continue working on. Preserve any unsent text before proceeding.
+2. In the source ticket's ticket-actions menu, choose “Merge into another ticket.” Enter the exact proposed destination ticket number. If using a ticket-list Merge action instead, select only the source ticket, then find the destination separately. If Merge is unavailable, stop and ask a Zendesk administrator to check permissions or eligibility; do not close tickets to imitate a merge.
+3. Check the preview: the source must merge into the intended destination, not the reverse. Review requester, recipients/CCs and any notification effects. Keep both merge comments internal/private, preserve links to both tickets and the outstanding asks or attachment references. Stop if privacy or notification effects are unclear.
+4. Only proceed if you intend this exact direction: the source will close and the merge cannot be undone. Review the final confirmation, then submit the merge once in Zendesk. Router's “Review submission” button sends/reviews drafts; it does not merge tickets.
+5. Verify Zendesk's result and the source closure. Open the destination and confirm the outstanding follow-up and attachments are accessible there or through the linked source. Continue work on that destination. Source closure does not mean the customer's request is resolved. If the result is uncertain, inspect both tickets before trying again.
+
+Nothing is merged by opening this guide or the ticket links. A saved recommendation is not a completion receipt. If you complete the merge yourself, tell Router the exact source and destination and ask it to verify read-only and continue on the destination; do not ask it to merge again.
+<!-- operator-guide:end -->
+
 ## Execute once, verify, then continue
 
 - Re-read source/destination identity and latest relevant state before the write;
@@ -84,3 +102,13 @@ For a customer-drafting request, retain the normal reply/internal-note boxes and
 put the proposed merge direction, authorization prerequisite or blocker in the
 operator appendix. Do not write “Merged” in the note until completion is supported.
 A process-only request uses normal prose, not customer reply boxes.
+
+For an uncompleted recommendation, keep its `Possible ticket merge` section
+compact: `Direction:` with verified source → destination links, `Why:` with one
+plain-language reason, `Still needed:` with the unresolved customer ask, and
+`Next step:` with the exact approval or capability blocker and what Sam can do.
+Say “suggested,” not “merge requested,” unless Sam actually requested that exact
+operation. Do not dump the full review chronology into this section or imply
+that approval supplies a missing connector action. Explain that the manual guide
+is available and that “Review submission” does not merge; retain actual action
+and privacy gates. Keep unrelated review context outside this section.

@@ -317,3 +317,68 @@ warm-up/two-box, agent-field, trust, stage, product-name and timing wording.
 These are file consistency checks. Post-change speed, semantic quality and actual
 provider token savings remain **Not verified** until comparable drafts are observed.
 The monitor remains read-only and may not apply any further changes automatically.
+
+## November 17, 2026 — approved efficiency items 1, 2 and 3
+
+Scope: the Zendesk workflow used through Skill Router and its shared Codex project,
+not a separate app-authored set of business rules. Active sources and local
+agent-skills mirrors are saved together; GitHub publication remains pending the
+standing evening task. No application runtime code, model, browser connection,
+service restart or customer action was changed or replayed.
+
+### Applied changes and measured file size
+
+- Core AGENTS.md: 58,595 → 42,065 UTF-8 bytes; 773 → 538 lines.
+- First-read FAST-INDEX.md: 25,479 → 12,056 bytes; 347 → 158 lines.
+- Combined startup instruction text: 84,074 → 54,121 bytes, a **35.6% reduction**.
+  This measures those two files only, not provider tokens, cached input, total
+  request size, billing or elapsed response time. Matching guides still load
+  when needed and can offset part of a specific ticket's startup reduction.
+- Specialized action/handoff, feedback, Router-envelope and wording instructions
+  were relocated into explicitly routed on-demand guides. The former detailed
+  Fast Index bodies remain in ROUTING-DETAILS.md under exact section headings.
+  All 29 existing recipe links remain reachable. A case-specific example in the
+  moved handler-note guidance was replaced with a non-customer template.
+- New focused cards distinguish initial deletion, privacy follow-up, property-only
+  removal, tenant-occupancy policy and signed-document follow-up. They change
+  navigation/source selection, not business eligibility or approved Privacy macros.
+  Exact-ticket and connector-failure instructions were reconciled. Seller tenant
+  questions are explicitly distinct from prospective-renter/scam inquiries.
+- The full authoritative SKILL.md is unchanged from the pre-edit inventory hash.
+  Identity/property/qualification, privacy, access, recent-resolution, disclosure,
+  two-box output and action-authorization gates remain required.
+
+### Completed local checks
+
+- All 50 registered Zendesk owners match their canonical local copies and inventory
+  hashes. Existing app correction-save tests verify active-source/canonical/hash
+  updates together, conflict rejection and verified receipts. One-ticket edits
+  and unsupported save claims are not treated as durable reusable changes.
+- 143 local Markdown file/heading links checked, with no unresolved target.
+- Both active and canonical skill packages pass quick_validate.py; this validates
+  package metadata, not answer quality. Whitespace checks passed in the affected
+  repositories.
+- Router's isolated Python suite: **718 tests passed**. The new
+  scripts/test_zendesk_efficiency.py checks native source identity, registered and
+  reachable new references, specialist bodies staying out of the initial handoff,
+  and Router/native revision invalidation for guide-only edits.
+- Provider-free routing/fast-path regression: **17/17 routing and 9/9 fast-path
+  cases passed**. node scripts/test_submission.mjs passed its synthetic UI checks.
+  These fixtures do not operate live tickets, contact a model/provider, attach to
+  working Chrome or write production runtime state.
+
+### Not verified / next observation
+
+Live semantic-quality parity, actual input/output/cache token savings and
+submission-to-both-complete-box latency remain **Not verified**. Do not describe
+35.6% less file text as 35.6% fewer billed tokens or faster replies. The five-chat
+pre-change sample is observational and spans earlier instruction revisions; it
+is not a controlled before/after comparison.
+
+Observe the next authorized drafts without replaying actions: separate fresh
+drafts from follow-ups, record the instruction revision and exposed provider
+usage, and check complete boxes plus required factual/safety gates. Include
+initial deletion, portal pushback, property-only removal, tenant policy, signed
+document follow-up, mixed STOP/privacy and access/stage-sensitive cases. Missing
+timing/usage/quality remains unknown. An old session blocked by a revision change
+needs only a current-instructions draft recovery, never action replay.

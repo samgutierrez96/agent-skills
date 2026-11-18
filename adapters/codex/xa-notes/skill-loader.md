@@ -7,15 +7,16 @@ description: Generates exact five-field OpsHub post-call notes from XA shorthand
 
 This file is a pointer for Codex. **Do not open it with tools.**
 
-The compact warm-up contract is in `skills/xa-notes/CORE.md`. The authoritative
-note templates and complete shorthand index are in `skills/xa-notes/SKILL.md`
-(same file as `../../../skills/xa-notes/SKILL.md` from here).
+The full authoritative warm-up entry, note templates, and complete shorthand
+index are in `skills/xa-notes/SKILL.md` (same file as
+`../../../skills/xa-notes/SKILL.md` from here). CORE is an optional compatibility
+summary, not an additional preparation read.
 
 1. If the full authoritative skill is already in context, including an exact
    source-text attachment, use it directly without rereading it or CORE.
 2. On warm-up (`ready` / attach / no shorthand), load the complete authoritative
    skill before replying exactly `Ready when you are.` Without a full attachment,
-   read CORE and the full skill in bounded chunks during preparation. Never
+   read only the full skill in bounded chunks during preparation. Never
    defer the full load until the first caller. Preparation authorizes file reads
    only, with no customer lookups or external actions.
 3. If a note arrives before the full skill is present, silently read only
