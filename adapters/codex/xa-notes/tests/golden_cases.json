@@ -1,0 +1,440 @@
+[
+  {
+    "id": "warmup-ready",
+    "kind": "warmup",
+    "input": "ready",
+    "expected": "Ready when you are."
+  },
+  {
+    "id": "appraisal-scheduler-referral",
+    "kind": "note",
+    "input": "Appraisal scheduler called to schedule an appraisal. I let them know to have the appraiser call us to confirm information or contact the buyer's agent for access information.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Appraisal scheduler called to schedule an appraisal.\n\nCustomer Concerns: Scheduler needed to arrange the appraisal and obtain access information.\n\nSolution Offered: Let the scheduler know to have the appraiser call us directly to confirm their information. Advised them to contact the buyer's agent for access information.\n\nFollow Up Link: N/A\n```",
+    "forbidden_phrases": [
+      "Verified identity",
+      "confirmed participants",
+      "provided the lockbox code",
+      "scheduled the appointment",
+      "reach out"
+    ]
+  },
+  {
+    "id": "iwt-reschedule",
+    "kind": "note",
+    "input": "iwt reschedule",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: The in-home walkthrough needed to be rescheduled.\n\nCustomer Concerns: Seller needed a new time for the walkthrough.\n\nSolution Offered: Rescheduled the in-home walkthrough appointment with Showami.\n\nFollow Up Link: N/A\n```",
+    "forbidden_phrases": [
+      "business days"
+    ]
+  },
+  {
+    "id": "agent-resale-offer-status-guidance",
+    "kind": "note",
+    "input": "Agent called for information on an Opendoor-listed property. I let them know how to check offer status.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Agent called for information on an Opendoor-listed property.\n\nCustomer Concerns: Agent needed to know how to check the offer status.\n\nSolution Offered: Explained how to check the offer status at opendoor.com/makeoffer.\n\nFollow Up Link: N/A\n```",
+    "forbidden_phrases": [
+      "reviewing the results",
+      "Final Offer",
+      "submitted an offer",
+      "verified identity"
+    ]
+  },
+  {
+    "id": "agent-offer-status-listing-contact-guidance",
+    "kind": "note",
+    "input": "Agent called to ask how to place an offer. Explained to go to opendoor.com/makeoffer for offer status and listing agent contact details.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Agent called to ask how to place an offer.\n\nCustomer Concerns: Agent needed guidance on submitting an offer for the property.\n\nSolution Offered: Explained to the agent to go to opendoor.com/makeoffer to place an offer, check offer status, and find the listing agent's contact details.\n\nFollow Up Link: N/A\n```",
+    "forbidden_phrases": [
+      "reviewing the results",
+      "Final Offer",
+      "submitted an offer",
+      "contacted the listing agent",
+      "verified identity"
+    ]
+  },
+  {
+    "id": "withdrawn-refresh",
+    "kind": "note",
+    "input": "withdrawn refresh",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called about a withdrawn offer.\n\nCustomer Concerns: Had withdrawn from their offer a while back.\n\nSolution Offered: I refreshed the withdrawn offer. Let them know the assessment has to be completed again since this was a withdrawn offer that was refreshed.\n\nFollow Up Link: N/A\n```"
+  },
+  {
+    "id": "refresh-confirmed-seller",
+    "kind": "note",
+    "input": "seller refresh confirm refreshed",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called to confirm the offer was refreshed.\n\nCustomer Concerns: Seller wanted confirmation that the offer had been refreshed.\n\nSolution Offered: Let the seller know the offer was refreshed.\n\nFollow Up Link: N/A\n```",
+    "forbidden_phrases": [
+      "business days"
+    ]
+  },
+  {
+    "id": "already-written-buyer-access",
+    "kind": "shape",
+    "input": "Buyer called to get info on how to get access to the property. I let them know how. They said they'll call back when they're ready.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Buyer called for information on accessing the property.\n\nCustomer Concerns: Buyer needed to know how to access the home.\n\nSolution Offered: Explained how to access the property. Buyer will call back when ready.\n\nFollow Up Link: N/A\n```",
+    "required_phrases": [
+      "Buyer",
+      "will call back"
+    ],
+    "forbidden_phrases": [
+      "scheduled the appointment",
+      "Verified identity"
+    ]
+  },
+  {
+    "id": "assessment-next-steps-seller",
+    "kind": "note",
+    "input": "Seller called to get the next steps.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called for next steps to complete the assessment.\n\nCustomer Concerns: Seller was unsure how to move forward with the assessment.\n\nSolution Offered: Went over the next steps with the seller, either downloading the Opendoor Key app to complete the assessment virtually or scheduling an in-home walkthrough.\n\nFollow Up Link: N/A\n```",
+    "forbidden_phrases": [
+      "business days"
+    ]
+  },
+  {
+    "id": "agent-access-verified-lockbox",
+    "kind": "note",
+    "source": "recent XA chat sample, anonymized",
+    "input": "Agent called for access to the property, verified info, gave the lockbox code, and scheduled the appointment.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Agent called for access to the property.\n\nCustomer Concerns: Agent needed to get into the home for a showing.\n\nSolution Offered: Verified identity and license, scheduled the appointment, and provided the lockbox code.\n\nFollow Up Link: N/A\n```"
+  },
+  {
+    "id": "agent-viewing-verified-details-timing",
+    "kind": "note",
+    "source": "recent XA edge-case run",
+    "input": "Agent called to view listing, verified info",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Agent called for access to the property.\n\nCustomer Concerns: Agent needed to get into the home for a showing.\n\nSolution Offered: Verified identity and license, scheduled the appointment, and let the agent know the access details go out 1 hour to 30 minutes before the appointment.\n\nFollow Up Link: N/A\n```"
+  },
+  {
+    "id": "already-written-vacant-assessment",
+    "kind": "shape",
+    "source": "recent XA chat sample, anonymized",
+    "input": "Seller called to see if they can have the assessment done with the vacant property. I let them know that as long as they provide the access code, they should be fine.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called to ask whether the assessment could be completed with the property vacant.\n\nCustomer Concerns: Seller wanted to make sure the assessment could be completed with the home vacant.\n\nSolution Offered: Let the seller know that as long as they provide the access code, they should be fine.\n\nFollow Up Link: N/A\n```",
+    "forbidden_phrases": [
+      "scheduled the appointment",
+      "Final Offer follows"
+    ],
+    "required_phrases": [
+      "vacant",
+      "access code"
+    ]
+  },
+  {
+    "id": "already-written-hodw-process",
+    "kind": "note",
+    "source": "recent XA chat sample, anonymized",
+    "input": "Property manager wanted an explanation on HODW, explained the process.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Property manager called for an explanation of how Opendoor works.\n\nCustomer Concerns: Property manager wanted to understand the process.\n\nSolution Offered: Explained how Opendoor works.\n\nFollow Up Link: N/A\n```",
+    "forbidden_phrases": [
+      "lockbox code",
+      "scheduled the appointment"
+    ]
+  },
+  {
+    "id": "scheduled-iwt-vacant",
+    "kind": "note",
+    "source": "recent XA edge-case run",
+    "input": "scheduled iwt vacant property",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called about their scheduled in-home walkthrough appointment and whether they could complete it with a vacant property.\n\nCustomer Concerns: Seller wanted to make sure the scheduled in-home walkthrough could still happen with the home vacant.\n\nSolution Offered: Explained how Opendoor works.\n\nFollow Up Link: N/A\n```"
+  },
+  {
+    "id": "hoa-and-place-offer",
+    "kind": "note",
+    "source": "recent XA edge-case run",
+    "input": "hoa documents and how to place an offer",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Agent called to ask for HOA documents.\n\nCustomer Concerns: Agent needed the HOA documents and wanted to know how to place an offer on the property.\n\nSolution Offered: Gave the agent the HOA contact info to get this directly. Explained how to place an offer and pointed the agent to opendoor.com/makeoffer.\n\nFollow Up Link: N/A\n```"
+  },
+  {
+    "id": "seller-callback-after-renters",
+    "kind": "note",
+    "source": "recent XA edge-case run",
+    "input": "Seller will call back after checking with renters",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called to schedule the assessment.\n\nCustomer Concerns: Seller needed to check with the renters on the best time before scheduling.\n\nSolution Offered: Seller will call us back once they find out the best time from the renters.\n\nFollow Up Link: N/A\n```"
+  },
+  {
+    "id": "rental-scam-facebook-money",
+    "kind": "note",
+    "source": "recent XA edge-case run",
+    "input": "rental scam facebook $1,200 sent",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Caller called to report a rental scam involving one of our properties.\n\nCustomer Concerns: Caller had been in contact with someone advertising the home for rent on Facebook and was worried about the money they had already sent.\n\nSolution Offered: Transferred the caller to Maddie to file the report and advised them to give Maddie the contact details of the fraudulent actor along with any information he presented.\n\nFollow Up Link: N/A\n```"
+  },
+  {
+    "id": "home-loans-contact-shared",
+    "kind": "note",
+    "source": "synthetic contact-only case, October 31, 2026",
+    "input": "Buyer called to ask how to contact Opendoor Home Loans. Provided their phone and email.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Buyer called to ask how to contact Opendoor Home Loans.\n\nCustomer Concerns: Buyer needed the contact information for Opendoor Home Loans.\n\nSolution Offered: Provided 947-600-5891 and mortgage@opendoor.com for Opendoor Home Loans.\n\nFollow Up Link: N/A\n```",
+    "forbidden_phrases": [
+      "480-618-6760",
+      "homebuyer.com/rates",
+      "guaranteed",
+      "no closing costs"
+    ]
+  },
+  {
+    "id": "url-preserved",
+    "kind": "shape",
+    "input": "seller sent the listing agreement https://example.com/listing-agreement",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called about their listing agreement.\n\nCustomer Concerns: Seller needed to provide the listing agreement.\n\nSolution Offered: Seller sent the listing agreement.\n\nFollow Up Link: https://example.com/listing-agreement\n```",
+    "expected_urls": [
+      "https://example.com/listing-agreement"
+    ]
+  },
+  {
+    "id": "two-ask-note",
+    "kind": "shape",
+    "input": "buyer agent hoa documents and how to place an offer",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Agent called to ask for homeowners association documents and how to place an offer.\n\nCustomer Concerns: Agent needed the association documents and offer-submission guidance.\n\nSolution Offered: Gave the agent the homeowners association contact info to get this directly. Explained how to place an offer and pointed the agent to opendoor.com/makeoffer.\n\nFollow Up Link: N/A\n```",
+    "required_phrases": [
+      "contact info",
+      "opendoor.com/makeoffer"
+    ]
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "timing-explicitly-stated",
+    "kind": "shape",
+    "input": "Seller called after the assessment. I told them the Final Offer takes 3 to 5 business days after assessment completion.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called about the Final Offer after the assessment.\n\nCustomer Concerns: Seller wanted to know when the Final Offer would arrive.\n\nSolution Offered: Let the seller know the Final Offer takes 3 to 5 business days after assessment completion.\n\nFollow Up Link: N/A\n```",
+    "required_phrases": [
+      "3 to 5 business days",
+      "assessment completion"
+    ]
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "same-call-continuation",
+    "kind": "shape",
+    "context": [
+      {
+        "role": "user",
+        "text": "Seller called for next steps. Explained the assessment options."
+      },
+      {
+        "role": "assistant",
+        "text": "```\nProperty Address: N/A\n\nReason for Call: Seller called for next steps to complete the assessment.\n\nCustomer Concerns: Seller was unsure how to move forward with the assessment.\n\nSolution Offered: Went over the next steps with the seller, either downloading the Opendoor Key app to complete the assessment virtually or scheduling an in-home walkthrough.\n\nFollow Up Link: N/A\n```"
+      }
+    ],
+    "input": "They will call back after checking with their spouse.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called for next steps to complete the assessment.\n\nCustomer Concerns: Seller needed assessment guidance and time to check with their spouse.\n\nSolution Offered: Went over the assessment options. Seller will call back after checking with their spouse.\n\nFollow Up Link: N/A\n```",
+    "required_phrases": [
+      "Seller",
+      "assessment",
+      "spouse",
+      "will call back"
+    ],
+    "forbidden_phrases": [
+      "scheduled the appointment"
+    ]
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "new-caller-does-not-inherit",
+    "kind": "shape",
+    "context": [
+      {
+        "role": "user",
+        "text": "Agent had a failed lockbox and I filed a home issue report."
+      }
+    ],
+    "input": "Seller called for next steps.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called for next steps to complete the assessment.\n\nCustomer Concerns: Seller was unsure how to move forward with the assessment.\n\nSolution Offered: Went over the next steps with the seller, either downloading the Opendoor Key app to complete the assessment virtually or scheduling an in-home walkthrough.\n\nFollow Up Link: N/A\n```",
+    "required_phrases": [
+      "Seller",
+      "assessment"
+    ],
+    "forbidden_phrases": [
+      "lockbox",
+      "Filed a home issue report",
+      "business days"
+    ],
+    "expected_operations": []
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "correction-no-post",
+    "kind": "correction",
+    "context": [
+      {
+        "role": "user",
+        "text": "Seller called about an appointment. I checked it."
+      }
+    ],
+    "input": "Correction: the appointment was already scheduled; I did not schedule it.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called about their scheduled appointment.\n\nCustomer Concerns: Seller needed information about the existing appointment.\n\nSolution Offered: Checked the already-scheduled appointment.\n\nFollow Up Link: N/A\n```\n\nRoute: Agent execution/load — Preserve the already-scheduled appointment.",
+    "required_phrases": [
+      "already-scheduled"
+    ],
+    "forbidden_phrases": [
+      "scheduled the appointment"
+    ],
+    "expected_operations": []
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "attach-existing-report-and-ticket",
+    "kind": "shape",
+    "context": [
+      {
+        "verified_links": [
+          {
+            "url": "https://example.com/slack/threads/incident-a",
+            "issue": "same-call incident",
+            "property": "synthetic-a"
+          },
+          {
+            "url": "https://example.com/tickets/123",
+            "issue": "same-call incident",
+            "property": "synthetic-a"
+          }
+        ]
+      }
+    ],
+    "input": "Neighbor called about a broken gate. Filed an incident report. Attach the Slack thread and ticket links for this same report.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Neighbor called about a broken gate.\n\nCustomer Concerns: Neighbor was concerned about the gate.\n\nSolution Offered: Filed an incident report. https://example.com/slack/threads/incident-a\n\nFollow Up Link: https://example.com/tickets/123\n```",
+    "expected_urls": [
+      "https://example.com/slack/threads/incident-a",
+      "https://example.com/tickets/123"
+    ],
+    "required_phrases": [
+      "Filed an incident report."
+    ],
+    "expected_operations": []
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "completed-slack-work-link",
+    "kind": "shape",
+    "context": [
+      {
+        "verified_links": [
+          {
+            "url": "https://example.com/slack/threads/incident-a",
+            "issue": "gate",
+            "property": "synthetic-a"
+          }
+        ]
+      }
+    ],
+    "input": "Neighbor called about the gate. Continued the Slack thread on the property.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Neighbor called about the gate.\n\nCustomer Concerns: Neighbor needed an update on the gate.\n\nSolution Offered: Continued the Slack thread on the property. https://example.com/slack/threads/incident-a\n\nFollow Up Link: N/A\n```",
+    "expected_urls": [
+      "https://example.com/slack/threads/incident-a"
+    ],
+    "required_phrases": [
+      "Continued the Slack thread"
+    ],
+    "expected_operations": []
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "report-link-unverified",
+    "kind": "shape",
+    "context": [
+      {
+        "link_lookup": {
+          "status": "no unique match",
+          "completed": true
+        }
+      }
+    ],
+    "input": "Neighbor called about a broken gate. Filed an incident report.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Neighbor called about a broken gate.\n\nCustomer Concerns: Neighbor was concerned about the broken gate.\n\nSolution Offered: Filed an incident report.\n\nFollow Up Link: N/A\n```",
+    "required_phrases": [
+      "Filed an incident report."
+    ],
+    "forbidden_phrases": [
+      "http",
+      "attached",
+      "uploaded"
+    ],
+    "expected_operations": []
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "explicit-post-preserves-both-links",
+    "kind": "post",
+    "context": [
+      {
+        "verified_links": [
+          {
+            "url": "https://example.com/slack/threads/incident-a",
+            "issue": "gate",
+            "property": "synthetic-a"
+          },
+          {
+            "url": "https://example.com/property/synthetic-a",
+            "property": "synthetic-a"
+          }
+        ],
+        "caller": "synthetic-caller-a",
+        "property_address": "100 Example Street, Example City, ZZ 00000",
+        "operation_receipt": "synthetic successful create receipt"
+      }
+    ],
+    "input": "Neighbor called about the broken gate. Filed an incident report. Post it.",
+    "expected": "```\nProperty Address: 100 Example Street, Example City, ZZ 00000\n\nReason for Call: Neighbor called about the broken gate.\n\nCustomer Concerns: Neighbor was concerned about the broken gate.\n\nSolution Offered: Filed an incident report. https://example.com/slack/threads/incident-a\n\nFollow Up Link: https://example.com/property/synthetic-a\n```\n\nPosted to the customer OpsHub page.",
+    "expected_urls": [
+      "https://example.com/slack/threads/incident-a",
+      "https://example.com/property/synthetic-a"
+    ],
+    "expected_operations": [
+      "CreateCustomerNote"
+    ]
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "explicit-corrected-post-updates-original",
+    "kind": "post",
+    "context": [
+      {
+        "verified_post": {
+          "note_id": "synthetic-note-a",
+          "caller": "synthetic-caller-a",
+          "same_call": true
+        }
+      }
+    ],
+    "input": "Correction: the appointment was already scheduled. Post the corrected note please.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called about their scheduled appointment.\n\nCustomer Concerns: Seller needed information on the existing appointment.\n\nSolution Offered: Checked the already-scheduled appointment.\n\nFollow Up Link: N/A\n```\n\nUpdated the original OpsHub note.",
+    "required_phrases": [
+      "Updated the original OpsHub note."
+    ],
+    "expected_operations": [
+      "UpdateCustomerNote"
+    ],
+    "forbidden_phrases": [
+      "Created a new"
+    ]
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "reported-post-is-not-authorization",
+    "kind": "shape",
+    "input": "Agent called to send the listing agreement. I gave support@opendoor.com. They said they would post it.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Agent called about sending the listing agreement.\n\nCustomer Concerns: Agent needed to know where to send the agreement.\n\nSolution Offered: Provided support@opendoor.com. Agent said they would send the listing agreement.\n\nFollow Up Link: N/A\n```",
+    "required_phrases": [
+      "support@opendoor.com"
+    ],
+    "expected_operations": []
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "draft-only-is-not-authorization",
+    "kind": "shape",
+    "input": "Seller called for next steps. Draft only; do not post it.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called for next steps to complete the assessment.\n\nCustomer Concerns: Seller was unsure how to move forward with the assessment.\n\nSolution Offered: Went over the next steps with the seller, either downloading the Opendoor Key app to complete the assessment virtually or scheduling an in-home walkthrough.\n\nFollow Up Link: N/A\n```",
+    "forbidden_phrases": [
+      "business days"
+    ],
+    "expected_operations": []
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 17, 2026; not an observed model result",
+    "id": "quoted-post-is-not-authorization",
+    "kind": "shape",
+    "input": "Seller asked what the phrase 'post it' means. I explained it means saving a note.",
+    "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called to ask what a phrase meant.\n\nCustomer Concerns: Seller wanted to understand the phrase.\n\nSolution Offered: Explained that it means saving a note.\n\nFollow Up Link: N/A\n```",
+    "expected_operations": []
+  }
+]

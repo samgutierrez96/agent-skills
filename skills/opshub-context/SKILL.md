@@ -22,7 +22,12 @@ Slack, post a note, or invent a relationship between a customer and property.
 
 1. Parse stable customer/property IDs from the supplied page URL or context.
 2. Resolve the active caller independently from an explicit caller phone with
-   `list_customers(phone=...)`, or from a caller customer ID. If a successful
+   `list_customers(phone=...)`, or from a caller customer ID. For an explicitly
+   US caller, prefer ten digits without punctuation for this search tool; keep
+   the original phone and normalize full numbers for identity comparisons.
+   Reuse the verified surviving UUID/contacts from a merge of this same caller
+   when already retained; do not rediscover them through a possibly stale index.
+   If a successful
    phone search is empty, follow Empty phone lookup recovery below before
    requesting another identifier.
 3. Resolve an explicitly labeled full address with `list_properties(address=...)`.
@@ -63,15 +68,18 @@ A successful empty search is not proof that the customer record does not exist:
 recently saved contact data may not yet appear in search. Do not assume an
 index delay is confirmed, and do not treat a tool error as an empty result.
 
-1. Preserve the captured phone, normalize punctuation/spacing and its known
-   country code, then make one fresh `list_customers(phone=..., limit=5)`
-   retry. For an explicitly US number, use `+1` plus its ten digits; do not
-   invent a country code for an uncertain number. Retry once even if the first
-   search was already normalized. No sleep or polling loop.
+1. Preserve the captured phone and make one fresh
+   `list_customers(phone=..., limit=5)` retry. For an explicitly US number,
+   use ten digits if the initial search included `+1`, or `+1` plus ten digits
+   if the initial search used ten. Search representation is tool-specific:
+   Indextrious `primary_phone_number` equality still requires `+1` plus ten
+   digits. Do not invent a country code for an uncertain number; normalize
+   known punctuation/spacing only. Complete this bounded retry in the same
+   turn, before asking for another identifier. No sleep or polling loop.
 2. If still empty and no supplied customer ID, email or name offers a narrower
    lookup, make at most one `global_search(query=<normalized phone>, limit=5)`
    fallback. Search hits are candidates, not verified callers. For each customer
-   candidate (at most five), use `get_customer(customer_id=<UUID>)` to check
+   candidate (at most five), use `get_customer_profile(customer_uuid=<UUID>)` to check
    its complete normalized current phone, including associated/other phone
    fields when returned. A title, suffix, property owner, or historical event
    alone is not an exact current-phone match. Incomplete/truncated results do

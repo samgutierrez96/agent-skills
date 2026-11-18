@@ -1,347 +1,158 @@
 # Zendesk retrieval — fast index
 
-Use the bundled [entry contract](ENTRY.md) once if the host has not already loaded
-this package's `AGENTS.md`. Reuse loaded rules, recipes and tool schemas.
-The workspace [full playbook](SKILL.md) remains authoritative; do not substitute
-an independently installed global copy. Connector names below identify capabilities;
-other hosts may use equivalent read-only tools without changing the evidence gates.
+Use the bundled [entry contract](ENTRY.md) once only when AGENTS.md is not already
+loaded. The workspace [full playbook](SKILL.md) owns business rules. Reuse loaded
+rules, recipes and schemas; never substitute a separate global installation.
+Read only the matching route/card and required sections below, not every reference.
 
-## First decision
+## Ticket-first entry
 
-- **Agent asks to send/upload existing photos for a client's assessment or
-  offer:** use [agent assessment photos](recipes/agent-assessment-photos.md)
-  directly. This self-contained card replaces a broad “Per-type recipes” read
-  for that branch. Reuse sufficient supplied ticket evidence; verify only the
-  required association, qualified stage/assessment and resolution gates, then
-  stop. Completed-assessment claims or a separate substantive ask keep their
-  matching recipe and evidence requirements.
+Exact ticket ID → Zendesk get_ticket; read this index alongside it if not loaded.
+Reuse sufficient server-supplied ticket evidence after checking identity, freshness,
+newest intent and coverage. A request to check latest replies requires current
+comments; missing/abbreviated exchanges need the preceding ask and later resolution.
+Read [Ticket and newest intent](ROUTING-DETAILS.md#ticket-and-newest-intent) only
+when entry, denial, coverage or connector fallback is unresolved. Skip ticket-only.md
+when its ticket read is already satisfied. Missing evidence remains unknown.
+Route every separate ask from the sender, subject, body and relevant conversation.
+Batch independent card/required-tool discovery; dependent IDs wait for verification.
+Extract required full-playbook passages by exact heading using
+[Targeted playbook reads](ROUTING-GATES.md#targeted-playbook-reads), without a
+heading-discovery search. Reuse material already in context on follow-ups.
 
-- Requested ticket merge, or a split conversation found by the existing related-ticket
-  check → [ticket consolidation](recipes/ticket-merge.md). Read the matched
-  conversations together before drafting; recommend one continuing ticket and
-  preserve the other ticket's full URL. Verify requester, exact property when
-  relevant, concern and chronology, not just subjects. Do not auto-merge, auto-close,
-  or add a new broad search to every ticket. A merge requires Sam's authorization
-  of exact sources and destination plus an actual merge capability; ordinary
-  ticket updates are not merges. Missing capability → verified manual handoff.
+## Always-required gates
 
-- Established vendor waiting after emailing `accountspayable@opendoor.com`
-  about billing/unpaid invoices → submit a request through the Trade Partner
-  Support Center, https://opendoor.atlassian.net/servicedesk/customer/portal/1133.
-  No invented waiting period or response/payment promise; do not repeat only
-  the AP referral or send to onboarding. No property/offer lookup for routing
-  alone. Existing support ticket → no duplicate; read the full playbook's
-  `Vendor AP follow-up` passage for repeat-escalation and evidence boundaries.
+- Match requester, exact property and current **Qualified flips** before private
+  status/next-step claims. Unqualified denial/primary/recency is not qualification.
+- Preserve recent same-concern resolution, related-ticket chronology, association,
+  Flags/stage, assessment/photo/presentation distinctions, confidentiality and
+  Trust & Safety. Missing fields are unknown; no false absence or resolution.
+- No new viewing under contract; an appointment confirmed before that stage keeps
+  its specific exception. Unknown chronology needs verification, not cancellation.
+- Two complete plain copy boxes: customer reply first, internal note second;
+  optional appendix last. No current ticket number/process critique in the note;
+  include full URLs for different referenced tickets. Exact macros stay verbatim.
+- No send, post, close, merge or record change in ordinary drafting. Explicit
+  draft-only/read-only overrides standing composer/draft-preparation exceptions.
+- STOP/spam cannot swallow privacy, partnership or another substantive ask.
+  Unsubscribe footers alone are neither a STOP request nor proof of spam.
+- Read matching playbook guidance for photos/video/app/walkthrough/completion;
+  the self-contained agent-assessment-photos card satisfies only its narrow branch.
+- Uncertain/stale/conflicting business guidance → shared kb-answer-for-callers;
+  inspect source content, scope and effective guidance, not just snippets/old sends.
+  Unresolved claims stay uncertain; research alone never authorizes a save/action.
 
-- **Qualified flips only:** For every property-specific status/next-step lookup,
-  select the requester-matched current flip from OpsHub **Qualified flips** first.
-  Never use **Unqualified flips**, including a newer denied record, to determine
-  status, routing or next steps. Qualified expired offer ≠ denial. Primary/current,
-  recency and `ACTIVE` alone do not establish qualification. If MCP omits it,
-  inspect the exact property's Qualified flips section; if none can be verified
-  or selection is ambiguous, report the gap rather than infer denial/no offer.
-  See `Lifecycle stage`; keep internal flip details out of customer wording.
+## Choose the matching route
 
-- Driving / temporarily unavailable auto-reply with an unknown support need:
-  follow AGENTS.md's clarification rule, not automatic no-reply/close. Briefly
-  ask how we can help when they are safely parked; no property lookup is needed
-  for that generic invitation. Known substantive asks and verified resolution,
-  STOP or case-specific no-reply directions keep their normal evidence gates.
+Each route keeps its own evidence gates. Combine only routes needed for separate
+asks. Read a linked detailed section only for the condition named on that line.
 
-- Classify the request from sender/agency, subject, body and relevant conversation
-  together. These signals do not verify authority to receive private details.
-  Business guidance that is missing, uncertain, stale or conflicting uses shared
-  `kb-answer-for-callers` research within Zendesk before a definitive answer.
-  Read relevant source content and resolve scope/effective-date conflicts; if
-  unresolved, withhold the disputed claim and state the gap internally. Do not
-  reuse saved wording merely because it exists. See AGENTS.md's business-evidence
-  gate; research does not itself authorize a durable save or external action.
+- Agent existing assessment photos → [agent photos](recipes/agent-assessment-photos.md).
+- Requested/split-ticket merge → [ticket consolidation](recipes/ticket-merge.md).
+  Missing capability → verified manual handoff. No automatic merge or closure.
+- Ticket number only → [ticket-only](recipes/ticket-only.md) if its initial read is not yet satisfied.
+- Latest reply, draft completeness or same-ticket continuation →
+  [same-ticket follow-up](recipes/same-ticket-follow-up.md).
+- Initial profile deletion → [initial deletion](recipes/privacy-initial.md).
+  Portal failure, objection or deletion pushback → [privacy follow-up](recipes/privacy-follow-up.md).
+- Remove only one property from an account → [property-only removal](recipes/property-removal.md),
+  not automatic whole-account deletion. Mixed cancellation/preliminary-offer and
+  deletion asks must also answer the preliminary-estimate/noncommitment concern
+  when that stage is verified; retain action-verification gates.
+- Seller asks about existing tenants/vacancy at close →
+  [tenant-occupancy policy](recipes/tenant-occupancy.md), not rental-scam routing.
+- Supplied signed documents/counteroffer acknowledgment →
+  [document follow-up](recipes/document-follow-up.md). Do not infer completion.
+- Record-specific access/appraisal/inspection/appointment, including disputed or
+  canceled visits → [resolution-first access](recipes/access-resolution.md) and
+  [department/access details](ROUTING-DETAILS.md#department-and-resolution-first-access).
+  A later call disposition alone is not resolution; required notes/Slack chronology remain.
+- Apparently repeated concern or post-assessment update on any channel →
+  [repeated-concern check](ROUTING-DETAILS.md#repeated-concern-and-login) before
+  OpsHub research; use existing same-ticket checks and no added broad merge scan.
+- Simple login/account setup → [repeated-concern/login route](ROUTING-DETAILS.md#repeated-concern-and-login)
+  and SKILL.md → Dashboard links and account setup. A missing record-specific fact
+  keeps its own checks; simple troubleshooting does not need a full property ladder.
+- Simple STOP/unsubscribe → [STOP](recipes/stop-unsubscribe.md).
+- Unsolicited listing/marketing email → [unsolicited email](recipes/unsolicited-email.md).
+- Mass vendor SMS → [vendor SMS](recipes/vendor-sms.md).
+- Rental availability/ad/housing inquiry or suspected rental scam → [rental](recipes/rental.md)
+  plus SKILL.md → Rental scams. Access/move-in/belongings/incident history retains
+  record checks; rental report boxes also use [report wording](guides/case-wording.md#rental-scam-report-wording).
+- Policy/product or transaction expenses/net proceeds → [policy/product](recipes/policy-product.md).
+  Net proceeds is not offer-status: [intent/policy details](ROUTING-DETAILS.md#intent-and-policy-routing).
+- Policy-only email → [policy-only](recipes/policy-only.md).
+- Partnership/referral bonus counts/missing agent transactions → [partnership](recipes/partnership.md).
+- CNML closed-home/second-half offer-process/signed-release → SKILL.md → Remaining
+  proceeds after resale; follow-ups also read [remaining-proceeds wording](guides/case-wording.md#remaining-proceeds-follow-up-wording).
+  No private resale details or scheduled closing date from former ownership alone.
+- Offer status → [offer-status](recipes/offer-status.md); offer-refresh-only trouble
+  also reads [refresh boundary](ROUTING-DETAILS.md#offer-refresh-trouble).
+- Offer denial → [ticket/qualified-denial stop](ROUTING-DETAILS.md#ticket-and-newest-intent)
+  and [denial closing](guides/case-wording.md#offer-denial-closing); no specific reason.
+- Low-offer complaint → SKILL.md → Offer complaints, plus
+  [intent details](ROUTING-DETAILS.md#intent-and-policy-routing).
+- Assessment day/time → [assessment time](recipes/assessment-time.md).
+- Seller asks who can conduct assessment → [provider](recipes/assessment-provider.md).
+- Preliminary offer next steps → [preliminary next steps](recipes/preliminary-next-steps.md).
+- Seller working with agent → [seller with agent](recipes/seller-with-agent.md).
+- Vacant home/lockbox assessment → [vacant assessment](recipes/vacant-assessment.md).
+- Code after scheduled assessment → [code follow-up](recipes/assessment-code-follow-up.md).
+  Unexplained lockbox details instead use [clarification wording](guides/case-wording.md#unexplained-lockbox-information).
+- Any assessment-help invitation → [assessment wording](guides/case-wording.md#assessment-assistance-wording).
+- Buyer interest in named listing → [buyer listing](recipes/buyer-listing.md).
+- Buyer condition/systems/layout → [buyer condition](recipes/buyer-condition.md).
+- Resale FHA eligibility/active offers → [resale facts](recipes/resale-listing-facts.md).
+- Disclosures/records/repair history/listing-agent handoff → SKILL.md → Public listings
+  and [structured listing details](ROUTING-DETAILS.md#structured-property-evidence-and-listings).
+- Touring/access → [touring](recipes/touring-access.md); denied agent requester →
+  [agent verification](recipes/agent-verification.md) and
+  [credentials safeguard](ROUTING-DETAILS.md#agent-credentials). Collect every missing
+  required field; no phone-only replacement or direct entry while unresolved.
+- Backup-offer submission → [backup offer](recipes/backup-offer.md) and
+  [submission wording](guides/case-wording.md#offer-submission-wording).
+- Open-house inquiry → [open house](recipes/open-house.md).
+- Appraisal utilities → [utilities](recipes/appraisal-utilities.md).
+- Showami seller-absent access → [Showami access](recipes/showami-vacant-access.md).
+- SMS showing-scheduling failure with phone-only assistance →
+  [scheduling-failure exception](ROUTING-DETAILS.md#sms-showing-scheduling-failure).
+- HOA dues payment → HOAAP@opendoor.com; separate property HOA restrictions/contact
+  needs [department/HOA route](ROUTING-DETAILS.md#department-and-resolution-first-access).
+- AP follow-up after unpaid invoices → [vendor AP route](ROUTING-DETAILS.md#vendor-ap-follow-up).
+- Legitimate misrouted department request → SKILL.md → Department routing when a
+  Slack destination is unverified; do not convert it to automatic no-reply/spam.
+- Government/fire investigation → [investigation route](ROUTING-DETAILS.md#government-investigations).
+- Wrong business/unrelated service → [unrelated request](recipes/unrelated-request.md).
+- Driving/temporarily unavailable auto-reply → [driving boundary](ROUTING-DETAILS.md#driving-auto-reply).
+- Builder closing-date correction → [builder wording](guides/case-wording.md#builder-closing-date-correction).
+- A later call resolved this concern → [resolved-call note](guides/case-wording.md#resolved-call-internal-note).
 
-- Fire investigator / fire department investigative request → Trust & Safety,
-  `lawenforcement@opendoor.com`, not a seller/buyer or listing-team referral.
-  Read [government agency investigations](SKILL.md#government-agency-investigations-including-fire).
-  Use the saved referral wording, protect property/seller/buyer details, and
-  preserve urgent-escalation and callback-intake requirements.
+## Specialist guides — required only for their triggers
 
-- **Offer refresh trouble:** OpsHub MCP → exact address → current primary
-  initial/estimated offer on the verified qualified flip. A positively current offer may establish the refresh
-  is done, but `SENT` / a new sent date alone does not prove it is viewable.
-  This shortcut is only for explicit refresh-only trouble, not resending an
-  unseen or expired offer. Resend/visibility requests keep normal assessment
-  and property Flags/status checks. **Finalizing / Sent Finalizing Offer** wins:
-  say the final offer is being finalized, not that a preliminary offer is
-  available to view. Do not replace current
-  status with an old SMS-linked lead's expired/denied status. Use a narrow
-  address-scoped profile / transaction offer read, then sent-offer state if needed.
-  Preserve recent-resolution and requester-association checks; skip assessment,
-  photos, visits and browser only for a verified refresh-only answer within this
-  scope. Read `Offers` for the
-  current-primary rule. Target about 20 seconds, without omitting required gates.
+- Slack/Pricing escalation or permitted SMS composer entry →
+  [action handoffs](guides/action-handoffs.md). Pricing uses its ticket form, not
+  a regular Slack message. Read-only requests permit no composer/draft mutation.
+- Ranked owner selection/document handoff/assignment → [document handoffs](guides/document-handoffs.md).
+- Reusable correction/save or feedback plus revised draft → [operator feedback](guides/operator-feedback.md)
+  and [accepted-correction save](guides/case-wording.md#saving-an-accepted-correction).
+- Router source-evidence envelope → [Router evidence](guides/router-evidence.md).
+  Retained source text only; no extra lookup solely for display.
+- Exact customer-read/tool/address/fallback question → matching heading only in
+  [shared routing](ROUTING-GATES.md); qualification uncertainty also uses
+  [qualified selection](ROUTING-DETAILS.md#qualified-flip-selection).
+- Structured offer/assessment/listing evidence gaps →
+  [structured evidence](ROUTING-DETAILS.md#structured-property-evidence-and-listings).
+  Name the missing fact before one focused fallback. Browser selection uses the
+  shared browser-navigation skill: configured Agent 360 for required Router UI
+  while native worker access is unverified; desktop availability is separate.
+- Missing required recent notes after MCP failure →
+  [resolution fallback](ROUTING-DETAILS.md#required-recent-resolution-fallback).
 
-1. Exact ticket ID → Zendesk `get_ticket`; if this index is not loaded, read it
-   alongside the ticket in one awaited parallel block when supported. Inspect both
-   results before routing. Add comments only for a needed thread or newest inbound.
-   Verify ticket, requester, channel and latest customer intent.
-   A short correction or acknowledgment is not the whole support request. If
-   its preceding question/ask is absent, use the retained thread or one focused
-   requester SMS/thread read to identify the unresolved concern before drafting.
-   Stop once the reply and internal note cover it; do not restart unrelated
-   property research. Completeness reviews use [same-ticket follow-up](recipes/same-ticket-follow-up.md).
-   If Zendesk MCP is unavailable, continue with a targeted Glean ticket lookup
-   or one focused live Zendesk read; verify ticket number, requester, channel,
-   and newest inbound. Missing Zendesk tools alone is not a stop condition.
-   Never ask Sam to paste the conversation. Diagnose and pursue the connection
-   fix; if no authorized read works, report the exact blocker and repair needed.
-   Once the exact
-   ticket is retrieved, skip `ticket-only.md`; choose the substantive card directly.
-   Load that card and discover only its required schemas together when independent.
-   Batch required playbook sections by exact heading using `ROUTING-GATES.md` →
-   `Targeted playbook reads`; do not search repeatedly for the same rule.
-   Confirmed denial / Opendoor walked away from an offer → stop only after the
-   current decision is verified on the applicable qualified flip. An unqualified
-   denial or a ticket's denial wording is not enough. Support cannot give a specific denial reason. Do not
-   investigate assessment, pricing, expired-offer or property history to explain
-   it, and do not imply a further lookup can provide a specific reason. Answer
-   briefly; target about 20 seconds. Separate substantive asks retain their gates.
-2. HOA dues payment → `HOAAP@opendoor.com`; handle a separate ask with its own recipe.
-   Legitimate misrouted department inquiry / requested Slack escalation → search
-   and verify the appropriate channel. If none is verified but the department's
-   customer-facing email is, draft the requested referral reply with that email
-   plus the internal note, not an automatic no-reply disposition. Read
-   [department routing](SKILL.md#department-routing-when-a-slack-destination-is-unverified)
-   for the verified AP contact, scope, and no-contact/spam/resolution exceptions.
-   Property-specific HOA restrictions or contact question → exact address match,
-   then `get_hoas_for_property(full:true)` before public-listing fallback or an
-   unavailable-information reply. Read “Reading the OpsHub property record” for
-   the HOA evidence rule; preserve the required recent-resolution check.
-   Access, appraisal, inspection, or appointment request, including a disputed
-   booking or instruction not to send anyone → read
-   [resolution-first access](recipes/access-resolution.md). Verify recent OpsHub
-   notes/activity before property research or requesting more details. Stop if
-   the same concern was already resolved; use Home Visits only if still needed.
-   Missed/canceled Showami visit with an escalation link in those notes: read the
-   existing Slack thread and check appointment chronology. A bare later call
-   disposition is not resolution. Confirmed cancellation/unavailability with no
-   superseding resolution supports rescheduling or Opendoor Key App instructions,
-   not a generic question about whether help is still needed.
-   With only a verified WebCustomer UUID, use `get_customer_profile(full:false)`
-   to read recent call events and notes before browser fallback; no flip token
-   is needed for that tool. Emit focused recent evidence from the retained response.
-3. Offer update after an assessment, or another apparently repeated concern on
-   any channel → one early Zendesk search before OpsHub research. Use the exact
-   street-address phrase when supplied; otherwise use the verified requester
-   email. Run it alongside required recipe/section reads. SMS may repeat an email
-   under another address. Read matching candidate comments and verify the customer,
-   exact property, same concern, prior answer and chronology. A split unresolved
-   conversation uses [ticket consolidation](recipes/ticket-merge.md); related
-   history can inform the draft without permission to merge. A solved/closed
-   answer with no changed circumstance or substantive new question takes the
-   no-reply/close path; stop retrieval and put the source number in the appendix.
-   Status, a name/address alone, or email subjects do not establish resolution.
-   No matching answer → normal recipe, without a series of search variants.
-   Skip inbound-only fast paths and reuse completed same-ticket checks.
-   Simple “cannot log in” / account-setup email →
-   [simple login troubleshooting](SKILL.md#dashboard-links-and-account-setup).
-   Run the duplicate search alongside that targeted section read. Add comments
-   only if the ticket indicates a support exchange or omits the newest inbound.
-   Ask what happens/error message and offer the support number; skip OpsHub,
-   Glean, and browser unless a separate record-specific request requires them.
-4. Route every ask in the newest customer-written inbound; load matching cards
-   together. Scheduling updates do not resolve agent identity; generic submission
-   instructions do not resolve a named property's offer status or availability.
-   Simple “offer too low” complaint → read `SKILL.md` → `Offer complaints`, then
-   use narrow OpsHub MCP reads for the matched customer's stage and assessment
-   state. Preserve duplicate and recent-resolution checks. Avoid overlapping
-   recipe reads and full-history output; browser only for required facts still
-   missing after structured reads.
-   Seller asks about expenses/net proceeds and supplies an offer plus mortgage
-   payoff → policy/product, not offer-status. Read the matching transaction-expense
-   passage under `SKILL.md` → `Per-type recipes`. Ticket plus one focused fee/cost
-   policy search supports a high-level reply; skip OpsHub, recent activity, stage,
-   assessment and browser reads unless a separate record-specific ask requires
-   them. Do not calculate proceeds from the two supplied figures. Failed optional
-   record reads do not justify a fallback chain for this policy answer.
-   Appraisal readiness or utilities-on request → use the focused
-   [appraisal utilities](recipes/appraisal-utilities.md) card. A matching card
-   resolves routing ambiguity; do not load the full playbook solely because the
-   inbound has a typo or vague pronoun that verified conversation can clarify.
-5. For routine offer/assessment status, use the verified current flip's OpsHub
-   `get_acquisition_transaction` with only required `tasks`, `offer`, or
-   `flip_details` panels before browser fallback. Exact structured assessment,
-   status and Flags evidence satisfies its corresponding page check; do not
-   navigate or search the browser to verify the same facts again. Missing fields
-   remain unknown: name the specific required gap before one focused browser path.
-   Target 20–30 seconds for routine cases without dropping required evidence.
-   Stop when every outward claim and required gate is supported. Skip OpsHub for
-   replies supported by the inbound alone. No appendix-only retrieval; writes
-   remain limited to AGENTS.md's unsubmitted SMS composer entry, verified document-handoff assignment and
-   authorized unsent Slack-draft preparation exceptions.
-   Routine final-offer timing: aim for about 20 seconds with focused property,
-   assessment, stage, and recent-resolution checks. Skip comments on a complete
-   initial question with no indicated support exchange. Batch independent reads;
-   retain large responses in memory and emit focused evidence immediately, never
-   raw cross-deal history. Preserve Flags/status and assessment gates. Consolidate
-   required browser facts into one path, and use a returned assessment task ID
-   directly when its completion date is needed to evaluate the timing window.
-   See “Routine offer-timing lookup budget” in the full playbook.
-   General buyer interest in a named listing → verify and include the exact
-   Opendoor property URL with the available photos, floor plans, and home details;
-   mention disclosures only if the page shows them.
-   Buyer condition/systems question → after required resolution checks and one
-   exact address match, use the returned listing URL or at most one focused
-   public Opendoor search. No repeated searches, unrelated similar-listing
-   pages, extra property reads solely for a URL, or browser/shell workarounds.
-   Seller's disclosure request → check the exact property's disclosure/documents
-   in OpsHub before an unavailable-information reply or listing-agent referral.
-   Use the focused structured read, then that property's document section only
-   if needed. When ready, tell Sam to attach it to the email and return both
-   attachment-ready reply and internal-note boxes; do not claim attachment/send
-   is complete. See "Public listings" for the readiness and handoff safeguards.
-   When requested disclosures, records, repair history or transaction details
-   remain unanswered, verify and include the assigned listing agent/contact from
-   OpsHub `get_acquisition_transaction(panels:["participants"], full:true)` for
-   the verified flip, selecting `RESALE_AGENT`. Internal participants take priority
-   over public co-listing attribution; do not substitute a brokerage number. This
-   focused lookup is permitted; do not promise records or a response.
-   If the exact page or requested fact remains unavailable, stop: say the detail
-   cannot be confirmed, give the independent-inspection option if they place an
-   offer, and record the retrieval gap in the appendix. See the full-playbook
-   condition/systems lookup stop rule; separate access/stage gates still apply.
-   Listing agent asks Opendoor to conduct/schedule an assessment → explain the
-   Opendoor Key App path and that Support cannot schedule it for the agent.
-   Skip customer/property, assessment-status, Flags, and browser reads unless a
-   separate question needs them; do not assert an unverified stage or completion state.
-6. SMS showing-scheduling failure (for example, missing from Aligned Showings)
-   with a phone-support-only reply, and no known denial or outstanding requester
-   verification: ticket → property status → required Flags,
-   with one focused browser fallback if needed. Skip customer/trust reads and
-   unnecessary comments; do not confirm the slot or provide entry instructions.
-   A WebCustomer UUID returning “Lead not found” is not a reason to broaden reads
-   or guess a customer-page URL. See the full-playbook scheduling-failure exception.
-
-## Recipe pointers
-
-Choose these focused cards directly when the newest inbound matches. For a
-multi-part request, combine only the matching cards; keep their required gates.
-
-- [Agent access with verification outstanding](recipes/agent-verification.md)
-- [Agent asking about backup offers or how to submit](recipes/backup-offer.md)
-- [Buyer condition, systems, or layout question](recipes/buyer-condition.md)
-- [Resale listing FHA eligibility or active offers](recipes/resale-listing-facts.md)
-- [Unrelated service request / wrong business](recipes/unrelated-request.md)
-
-- [Ticket number only](recipes/ticket-only.md)
-- [Same-ticket follow-up](recipes/same-ticket-follow-up.md)
-- [Rental wording](recipes/rental.md) — simple rental availability/ad question:
-  ticket + “Rental scams” section and its ready SMS wording, then draft. Skip
-  comments unless a support exchange/newer inbound is indicated; no context-file
-  macro search or OpsHub without a record-specific claim.
-- [Unsolicited listing email](recipes/unsolicited-email.md)
-- [Email STOP / unsubscribe](recipes/stop-unsubscribe.md)
-- [Mass vendor SMS](recipes/vendor-sms.md)
-- [Policy/product question](recipes/policy-product.md)
-- [Simple login / account setup](SKILL.md#dashboard-links-and-account-setup)
-- [Partnership inquiry, agent referral/bonus counts, or missing transactions](recipes/partnership.md)
-- [Policy-only email](recipes/policy-only.md)
-- [CNML closed-home / second-half offer-process / signed-release questions](SKILL.md#remaining-proceeds-after-resale) — direct to cashnowmorelater@opendoor.com. Former ownership does not authorize private resale details or scheduled closing dates; skip resale research for a routing-only reply.
-- [Offer-status questions on any channel](recipes/offer-status.md)
-- [Seller asking for assessment day/time](recipes/assessment-time.md)
-- [Seller asks whether Opendoor can conduct the assessment](recipes/assessment-provider.md)
-- [Agent asks to send or upload existing assessment photos](recipes/agent-assessment-photos.md)
-- [Preliminary offer next steps](recipes/preliminary-next-steps.md)
-- [Seller says they are working with an agent or asks whether the agent can meet instead](recipes/seller-with-agent.md)
-- [Seller SMS with a vacant home and lockbox for a same-day assessment](recipes/vacant-assessment.md)
-- [Seller sends a lockbox code after a scheduled assessment](recipes/assessment-code-follow-up.md)
-- [General buyer interest in a named listing](recipes/buyer-listing.md)
-- [Open-house wording on an Opendoor listing](recipes/open-house.md)
-- [Touring/access](recipes/touring-access.md)
-- [Resolution-first access / appraiser / appointment](recipes/access-resolution.md)
-- [Utilities on for an appraisal or inspection](recipes/appraisal-utilities.md)
-- [Showami assessment access when seller will be absent](recipes/showami-vacant-access.md)
-
-## Required safeguards
-
-- OpsHub MCP auth/read failure does not waive required recent-resolution checks.
-  Use the signed-in browser directly at `https://opshub.apps.opendoor.com/search?q=`
-  plus URL-encoded verified phone/email; open the observed result and read recent
-  notes after loading. Prefer the new ChatGPT Chrome integration through the
-  shared `browser-navigation` skill, with a bound page and focused ready-state
-  read. Retain `browser_mcp` only for a concrete capability/runtime gap and
-  record that reason; do not perform browser/auth debugging during a draft.
-  Never use obsolete `opshub.opendoor.com`. If a later call
-  resolved this concern, recommend no reply and name its handler in the internal
-  note. If required history remains unreadable, withhold the reply and report the
-  blocker; do not ask the customer for details merely missing from a failed read.
-- Under contract → no new viewings, including agent previews for backup offers.
-  Honor an appointment already scheduled or confirmed before the home went under
-  contract; do not honor one booked afterward. Verify listing stage and appointment
-  timing before scheduling guidance; unknown timing is not grounds for automatic
-  cancellation. Do not route a prohibited new viewing to phone support, an app,
-  or a showing service. Backup-offer acceptance and a system allowing booking do
-  not override this gate.
-- Two separate non-empty plain triple-backtick boxes: customer reply first with
-  nothing above it, then internal note. Omit the current ticket number and process
-  commentary; include full URLs for any different verified Zendesk tickets referenced. No-send still uses its required bracketed disposition.
-- Match every record fact to this requester and property. Missing/empty evidence
-  is unknown. Resolve contradictory completion/stage evidence before drafting.
-- Photos, video, app, walkthrough, upload or completion questions require the
-  matching full-playbook recipe before drafting, including exact product names;
-  the self-contained agent assessment photos card satisfies this for its narrow branch.
-- Stage-sensitive offer/assessment questions require property header Flags/status
-  and Assessments & Inspections, with focused browser fallback if structured reads
-  omit them. Do not infer presentation from SENT, or photos from Complete alone.
-- Denied viewing requester → check actual Home Access self-tourability and stage.
-  Self-tourable: required identity verification, not an agent-only requirement.
-  Not self-tourable / agent access required: verify agent information. For a
-  self-identified agent with verification outstanding, collect missing credentials
-  using the agent-verification card; do not replace that step with phone support.
-  No code, remote unlock or direct entry while denial/verification is unresolved.
-  Preserve under-contract and non-negotiable Trust and Safety/rental-scam gates.
-- Self-identified agent requesting access with verification outstanding → collect
-  missing MLS sign-in number, real estate license number, full name, primary email,
-  phone number, and brokerage name in the ticket. MLS listing area is optional.
-  Reuse details already in the ticket thread; OpsHub or profile data alone does not
-  skip primary email, phone number, or brokerage name in the customer-facing ask.
-  Name every still-missing field in the reply, not MLS sign-in and license alone.
-  Use `You can also contact us at (888) 352-7075.` in the customer reply; do not use `If you need assistance` before the number. Do not replace credential collection with a phone-support-only referral or tell the agent to find a licensed agent. See
-  full-playbook agent verification.
-- A simple STOP/spam path cannot swallow a separate support, privacy or partnership
-  ask. An unsubscribe footer alone is not a STOP request or proof of spam.
-- Privacy/deletion → read “Privacy and deletion requests” in the full playbook
-  and the matching #privacy-escalations thread. Approved macros only; escalate
-  pushback as directed. Honor case-specific no-further-response instructions.
-  Initial customer-profile deletion request → applicable privacy-portal reply
-  first; no automatic Slack draft or workflow escalation. The two objection
-  responses are conditional follow-ups, not two required initial messages.
-  Property-directory absence and duplicate initial tickets do not change that.
-  When escalation is warranted, use the channel's Privacy Request Escalations
-  workflow; prepare its form for review without submitting, rather than creating
-  a regular channel-message draft.
-  Mobile-app account deletion and state privacy requests are separate workflows.
-- Ambiguous, multi-record, attachment-heavy or missing-rule case → matching full
-  playbook sections; load the whole playbook in bounded chunks only when needed.
-
-## Narrow follow-ups
-
-Agent SMS offer timing: use the requester’s thread early to obtain the full
-address/property token. After an empty property search, reserve the one retry
-until that exact address is known. If the thread supplies the property token,
-read that property directly; skip a cross-deal profile lookup. Never pass a
-WebCustomer UUID to the sell-direct `get_customer` tool.
-
-Token discipline: discover only recipe-required tools and emit their argument
-schemas, not repeated connector-wide documentation. Store large responses and
-emit focused evidence once. A tool's `limit` may be ignored; inspect returned
-counts/timestamps and retain required notes, newer messages, contradictions and
-pagination status before trimming. Never print raw payloads just to search them
-again. Reuse loaded rules, schemas and verified identifiers on this ticket.
-
-For the exact customer-read rule, four initial lookup cards, address retry limit,
-and live-ticket fallback checks, use only the matching heading in
-[shared routing reference](ROUTING-GATES.md). The current project rules remain
-required; a short card never overrides a safety or disclosure gate.
-
-Target: under 25 seconds from submission through both complete copy boxes,
-subject to the quality checks in [measurement guide](VERIFICATION.md).
-This is a target, not a verified performance claim; never skip required evidence
-or spend automatic warm-up tokens to meet it.
+Ambiguous, multi-record, attachment-heavy or missing-rule cases read only matching
+full-playbook sections first. Complete playbook reads, if actually required, use
+labeled chunks ≤200 lines and ≤12,000 characters, with every continuation inspected.
+Never treat truncated output as a completed read. Store large responses, inspect
+coverage/contradictions/newer messages, and emit focused source evidence once.
+Discover exact recipe-required schemas once; no whole connector catalogs.
+No appendix-only research, automatic warm-up or skipped safety check for speed.
+[Under-25-second measurement target](VERIFICATION.md) is not a verified claim.

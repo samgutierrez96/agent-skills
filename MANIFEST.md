@@ -1,5 +1,133 @@
 # Skill manifest
 
+## Zendesk efficiency items 1–3 — November 17, 2026
+
+Approved for the Skill Router workflow and its shared Codex sources. The active
+Zendesk AGENTS retains the core safety/output contract and the Fast Index is a
+compact route directory. Specialized action/handoff, operator-feedback, Router
+source-envelope and case-wording instructions are preserved in mandatory
+on-demand guides. Detailed former index routes are retained by exact heading;
+new focused cards cover privacy, property-only removal, tenant policy and signed
+document follow-up. Current exact-ticket and missing-connector guidance is aligned.
+
+Router already uses the active project and versions its recipes/references. The
+existing guarded correction-save path updates active sources, canonical local
+copies and inventory hashes together; this package change adds no Router rule
+overlay, app-code change, service restart or live customer action. Structural
+checks do not establish semantic quality, token savings or live end-to-end speed.
+Local files are saved for the existing evening publication task, not published.
+
+## Earlier XA caller/profile clarification — November 17, 2026
+
+The Notes owner now resolves missing deferred tool bindings by exact required
+name before a speculative call, reusing callable tools and schemas thereafter.
+It reuses attached merge decisions and asks missing caller/identity/contact
+choices after the required property-identity check without waiting for browser
+setup or a regenerated note. The merge entry retains all decision and posting
+gates; its existing browser procedures are preserved in the registered
+`references/browser-execution.md` and loaded only for actual browser work.
+CORE's compatibility wording and the Notes adapter agree with the full skill.
+Router attaches the exact decision source once, versions the on-demand reference
+and retains caller, posting intent and completed-action guards on continuation.
+
+Active sources, canonical mirrors and inventory hashes are saved locally for
+evening publication. Maintenance never resumes a customer action. Router's code
+activation requires an explicitly authorized idle restart. Sam subsequently
+authorized that restart on November 17; the replacement service serves the
+current source revisions and all 8,644 non-log runtime files retained identical
+hashes. No browser reload or customer action was replayed. Synthetic checks and
+activation do not establish future live model latency.
+
+## XA notes preparation consistency and timing protocol — November 17, 2026
+
+Sam approved efficiency-audit items 2 and 4, retaining item 1 on hold. The
+active AGENTS, native discovery pointer and CORE now agree: complete full skill
+before Ready, exact full-source attachments satisfy the load, and CORE is not
+an extra preparation read. The note skill, templates, personal wording,
+completed-work-link rule and legacy Cursor files are unchanged. Router's
+registry-selected source is the full active XA skill; the old compact-only
+Cursor preparation is legacy, though broad freshness scans can encounter it.
+
+Registered a mirrored maintenance PROJECT guide and measurement protocol.
+The protocol separates preparation, drafting, straightforward posts and
+merge/recovery, preserves unknown usage/timing and performs no per-call work.
+Private observations stay outside this repository. These documents are not
+additional runtime context or editable business-rule correction owners.
+No live model/customer action, browser, worker restart or Router code change
+was performed. Local instruction refresh never replays completed actions.
+Saved locally for evening publication; original-speed restoration and live
+post-change model behavior remain Not verified.
+
+## XA notes offline quality checks — November 17, 2026
+
+Sam approved efficiency-audit item 3 only. Added a canonical maintenance-only
+suite under `adapters/codex/xa-notes/scripts/` and `tests/`, mirrored in the
+active XA workspace and registered in the source inventory. It fixes the
+blank-field validator crash, permits legitimate completed Slack work/links,
+aligns timing examples with the existing personal override, and fills missing
+expected examples. Synthetic coverage protects continuations, corrections,
+report/ticket links and mutation-operation authorization expectations. Missing
+candidate outputs no longer fall back to expected answers; incomplete samples
+remain explicitly Not verified. Historical outputs are unchanged.
+
+All 32 fixture checks and 18 validator regression tests pass offline. Runtime
+instructions, templates, loaders and Router application behavior are unchanged.
+This does not establish live model behavior, tool receipts or Router speed;
+no customer action, model call or service restart was performed. Saved locally
+for the existing evening publication task; GitHub integration remains pending.
+
+## OpsHub contact-editor recovery — November 17, 2026
+
+The account-merge owner replaces styling-based Edit targeting with a read-only,
+exact-customer probe that resolves Customer Info's unique visible enabled Edit,
+excluding Agent Info and hidden duplicates. Browser timeout acknowledgements
+are resolved from fresh editor state, not treated as an OpsHub outage. A failed
+old selector gets one distinct scoped navigation recovery in the same run;
+uncertain/completed saves, merges, sends and posts are never replayed. The
+existing background-window, identity, full-contact verification and original
+posting gates remain intact. Synthetic headless coverage exercises targeting,
+style changes, false timeouts, ambiguity and no-save/no-replay guards. No live
+browser, customer action or service restart was used for this maintenance.
+Canonical and installed copies are saved locally for evening publication;
+synthetic acceptance does not establish live Agent 360 reliability.
+
+## Retained-draft note-only completion — November 17, 2026
+
+The Escalations owner now prepares a single-caller Shape A continuation from
+a confirmed Slack draft and a matching CreateCustomerNote dry-run after all
+existing workflow gates. Its registered no-I/O helper verifies an unchanged
+current snapshot, a complete exact sent-message match, and a real note-ID
+receipt. Router supplies the same native MCP transport and durable request/
+version/attempt journal; no model turn or post-receipt generation is needed on
+the eligible Post it path. Missing/edited/old context, multi-contact/workflow
+form cases and automatic-review mode retain checked handling. Dry-runs are not
+posts, failed searches do not prove absence, and uncertain writes are not retried.
+Synthetic tests and independent recheck cover failure/restart safety; no live
+customer task was used and future latency is not measured. Active/canonical
+files and hashes are saved locally for evening publication. Router activation
+still needs an explicitly authorized restart; no live service was restarted.
+
+Activation follow-up: Sam authorized the idle Router restart on November 17.
+The replacement service reports the capability enabled and unchanged persisted
+state; the operator's browser was not reloaded and no customer action replayed.
+This establishes activation, not live posting/latency acceptance or publication.
+
+## Escalation lookup recovery — November 17, 2026
+
+Saved-run inspection distinguished an empty country-prefixed phone search from
+a successful ten-digit customer search, and broad capped street results from
+an exact-street match. The runtime now prefers ten digits for explicitly US
+`list_customers` searches, retries the alternate representation once before
+asking for email, and starts property fallback with the supplied exact street.
+Indextrious equality retains its country-prefixed format. Shared context uses
+the same bounded recovery and retains a verified same-caller surviving merge
+UUID when already available; a merge elsewhere is not assumed loaded or stale.
+Identity, qualification, action scope and no-replay guards remain unchanged.
+Active sources, canonical mirrors and inventory hashes are saved locally for
+evening publication. Synthetic fixtures/checks do not establish live model
+acceptance, a confirmed index-delay cause or measured future speed improvement.
+No customer identifiers or customer actions are included in this change.
+
 ## Search-only Enter submission repair — November 16, 2026
 
 An isolated Chromium form reproduces Agent 360 1.31.0 delivering ordinary Enter

@@ -1,14 +1,15 @@
 ---
 name: xa-notes-core
-description: Compact warm-up and routing contract for XA post-call notes.
+description: Optional compatibility summary for XA post-call notes; full skill required before Ready.
 ---
 
-# XA Notes — compact warm-up contract
+# XA Notes — optional compatibility summary
 
 The complete note workflow, templates, standing wording, shorthand index, and
 OpsHub posting procedure remain authoritative in `skills/xa-notes/SKILL.md`.
-This file is the warm-up entry. Load it and the complete full skill during
-preparation, before replying Ready; the first caller must reuse that loaded skill.
+The full skill is the warm-up entry. This compatibility summary is not a
+separate preparation requirement and cannot replace the full source. If the full
+skill is present, do not read this summary; the first caller reuses that source.
 
 ## Output contract
 
@@ -61,13 +62,14 @@ preparation, before replying Ready; the first caller must reuse that loaded skil
   or automatically retry an unconfirmed update. Empty
   phone results must take the full skill's bounded shared-context recovery
   before requesting another identifier.
-- Use known OpsHub tools directly. Do not enumerate tools, inspect schemas
-  preemptively, browse, or search files.
+- Use callable OpsHub tools directly. Missing deferred tools follow the full
+  skill’s exact-name, bind-once rule before lookup; never enumerate unrelated
+  tools, retry uncertain mutations, browse, or search files for routine notes.
 
 ## Loading rule
 
 A full source-text attachment of the authoritative skill satisfies loading; reuse it
-without rereading CORE or SKILL.md. Otherwise load this core and all of
+without rereading CORE or SKILL.md. Otherwise load only the complete
 `skills/xa-notes/SKILL.md` on warm-up, in bounded
 chunks that retain the full contents without truncation. Do not reply Ready
 after loading only CORE. Reuse the full skill for the first note and later

@@ -1,7 +1,8 @@
 # Shared routing reference
 
 Preserved from the former Fast Index. Load only the section needed for an unresolved rule;
-reuse rules already in context. Detailed cards now live in `recipes/`.
+reuse rules already in context. Detailed cards now live in `recipes/`; the compact FAST-INDEX.md selects exact
+sections in ROUTING-DETAILS.md and mandatory specialist guides under `guides/`.
 
 ## First decision
 
@@ -51,6 +52,16 @@ line-number drift and repeated keyword searches. Examples:
   for an exception the card does not cover.
 - Seller offer status: `Stage gates the playbook, not the customer's wording`,
   `Lifecycle stage`, `Offers`, `Timing answers`.
+- Profile deletion, portal failure/objection, or property-only removal:
+  `Privacy and deletion requests`; use the matching privacy/property-removal card
+  and applicable FAQ/case thread, not a search of the whole playbook.
+- Tenant occupancy policy: recipes/tenant-occupancy.md and AGENTS.md's
+  `Business intent, evidence and conflicting guidance` gate; inspect current
+  owner policy, not a broad Per-type recipes/Cost discipline section.
+- Signed documents/counteroffer follow-up: recipes/document-follow-up.md and
+  guides/document-handoffs.md; preserve chronology and existing related-ticket checks.
+- Specialist action, operator-feedback or Router evidence: exact matching guide
+  named in FAST-INDEX.md. Do not preload all guide bodies for ordinary tickets.
 
 Extract by exact heading from the known workspace SKILL.md path; no repository
 search, global loader, or preliminary heading-discovery call is needed. In a

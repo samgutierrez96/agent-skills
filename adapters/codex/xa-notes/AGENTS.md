@@ -11,8 +11,10 @@ OpsHub posting workflow. The `.agents/skills/xa-notes/SKILL.md` file is only a
 loader; never read it as the authoritative content. Outdated Cowork variants
 are inactive: `xa-post-call-note`, `xa-quick`, and `xa-quick-slack`.
 
-The warm-up entry is `skills/xa-notes/CORE.md`. During preparation, load both
-CORE and the complete authoritative skill before declaring the chat ready.
+The warm-up entry is the complete authoritative `skills/xa-notes/SKILL.md`.
+Load it before declaring the chat ready. `CORE.md` is an optional compatibility
+summary, not an additional preparation read. Legacy `.cursor/` files are not
+the active Codex loader; do not load them for routine notes or warm-up.
 If the runtime attaches the full authoritative skill as exact source text,
 it is already loaded: do not reread it or CORE. The authoritative full skill is
 the workspace file at
@@ -30,8 +32,8 @@ blank. Explicit posts use resolved caller/property values.
 
 - On warm-up (`ready`, skill attachment, a path-only message, or a new chat
   with no call shorthand), reuse a full authoritative source attachment when present.
-  Otherwise silently load `skills/xa-notes/CORE.md` and the full
-  `skills/xa-notes/SKILL.md` once if not already in context. Read the full skill
+  Otherwise silently load the full `skills/xa-notes/SKILL.md` once if not
+  already in context; do not also read CORE. Read the full skill
   in bounded chunks, retaining every chunk without truncation. Only after the
   complete skill is available, reply exactly: `Ready when you are.` Do not
   defer the full load until the first caller. Preparation authorizes file reads
@@ -54,11 +56,14 @@ blank. Explicit posts use resolved caller/property values.
   For an authorized correction to a verified posted note, use Part 11's
   `UpdateCustomerNote` path with the retained same-call note ID instead;
   no duplicate create/delete or repeated unchanged-context lookups. Keep
-  tool turns silent and do not inspect schemas unless a call fails for that
-  reason.
-- Optimize for latency and token use: use the already-known OpsHub tool names
-  directly, never enumerate or filter the tool catalog, and do not make
-  exploratory or duplicate lookup calls. An empty phone result takes Part 11's
+  tool turns silent. Reuse callable tools and loaded schemas. In deferred-tool
+  runtimes, follow Part 11’s exact-name binding before the first lookup; do not
+  spend a failed call discovering that a known tool is not yet callable.
+- Optimize for latency and token use: call already-bound OpsHub tools directly.
+  Only when deferred bindings are missing, match the exact required OpsHub names
+  in `ALL_TOOLS` once under Part 11; invoke required reads in that same call when
+  their schema is available. Never enumerate unrelated tools or repeat discovery
+  in later turns, and do not make exploratory or duplicate lookup calls. An empty phone result takes Part 11's
   bounded shared-context recovery before asking for more identity; its exact
   shared-skill read, retry and fallback are the fast-path exception. After the first post, reuse the cached operator token and run the required property and caller lookups in parallel before creating the note. On an explicit repost under Posting guardrails, or when the retained draft says the XA filed a report, ticket, or document and no verified report link is already retained, also run the skill's bounded filed-report link lookup in the same parallel batch before create.
 - Do not edit the skill during ordinary call drafting. Explicit operator

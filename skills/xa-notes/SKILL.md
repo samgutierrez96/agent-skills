@@ -98,6 +98,14 @@ phone hit or property match does not bypass this check.
 
 ### Duplicate customer profiles
 
+Reuse the complete current account-merge decision skill when the runtime has
+already attached it; do not reread it. A real profile conflict needs the first
+missing caller/identity/contact-choice question promptly after the required
+property-identity check, not browser setup or a regenerated note. Detailed
+Admin/contact-editor procedures are on demand under that skill only once
+answers permit execution. Preserve the original note, caller, posting intent
+and completed-action receipts through clarification and continuation.
+
 When a caller identifier returns multiple real profiles with distinct emails,
 or a named profile with the same normalized caller phone and compatible identity
 (or XA confirmation that both profiles belong to the same person), treat it as
@@ -156,8 +164,8 @@ the account-merge skill's bounded search recovery without requiring the XA to
 repeat the request. Never guess the keeping customer, silently choose between
 emails, or post before the merge and contact cleanup are verified.
 
-For a direct `Post it`, do not rediscover tools, inspect schemas,
-or reread this file when the current paste is already-written prose. Format the
+For a direct `Post it`, reuse callable tools and loaded schemas; do not
+rediscover them or reread this file when the current paste is already-written prose. Format the
 five fields from the paste, then call the known OpsHub tools directly by their
 exact names: `mcp__opshub__list_properties`, `mcp__opshub__list_customers`,
 `mcp__opshub__whoami`, `mcp__opshub__get_customer_profile`, and
@@ -166,9 +174,11 @@ required profile lookup and `CreateCustomerNote` call for a new note. For a
 correction to a verified posted note, use the in-place update path in Part 11
 instead. An empty phone result
 must take the bounded recovery path in Part 11 before asking for more identity.
-Do not use tool catalogs, `ALL_TOOLS`, schema discovery, browser automation,
-or filesystem searches, except the scoped post-merge identity/Notes verification
-above when sufficient connector evidence is unavailable.
+Do not scan tool catalogs or rediscover loaded schemas. Part 11’s exact-name
+binding is allowed only for missing deferred tools, before a speculative call.
+Browser automation or filesystem searches remain excluded except for the shared
+merge workflow’s required execution/reference reads, bounded empty-phone recovery
+and scoped post-merge identity/Notes verification when connector evidence is insufficient.
 
 The first `CreateCustomerNote` attempt always uses this exact payload shape:
 `operation_name: "CreateCustomerNote"` and
@@ -202,9 +212,12 @@ except silent `list_properties` when Part 4 needs listing type and a street
 is in the paste.
 
 After warm-up, do not Read, grep, search, or slice this file for a normal note
-or post — including grepping for a heading, a template, or Part 11. The only
-additional post-time skill read is the exact shared `opshub-context/SKILL.md`
-required by Part 11 after an empty phone lookup; it does not reload this file.
+or post — including grepping for a heading, a template, or Part 11. Additional
+post-time skill reads are limited to the exact shared `opshub-context/SKILL.md`
+required by Part 11 after an empty phone lookup, or missing account-merge content
+and its on-demand execution reference for a real profile conflict. Reuse full
+current attachments and already-loaded references; none of these exceptions
+reloads this note skill.
 Otherwise skill-file tools are allowed later only for explicit skill maintenance.
 After that edit, start a **new** chat before more notes.
 
@@ -2493,23 +2506,34 @@ Allowed tools, exact names, namespace **`user-opshub`**: `list_properties`,
 bounded empty-phone recovery below; they do not authorize posting.
 
 **Silent tools.** No visible sentence until the fence plus the one-line post
-result. A tool turn has **no** assistant text, including “I’ll load the note
+result, or a required caller/identity question when posting must wait. A tool turn has **no** assistant text, including “I’ll load the note
 skill,” “Looking up the property,” “Skill file is large,” and “I’ll inspect.”
 
-**Post card — call now.** Use `CallDynamicTool` with the arguments below on the
-first attempt. Do **not** `GetDynamicTools` / inspect schemas first. Only if
-that call fails because a schema is unavailable, inspect these five **exact
-names in one parallel turn**: `list_properties`, `list_customers`,
-`get_customer_profile`, `whoami`, `call_operation`; then retry. Never use a
-pattern inspect, never inspect one-by-one, and never inspect unrelated tools.
-Later posts in this chat call the tools directly; do not inspect again, and do
-not call `whoami` again.
+**Post card — bind once, then call.** Use the current runtime’s documented
+call surface, not an assumed `CallDynamicTool`. When a required tool is already
+callable, use it directly with the exact arguments below. If tools are deferred
+in an `exec` runtime, match only the required exact names
+`mcp__opshub__list_properties`, `mcp__opshub__list_customers`,
+`mcp__opshub__whoami`, `mcp__opshub__get_customer_profile` and
+`mcp__opshub__call_operation` in `ALL_TOOLS`, never the whole catalog or broad
+patterns. For a required read whose schema is already supplied here or by the
+runtime and `typeof tools[matched.name] === "function"`, resolve the unique
+exact-name match and invoke it in the SAME awaited call. Do not print known
+metadata and wait another model round. If that binding or its declaration is
+still unavailable in this call, expose only the missing exact-name metadata
+once and invoke after the runtime makes it callable; never invoke an undefined
+function or repeat the already-successful lookups. Missing/ambiguous tools
+retain the existing fallback/blocker path, never a guessed alternative. This
+binding grants no lookup or mutation beyond the current request. Later turns
+reuse the callable tools, schemas and cached `whoami` token. A missing binding
+or schema never authorizes retrying a submitted or uncertain mutation.
 
 **Fast follow-up post.** When a direct `Post it` follows a five-field note
 already drafted in this chat, treat the skill as loaded and reuse that note.
-Do not reread `SKILL.md`, re-check templates, or inspect tool schemas. Run only
-the required lookup batch, reuse the cached operator, and create the customer
-note.
+Do not reread `SKILL.md`, re-check templates, or rediscover callable tools.
+Use the binding rule above only if a required deferred tool is not yet callable.
+Run only the required lookup batch, reuse the cached operator, and create the
+customer note after the existing identity and merge gates.
 
 **Phone/email/name and no street:** after one named `list_customers` UUID, the
 next call **must** be `get_customer_profile` with `customer_uuid` only. Never

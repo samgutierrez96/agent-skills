@@ -111,6 +111,41 @@ message, the XA's direct `Post it` command authorizes only the CONTACT note.
   rejection through browser/native UI or resend through another destination.
   Preserve an existing draft; create a fallback draft only if none exists.
 
+## Retained-draft Post it completion — November 17, 2026
+
+For a confirmed, single-caller Shape A draft in Skill Router, prepare its exact
+note-only continuation after all identity, duplicate/merge, contact-cleanup,
+property, qualification, routing and coverage gates are satisfied. Call
+`call_operation(operation_name="CreateCustomerNote", dry_run=true, variables=...)`
+with the verified caller CONTACT UUID, current operator token and the exact
+five-field note displayed in this response. Leave its not-yet-sent Follow Up Link
+blank. The flat variables are `contextType: "CONTACT"`, `contextIdentifier`,
+`createdByToken`, and `body`. A dry-run is preparation only: no note was posted.
+Batch it with the independent Slack draft call after the gates, rather than
+adding a model round or regenerating the note. This also covers a confirmed
+fallback draft after a rejected send. Do not prepare this shortcut for unresolved
+questions/blockers, multiple CONTACT destinations, existing-thread replies,
+workflow forms, or related submitted artifacts whose links still need resolving.
+
+The inventory-owned `scripts/post_completion.py` binds the completed dry-run
+and confirmed draft to the exact note, caller, channel and message. On a later
+explicit `Post it`, Router may complete that unchanged, current snapshot through
+the same native MCP connection without a model turn: one lexical Slack search
+in the retained channel, exact sent-message verification, then one CONTACT post.
+The full sent message, timestamp and permalink must match the retained draft;
+name/property similarity alone never qualifies. Once Slack is verified sent,
+`Prepared an escalation to ...` becomes `Escalated to ...`; retain every other
+field and append the verified Slack and property links. Return success as soon
+as its real note-ID receipt is durable; do not regenerate/re-explain afterward.
+
+The shortcut needs the operator's explicit full-access setting; automatic-review
+mode keeps its approval-aware path. Missing/old/edited context uses checked
+handling; never infer readiness from a draft ID, assistant claim or dry-run
+alone. Source corrections invalidate snapshots. An uncertain note attempt blocks
+all automatic repost paths until verification. The helper never sends Slack,
+merges profiles, changes contacts or treats preparation as posting authority.
+Loading/updating this helper never resumes a customer task.
+
 ## Caller and requested contact notes — November 9, 2026
 
 When an escalation identifies two customer-side people for the same issue,
@@ -303,6 +338,8 @@ complete:
 - Allow at most one fallback search per lookup, including the shorter street-name
   retry in Property resolution fallback. Never repeat a phone, address, channel, or
   user search after a reliable ID is available.
+  The single alternate-format retry after an empty phone result below is part
+  of caller resolution, not a new broad-search budget. Complete it before asking.
 - Stop once a reliable customer ID, property ID, assigned-person ID, or Slack
   permalink is available. If the single fallback also fails, use the facts
   already resolved, name the missing field, and do not launch another broad
@@ -453,12 +490,16 @@ email question or classify the waiting choice as an uncertain completed action.
 
 Automatically use the OpsHub MCP for supplied property addresses; do not wait
 for the XA to ask. If Casa `resolveAddress` is unavailable or fails, call
-`mcp__opshub__global_search` with the distinctive street name and `limit: 3`
-(for example, `{"query":"Spanish Flower","limit":3}`). Avoid a house-number-only
-query, which also matches ZIP codes, or a shortened mixed number/name query,
-which can miss an existing address. If a prior full-address or number/name
-query returned no exact match, retry once with just the distinctive street name
-before reporting a property lookup blocker. Read the `PROPERTY` results and
+`mcp__opshub__global_search` with the supplied house number and complete street
+name/type, preserving any unit, and `limit: 3` (synthetic example:
+`{"query":"123 Spanish Flower Dr","limit":3}`). Do not start with a common
+street word alone: a small result limit can hide the exact home among unrelated
+addresses. Avoid house-number-only or arbitrarily shortened mixed queries.
+If the exact-street query returns a full page of unrelated homes, use the single
+fallback to narrow with the supplied city. For a clean empty result, use the
+distinctive street name instead. If an earlier search already used only a broad
+street name, use that fallback for the exact street address. Capped unrelated
+results do not prove absence. Do not run every variant. Read the `PROPERTY` results and
 verify street, unit when supplied, city, state, and postal code against the
 XA's address. Use the exact matching result's `addressToken` as the property
 ID for `https://opshub.apps.opendoor.com/property/{addressToken}`. Use the
@@ -1339,6 +1380,11 @@ For explicit `send and post it`, use the Workflow commands above after
 completing the same named-target gates.
 
 Caller lookup contract:
+- Reuse a verified surviving customer UUID and contacts retained for this same
+  caller after a merge; do not restart with search or repeat the merge. A merge
+  reported in another chat is not automatically available context or proof of
+  index delay. Use a supplied caller name/email as a focused candidate key when
+  available, then verify against the original phone; a name alone is not identity.
 - Call `list_customers` in `user-opshub` in the parent block with `phone` and
   `limit: 5`. Inspect all returned candidate names, emails and customer UUIDs
   in that first response. The XA need not supply a name/email already resolved
@@ -1350,6 +1396,17 @@ Caller lookup contract:
   A company label alone does not prove personal identity; conflicting people
   or multiple plausible matches require only the unresolved identity choice.
   `list_customers` does not establish engagements or `is_agent`.
+- For an explicitly US caller, use ten digits without punctuation for this
+  customer-search tool. If a successful search is empty, retry once in the
+  alternate representation: ten digits if the first used `+1`, or `+1` plus
+  ten digits if the first used ten. Run that read in this turn, alongside an
+  independent missing property lookup; do not wait for “check again,” sleep,
+  cycle formats or retry a tool error as though it were an empty result.
+  Compare returned phones by normalized full number and preserve ambiguity
+  and duplicate-profile gates. This search representation does not change the
+  original caller phone or the Indextrious filter format below. If the retry
+  resolves the caller, stop searching; ask for email only after permitted
+  recovery fails and it is genuinely needed. Never retry a send/post/merge here.
 - If OpsHub is unavailable, not unique, or engagement type/state is required
   to route correctly, fall back once in the parent to `search_indextrious` on
   index `CUSTOMER`, query `customer`, filtered by

@@ -5,8 +5,15 @@ The full playbook remains authoritative: [Per-type recipes](../SKILL.md#per-type
 For assessment/photo/app/walkthrough, stage-sensitive, ambiguous, or multi-record asks,
 read the matching full-playbook section before drafting; this card is the first lookup path.
 
-- **Policy/product question:** Glean the ticket and search the Help Center or
-  `#xa-announcements`; do not open OpsHub unless the ticket also needs record facts.
+- **Policy/product question:** use Zendesk MCP for the exact ticket, or reuse
+  sufficient supplied Zendesk evidence. Use Glean/shared kb-answer-for-callers
+  for current Help Center, owner-maintained policy or applicable announcements,
+  not a duplicate exact-ticket read. Do not open OpsHub unless separate record
+  facts are needed; current-comment/freshness checks still apply.
+- **Existing tenants/vacancy at closing:** use [tenant occupancy](tenant-occupancy.md)
+  directly. Inspect current source content and stop on sufficient evidence;
+  historical customer sends alone are not policy authority. Do not classify
+  this seller inquiry as a rental scam.
 - **Home Loans / mortgage licensing or lender referral:** read the full
   playbook's named-listing seller-finance recipe under “Per-type recipes” and
   check [ODHL Disclosures and Licenses](https://www.opendoor.com/homeloans/licenses).
