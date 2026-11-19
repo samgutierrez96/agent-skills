@@ -1,5 +1,53 @@
 # Skill manifest
 
+## Property-assigned role names in posted Notes — November 18, 2026
+
+Clarified the existing Notes role-resolution rule: shorthand for an assigned
+Opendoor role uses that exact person's verified name in Solution Offered when
+available, including Home Sale Advisor, listing/resale agent, transaction
+coordinator and escrow officer only when the current property record assigns
+that role. Reuse same-call evidence, preserve the stated action and caller
+CONTACT target, and never substitute another role/property's person. Ordinary
+drafting remains tool-free. Escalations already requires property-resolved names
+in Solution Offered; that existing rule and its continued-thread exception are
+unchanged. No runtime role directory or Router business-rule overlay was added.
+
+Active Notes source, canonical distribution, synthetic acceptance fixtures and
+inventory hashes are saved locally on the existing working branches. No live
+customer lookup, post, replay or model evaluation was performed. Expected-output
+fixture validation does not establish future agent compliance or token savings.
+Publication remains pending the scheduled 7 p.m. synchronization task.
+
+## Agent-owned merge-result verification — November 18, 2026
+
+The account-merge skill now checks Admin itself instead of asking the XA whether
+the merge succeeded or requesting a confirmation screenshot. Verified results
+are retained; an uncertain submission gets one bounded state check, then an
+explicit unverified-result blocker without retrying the merge or advancing
+dependent cleanup/posting. Voluntarily supplied evidence remains reusable;
+an operator saying they do not know is not confirmation. Active instructions,
+execution reference, canonical copies and inventory hashes agree locally.
+This maintenance change performs no live customer action or service restart.
+Publication remains queued for the scheduled evening sync.
+
+## Merge-name choices from both profiles — November 18, 2026
+
+The account-merge owner now explicitly reuses usable personal names from both
+retained profiles for an unresolved surviving-name decision, with a final
+different-name option requiring typed first/last fields. Blank/placeholder
+profiles do not suppress the other profile's usable name; identical cleaned
+names are deduplicated, and uncertain splits require entry rather than guessing.
+Existing no-redundant-question, identity, keeping-email and action guards remain.
+The active skill, canonical distribution and inventory hash agree locally.
+Router's existing shared controls handle these options without an app-code
+change. Synthetic Notes, retained Merge and Escalations tests cover both names,
+one/no usable name, uncertain splits, manual-entry validation and caller context.
+817 isolated Python tests, submission checks, 17 routing/nine fast-path cases,
+focused choice/outcome browser tests and skill validation passed. No live
+customer action, model call, browser reload or service restart was performed;
+existing generated prompts are not rewritten. Saved locally on the existing
+branches for the scheduled 7 p.m. publication task; GitHub remains pending.
+
 ## Zendesk efficiency items 1–3 — November 17, 2026
 
 Approved for the Skill Router workflow and its shared Codex sources. The active

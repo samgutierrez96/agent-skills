@@ -21,7 +21,7 @@ python3 scripts/validate_xa_notes.py
 python3 scripts/test_validate_xa_notes.py
 ```
 
-The first command checks 32 stored expected examples. It does not generate
+The first command checks 36 stored expected examples. It does not generate
 model outputs. The second tests the validator itself, including deliberate
 failures. Neither command calls a model, OpsHub, Slack, tickets or a browser.
 
@@ -30,6 +30,12 @@ explicit versus unstated Final Offer timing, caller continuity, correction
 routes, full links exactly once, completed Slack work, unavailable report links,
 and separate new-note/update authorization examples. Personal timing preferences
 in the project's AGENTS.md take precedence over the shared templates.
+
+November 18 examples additionally cover property-verified HSA, listing-agent
+and transaction-coordinator names, preserving the stated action and caller
+posting target, and not substituting a different role/property's person when
+the requested name is unavailable. The supplied verified context is synthetic;
+these expected-output fixtures do not prove lookup or model compliance.
 
 All formerly missing shape examples now have synthetic expected outputs.
 New November 17 acceptance examples are synthetic, not observed model results.
