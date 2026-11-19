@@ -1,5 +1,110 @@
 [
   {
+    "source": "Synthetic offline acceptance fixture, November 18, 2026; not an observed model result",
+    "id": "assigned-hsa-name-on-post",
+    "kind": "post",
+    "input": "202-555-0112, 123 Example Lane. Seller called to schedule with their HSA. Scheduled the appointment. Post it.",
+    "verified_context": {
+      "property": "123 Example Lane",
+      "role": "Home Sale Advisor",
+      "name": "Alex Example",
+      "caller": "seller",
+      "posting_target": "verified caller CONTACT"
+    },
+    "expected": "```\nProperty Address: 123 Example Lane\n\nReason for Call: Seller called to schedule an appointment with their home sale advisor.\n\nCustomer Concerns: Seller needed an appointment with their advisor.\n\nSolution Offered: Scheduled an appointment for the seller to speak with their home sale advisor, Alex Example.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/synthetic-example\n```\n\nPosted to OpsHub.",
+    "required_phrases": [
+      "home sale advisor, Alex Example"
+    ],
+    "forbidden_phrases": [
+      "home seller",
+      "Escalated"
+    ],
+    "expected_operations": [
+      "CreateCustomerNote"
+    ]
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 18, 2026; not an observed model result",
+    "id": "assigned-listing-agent-name-on-post",
+    "kind": "post",
+    "input": "202-555-0113, 123 Example Lane. Buyer called for property information. Gave the listing agent's phone number. Post it.",
+    "verified_context": {
+      "property": "123 Example Lane",
+      "role": "listing agent",
+      "name": "Taylor Sample",
+      "caller": "buyer",
+      "posting_target": "verified buyer CONTACT, not listing agent"
+    },
+    "expected": "```\nProperty Address: 123 Example Lane\n\nReason for Call: Buyer called for information about the property.\n\nCustomer Concerns: Buyer needed more property information.\n\nSolution Offered: Gave the buyer listing agent Taylor Sample's phone number.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/synthetic-example\n```\n\nPosted to OpsHub.",
+    "required_phrases": [
+      "listing agent Taylor Sample"
+    ],
+    "forbidden_phrases": [
+      "Escalated",
+      "Contacted Taylor",
+      "Spoke with Taylor"
+    ],
+    "expected_operations": [
+      "CreateCustomerNote"
+    ]
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 18, 2026; not an observed model result",
+    "id": "assigned-transaction-coordinator-name-on-post",
+    "kind": "post",
+    "input": "202-555-0114, 123 Example Lane. Seller called about closing documents. Advised them to speak with the transaction coordinator. Post it.",
+    "verified_context": {
+      "property": "123 Example Lane",
+      "role": "transaction coordinator",
+      "name": "Jordan Example",
+      "caller": "seller",
+      "posting_target": "verified caller CONTACT"
+    },
+    "expected": "```\nProperty Address: 123 Example Lane\n\nReason for Call: Seller called about closing documents.\n\nCustomer Concerns: Seller needed help with their closing documents.\n\nSolution Offered: Advised the seller to speak with transaction coordinator Jordan Example.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/synthetic-example\n```\n\nPosted to OpsHub.",
+    "required_phrases": [
+      "transaction coordinator Jordan Example"
+    ],
+    "forbidden_phrases": [
+      "Escalated",
+      "Scheduled",
+      "Contacted Jordan"
+    ],
+    "expected_operations": [
+      "CreateCustomerNote"
+    ]
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 18, 2026; not an observed model result",
+    "id": "unverified-role-name-no-substitution",
+    "kind": "post",
+    "input": "202-555-0115, 123 Example Lane. Buyer called for property information. Gave the listing agent's phone number. Post it.",
+    "verified_context": {
+      "property": "123 Example Lane",
+      "role": "listing agent",
+      "name": null,
+      "other_role": {
+        "role": "Home Sale Advisor",
+        "name": "Alex Example"
+      },
+      "other_property": {
+        "property": "999 Different Lane",
+        "role": "listing agent",
+        "name": "Taylor Sample"
+      },
+      "posting_target": "verified buyer CONTACT"
+    },
+    "expected": "```\nProperty Address: 123 Example Lane\n\nReason for Call: Buyer called for information about the property.\n\nCustomer Concerns: Buyer needed more property information.\n\nSolution Offered: Gave the buyer the listing agent's phone number.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/synthetic-example\n```\n\nPosted to OpsHub.",
+    "forbidden_phrases": [
+      "Alex Example",
+      "Taylor Sample",
+      "Escalated",
+      "Contacted"
+    ],
+    "expected_operations": [
+      "CreateCustomerNote"
+    ]
+  },
+  {
     "id": "warmup-ready",
     "kind": "warmup",
     "input": "ready",

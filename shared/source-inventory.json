@@ -1,5 +1,5 @@
 {
-  "audited_on": "2026-11-17",
+  "audited_on": "2026-11-18",
   "scope": "Eleven custom skills, shared browser selection/timing, project adapters and registered runtime dependencies",
   "files": [
     {
@@ -115,12 +115,12 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "672c49df2604549166da538628e52ae51d8677cad279a9a5fbff915c202b69ad"
+      "sha256": "d64ed7056302fc1d9c9866e6ff1cfff06b6da208e7bd96019a2647c75e7d9cf6"
     },
     {
       "source": ".codex/skills/xa-admin-account-merge/references/browser-execution.md",
       "destination": "skills/xa-admin-account-merge/references/browser-execution.md",
-      "sha256": "eb87250d621db69da4a89eff3bf5a7cb864cd522a3c5296a23de7533d1054727",
+      "sha256": "72d6b062b4ae1facb16fbc3b299884ec79c1b573f33f0575de71ad9a590c6a0e",
       "provenance": "Existing browser execution and recovery procedures moved intact from the entry skill on November 17, 2026; load on demand after caller and contact decisions, preserving all action guards"
     },
     {
@@ -150,13 +150,13 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/tests/golden_cases.json",
       "destination": "adapters/codex/xa-notes/tests/golden_cases.json",
-      "sha256": "a0d11e6dae4e29ebf1df9e915d7cd81916a9bed740247a4e855cdfd0a78eb8da",
+      "sha256": "86a1b31f661871b5e5e28e3f9f5afb68ab695a74cb9f7c311add1cf2ff19c7b8",
       "provenance": "Approved efficiency audit item 3, November 17, 2026. Canonical maintenance source is this repository adapter; workspace is an identical test-only mirror. Not runtime context or evidence of live model/Router acceptance."
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/tests/README.md",
       "destination": "adapters/codex/xa-notes/tests/README.md",
-      "sha256": "4e08a905e7f5f252454a6fac96ce290bd68d9c1b7cbddfccb34ca1810bb8c226",
+      "sha256": "5ff570c354044144d352da9600cb589074b8ef43529c8e07528a7a5f0e0382b7",
       "provenance": "Approved efficiency audit item 3, November 17, 2026. Canonical maintenance source is this repository adapter; workspace is an identical test-only mirror. Not runtime context or evidence of live model/Router acceptance."
     },
     {
@@ -181,7 +181,7 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/SKILL.md",
       "destination": "skills/xa-notes/SKILL.md",
-      "sha256": "b9b491e06925bed42f230c3acaa107368375db941e4275057941fe68a591e532"
+      "sha256": "9cdcc4a846c6124969896f19fb895135cd0d736f744f640d4f56ad3828de0145"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/reference/process-detail.md",

@@ -2565,26 +2565,37 @@ is known and they did **not** type a street, so the note can use the
 property on that customer page; also `address_token` when a seller /
 previous-owner post has two or more named `list_customers` hits and a
 street (step 3), or when the XA mentions an assigned internal position whose
-name belongs in the note (assigned agent, Home Sale Advisor, Agent Home Sale
-Advisor, Listing Partner, experience partner, or support specialist), (3)
+name belongs in the note (Home Sale Advisor, Agent Home Sale Advisor, Listing
+Partner, listing/resale agent, transaction coordinator, escrow officer,
+experience partner, support specialist, or another exact assigned role), (3)
 `list_properties` on the verified qualified engagement's street **only when** the
 profile did not return an `address_token`, (4)
 `CreateCustomerNote`. Do not add a notes search in between. Do not skip
 the profile call just because `list_customers` already returned one named
 UUID. Do not hunt the rest of the event history.
 
-**Assigned position named on a post:** resolve the person before writing or
-posting the note. After the lookup batch, call `get_customer_profile` with the
-matched `address_token` when a street was supplied, or with the caller's
-`customer_uuid` when no street was supplied. Use the assignee on the current
-lead for the exact role the XA mentioned, and put that person's name in
-Solution Offered when the action involved them. For example, "scheduled with
-their HSA" becomes "Scheduled an appointment for the seller to speak with their
-home sale advisor, [name]." Do not treat a caller label such as "agent called"
-as a request to find an assigned role. Do not guess, substitute a different
-role, or claim an appointment was scheduled unless the XA said it was
-scheduled. If the current lead has no assignee for that role, use the
-confirmed no-assignee wording or ask rather than inventing a name.
+**Assigned position named on a post:** include the verified person's name in
+Solution Offered when the XA refers to a property-associated Opendoor role
+involved in the stated action, not just when the XA supplies the name. This
+includes the Home Sale Advisor and the other roles above only when the current
+record actually assigns that exact role. Reuse the already-verified same-call
+profile/participants for this property and applicable qualified lead. If the
+name is missing from retained context, after the lookup batch use one
+`get_customer_profile` with the matched `address_token` when a street was
+supplied, or the caller's `customer_uuid` when no street was supplied under the
+existing role-resolution exception. Do not repeat an unchanged lookup or search
+a directory by job title. "Scheduled with their HSA" becomes "Scheduled an
+appointment for the seller to speak with their home sale advisor, [name]."
+"Gave the listing agent's number" names the verified listing agent without
+claiming that person was contacted or that an escalation occurred. Preserve
+the actual action: giving contact details, referring, scheduling and escalating
+are different. Do not add every participant to the note, treat "agent called"
+as an assigned-role request, substitute a seller or a different role, or use
+someone assigned to another property/lead. If the exact role has no verified
+name, retain accurate role/no-assignee wording rather than inventing a person;
+ask only when the missing identity blocks the authorized action. Name enrichment
+does not change the caller's CONTACT posting target, authorize an escalation,
+or add lookups to an ordinary non-posted note.
 
 Copy these arguments:
 
