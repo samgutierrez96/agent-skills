@@ -115,12 +115,12 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "d64ed7056302fc1d9c9866e6ff1cfff06b6da208e7bd96019a2647c75e7d9cf6"
+      "sha256": "eb93eea58f7c8026aac2819db582ed4a0caa8e7c622f5287a551a90e46653c9e"
     },
     {
       "source": ".codex/skills/xa-admin-account-merge/references/browser-execution.md",
       "destination": "skills/xa-admin-account-merge/references/browser-execution.md",
-      "sha256": "72d6b062b4ae1facb16fbc3b299884ec79c1b573f33f0575de71ad9a590c6a0e",
+      "sha256": "e46c69370c2d0f5ac791a6a9b1da2e9262509e953d0a2ed246819549d4ca9a43",
       "provenance": "Existing browser execution and recovery procedures moved intact from the entry skill on November 17, 2026; load on demand after caller and contact decisions, preserving all action guards"
     },
     {
