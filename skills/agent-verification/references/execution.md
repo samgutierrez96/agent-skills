@@ -44,7 +44,11 @@ Run the **exact unchanged file text** through `browser_execute_script({code})`:
    and statuses without dumping communications/history.
 2. `read_case.js` on the matching Alfred case before closure binds the case.
    Run it again after saving to observe Case Closed and actual saved statuses.
-3. Complete any separately requested note and verify it before the final probe.
+3. Complete and independently verify the required IDV note and normal XA
+   post-call note under [post-verification-notes.md](post-verification-notes.md)
+   before the final probe. Retain each note's own ID/body and caller binding;
+   closure/status evidence is not a posting receipt. If either note is pending
+   or unconfirmed, report that blocker without invoking the terminal probe.
    Reload the same OpsHub customer once; use a condition-based wait for the
    actual status labels. Invoke `final_customer.js` only when no customer work
    remains. This is the terminal readback, not an initial lookup or readiness

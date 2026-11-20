@@ -10,11 +10,45 @@
   const visible = e => e.getClientRects().length > 0
     && getComputedStyle(e).visibility !== 'hidden';
   const enabled = e => !e.disabled && e.getAttribute('aria-disabled') !== 'true';
+  const selectorFor = target => {
+    const parts = [];
+    for (let node = target; node && node !== document.documentElement; node = node.parentElement) {
+      const peers = [...node.parentElement.children].filter(e => e.localName === node.localName);
+      parts.unshift(`${node.localName}:nth-of-type(${peers.indexOf(node) + 1})`);
+    }
+    const selector = `html > ${parts.join(' > ')}`;
+    const matches = document.querySelectorAll(selector);
+    if (matches.length !== 1 || matches[0] !== target) throw Error('Editor target changed; inspect again');
+    return selector;
+  };
   const inputs = [...document.querySelectorAll('input[name^="emails."], input[name^="phones."]')].filter(visible);
   if (inputs.length) {
-    const forms = new Set(inputs.map(e => e.closest('form') || e.parentElement));
-    if (forms.size !== 1) throw Error('Ambiguous contact editor; inspect current state');
-    return {state: 'editor-open', input_count: inputs.length};
+    const forms = new Set(inputs.map(e => e.form));
+    if (forms.size !== 1 || forms.has(null)) throw Error('Ambiguous contact editor; inspect current state');
+    const form = [...forms][0];
+    const elements = [...form.elements].filter(visible);
+    const submits = elements.filter(e => ['BUTTON', 'INPUT'].includes(e.tagName)
+      && e.type === 'submit' && /^(Save|Save changes|Saving(?:\.\.\.|…)?)$/.test((e.innerText || e.value || '').trim()));
+    const fields = elements.filter(e => ['INPUT', 'SELECT', 'TEXTAREA'].includes(e.tagName) && e.name)
+      .map(e => ({
+        name: e.name,
+        required: Boolean(e.required || e.getAttribute('aria-required') === 'true'),
+        invalid: e.getAttribute('aria-invalid') === 'true' || e.validity?.valid === false,
+        message: e.validationMessage || '',
+        described_errors: (e.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean)
+          .map(id => document.getElementById(id)).filter(e => e && visible(e) && form.contains(e))
+          .map(e => e.innerText.trim()).filter(Boolean),
+      }));
+    const emptyNames = elements.filter(e => ['firstName', 'lastName'].includes(e.name) && !e.value.trim())
+      .map(e => e.name);
+    const errors = [...form.querySelectorAll('[role="alert"],[data-slot="form-message"],p[id$="-error"],p[class*="text-red"]')]
+      .filter(visible).map(e => e.innerText.trim()).filter(Boolean);
+    return {state: 'editor-open', input_count: inputs.length, editor: {
+      form_selector: selectorFor(form),
+      save: submits.length === 1 ? {state: enabled(submits[0]) && !submits[0].matches(':disabled') ? 'ready' : 'disabled',
+        selector: selectorFor(submits[0])} : {state: submits.length ? 'ambiguous' : 'missing'},
+      empty_name_fields: emptyNames, fields, errors: [...new Set(errors)],
+    }};
   }
   const headings = [...document.querySelectorAll('h1,h2,h3,h4,h5,h6,span,[role="heading"]')]
     .filter(e => visible(e) && e.textContent.trim() === 'Customer Info')
@@ -36,15 +70,6 @@
   }
   if (targets.size !== 1) throw Error('Missing or ambiguous Customer Info Edit');
   const target = [...targets][0];
-  // Plain structural CSS avoids style-token coupling and tool text-selector dialects.
-  const parts = [];
-  for (let node = target; node && node !== document.documentElement; node = node.parentElement) {
-    const tag = node.localName;
-    const peers = [...node.parentElement.children].filter(e => e.localName === tag);
-    parts.unshift(`${tag}:nth-of-type(${peers.indexOf(node) + 1})`);
-  }
-  const selector = `html > ${parts.join(' > ')}`;
-  const matches = document.querySelectorAll(selector);
-  if (matches.length !== 1 || matches[0] !== target) throw Error('Editor target changed; inspect again');
+  const selector = selectorFor(target);
   return {state: 'edit-ready', selector};
 })

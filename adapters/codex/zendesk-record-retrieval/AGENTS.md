@@ -190,8 +190,12 @@ requester's authority nor permits disclosure of private information. Distinguish
 investigations from routine fire-safety maintenance using the actual request.
 
 For company policy, services, eligibility or process questions, use the shared
-`kb-answer-for-callers` skill when the answer is missing, uncertain, potentially
-stale, or contradicted by available evidence. Research inside this Zendesk workflow;
+`kb-answer-for-callers` skill to verify current governing guidance and relevant
+topic-specific XA announcements/replies, consulting the maintained local shared
+topic reference when available. Reuse sufficient current evidence already read
+for this question; do not scan the entire channel or research unrelated policy
+for a record-only ticket. A saved answer or scheduled review alone is not a
+freshness check. Research inside this Zendesk workflow;
 do not require Sam to switch skills. Retain Zendesk's output and action boundaries.
 Compare the policy owner, effective date, scope and exceptions before using a
 disputed claim. Read the needed source, not merely its title or search snippet.

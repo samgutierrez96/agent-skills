@@ -37,13 +37,47 @@ treating old skill text, a prior ticket, or model memory as current policy.
 - Read the evidence needed for the conclusion, not just titles or snippets.
   If results are written to a file, read it in chunks before summarizing; do not
   imply full coverage of unread, truncated, or inaccessible material.
-- Disclose material access gaps. A missing direct connector does not prove that
-  Glean cannot index that source; try accessible indexed or linked evidence.
-  Do not invent access or claim an unavailable source was checked.
+- Resolve material uncertainty proactively before finalizing the answer. If an
+  unverified product, alternative provider or exception could change the referral,
+  make the bounded, targeted source check now; do not wait for the user to say
+  "let's verify" or end with "I didn't verify" when the needed evidence is
+  accessible. Reuse sufficient current evidence and stop once the decision is
+  supported. An inconclusive check is still inconclusive, not a definitive yes/no.
+- Disclose material access/evidence gaps after trying the relevant safe retrieval
+  paths. A missing direct connector does not prove Glean cannot index the source;
+  try accessible indexed or linked evidence. Do not invent access, claim an
+  unavailable source was checked, or contact an owner without authorization.
 - Stop when the current answer and relevant exceptions are supported. Do not
   search every system or retrieve customer records for a generic business question.
 
 ## Establish what is current
+
+For a current business-policy/process answer, check the relevant saved topic
+reference in the local `company-knowledge-update` skill when available, then
+verify the governing source and topic-specific XA announcement/thread evidence.
+Use a targeted Glean channel search or direct Slack read, not a whole-channel
+scan on every question. Inspect material replies and linked owner guidance;
+reuse sufficient evidence already read for this question. A scheduled review,
+saved skill or successful prior answer is not evidence that nothing changed.
+If a required freshness/source check is unavailable, disclose that limit rather
+than presenting the saved answer as independently verified current policy.
+
+When the question concerns old versus current guidance or where a rule is still
+used, consult the local XA Announcements `policy-history` index if available
+(its project guide identifies the exact path). Read `current`/`history` for the
+relevant policy and scope and inspect any flagged source/workflow discrepancy.
+The index retains evidence and explicit decisions; it does not replace a current
+source read, infer retirement from absence or merge targeted and general scopes.
+If unavailable, research the governing evidence directly and disclose the gap.
+
+For privacy/internet questions, first distinguish privacy practices, request
+submission, public property/photo/search-result removal, mobile-app deletion,
+state-specific rights and an objection/appeal. Do not assume every privacy
+question is an account-deletion request. Read the applicable Privacy FAQ and
+owner direction, plus the saved privacy reference when available. Treat dated
+state lists and request URLs as scoped evidence requiring verification, not
+universal current facts. Do not substitute public web search for internal policy
+or send confidential internal guidance to an external search service.
 
 Check the policy owner, publication and effective dates, market, state, product,
 lifecycle stage, and relevant exceptions. A recent edit timestamp or Slack reply
@@ -92,26 +126,24 @@ or knowledge update). Do not force Position/Say blocks into a different required
 format or add an unnecessary caller script to an internal-only task. Preserve
 customer-record verification gates and existing permissions for sends or writes.
 
-## Saved vendor AP follow-up — November 6, 2026
+## Saved topic evidence, not a second knowledge base
 
-For an established vendor still waiting without a reply or resolution after
-emailing `accountspayable@opendoor.com` about billing/unpaid invoices, direct them
-to submit a request through the Trade Partner Support Center. Do not invent a
-waiting threshold or promise response/payment timing. New-vendor onboarding is
-separate; do not create duplicate tickets for an already-filed support request.
-Read the local shared company-knowledge-update reference
-`references/vendor-ap-follow-up-2026-11.md` in that skill for the verified link,
-July 20 Slack reply, supporting evidence and scoped reconciliation with older
-FAQ escalation wording. The reference is local-only, not bundled here. If it is
-unavailable or newer evidence conflicts, retrieve the supporting sources through
-Glean/Slack and apply the evidence/conflict gates above rather than guessing.
+The local `company-knowledge-update/SKILL.md` indexes maintained topic references,
+including `references/privacy-deletion-2026-10.md` and
+`references/vendor-ap-follow-up-2026-11.md`. Read the relevant reference, not
+every reference. They retain provenance, scope, superseded guidance and active
+workflow locations; this retrieval skill should not duplicate their policy text.
+Those business references are local-only, not bundled in this public package.
+If unavailable, retrieve current first-party evidence through connected sources.
+Obsidian exposes the same local files; its presence is not freshness verification.
 
 ## Handoff to company-knowledge-update
 
 Use this skill to research and validate evidence. Use the separate
 `company-knowledge-update` skill, when available and within its trigger, to
 synchronize new or corrected business knowledge the user supplies or explicitly
-accepts for saving. A read-only lookup alone does not authorize durable updates.
+accepts for saving, or verified changes within Sam's explicitly authorized
+recurring review. A read-only lookup alone does not authorize durable updates.
 
 Pass the precise rule, effective date, scope, exceptions, source links and dates,
 superseded guidance, and unresolved conflicts. Preserve the distinction between

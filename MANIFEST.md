@@ -1,5 +1,209 @@
 # Skill manifest
 
+## Edited-profile rechecks stop on choices — November 19, 2026
+
+The Escalations runtime now treats an explicit profile recheck as read-only:
+reread only affected retained CONTACT records, reevaluate independent questions
+and stop with explicit answer lists (or a specific read blocker). If evidence
+resolves all blockers, offer Continue with checked records / Keep pending rather
+than automatically sending/posting. Generic go/proceed is not a factual answer.
+Original action scope and receipts remain for the later answer; ordinary cases
+gain no recheck round or extra output. The Router separately owns bullet-question
+recovery, shared buttons and current-source refresh in the same saved session.
+
+Registered active/canonical copies and inventoried local maintainer hashes agree
+on the existing branches. Validation is synthetic; no live customer operation,
+service restart or working-browser access occurred. Activation requires explicit
+idle-service restart permission; publication awaits the scheduled evening sync.
+
+## Escalation participant/record mismatch stop — November 19, 2026
+
+The registered Escalations runtime now stops automatic Slack send and its CONTACT
+note when the XA-stated person/role, caller/property relationship or address
+conflicts with verified case/assignment evidence. This includes internal
+listing-partner/resale channels, not just acquisition/HSA. Replaced silent
+assigned-person substitution; a correction is required before continuation.
+Reuse required reads and retained context: no extra matching-case model round,
+confirmation or output, and only missing required assignment evidence is fetched.
+Changed identities invalidate their dependent context; existing coverage,
+draft-only, connector and uncertain-action protections remain. No live latency
+or model-compliance guarantee is claimed.
+
+Active runtime/canonical mirror and local maintainer hashes are reconciled on the
+existing branch. Mocked Router tests cover pending mismatch recovery and a
+single-execution matching path; they do not evaluate live identity reasoning.
+Maintenance did not operate customer records, messages, the browser or service.
+Publication remains with the scheduled evening synchronization.
+
+## Routine Notes posts without speculative contact audits — November 19, 2026
+
+The registered Notes source and shared account-merge entry gate now reserve
+contact-audit/merge work for an XA-reported issue or concrete evidence exposed
+by required caller/property reads. A resolved unique caller does not require
+full-contact completeness proof or browser fallback for omitted contact fields
+or activity-only profile responses. Actual conflicting identities, extra
+contacts and distinct relevant UUIDs retain classification and verification;
+missing target identity still blocks a guessed post. Routine OpsHub MCP posting
+targets 15 seconds when dependencies respond normally; live latency is unverified.
+Active/canonical content and inventory hashes agree. Local-only maintenance did
+not replay a post or access the working browser; publication awaits evening sync.
+
+## Direct corrections to verified posted notes — November 19, 2026
+
+The XA Notes owner now treats a direct fix/correct/update/edit request as an
+in-place update of the selected call's verified original note, without another
+Post it confirmation. It never grants new-note/repost authority. Missing or
+ambiguous receipts, changed caller/property, draft-only or negated requests and
+uncertain outcomes retain their existing protections. Reuse the same-call receipt
+and one UpdateCustomerNote operation; do not repeat unchanged-context lookups or
+browser checks. Case-only edits do not need reusable-source planning. Project
+wording still excludes unstated Final Offer timing, including on corrections.
+Synthetic fixtures test operation traces and reject invented timing; they do not
+establish live model behavior. Active sources, canonical mirrors and inventory
+hashes are saved locally; publication remains with the evening synchronization.
+
+## Proactive verification before referral answers — November 19, 2026
+
+Refined the shared KB's evidence-gap step after Sam's VA-loan test: resolve an
+accessible material unknown before finalizing a recommendation, without waiting
+for a separate "let's verify" request. Keep research targeted, reuse sufficient
+current evidence, and disclose uncertainty when safe retrieval is inconclusive.
+No owner outreach or external mutation is authorized. The XA Announcements
+project records the same primary purpose without duplicating a business rule.
+Active and canonical KB copies and the ownership hash agree locally; GitHub
+publication remains with the existing evening synchronization task. This is
+instruction maintenance, not a new loan-product policy or live behavior guarantee.
+
+## Policy history index and verified bonus scopes — November 19, 2026
+
+Connected the existing shared knowledge/review skills to the local XA
+Announcements policy-history database. It records scoped versions, inspected
+sources, explicit replacements/retirements/reactivations and exact workflow-use
+checks. Missing wording, timestamps and ledger statuses cannot automatically
+change policy. The database implementation, reviewed business migrations and
+data remain local to their untracked owning project, not this public package.
+
+The targeted bonus's entire attached explainer, owner final-copy thread and
+standing commission guide were inspected. Updated owning Zendesk, Notes and
+Escalations passages and applicable copies to distinguish campaign eligibility
+from the standard program. The local-only shared reference retains source
+provenance and limitations. Canonical distributions and hashes are reconciled;
+no customer/campaign action, new schedule or Router business-rule overlay is
+introduced. Publication remains with the existing evening synchronization.
+
+## Agent acquisition contract execution — November 19 afternoon review
+
+The XA announcement review found a new explicit agent-acquisition instruction:
+dashboard purchase-agreement setup and seller e-signature, not emailed printed
+wet-signed contracts. Added scoped guidance to the owning Zendesk, Notes and
+Escalations sources and Zendesk's partnership route, with canonical copies and
+inventory hashes reconciled locally. Older discoverable global copies and the
+Escalations detailed helper retain the same narrow business instruction without
+replacing their unrelated content. Buyer/resale offers, listing-agreement intake,
+legal validity and customer-action permissions are unchanged.
+
+A separate targeted promotion remains pending complete-term/attachment review;
+it is not encoded as a general agent bonus. The local-only reference and review
+ledger retain evidence, coverage, pending work and the user-confirmed privacy
+website retest. No live contract, customer or messaging action was performed.
+Validation is local; GitHub publication remains with the existing evening task
+on the preserved `codex/zendesk-current-refresh` branch.
+
+## Verification documentation handoff — November 19, 2026
+
+Agent Verification now continues a future authorized end-to-end run with two
+separate caller CONTACT notes: the structured IDV verification note first, then
+the normal XA post-call note through its registry/inventory-selected owner.
+Alfred/Mitek N/A means IDV not passed/not established, independently of a supported
+Allow/Verified credential outcome. Only evidenced verification methods and
+current red flags are documented; Notes stays blank in the structured note.
+Each note retains its own save evidence, so missing call facts or an uncertain
+save keeps only remaining work pending in the original conversation. Closure
+evidence alone never proves either note posted. Existing approval thresholds,
+identity gates and background-window requirements remain unchanged.
+
+The canonical package, active skill and provenance hashes are saved locally on
+the existing working branch. This maintenance performs no customer lookup,
+case closure, note post, browser attachment or service restart. Local validation
+does not establish a successful future live run; publication remains with the
+scheduled evening synchronization task.
+
+## Duplicate detection before single-profile cleanup — November 19, 2026
+
+The account-merge owner treats extra contact rows and repeated property customer
+links as detection signals even with one caller-phone result. It flags observed
+issues, resolves exact candidate UUIDs and relevant observed contacts, and checks
+email-only/phone-only profiles before choosing Admin merge versus single-profile
+OpsHub cleanup. Same-UUID rows are deduplicated; distinct same-person accounts
+still require Admin. Single-profile cleanup retains the confirmed email/phone,
+asks only for missing facts, verifies persisted lists and resumes only the original
+authorized task. Missing detection evidence blocks posting, not a guessed cleanup.
+Notes and Escalations route those signals to the shared owner; ordinary drafts
+remain tool-free. Active/canonical copies and hashes are reconciled locally;
+no live customer action, browser work or service restart is authorized by this
+maintenance. GitHub publication remains with the scheduled evening task.
+
+## Explicit custom merge names without repeat clarification — November 19, 2026
+
+The shared account-merge owner accepts an explicitly supplied First name / Last
+name pair, including parenthesized company text in the last name. An unambiguous
+two-part personal name followed by a parenthesized company uses the supplied first
+name and surname-plus-parenthetical without another placement question. Existing
+identity and primary-email confirmations remain retained; ambiguous multi-part
+splits, conflicting answers and actual editor restrictions still require the
+specific missing detail. This does not relax identity, keeping-account, posting
+or uncertain-action verification gates.
+
+The active `.codex` source, canonical package and inventory hash are reconciled
+locally. Skill Router owns the labeled-entry form and preserves those exact field
+values in its existing guarded continuation; no workflow rule was added to Router.
+Synthetic UI/transport checks and skill validation do not establish future model
+compliance or a successful live merge. No customer action was performed. Changes
+remain on the existing branches for the scheduled evening publication task.
+
+## Shared announcement freshness and local review — November 19, 2026
+
+Extended the existing KB retrieval and company-knowledge update handoff, without
+creating another knowledge base. Current-policy answers check relevant saved
+topic evidence and governing/announcement sources; Zendesk's owning project
+rules use that same path. Explicitly authorized recurring reviews can reconcile
+verified changes across active owners, distributions and provenance hashes.
+The local-only review procedure defines coverage, changed replies, conflicts,
+pending work and action/publication boundaries. Timing is proposed, not active
+until Sam confirms and the scheduler returns a verified creation receipt.
+
+The first targeted pass reconciles vendor payment intake/repeat routing, patrol
+dispatch ownership, failed-tour access communication and the Privacy FAQ's Legal
+Linear reference. Shared evidence and source links remain in local-only topic
+references; the reported privacy test is not reproduced without its actual input
+and outputs. The initial channel backfill remains separately tracked, not a claim
+that every topic or existing chat is current. Ordinary Notes retains its no-tools
+fast path; no app-code overlay, customer action or service restart is introduced.
+
+Active and canonical local copies are saved on the existing
+`codex/zendesk-current-refresh` branch, preserving unrelated work and reconciling
+the fetched November 18 main contents. New business references and review state
+stay outside the public distribution. GitHub publication/integration remains
+with the existing daily 7 p.m. synchronization task.
+
+## Single-pass contact cleanup and posting handoff — November 19, 2026
+
+The merge owner now passes the fresh contact-editor probe's selector directly
+to the documented click tool within the same orchestration call, avoiding
+manual structural-path transcription and a model boundary before opening Edit.
+Cleanup retains one save and one fresh persisted full-list verification. A clean
+verification editor need not be closed or probed again for connector posting;
+UI-only posting may close it once without discarding unsaved changes. Note
+read-back is distinct from contact verification and never reopens contact editing.
+
+The active skill, execution reference, canonical package and inventory are
+reconciled locally. Synthetic targeting checks cover deeper layout wrappers,
+the exact returned target, already-open reuse and no unintended save. Identity,
+authorization, background-window and uncertain-action guards are unchanged.
+No live customer/browser action or speed benchmark is part of this maintenance;
+the background-click delivery limitation is not claimed fixed. Publication
+remains pending the scheduled evening synchronization task.
+
 ## Property-assigned role names in posted Notes — November 18, 2026
 
 Clarified the existing Notes role-resolution rule: shorthand for an assigned
@@ -23,8 +227,11 @@ Publication remains pending the scheduled 7 p.m. synchronization task.
 The account-merge skill now checks Admin itself instead of asking the XA whether
 the merge succeeded or requesting a confirmation screenshot. Verified results
 are retained; an uncertain submission gets one bounded state check, then an
-explicit unverified-result blocker without retrying the merge or advancing
-dependent cleanup/posting. Voluntarily supplied evidence remains reusable;
+exact-account read-only recovery before an explicit unverified-result blocker.
+A merge-specific completed confirmation remains valid while its panel is visible;
+completion immediately continues authorized cleanup and posting without another
+approval. A pre-submit warning or click acknowledgement is not success, and an
+uncertain merge is never resubmitted. Voluntarily supplied evidence remains reusable;
 an operator saying they do not know is not confirmation. Active instructions,
 execution reference, canonical copies and inventory hashes agree locally.
 This maintenance change performs no live customer action or service restart.

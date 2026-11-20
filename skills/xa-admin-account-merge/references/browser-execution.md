@@ -81,7 +81,7 @@ Use these selectors observed in the October 22 run as starting points, validatin
 - **Candidate selection is the next action:** when the keeping customer and a qualifying candidate are already visible, select that candidate in the same guarded orchestration call as the focused candidate read. Do not wait for a Merge button before selecting a candidate; selection reveals it. Read the selected customer’s identity and the visible warning-button state together. If a missing surname or Agent label is the only new information, proceed under the qualification rule above without another user question. A true placeholder without independent compatible identity or verified matching phone can remain in the sidebar; missing email alone is never a reason to skip a named matching-phone candidate.
 - **Merge-page readiness:** wait for `input[ng-model="customer_merge.query"]`, not the nonexistent `Merge Customers` heading that cost 10 seconds in the October 22 run. Read keeping identity/email and candidate identities once. Select the qualifying duplicate; wait for the candidate details and visible `button[ng-click="customer_merge.warned = true"]`. Generic `button:text(Merge)` previously selected a hidden control. Read the selected target and keeping identity, then click that precise visible button. Read the displayed irreversible warning once before clicking visible `button[ng-click="customer_merge.merge()"]`. If already at the final warning, do not repeat the first button. After submission, inspect the automatically refreshed surviving profile, merge-specific success confirmation and remaining distinct candidates together, tying the result to the retained keeping and duplicate IDs. If Admin is still loading or the result is ambiguous, use one bounded result wait of up to 30 seconds and one focused state read; stop waiting as soon as the result is established. Verify this yourself, including on an interrupted run before any further merge action; do not ask the XA whether it completed or to supply a screenshot. Reuse a retained verified result without another read unless new evidence conflicts. Classify the displayed confirmation by its actual content: a completed-merge success receipt for the submitted pair satisfies verification even when the panel remains open; the pre-submit warning and a delivered-click acknowledgement do not. If the bounded result read remains ambiguous, perform the exact-account read-only recovery below before reporting an unverified result. Preserve both IDs and keep dependent mutations pending only if that recovery still lacks completion evidence. An unknown answer from the XA is not a result check; a timeout never authorizes another final Merge click. Match the candidate by the inspected email/phone or retained ID rather than a name-only click; keep final submission separate from an unreviewed warning.
 - **OpsHub contact-editor fast path:** after Admin verification, navigate once to the retained OpsHub customer UUID. Use the read-only probe in `scripts/contact_editor_probe.js` below to resolve the unique visible, enabled **Customer Info → Edit**, not Agent Info's Edit. If the editor is already open, read the full contacts without clicking again. Do not target Edit by styling classes (including `button[class*="hover:bg-[var(--hover-bg)]"]`): the saved trace repeated that ineffective selector, while a text-targeted Edit opened the editor despite the same background-timeout warning. Do not infer OpsHub is broken from that warning. Only use visible Details if Customer Info is actually collapsed. Group ready-state resolution → one documented click → input-ready check → full contact read in one guarded orchestration call. Read every `input[name^="emails."]` and `input[name^="phones."]` with its value, primary state and associated remove control; observed controls are `button[title="Remove email"]`, `button[title="Remove phone"]` and `button[aria-pressed]`. Do not probe an empty dialog or dump the full page.
-- Remove only the inspected non-primary contacts using their current rows, highest indexes first to handle renumbering; re-query after each removal. Execute those known removals sequentially in one orchestration call, stopping on failure. Read the desired lists once, save once, then reload/reopen once and read the complete saved lists for final verification. Do not inspect the saved page and then perform a second redundant verification before reopening the editor.
+- Remove only the inspected non-primary contacts using their current rows, highest indexes first to handle renumbering; re-query after each removal. Execute those known removals sequentially in one orchestration call, stopping on failure. Read the desired full lists once and save once, then use one fresh authoritative saved-list read; reopen the editor only if that is the supported way to expose all persisted contacts. Do not separately inspect the saved page and then repeat the same verification in the editor. After this check, keep the unchanged verification editor open for connector posting when possible; if UI posting requires it closed, use the observed Cancel once with no unsaved changes, without another contact probe. Read back the created note once; do not reopen contacts after posting.
 
 ## Ambiguous merge-result recovery
 
@@ -110,6 +110,92 @@ resubmitting it. Report the exact unresolved state or failed read and recovery
 attempted, not merely “Admin still showed the confirmation.” No completion
 evidence means no dependent contact save or posting.
 
+## Contact-only update when the full editor requires an unknown name
+
+Source-verified November 19, 2026 in `opendoor-labs/code`:
+`js/packages/opshub/src/features/Customer/types.ts` requires nonempty first and
+last names, and `components/EditCustomerPanel/EditCustomerPanel.tsx` disables
+Save while that entire schema is invalid. `EditCustomerName.tsx` renders
+`firstName-error` / `lastName-error` paragraphs; they need not have role=alert.
+A profile with a blank surname can therefore block a phone-only save even when
+the email/phone fields have no errors. Do not demand an unavailable name,
+reformat a correct phone, click unrelated fields, or repeat the same editor
+attempt to clear that whole-form validation. Sam permits the exact temporary
+first/last pair `Customer` / `Customer` under the entry skill's rare fallback;
+this is not an invented personal identity or a substitute for normally
+obtaining the caller's real name.
+
+The same feature's `utils/buildCustomerUpdateParams.ts`,
+`utils/buildFieldDiffs.ts`, `graphql/mutations/UpdateCustomerMutation.ts` and
+`protobuf/customer/v1/services/customer.proto` establish a supported alternative:
+`UpdateCustomer` takes `variables.input = {uuid, params}`; `params.emails` and
+`params.phones` are arrays of **old/new deltas**, not replacement contact lists.
+Unchanged names are omitted, not required or repaired by this contact update.
+Use the registered OpsHub `call_operation` connector for this captured operation,
+not an in-page fetch, hidden API, generic `edit_customer.fields` guess or direct
+Admin request. Existing identity, authorization, destination and result guards
+still apply; this is the authorized contact cleanup, not permission to bypass
+an access restriction or retry an uncertain mutation.
+
+When no name correction is pending and the retained profile is missing a name,
+prefer this path before opening a known-invalid full editor. Also use it after
+one scoped editor diagnostic establishes the name-validation blocker:
+
+1. Reuse a fresh, complete persisted profile read on the resolved surviving UUID,
+   including primary/other emails and primary/other phones with each phone's
+   **actual type**. Compact search results and an unsaved edited form are not
+   sufficient. Use the existing documented profile connector when complete;
+   otherwise read the saved profile through the authorized background browser,
+   before changing any inputs. Do not invent a GetCustomer operation that is not
+   in the executing connector's catalog. A just-opened editor can expose the
+   saved contacts; an operator-owned unsaved draft must not be canceled or
+   treated as persisted data. Reconcile any uncertain prior save before planning.
+2. Load `scripts/contact_update_plan.js` once and evaluate its trusted expression
+   locally; it returns pure `plan` and `verify` functions, not an executor.
+   Pass `plan({customer, customerUuid, primaryEmail, callerPhone,
+   identityVerified, cleanupAuthorized, contactsComplete})`. `customer` uses
+   the source-verified CustomerDetail shape: `uuid`, `firstName`, `lastName`,
+   `isAgent`, `primaryEmail: {address: {value}} | null`, `otherEmails`,
+   `primaryPhoneNumber: {number: {value}, type} | null`, and
+   `otherPhoneNumbers`. Both other-contact arrays are required, even if empty.
+   Map complete evidence into this shape; never assert completeness or verified
+   identity from an email selection. Phone types are HOME, MOBILE, OTHER or WORK.
+3. For `ready`, use exactly the returned operation and variables once under
+   the original cleanup authority and real runtime restrictions. Preserve an
+   explicit draft-only limit. Remove deltas use the original email address or
+   original phone **number + type**. Preserve the confirmed original caller
+   phone and primary email. An identical displayed phone with a different type
+   can be removed precisely; indistinguishable number/type tuples cannot be
+   safely targeted and return a concrete ambiguity blocker. Never use a row
+   index as an API identifier, strip all matches, or invent a phone type.
+   The plan omits firstName, lastName, isAgent and all communication preferences.
+   If an actual name correction was selected, use its existing combined
+   name/contact edit path instead of silently dropping that requested edit.
+4. `noop` means no write: verify the complete fresh read and proceed.
+   `blocked` means inspect/report the precise missing evidence or unsupported
+   target; do not improvise another payload or turn an unavailable name into
+   a repeated caller question. A captured operation missing at runtime or an
+   actual backend rejection remains a concrete blocker, not a success. If this
+   contact-only capability is unavailable and the only form-validation blocker
+   is an unknown name, apply the entry skill's authorized `Customer` / `Customer`
+   fallback in the scoped editor and save the contact cleanup and that exact
+   pair together. Never use it to resolve identity/contact-target ambiguity or
+   retry an uncertain write. Prefer an available genuine personal name.
+5. A mutation response is not contact verification. Read the complete saved
+   profile once and require `verify(planResult, savedCustomer, true)` to return
+   true: exact surviving UUID, desired sole primary contacts/type, and unchanged
+   names/agent role. A dry-run preview is not a save receipt. On an uncertain
+   response, reconcile persisted state before any retry; do not blindly repeat.
+   Once verified, retain the receipt and continue the original authorized note
+   exactly once under steps 7–8; do not reopen the verified Admin merge. The
+   temporary-name editor path instead verifies the authorized `Customer` /
+   `Customer` pair plus the complete saved contacts and preserved unrelated
+   fields; do not pass it off as an unchanged-name contact-only result.
+
+Tests: `node scripts/test_contact_update_plan.mjs` is provider-free. The probe
+regression below also covers foreign submit buttons and full-form name errors.
+All fixtures use synthetic data; no live merge, contact write or note post.
+
 ## Contact-editor targeting and same-run recovery
 
 Load `scripts/contact_editor_probe.js` from this installed package once when
@@ -118,9 +204,27 @@ its exact trusted source through the selected browser's documented read tool
 with the retained exact OpsHub customer URL as its argument. It returns
 `editor-open` or `edit-ready` with an observed plain CSS selector; it checks the
 customer route and scopes Edit to Customer Info without styling classes or
-temporary DOM attributes. Use that selector immediately through the documented
-click tool, then a fresh bounded wait/read of the visible contact inputs.
+temporary DOM attributes. In the same orchestration call, assign the decoded
+probe result to a variable and pass its exact `.selector` value directly to the
+documented click tool; never retype, shorten or reconstruct the structural path,
+or return to model reasoning between probe and click. If it reports
+`editor-open`, skip the click. Follow with the bounded input-ready check and one
+full contact read in that same call. A failed or ambiguous probe stops the batch.
 The probe never clicks, saves, changes focus or authorizes an action.
+
+When already open, the probe also returns `editor.form_selector`, the unique
+form-associated `editor.save.selector` and ready/disabled/missing/ambiguous
+state, empty name fields, every visible form field's validity/associated error
+text, and scoped errors. Inspect only this Save, never the page's first
+`button[type="submit"]` or an unrelated form. Use its exact fresh selector for
+a permitted save. A disabled button alone does not establish why it is disabled:
+check the whole editor, including first/last-name errors and an unchanged blank
+surname, not just email/phone errors. If the unknown-name restriction above
+applies, continue with the supported contact-only path rather than hand the
+same edit back to the XA. Do not force-enable Save, invoke form handlers, fill
+unapproved placeholder surnames or change contact formatting to provoke
+validation. The exact `Customer` / `Customer` pair is permitted only under the
+entry skill's rare, operator-authorized unknown-name fallback.
 
 Use `guard.step(action, observe)` for opening Edit: after any
 `maybe_landed:true` response, observe the actual editor instead of treating
@@ -147,6 +251,9 @@ outage, successful cleanup or posting without evidence.
 Regression: `node scripts/test_contact_editor_probe.mjs` from this package
 with the existing Playwright dependency on `NODE_PATH`. It uses only an isolated
 headless browser with intercepted synthetic pages, never working Chrome.
+An existing standalone headless executable can be selected with
+`PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`; this launches a new isolated test browser
+and never attaches to an operator session.
 
 ## Efficiency rules
 

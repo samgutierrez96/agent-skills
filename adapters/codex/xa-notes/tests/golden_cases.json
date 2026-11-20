@@ -541,5 +541,16 @@
     "input": "Seller asked what the phrase 'post it' means. I explained it means saving a note.",
     "expected": "```\nProperty Address: N/A\n\nReason for Call: Seller called to ask what a phrase meant.\n\nCustomer Concerns: Seller wanted to understand the phrase.\n\nSolution Offered: Explained that it means saving a note.\n\nFollow Up Link: N/A\n```",
     "expected_operations": []
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 19, 2026; not an observed model result",
+    "id": "direct-fix-updates-verified-original-without-invented-timing",
+    "kind": "post",
+    "input": "Fix the note. I refreshed the seller's offer as well.",
+    "prior_context": "The selected call's note was successfully posted. Its original note ID, customer, unchanged property and exact body receipt are retained. The call covered assessment next steps. No Final Offer timeline was stated.",
+    "expected": "```\nProperty Address: 123 Example Lane, Austin, TX 78701\n\nReason for Call: Seller called for next steps to complete the assessment.\n\nCustomer Concerns: Seller was unsure how to move forward with the assessment.\n\nSolution Offered: Went over the assessment next steps. I refreshed the offer.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/synthetic-property\n```\n\nUpdated the original OpsHub note.",
+    "required_phrases": ["I refreshed the offer.", "Updated the original OpsHub note."],
+    "forbidden_phrases": ["business days", "Final Offer in", "Post it"],
+    "expected_operations": ["UpdateCustomerNote"]
   }
 ]

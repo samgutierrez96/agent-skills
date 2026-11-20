@@ -12,19 +12,24 @@ Agent 360 in Router while native worker access remains unverified; supported
 native Chrome in desktop chats. Retain direct-connector, no-browser,
 background-window and authorization gates.
 
-## Vendor AP follow-up — November 6, 2026
+## Vendor payment support — November 19, 2026
 
-An established vendor still waiting without a reply or resolution after emailing
-`accountspayable@opendoor.com` about billing/unpaid invoices should submit a
-request through https://opendoor.atlassian.net/servicedesk/customer/portal/1133
-(Trade Partner Support Center), not repeat only the AP email or use onboarding.
-No fixed waiting period or response/payment promise. Do not duplicate an existing
-support-center ticket; repeat escalations use the verified #vendor-feedback /
-@trade-partners route with the existing action permissions. A referral alone is
-not a Slack escalation or submitted ticket. Preserve explicit requested-action
-scope; this knowledge save authorizes no sends/posts. Source: Sam's accepted
-November 6 direction and Stephanie Faust's July 20, 2026 reply:
-https://opendoor.enterprise.slack.com/archives/C51K62ETU/p1784553990069269.
+Established vendors use https://opendoor.atlassian.net/servicedesk/customer/portal/1133
+with their Opendoor-associated email. Offer the link by text/email, under existing
+action permissions. Collect company/contact, property address, work-order/visit
+ID, invoice number/amount, submission date, portal status and relevant screenshots.
+For an already-submitted ticket, do not duplicate it: send a direct channel post
+in #tpm-requests, not its workflow or a private DM, with vendor/contact,
+confirmation of submission and whether payment-related. Do not require a reply
+email or ticket number; these may not exist until TPM responds/assigns the case.
+Route collected details or inability to submit to TPM. XA captures/routes; TPM
+investigates and follows up. This replaces the former #vendor-feedback /
+@trade-partners repeat route in this scope. No waiting threshold, payment/response
+promise, new-vendor onboarding referral or unverified completed-action claim.
+Keep the normal verified-destination, existing-thread and authorization gates;
+maintenance alone never sends/posts. Source: Diego Mendieta's XA announcement
+and clarifying replies, November 19, 2026:
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795101306964529.
 
 ## Workflow commands — updated 2026-11-12
 
@@ -110,6 +115,57 @@ message, the XA's direct `Post it` command authorizes only the CONTACT note.
   to the channel's routing or a lack of user authorization. Do not bypass the
   rejection through browser/native UI or resend through another destination.
   Preserve an existing draft; create a fallback draft only if none exists.
+
+## Participant/record mismatch — hard stop before automatic actions
+
+Before automatic Slack send (new post or thread reply) or its CONTACT note,
+compare the XA's stated person/role, caller/contact and property with the
+verified case and relevant assigned OpsHub participant. Apply this to internal
+listing-partner/resale channels as well as acquisition/HSA channels; a channel
+allowing automatic sends never bypasses this gate.
+
+Reuse required reads and retained same-case evidence. On a matching case, add
+no lookup, model round, confirmation or output. If assignment is not yet
+verified for a property-bound automatic escalation, fetch only the relevant
+participant on the applicable verified engagement through the existing path,
+including a named resale/listing target. Missing evidence is unresolved, not a
+match. Do not audit unrelated participants or reread unchanged context.
+
+A conflicting name, role, caller/property relationship or address blocks BOTH
+Slack send and the follow-up CONTACT post. Never silently substitute the assigned
+person and continue. Show the stated-versus-verified difference briefly, say
+what remains unsent/unposted, and ask only for the correction or intended
+case/recipient choice. Offer known finite choices through shared reply controls;
+unknown corrected facts retain text entry. Do not claim an escalation completed.
+Different legitimate roles, verified coverage and harmless name/address
+formatting differences are not mismatches.
+
+An email selection or generic `proceed` does not resolve a separate mismatch.
+After an explicit resolution, retain the original authorized action and receipts;
+refresh only facts invalidated by that correction. A changed property/caller
+invalidates its old assignment, links, qualification, thread and CONTACT target.
+An intentional off-assignment target still needs verified identity/role/routing.
+Resume only remaining authorized steps in this same conversation. Keep existing
+draft-only, Slack Connect, workflow-form and uncertain-outcome gates; never
+resend confirmed Slack or duplicate a posted note. Maintenance never resumes it.
+
+## Recheck after an operator profile edit
+
+`Check again` / `recheck` asks for a read-only reread, not an identity answer
+or permission to continue pending actions. Reuse the saved case and exact
+CONTACT UUIDs; reread only the edited profile and any affected conflicting
+contact association. Do not repeat unaffected property, qualification, thread
+or coverage work. No Slack draft/send, CONTACT post, merge or cleanup in this
+turn. A generic `go`/`proceed` cannot answer outstanding factual questions.
+
+After the read, stop with each remaining independent decision and its explicit
+answer list, so shared controls can display buttons. Keep caller identity
+separate from whether a phone is legitimately shared or incorrectly assigned.
+Unknown facts retain text entry. If current evidence resolves all blockers,
+offer `Continue with checked records` and `Keep pending`; do not resume until
+the XA chooses. An incomplete read remains a specific blocker, never readiness.
+Retain original authority/receipts for a later answer; never imply an unperformed
+send/post succeeded. This exception adds no reads or output to ordinary cases.
 
 ## Retained-draft Post it completion — November 17, 2026
 
@@ -667,6 +723,19 @@ read. Ask only for its unresolved identity/keeping-email answers and keep the
 send/post pending until its required merge and verification finish. A unique
 phone hit or property match does not bypass this check.
 
+On an authorized post/escalation, inspect the selected customer's full contact
+lists and customer links exposed by the required property read. Extra emails,
+extra phones or repeated compatible customer links invoke `xa-admin-account-merge`
+even when the caller-phone lookup returns one result. Flag the observed issue
+outside the note, then use that skill's **Extra contacts and repeated customer
+links — detect before classifying** check. Different customer UUIDs are not just
+extra contacts; repeated rows with the same UUID are not separate accounts.
+Do not choose cleanup-only until the relevant observed-contact/property-linked
+candidates are resolved. Merge qualifying same-person accounts; use single-profile
+OpsHub cleanup only when no unresolved separate-account candidate remains. Reuse
+confirmed contacts, original posting intent and action receipts; ask only for
+missing facts. This adds no lookups or cleanup to ordinary tool-free drafts.
+
 **Duplicate-profile gate:** Apply the `xa-admin-account-merge` workflow to
 escalations as well as ordinary XA notes. When the caller lookup returns
 multiple real customer profiles with distinct email addresses, or a named
@@ -686,7 +755,8 @@ Follow `xa-admin-account-merge` for surviving-contact verification and for
 removing only a confirmed misassigned caller number from unrelated profiles in
 OpsHub; preserve their other contacts and legitimate shared numbers. Never
 merge unrelated people or substitute an OpsHub edit for a required Admin merge.
-If no same-person duplicates remain, skip Admin and complete only the required
+If no same-person duplicates remain after that detection check, skip Admin and
+complete the applicable single-profile contact cleanup or unrelated-profile
 phone cleanup and verification. Applicable cleanup/merge gates precede the
 CONTACT note. If required input, an actual Admin merge, cleanup or verification
 is blocked, stop before CONTACT mutation and report the exact blocker; do not
@@ -724,8 +794,9 @@ Never conclude that the message was not sent merely because search missed it.
    the assigned HSA / Agent Home Sale Advisor. Validate the XA-stated name
    against that participant before tagging anyone. Do not choose a Slack user
    by name or title when the property participant record is available. If the
-   participant and stated name conflict, use the assigned participant and note
-   the mismatch under `---`. Skip profile when the named target is a directory
+   participant and stated name conflict, apply **Participant/record mismatch**
+   and stop automatic send/post pending resolution, not silent substitution.
+   Skip profile when the named target is a directory
    usergroup. Do not start a caller subagent on this common path. If OpsHub
    returns no unique customer UUID, fall back once to parent
    `search_indextrious`; use a subagent only when that fallback result is
@@ -1349,8 +1420,10 @@ is actually out and no named cover is available. Tag the named person too.
 ### Known named target, paste
 
 For a seller-side acquisition with an address, verify the named target against
-the matching flip's participants panel before using the directory mention. For
-other known named targets, use the directory mention and channel above. Do not
+the matching flip's participants panel before using the directory mention.
+Property-bound automatic resale/listing escalations also verify the relevant
+assigned participant under **Participant/record mismatch**. For other known
+named targets, use the directory mention and channel above. Do not
 use browser, file, or schema lookup. Missing customer URL is acceptable.
 
 **First name only, or a first-name pair, on a seller-side acquisition file
@@ -1361,7 +1434,8 @@ unique directory last-name match, do not `slack_search_users` and pick by job
 title. Use the participants path on the ranked flip that matches the caller’s
 seller engagement — not `isHighestRanked` when that flip is a different seller
 or a dead file. Bind the XA’s names to those assigned roles. Keep the stated
-names in the note; Slack tags the assigned people.
+names only when compatible with those roles; a conflicting identity invokes
+**Participant/record mismatch**, never automatic substitution.
 
 ### Known named target, explicit Shape A draft or `draft it/post it`
 
@@ -1570,3 +1644,33 @@ This clarification supplies no bonus amounts, tiers, qualifying-stage rules,
 payout timing, or backend owner. Preserve separate seller-agent commission
 guidance and existing limits on compensation advice. Notes record only what
 actually happened; ordinary note drafting does not authorize record lookups.
+
+
+## Agent acquisition contract execution — November 19, 2026
+
+For agent acquisition offers, direct the agent to use the dashboard to set up
+the purchase agreement and send it to their sellers for e-signature. Printed,
+wet-signed contracts submitted by email are no longer accepted for this process.
+This is not a change to buyer/resale offer submission, listing-agreement email
+intake or agent verification. Do not claim an agreement was created, sent,
+signed, accepted or legally invalid without the corresponding evidence. Notes
+record only the guidance/actions actually stated; maintenance performs none.
+Source: Matt McCollum's XA announcement, November 19 at 4:17 p.m. EST,
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795123025787719.
+
+
+## Agent bonus program scope — verified November 19, 2026
+
+The November targeted campaign offers selected recipients a one-time 2% bonus
+on an eligible first sell-side acquisition closing by January 31, 2027, paid
+through escrow by Opendoor on top of their commission. It is not a universal
+rate change. The standard program's tiered rates and eligibility remain separate;
+confirm the particular agent's campaign eligibility before promising a rate.
+The bonus does not apply to bringing a buyer to an Opendoor resale; for CNML,
+the bonus is based on the acquisition purchase price and paid at that closing.
+Do not infer individual attribution, qualification, payment, marketing consent
+or current seller closing availability from a flyer. Existing action and
+no-invented-note-facts boundaries remain. Campaign scope and attached terms:
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795118024586539.
+Standard eligibility and tiers (not a self-service transaction-count tracker):
+https://docs.google.com/document/d/1EuBFCTNicSxudpjWS2UKVB36SKr1afLcQxRH1vrw-1c.

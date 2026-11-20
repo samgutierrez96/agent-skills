@@ -7,7 +7,9 @@ const probe = fs.readFileSync(new URL('./contact_editor_probe.js', import.meta.u
 const guard = vm.runInNewContext(fs.readFileSync(new URL('../../browser-navigation/scripts/agent360_guard.js', import.meta.url), 'utf8'));
 const response = value => ({content: [{type: 'text', text: JSON.stringify(value)}]});
 const expected = 'https://opshub.apps.opendoor.com/customers/synthetic';
-const browser = await chromium.launch({headless: true});
+const browser = await chromium.launch({headless: true,
+  ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
+    ? {executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH} : {})});
 try {
   const context = await browser.newContext();
   // Every request is intercepted. Never attach to working Chrome or external systems.
@@ -48,6 +50,59 @@ try {
   assert.equal(await page.evaluate('window.wrong'), 0);
   assert.equal(await page.locator('#writes').innerText(), '0', 'opening the editor must not save');
   assert.equal((await inspect()).state, 'editor-open', 'already open means no new click');
+
+  // A page-global submit selector can inspect an entirely different form.
+  const customerForm = `<form id="customer-form">
+    <input name="firstName" value="caller@example.invalid">
+    <input name="lastName" value="" aria-invalid="true" aria-describedby="lastName-hint lastName-error">
+    <span id="lastName-hint">Customer last name</span><p id="lastName-error" class="text-red-500">Required</p>
+    <input name="emails.0.email" value="caller@example.invalid">
+    <input name="phones.0.number" value="2025550123">
+    <button id="customer-save" type="submit" disabled>Save</button>
+  </form>`;
+  await page.setContent('<form><button type="submit">Save</button><p role="alert">Unrelated error</p></form>'
+    + '<form hidden><button type="submit">Save</button></form>' + customerForm);
+  const untouched = await page.content();
+  let state = await inspect();
+  assert.equal(state.editor.save.state, 'disabled');
+  assert.equal(await page.locator(state.editor.save.selector).getAttribute('id'), 'customer-save');
+  assert.deepEqual(state.editor.empty_name_fields, ['lastName']);
+  assert.equal(state.editor.fields.find(f => f.name === 'lastName').invalid, true);
+  assert.deepEqual(state.editor.fields.find(f => f.name === 'lastName').described_errors,
+    ['Customer last name', 'Required']);
+  assert.deepEqual(state.editor.errors, ['Required'], 'ignore errors in other forms');
+  assert.equal(await page.content(), untouched, 'full diagnostic remains read-only');
+  await page.locator('#customer-save').evaluate(e => e.disabled = false);
+  await page.locator('form').first().locator('button').evaluate(e => e.disabled = true);
+  assert.equal((await inspect()).editor.save.state, 'ready',
+    'disabled unrelated submit must not block the customer save');
+  await page.locator('#customer-save').evaluate(e => e.textContent = 'Saving...');
+  assert.equal((await inspect()).editor.save.state, 'ready');
+  await page.locator('#customer-form').evaluate(e => e.insertAdjacentHTML('beforeend',
+    '<button type="submit">Save</button>'));
+  assert.equal((await inspect()).editor.save.state, 'ambiguous', 'never choose between two customer submits');
+  await page.setContent(customerForm.replace('aria-invalid="true"', 'required'));
+  state = await inspect();
+  assert.equal(state.editor.fields.find(f => f.name === 'lastName').invalid, true,
+    'read native validity without calling checkValidity or dispatching events');
+  await page.setContent(customerForm + customerForm.replaceAll('customer-form','other-form'));
+  await assert.rejects(inspect(), 'multiple contact editors must stop');
+
+  // Structural paths must be handed straight from a fresh probe to the click.
+  // Additional layout wrappers change the path without changing the intended Edit.
+  const previousSelector = ready.selector;
+  await page.setContent('<div><div><div>' + fixture + '</div></div></div>');
+  ready = await inspect();
+  assert.notEqual(ready.selector, previousSelector);
+  await guard.step(async () => {
+    await page.locator(ready.selector).click();
+    return response({ok: true});
+  }, async () => (await inspect()).state === 'editor-open');
+  assert.equal(await page.evaluate('window.clicks'), 1, 'fresh returned target opens Customer Info once');
+  assert.equal(await page.evaluate('window.wrong'), 0, 'structural changes never select Agent Info');
+  assert.equal(await page.locator('#writes').innerText(), '0', 'editor inspection is not another save');
+  assert.equal((await inspect()).state, 'editor-open');
+  assert.equal(await page.evaluate('window.clicks'), 1, 'an already-open verification editor needs no second click');
 
   await page.setContent(fixture);
   let later = 0;

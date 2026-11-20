@@ -87,16 +87,30 @@ This safeguard applies to every skill used in this workflow.
 
 ## LATENCY-CRITICAL POST FAST PATH
 
-For an authorized seller/previous-owner post, apply the merge skill's **Split
-phone/email seller profiles** check against the matched property's customer,
-even with one phone-search result. Distinct caller-phone and email-only seller
-UUIDs trigger that workflow without a shared contact or operator duplicate
-keyword. Reuse retained evidence; otherwise make its one scoped property-profile
-read. Ask only for its unresolved identity/keeping-email answers and keep the
-send/post pending until its required merge and verification finish. A unique
-phone hit or property match does not bypass this check.
+For a routine authorized post with one verified caller match and no observed
+identity conflict, use OpsHub MCP only. Resolve the caller and property in the
+required lookup batch, reuse the operator token, then create the CONTACT note.
+Do not audit complete email/phone lists, search for hypothetical duplicates,
+inspect contact editors, read activity history to prove contact completeness,
+or open a browser just because a connector omits full contact lists. A missing
+optional contact field or an activity-only profile response is not a duplicate
+signal. If the caller/property target itself remains unresolved, ask only for
+that missing identifier; never guess or launch contact cleanup to fill the gap.
+Target at most 15 seconds end-to-end for this routine path when the model and
+connector respond normally. This is a target, not a measured guarantee or a
+reason to skip identity checks, retry an uncertain write, or claim success early.
 
 ### Duplicate customer profiles
+
+Invoke `xa-admin-account-merge` only when the XA reports a duplicate/contact
+problem or required OpsHub reads actually expose one: conflicting real caller
+matches, distinct relevant customer UUIDs, extra emails/phones, or distinct
+caller-phone and property-seller profiles. Repeated rows with the same UUID are
+not separate accounts. Inspect evidence already returned by required reads;
+do not add discovery solely to prove that no duplicate exists. When a concrete
+signal exists, preserve the merge skill's candidate classification, independent
+identity/keeping-email decisions, merge/cleanup verification and posting gates.
+This adds no lookups or cleanup to ordinary tool-free drafts.
 
 Reuse the complete current account-merge decision skill when the runtime has
 already attached it; do not reread it. A real profile conflict needs the first
@@ -130,7 +144,8 @@ shared-phone matches belong to the caller. Resolve concrete identity conflicts
 separately. For confirmed unrelated profiles with a misassigned caller number,
 follow the merge skill’s unrelated-profile phone-cleanup path; preserve other
 contacts and legitimate shared numbers, and never merge unrelated people. If
-no same-person duplicates remain, skip Admin and complete only the required
+no same-person duplicates remain after that detection check, skip Admin and
+complete the applicable single-profile contact cleanup or unrelated-profile
 phone cleanup and verification before resuming the original authorized post. Use the approved OpsHub edit flow only when the
 profile still shows a leftover duplicate email or phone entry. If the profile
 already shows exactly the confirmed primary email and phone, treat cleanup as
@@ -176,9 +191,11 @@ instead. An empty phone result
 must take the bounded recovery path in Part 11 before asking for more identity.
 Do not scan tool catalogs or rediscover loaded schemas. Part 11’s exact-name
 binding is allowed only for missing deferred tools, before a speculative call.
-Browser automation or filesystem searches remain excluded except for the shared
-merge workflow’s required execution/reference reads, bounded empty-phone recovery
-and scoped post-merge identity/Notes verification when connector evidence is insufficient.
+Browser automation or filesystem searches remain excluded for routine posts.
+Only an actually triggered shared merge workflow may use its required browser
+execution and post-merge verification when structured evidence is insufficient.
+Bounded empty-phone recovery remains scoped to resolving the posting target,
+not a general full-contact audit.
 
 The first `CreateCustomerNote` attempt always uses this exact payload shape:
 `operation_name: "CreateCustomerNote"` and
@@ -1327,17 +1344,20 @@ agent on the resale side if the seller stays for resale.
 
 ## Vendors and partnership solicitations (vendor, partnership)
 
-**Established-vendor AP follow-up is not onboarding (Sam, November 6, 2026).**
-If the vendor already emailed `accountspayable@opendoor.com` about billing/unpaid
-invoices and is still waiting without a reply or resolution, direct them to
-submit a request through the Trade Partner Support Center:
-https://opendoor.atlassian.net/servicedesk/customer/portal/1133.
-Do not invent a waiting period or promise response/payment timing. Record the
-referral actually given, not a submitted ticket or payment. Do not duplicate an
-existing support-center ticket; a requested repeat escalation follows the
-escalation workflow. Ordinary note drafting still makes no external calls.
-Source: Stephanie Faust, July 20, 2026,
-https://opendoor.enterprise.slack.com/archives/C51K62ETU/p1784553990069269.
+**Established-vendor payment support is not onboarding (November 19, 2026).**
+Vendors use https://opendoor.atlassian.net/servicedesk/customer/portal/1133 with
+their Opendoor-associated email; offer to text/email the link. Intake includes
+company/contact, property address, work-order/visit ID, invoice number/amount,
+submission date, portal status and relevant screenshots. For an existing ticket,
+do not duplicate it: the repeat route is a direct channel post in #tpm-requests,
+not its workflow, with vendor/contact, confirmation of submission and whether
+payment-related. They may not yet have a reply email or ticket number. Route
+collected details or inability to submit to TPM, which investigates/follows up.
+Do not invent a waiting period, payment/response promise or completed action.
+Record only what the XA actually offered, collected or routed. Ordinary note
+drafting still makes no external calls; an escalation follows its own workflow.
+Source: Diego Mendieta's announcement and clarifying replies, November 19, 2026,
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795101306964529.
 
 A vendor, contractor, or company asking whether they can work with Opendoor, or
 be added as a service provider, is a solicitation. No property, no seller, no
@@ -1443,7 +1463,11 @@ filed and what was reported. File one when:
 - A locksmith, photographer, or vendor was contacted directly by a scammer, even
   if they secured the home afterward.
 - Someone broke in, or an occupant got in through a rental scam and has moved in.
-  Patrol is dispatched as well.
+  XAs do not dispatch patrol. Trust & Safety handles patrol dispatch after the
+  incident report; concerns about an active situation go to a team lead or
+  manager. Do not claim patrol was dispatched without confirmation.
+  Source: Chris Lewis, #xa-announcements, November 12, 2026,
+  https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1794506389341569.
 - A neighbor reports damage, or yard items the homeowners association flagged.
 - Mold is found, mechanical room or anywhere else.
 
@@ -1461,6 +1485,14 @@ report, write that. If they said incident report, write that. Do not spend a
 turn matching it to the rows above. Apply Part 11's filed-report link lookup
 without changing the report type or filing another report. No access-verification
 wording: the lockbox already failed, or the report was already the work of the call.
+
+For a failed tour caused by an access issue, retain what happened, what was tried,
+what the caller was told and a verified triage-ticket link when available under
+the existing filed-report lookup. Do not invent a resolution date, callback,
+outbound follow-up or confirmed repair/rebooking. This does not authorize extra
+research or actions during ordinary note drafting. Source: Casey Chapman's
+November 18, 2026 XA announcement and owner replies,
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795046789458139.
 
 # PART 7 — Escalation routing
 
@@ -2425,8 +2457,13 @@ message is the real one and should not need another file read.
 
 ## Post to the customer OpsHub page
 
-**Correct an already-posted note in place.** When the XA corrects the current
-call's note and explicitly says `Post it` or `post the corrected note`, prefer
+**Correct an already-posted note in place.** A direct instruction such as
+`fix the note`, `correct the note`, or `update the note` authorizes editing the
+selected current call's already-posted note when its successful original receipt
+and unchanged caller/property are verified. Do not require another `Post it`.
+Without a verified original, correct the draft only; never create a note from
+edit intent. Draft/preview-only requests, negated or quoted commands, process
+questions and source-only maintenance authorize no record update. Prefer
 one `call_operation` with `operation_name: "UpdateCustomerNote"` and
 `variables: { id: <verified original note ID>, contextType: "CONTACT",
 body: <complete corrected five-field plain-text note> }`. Reuse the successful
@@ -2438,8 +2475,9 @@ call's note just because it has the same caller or address. If the ID, caller
 ownership, selected original, or prior posting outcome is uncertain, stop and
 report what needs verification; never guess, search broadly, or create a
 duplicate. A changed caller/property requires resolving the changed context
-first. Correction/draft/source-save requests alone still authorize no OpsHub
-write. Scheduling mentioned in a correction is a fact to document, not
+first. An edit never authorizes a new note, repost or another customer action.
+Draft/source-save requests alone still authorize no OpsHub write.
+Scheduling mentioned in a correction is a fact to document, not
 authorization to book or move an appointment.
 
 An update is verified only when the successful operation returns
@@ -2468,7 +2506,8 @@ note). These are execution requests, not requests to regenerate a draft. Reuse
 the retained caller, current complete note and verified target; do not ask the
 XA to retype already-saved call details. Match case-insensitively, not quoted
 commands, caller speech, negated commands, draft-only requests, or discussion
-of when to post. Save/update/fix requests are source maintenance, not posting. A pending
+of when to post. Save requests alone are not posting. Direct edits to a verified
+already-posted note follow the in-place path above, not new-note creation. A pending
 authorized post may continue after its required identity/email choice; a
 maintenance turn must not resume it. Without an authorized post, return the
 fence with **zero OpsHub**, except silent `list_properties` when Part 4 needs
@@ -2669,6 +2708,11 @@ Then:
    only when the caller is the seller; otherwise ask which customer page
    to use. **Do not write the phone or email into the note.** It is
    lookup-only unless they said to put it in the note.
+   **Duplicate handling is evidence-triggered:** apply the Duplicate customer
+   profiles gate above only for an observed conflict, extra contacts/distinct
+   linked customer UUIDs, or an XA-reported problem. A unique verified match
+   does not require proof that no other account exists. Missing full-list
+   fields do not require another read, a browser, or contact cleanup.
 3. If more than one property is plausible **and the XA did not supply the
    addresses to include**, ask which one and stop. Never guess. If the XA
    supplied multiple addresses for the same call, keep all of them in the note
@@ -2690,8 +2734,8 @@ Then:
    identity. Collect both in one message when both are needed; stop only for
    required answers. Reuse known values and prior identity confirmations.
    Once the XA answers, use the confirmed email's UUID as the keeping customer. Follow `xa-admin-account-merge` and post only after the
-   applicable same-person Admin merge and contact cleanup, or the unrelated-profile
-   phone-cleanup-only path, are verified under that skill. If blocked,
+   applicable same-person Admin merge and contact cleanup, single-profile contact
+   cleanup, or unrelated-profile phone cleanup are verified under that skill. If blocked,
    keep the note pending and report the blocker; do not post merely because
    the primary UUID is known. Never pick the property owner for an agent,
    appraiser, inspector, or vendor call.
@@ -2959,3 +3003,33 @@ This clarification supplies no bonus amounts, tiers, qualifying-stage rules,
 payout timing, or backend owner. Preserve separate seller-agent commission
 guidance and existing limits on compensation advice. Notes record only what
 actually happened; ordinary note drafting does not authorize record lookups.
+
+
+## Agent acquisition contract execution — November 19, 2026
+
+For agent acquisition offers, direct the agent to use the dashboard to set up
+the purchase agreement and send it to their sellers for e-signature. Printed,
+wet-signed contracts submitted by email are no longer accepted for this process.
+This is not a change to buyer/resale offer submission, listing-agreement email
+intake or agent verification. Do not claim an agreement was created, sent,
+signed, accepted or legally invalid without the corresponding evidence. Notes
+record only the guidance/actions actually stated; maintenance performs none.
+Source: Matt McCollum's XA announcement, November 19 at 4:17 p.m. EST,
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795123025787719.
+
+
+## Agent bonus program scope — verified November 19, 2026
+
+The November targeted campaign offers selected recipients a one-time 2% bonus
+on an eligible first sell-side acquisition closing by January 31, 2027, paid
+through escrow by Opendoor on top of their commission. It is not a universal
+rate change. The standard program's tiered rates and eligibility remain separate;
+confirm the particular agent's campaign eligibility before promising a rate.
+The bonus does not apply to bringing a buyer to an Opendoor resale; for CNML,
+the bonus is based on the acquisition purchase price and paid at that closing.
+Do not infer individual attribution, qualification, payment, marketing consent
+or current seller closing availability from a flyer. Existing action and
+no-invented-note-facts boundaries remain. Campaign scope and attached terms:
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795118024586539.
+Standard eligibility and tiers (not a self-service transaction-count tracker):
+https://docs.google.com/document/d/1EuBFCTNicSxudpjWS2UKVB36SKr1afLcQxRH1vrw-1c.

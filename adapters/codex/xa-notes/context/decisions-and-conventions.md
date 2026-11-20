@@ -17,7 +17,7 @@ _Last condensed: 2026-09-10 for Codex transfer._
 - **COE window:** 21–60 standard sellers; 21–120 homebuilder/Lennar partners (never invent "14").
 - **Utilities:** stay on 3+ days past **move-out day**, not COE date.
 - **Home must be vacant by close of escrow** (tenant questions → vacancy line, not auto-escalation).
-- **Maddie** files rental-scam reports (XA transfers). Exception: victim already moved in → OpsHub incident + patrol, not Maddie.
+- **Maddie** files rental-scam reports (XA transfers). Exception: victim already moved in → OpsHub incident, not Maddie. XAs do not dispatch patrol; Trust & Safety handles dispatch after the report. Active-situation concerns go to a team lead/manager (November 12, 2026 XA announcement).
 - **Identity / access deny:** "confirm with our trust and safety team" (XA team) — never "identity team," never an escalation by itself.
 - **Cash Now, More Later second half:** **advise** seller to email `cashnowmorelater@opendoor.com` — never "Escalated to."
 - **Closed CNML home, previous owner wants in:** they are no longer the owner; Opendoor is. Treat as a **buyer**, go through access guidelines, **never give the lockbox code**. Thank them for feedback; we own the home now and are selling it. Not the CNML inbox, not closed-homes.

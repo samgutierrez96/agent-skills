@@ -49,8 +49,11 @@ blank. Explicit posts use resolved caller/property values.
   silent listing-type check. A direct XA command to post the selected note,
   including `Post it` or `post the corrected note please`, permits the posting
   workflow. Reuse the retained caller and exact current draft; do not ask for
-  already-saved identifiers again. Bare `post`, save/update/fix requests, quoted
-  commands and reported caller wording do not authorize posting.
+  already-saved identifiers again. A direct `fix/correct/update/edit the note`
+  also authorizes Part 11's in-place update of this call's verified posted note,
+  not a new note or repost. Without that original receipt, revise the draft only.
+  Bare `post`, source-save requests, draft-only edits, quoted commands and
+  reported caller wording do not authorize posting.
 - On an explicit post, follow Part 11 of the skill: use one parallel lookup
   batch, reuse `whoami` within the chat, then create a new customer note.
   For an authorized correction to a verified posted note, use Part 11's
@@ -166,8 +169,11 @@ A correction requesting only instruction maintenance may return a short save
 status without a five-field call note. A correction to the current note returns
 the corrected fenced note with any save status outside it. Do not ask the operator
 to paste a wording line themselves after they explicitly requested a durable save.
-Corrections alone do not authorize an OpsHub post, repost, or other external
-action; a separate explicit repost command follows Posting guardrails above.
+Direct edits to this call's verified posted note follow Part 11's in-place update
+path; they never authorize a new post, repost, or other customer action. Draft-only
+corrections and instruction maintenance authorize no external action; a separate
+explicit repost command follows Posting guardrails above. A case-specific note
+edit needs no reusable-source review unless the operator also requests one.
 Ordinary note drafting retains the fast path above; file work is only for the
 requested maintenance. Report a blocked save honestly and keep the corrected draft.
 
@@ -220,7 +226,9 @@ except the explicit Final Offer timing override below:
   for assessment next steps, walkthrough scheduling or rescheduling, completed
   assessments, adding an agent, pending offers, or refresh confirmations. This
   personal inclusion preference overrides the shared skill's automatic timing
-  requirements and template sentences; the timing facts themselves are unchanged.
+  requirements and template sentences, including during corrections. A refresh
+  confirmation records the refresh, not an inference that I quoted a timeline;
+  the timing facts themselves are unchanged.
 - Treat dictated full sentences as already written: preserve the stated
   problem and solution rather than replacing them with a generic template.
 - Solution Offered reflects what I told the caller and the customer-facing

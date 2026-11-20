@@ -103,6 +103,15 @@ class ValidatorTests(unittest.TestCase):
         self.assertEqual(API["validate_case"](case, case["expected"], ["UpdateCustomerNote"]), [])
         self.assertTrue(API["validate_case"](case, case["expected"], ["CreateCustomerNote"]))
 
+    def test_direct_fix_preserves_facts_and_uses_one_update_only(self):
+        case = BY_ID["direct-fix-updates-verified-original-without-invented-timing"]
+        self.assertEqual(API["validate_case"](case, case["expected"], ["UpdateCustomerNote"]), [])
+        for operations in ([], ["CreateCustomerNote"], ["UpdateCustomerNote", "UpdateCustomerNote"]):
+            self.assertTrue(API["validate_case"](case, case["expected"], operations))
+        invented = case["expected"].replace("I refreshed the offer.",
+            "I refreshed the offer and told them to expect a Final Offer in 3 to 5 business days.")
+        self.assertTrue(API["validate_case"](case, invented, ["UpdateCustomerNote"]))
+
     def test_post_keeps_property_and_report_links(self):
         case = BY_ID["explicit-post-preserves-both-links"]
         for url in case["expected_urls"]:

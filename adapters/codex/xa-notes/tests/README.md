@@ -21,7 +21,7 @@ python3 scripts/validate_xa_notes.py
 python3 scripts/test_validate_xa_notes.py
 ```
 
-The first command checks 36 stored expected examples. It does not generate
+The first command checks 37 stored expected examples. It does not generate
 model outputs. The second tests the validator itself, including deliberate
 failures. Neither command calls a model, OpsHub, Slack, tickets or a browser.
 
