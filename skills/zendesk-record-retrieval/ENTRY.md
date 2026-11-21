@@ -23,6 +23,11 @@ and extra context remain on demand, with the current package rules taking priori
 - Both boxes must be non-empty. Omit the current ticket number, draft criticism
   and process commentary from the internal note. Include the full Zendesk URL for
   any different verified ticket referenced in the note, not only in the appendix.
+- When the request supplies a read-only Zendesk disposition catalog, append one
+  fence tagged `zendesk-disposition` after the copy boxes holding
+  `{"fields":{"<field_id>":"<option_value>"},"reason":"..."}` from the supplied
+  IDs, values and conditions. It is a machine hint for the operator's disposition
+  form, never customer- or agent-facing text, and it authorizes no send or post.
 - Email voice/sign-off and concise SMS voice differ; use the exact bundled rules.
   Preserve approved macro wording, including the rental-report destination
   `https://www.opendoor.com/rental-scam` and the Opendoor Key App product name.

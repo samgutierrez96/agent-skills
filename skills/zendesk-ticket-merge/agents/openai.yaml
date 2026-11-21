@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zendesk Ticket Merge"
+  short_description: "Review merges or solve verified duplicate tickets"
+  default_prompt: "Use $zendesk-ticket-merge to review these tickets and recommend a merge or a no-public-reply duplicate resolution without changing either ticket."

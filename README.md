@@ -8,7 +8,7 @@ small compatibility notes or wrappers when a host needs them.
 
 ## Current scope
 
-The repository contains eleven custom skills. The October 27, 2026 audit reconciles
+The repository contains reviewed custom skills. The October 27, 2026 audit reconciles
 the original seven with their active Codex or project runtime sources, including
 required project rules and references. Bot Task notes was added November 2, 2026.
 The shared business-wide `kb-answer-for-callers` skill was imported from Claude
@@ -25,6 +25,14 @@ See [MANIFEST.md](MANIFEST.md) for provenance and
 current case status, drafted talking points, requested information, suggested
 questions and commitment boundaries. It complements KB retrieval and does not
 send messages or perform outreach.
+
+`zendesk-ticket-merge` was added November 19, 2026 for focused merge review and
+verified duplicate resolution. Its installed desktop copy is discoverable;
+the Zendesk project's existing merge recipe retains Router's manual guide and
+the same no-public-reply resolution branch. The separately owned Zendesk connector
+now has locally tested preview/merge/status support; existing processes must
+refresh before exposing new tools. One separately authorized connector merge has
+been verified; the Router review control's validation remains synthetic.
 
 This repository intentionally does not copy the full `superdojo` repository or
 every `SKILL.md` found in the Obsidian vault. Those sources include shared

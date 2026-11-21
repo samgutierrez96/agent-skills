@@ -33,6 +33,20 @@ class ValidatorTests(unittest.TestCase):
                 lines = [label + ": " if line.startswith(label + ": ") else line for line in lines]
                 self.assertIn(label + " cannot be empty", API["validate_note"]("\n".join(lines)))
 
+    def test_assigned_name_must_be_in_solution_not_only_elsewhere(self):
+        case = BY_ID["assigned-hsa-name-on-post"]
+        for placement in ("Customer Concerns", "Reason for Call"):
+            output = case["expected"].replace("home sale advisor, Alex Example.", "home sale advisor.")
+            output = output.replace(placement + ": ", placement + ": Home sale advisor, Alex Example. ")
+            self.assertIn("Alex Example", output)
+            self.assertIn("Solution Offered must contain 'home sale advisor, Alex Example'",
+                API["validate_case"](case, output, ["CreateCustomerNote"]))
+
+    def test_other_lead_advisor_cannot_replace_matched_advisor(self):
+        case = BY_ID["assigned-hsa-name-on-post"]
+        output = case["expected"].replace("Alex Example", "Taylor Prior")
+        self.assertTrue(API["validate_case"](case, output, ["CreateCustomerNote"]))
+
     def test_layout_and_output_boundaries(self):
         invalid = [
             VALID.replace("\n\nReason", "\nReason"),

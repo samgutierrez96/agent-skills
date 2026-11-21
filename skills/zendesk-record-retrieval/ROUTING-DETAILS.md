@@ -336,6 +336,11 @@ Reuse already loaded sections; all evidence and disclosure gates remain required
   workflow; prepare its form for review without submitting, rather than creating
   a regular channel-message draft.
   Mobile-app account deletion and state privacy requests are separate workflows.
+  Mobile-app account deletion → the documented in-app path plus the Help Center
+  article's approved fallback (`support@opendoor.com`), and
+  `privacy.opendoor.com` for a personal-information deletion. A failed in-app
+  attempt alone is a supported customer answer, not a hold; reserve the hold for
+  a genuinely unresolved request type or eligibility, naming that question.
 
 ## Ambiguous cases
 

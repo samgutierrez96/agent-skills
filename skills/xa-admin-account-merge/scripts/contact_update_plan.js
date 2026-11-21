@@ -78,11 +78,40 @@
       request: {operation_name: 'UpdateCustomer', variables: {input: {uuid: customerUuid, params}}},
     } : {state: 'noop', expected};
   }
+  const contactSignature = contacts => JSON.stringify({
+    emails: contacts.emails.map(e => [emailKey(e.address), e.primary]).sort(),
+    phones: contacts.phones.map(p => [phoneKey(p.number), p.type, p.primary]).sort(),
+  });
+  function planRepeatedPhone({customer, customerUuid, callerPhone, identityVerified,
+                             cleanupAuthorized, contactsComplete, accountConflict} = {}) {
+    if (identityVerified !== true || cleanupAuthorized !== true || contactsComplete !== true
+        || accountConflict !== false) return blocked('unresolved-identity-authority-completeness-or-account-conflict');
+    if (!customerUuid || customer?.uuid !== customerUuid) return blocked('customer-mismatch');
+    const wantedPhone = phoneKey(callerPhone);
+    if (wantedPhone.length !== 10) return blocked('missing-verified-caller-phone');
+    let contacts;
+    try {contacts = read(customer);} catch (error) {return blocked(error.message);}
+    const keep = contacts.phones.find(p => p.primary && phoneKey(p.number) === wantedPhone);
+    if (!keep) return blocked('caller-number-is-not-the-saved-primary');
+    const redundant = contacts.phones.filter(p => !p.primary && phoneKey(p.number) === wantedPhone);
+    const tuples = contacts.phones.map(p => phoneKey(p.number) + ':' + p.type);
+    if (new Set(tuples).size !== tuples.length) return blocked('ambiguous-phone-tuple');
+    const expected = {mode: 'repeated-phone', uuid: customerUuid,
+      firstName: customer.firstName, lastName: customer.lastName, isAgent: customer.isAgent,
+      contacts: contactSignature({...contacts, phones: contacts.phones.filter(p => !redundant.includes(p))})};
+    if (!redundant.length) return {state: 'noop', expected};
+    return {state: 'ready', expected, request: {operation_name: 'UpdateCustomer', variables: {input: {
+      uuid: customerUuid, params: {phones: redundant.map(p => ({old: {number: p.number, type: p.type}}))},
+    }}}};
+  }
   function verify(result, customer, contactsComplete) {
     if (!['ready', 'noop'].includes(result?.state) || contactsComplete !== true) return false;
     let contacts;
     try {contacts = read(customer);} catch {return false;}
     const e = result.expected;
+    if (e.mode === 'repeated-phone') return customer.uuid === e.uuid
+      && customer.firstName === e.firstName && customer.lastName === e.lastName
+      && customer.isAgent === e.isAgent && contactSignature(contacts) === e.contacts;
     return customer.uuid === e.uuid && customer.firstName === e.firstName
       && customer.lastName === e.lastName && customer.isAgent === e.isAgent
       && contacts.emails.length === 1 && contacts.emails[0].primary
@@ -91,5 +120,5 @@
       && phoneKey(contacts.phones[0].number) === phoneKey(e.phone)
       && contacts.phones[0].type === e.phoneType;
   }
-  return {plan, verify};
+  return {plan, planRepeatedPhone, verify};
 })()

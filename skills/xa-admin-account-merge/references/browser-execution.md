@@ -79,11 +79,42 @@ Use these selectors observed in the October 22 run as starting points, validatin
 - **Visible target selection:** inspect all matches with `querySelectorAll` and select the unique visible, enabled match in the current customer pane. Check dimensions and computed visibility; do not assume `querySelector` returns the visible match. If duplicate hidden markup precedes the visible element, use a documented locator scoped to the verified visible element; native evaluation must not mutate the DOM. Do not force-click hidden elements. Re-query after each navigation change; stale element references and mere DOM existence are not readiness checks.
 - **Bounded menu recovery:** if the intended target remains hidden after opening the menu, read its state once and allow one recovery based on that evidence. Stop and report a navigation blocker if it still fails. Do not cycle through Switch tabs → Links → Switch tabs repeatedly. Never wait for the merge form after a rejected Merge-link click; repair navigation first.
 - **Candidate selection is the next action:** when the keeping customer and a qualifying candidate are already visible, select that candidate in the same guarded orchestration call as the focused candidate read. Do not wait for a Merge button before selecting a candidate; selection reveals it. Read the selected customer’s identity and the visible warning-button state together. If a missing surname or Agent label is the only new information, proceed under the qualification rule above without another user question. A true placeholder without independent compatible identity or verified matching phone can remain in the sidebar; missing email alone is never a reason to skip a named matching-phone candidate.
-- **Merge-page readiness:** wait for `input[ng-model="customer_merge.query"]`, not the nonexistent `Merge Customers` heading that cost 10 seconds in the October 22 run. Read keeping identity/email and candidate identities once. Select the qualifying duplicate; wait for the candidate details and visible `button[ng-click="customer_merge.warned = true"]`. Generic `button:text(Merge)` previously selected a hidden control. Read the selected target and keeping identity, then click that precise visible button. Read the displayed irreversible warning once before clicking visible `button[ng-click="customer_merge.merge()"]`. If already at the final warning, do not repeat the first button. After submission, inspect the automatically refreshed surviving profile, merge-specific success confirmation and remaining distinct candidates together, tying the result to the retained keeping and duplicate IDs. If Admin is still loading or the result is ambiguous, use one bounded result wait of up to 30 seconds and one focused state read; stop waiting as soon as the result is established. Verify this yourself, including on an interrupted run before any further merge action; do not ask the XA whether it completed or to supply a screenshot. Reuse a retained verified result without another read unless new evidence conflicts. Classify the displayed confirmation by its actual content: a completed-merge success receipt for the submitted pair satisfies verification even when the panel remains open; the pre-submit warning and a delivered-click acknowledgement do not. If the bounded result read remains ambiguous, perform the exact-account read-only recovery below before reporting an unverified result. Preserve both IDs and keep dependent mutations pending only if that recovery still lacks completion evidence. An unknown answer from the XA is not a result check; a timeout never authorizes another final Merge click. Match the candidate by the inspected email/phone or retained ID rather than a name-only click; keep final submission separate from an unreviewed warning.
+- **Merge-page readiness:** wait for `input[ng-model="customer_merge.query"]`, not a guessed heading. Read the keeping identity and candidate once; select the exact qualifying candidate, then inspect its full identity and visible `button[ng-click="customer_merge.warned = true"]`. Review the irreversible warning and exact final `button[ng-click="customer_merge.merge()"]`; if already at that warning, do not repeat the first button. Capture the pair-bound pre-submit observation described below, submit once, and immediately read the result in that guarded call. Stop waiting as soon as the toast or settled cleared-panel transition proves completion. Only a still-loading or ambiguous result gets a readiness wait, up to 10 seconds, followed by one focused result read; exact-account recovery is reserved for a result that remains ambiguous. Neither a warning, background timeout nor a retained sidebar entry authorizes another merge. Preserve identity and irreversible-warning review boundaries; no extra discovery after review.
 - **OpsHub contact-editor fast path:** after Admin verification, navigate once to the retained OpsHub customer UUID. Use the read-only probe in `scripts/contact_editor_probe.js` below to resolve the unique visible, enabled **Customer Info → Edit**, not Agent Info's Edit. If the editor is already open, read the full contacts without clicking again. Do not target Edit by styling classes (including `button[class*="hover:bg-[var(--hover-bg)]"]`): the saved trace repeated that ineffective selector, while a text-targeted Edit opened the editor despite the same background-timeout warning. Do not infer OpsHub is broken from that warning. Only use visible Details if Customer Info is actually collapsed. Group ready-state resolution → one documented click → input-ready check → full contact read in one guarded orchestration call. Read every `input[name^="emails."]` and `input[name^="phones."]` with its value, primary state and associated remove control; observed controls are `button[title="Remove email"]`, `button[title="Remove phone"]` and `button[aria-pressed]`. Do not probe an empty dialog or dump the full page.
 - Remove only the inspected non-primary contacts using their current rows, highest indexes first to handle renumbering; re-query after each removal. Execute those known removals sequentially in one orchestration call, stopping on failure. Read the desired full lists once and save once, then use one fresh authoritative saved-list read; reopen the editor only if that is the supported way to expose all persisted contacts. Do not separately inspect the saved page and then repeat the same verification in the editor. After this check, keep the unchanged verification editor open for connector posting when possible; if UI posting requires it closed, use the observed Cancel once with no unsaved changes, without another contact probe. Read back the created note once; do not reopen contacts after posting.
 
-## Ambiguous merge-result recovery
+## Pair-bound completion, then ambiguous-result recovery
+
+Load `scripts/merge_result_probe.js` once with the browser helpers. It is a
+read-only DOM function, not a merge executor. On the reviewed final warning,
+evaluate it with `{keepingAdminId, keepingUuid, duplicateUuid}` from the exact
+inspected pair and retain its `confirmation-ready` result as `before`. After
+invoking the final Merge control once, evaluate with the same IDs,
+`{before, submitted: true}` in that guarded orchestration call. A tool timeout
+after a possibly delivered click still permits this read, never another click.
+No intervening search, candidate selection or navigation may be treated as that
+submission's result. The probe checks the exact keeping route/UUID, readiness,
+loading/error state and the before/after panels. `verified` captures either a
+new `Merged customers` toast or the inspected duplicate panel + final warning
+clearing while the same keeping profile and merge search are ready. This
+settled transition is sufficient without a toast, redirect, empty sidebar or
+second success indicator. Never use only the green keeping-customer checkmark.
+
+Retain the pair IDs and returned evidence with completed-action receipts in the
+original workflow, exclude that pair from remaining work, and move directly to
+the next genuinely distinct candidate or OpsHub cleanup. The helper performs no
+storage or action and never returns merge-retry authority. If already verified,
+reuse the receipt without rerunning the probe. A retained sidebar suggestion is
+not a new unmerged candidate and must not trigger reselection of that pair.
+An empty old profile or missing association on an unrelated/initial page is not
+this captured transition: missing before/after evidence takes the recovery below.
+
+Regression: `node scripts/test_merge_result_probe.mjs` uses intercepted synthetic
+pages in a new isolated headless browser. It covers toast-free completion with
+a retained sidebar entry, a new/stale toast, loading, warning/error states,
+missing pre-submit evidence and mismatched keeping/duplicate IDs. Like the
+contact-editor regression, it requires the existing Playwright dependency on
+`NODE_PATH`; it never attaches to working Chrome or exercises a live merge.
 
 A confirmation that remains visible is a state to inspect, not by itself a
 blocker or permission to click Merge again. Reuse any completed-merge receipt
@@ -100,7 +131,8 @@ explicit merged-into relationship naming that survivor, establishes completion.
 Matching names, email or phone on still-distinct accounts do not. This navigation
 is not a merge retry or a refresh loop.
 
-On either a merge-specific success receipt or that exact-account resolution,
+On the pair-bound cleared-panel transition, a merge-specific success receipt,
+or that exact-account resolution,
 retain the evidence and immediately continue OpsHub cleanup, full-contact
 verification and the original authorized task. Do not seek another approval,
 wait for a confirmation/sidebar entry to vanish, or revisit Admin after success.
@@ -110,7 +142,90 @@ resubmitting it. Report the exact unresolved state or failed read and recovery
 attempted, not merely “Admin still showed the confirmation.” No completion
 evidence means no dependent contact save or posting.
 
-## Contact-only update when the full editor requires an unknown name
+## Connector-first contact-only update
+
+For repeated-number-only cleanup, prefer this supported operation with valid or
+unknown names; no browser is needed when complete saved contact evidence and the
+operation are already available. Load this section, the planner and the tested
+`scripts/contact_cleanup.js` runner only,
+not the Admin/browser procedures. Call `planRepeatedPhone({customer,
+customerUuid, callerPhone, identityVerified, cleanupAuthorized, contactsComplete,
+accountConflict: false})` under the entry skill's narrow gates. It removes only
+non-primary copies of the verified primary caller number and preserves all email
+and distinct-phone entries and primary states; no keeping-email answer is needed.
+Use the returned `ready` request once and one complete persisted read with
+`verify`; `noop` skips the write. A conflict or ambiguous/missing target returns
+`blocked`, never broader cleanup. Preserve draft-only and uncertain-write guards.
+
+The broader `plan` path below is for authorized consolidation to confirmed sole
+contacts, not repeated-number-only cleanup.
+
+### Single-call contact cleanup runner
+
+Use `scripts/contact_cleanup.js` instead of regenerating read/plan/save/verify
+code across model turns. Evaluate the exact trusted helper and
+`scripts/contact_update_plan.js` locally without printing their contents. Its
+`run` accepts `operationId` bound to the originating caller/request, `mode`
+(`repeated-phone` or `consolidate`), retained `customerUuid`, `callerPhone`,
+`identityVerified: true`, `cleanupAuthorized: true`, `accountConflict: false`,
+the `planner`, and documented `readSavedContacts` / `updateCustomer` callbacks.
+Consolidation also requires `detectionComplete: true` and the confirmed
+`primaryEmail`. These values come from the entry skill's completed gates, not
+from the helper. Pending name corrections and uncertain prior writes block it.
+`readSavedContacts({phase, customerUuid})` must return `{customer,
+contactsComplete: true, persisted: true, preferences}` from one current complete
+saved read, using the CustomerDetail shape below; never label unsaved form state
+as persisted. Reuse a sufficient connector; do not add a browser for this helper.
+
+If full lists/types require Agent 360, load the current shared guard and
+`scripts/contact_editor_probe.js` alongside this helper in the same necessary
+setup call. Establish the separate unfocused task window under the shared
+browser skill first, opening the retained exact customer URL with
+`new_tab: true, eget_vindue: true, fokuser: false`; do not reuse an operator-owned
+editor or unsaved work. Then create its tested reader:
+
+```javascript
+const readSavedContacts = cleanup.agent360Reader({tools, guard, probeSource,
+  expectedUrl: retainedCustomerUrl, pristineTaskWindow: true});
+const outcome = await cleanup.run({operationId: retainedRequestId,
+  mode: 'repeated-phone', customerUuid: retainedCustomerUuid,
+  callerPhone: verifiedOriginalPhone, identityVerified: true,
+  cleanupAuthorized: true, accountConflict: false, planner, readSavedContacts,
+  updateCustomer: request => tools.mcp__opshub__call_operation(request)});
+store('contactCleanupOutcome', outcome);
+text({state: outcome.state, reason: outcome.reason,
+  writeAttempted: outcome.writeAttempted, failure: outcome.failure});
+```
+
+Use the runtime's already-bound documented operation tool; the shown name is
+the Router OpsHub binding, not permission to invent an absent tool. The reader
+requires no host `URL` global. Its read-only state observation handles collapsed
+Details, expanded Customer Info and an already-open editor; it never waits for
+a heading hidden by that editor. It opens each necessary Details/Edit control
+once through the guarded click tool, shares one ten-second readiness budget per
+visit, and combines editor readiness with the complete saved snapshot. After the
+connector write it revisits once for persisted verification. It decodes actual
+primary flags, phone types and role/preferences; missing or ambiguous evidence
+stops the batch with a safe `failure.stage` / `failure.code`. Do not add a separate input/type inventory or return
+to the model between these deterministic steps. The runner makes at most one
+update, reads persisted state once afterward (also after a lost response), and
+never retries an uncertain write. Repeated in-memory operation IDs share their
+original result; this does not replace the containing workflow's durable
+request/receipt guards. Retain the helper instance and outcome, not a fresh
+evaluation to retry it. Blocked/unconfirmed is not permission to post.
+
+For `verified`, retain the evidence and immediately continue the original
+authorized note/escalation; when its exact retained body and target are ready,
+do its connector post in this same orchestration call, retaining the real note
+receipt. This runner never generates or posts a note, performs an Admin merge,
+chooses contacts, clears attention or authorizes any action. Leave an unchanged
+verification editor open until the task is complete, then close only its owned
+task window and record timing in the existing finalization call. No additional
+contact check or model-only finalization round is needed.
+
+Provider-free runner tests and isolated intercepted headless-browser adapter
+tests are `scripts/test_contact_cleanup.mjs` and
+`scripts/test_contact_cleanup_browser.mjs`. They make no live customer changes.
 
 Source-verified November 19, 2026 in `opendoor-labs/code`:
 `js/packages/opshub/src/features/Customer/types.ts` requires nonempty first and
@@ -212,12 +327,24 @@ or return to model reasoning between probe and click. If it reports
 full contact read in that same call. A failed or ambiguous probe stops the batch.
 The probe never clicks, saves, changes focus or authorizes an action.
 
-When already open, the probe also returns `editor.form_selector`, the unique
-form-associated `editor.save.selector` and ready/disabled/missing/ambiguous
+When already open, the probe also returns every named visible field's `value`
+and exact `selector`, checkbox/radio state, and `editor.controls` with observed
+remove/primary selectors and pressed/enabled state. Reuse that same full-form
+read to resolve the inspected contact rows and supported name changes; do not
+request a second input/HTML inventory. A just-opened, unchanged editor can expose
+saved values; an operator-owned unsaved draft cannot establish persisted state.
+
+The probe returns `editor.form_selector`, the unique
+form-associated `editor.save.selector` and ready/disabled/saving/missing/ambiguous
 state, empty name fields, every visible form field's validity/associated error
 text, and scoped errors. Inspect only this Save, never the page's first
 `button[type="submit"]` or an unrelated form. Use its exact fresh selector for
-a permitted save. A disabled button alone does not establish why it is disabled:
+a permitted save; `saving` requires persisted-state reconciliation, never another
+Save click. Once the desired contacts/name are known, make the reviewed
+removals/field changes sequentially in one guarded call, re-querying current rows
+after removal. Read the resulting full fields and scoped Save readiness together
+and save once immediately when valid. Do not return to general discovery or
+pause on an already-ready editor. A disabled button alone does not establish why it is disabled:
 check the whole editor, including first/last-name errors and an unchanged blank
 surname, not just email/phone errors. If the unknown-name restriction above
 applies, continue with the supported contact-only path rather than hand the
@@ -266,5 +393,5 @@ and never attaches to an operator session.
 - Read visible identity sections and relevant control state together. Omit full-page text, input inventories, parent `outerHTML`, hidden warnings, and unrelated customer forms. An identity/confirmation read replaces repeated top/tail/HTML probes; repeat only when missing or contradictory.
 - Prefer focused DOM/text reads over screenshots and full-page dumps. Return only the relevant customer identity, merge state, or complete contact lists; skip unrelated histories and page content.
 - Batch independent reads when useful. Keep merge, cleanup, verification, and posting sequential. Browser actions share page state: do not parallelize them or batch across a confirmation that still needs inspection.
-- Use the page's ready/result state instead of fixed sleeps. Readiness waits return as soon as the target is ready; a 10/30-second timeout is a ceiling, never an instruction to pause after a successful check. Do not insert a sleep, status polling loop or extra discovery between a ready candidate and selection, or between a reviewed warning and submission. Keep routine reasoning brief. Send the start, submission, verified-cleanup-stage, and completion statuses at their actual transitions, outside the note. If a stage lasts 30 seconds, report the current concrete blocker or pending check; never leave only `Account merge started` visible for minutes. Do not imply submission or completion before the corresponding action or verification.
+- Use the page's ready/result state instead of fixed sleeps. Readiness waits return as soon as the target is ready; a timeout is a ceiling, never an instruction to pause after a successful check. Do not insert a sleep, status polling loop or extra discovery between a ready candidate and selection, a reviewed warning and submission, or valid cleanup fields and Save. Keep routine reasoning brief. Send the start, submission, verified-cleanup-stage, and completion statuses at their actual transitions, outside the note. If a stage lasts 30 seconds, report the current concrete blocker or pending check; never leave only `Account merge started` visible for minutes. Do not imply submission or completion before the corresponding action or verification.
 - Do not repeat a successful check without new conflicting evidence. Exceeding 60 seconds does not permit omitting verification or leaving additional real duplicates unhandled.

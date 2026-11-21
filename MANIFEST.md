@@ -1,5 +1,271 @@
 # Skill manifest
 
+## Shared-sale caller wording — November 20, 2026
+
+The existing Escalations caller contract now says `calling about their sale`
+when the XA confirms the caller was already added alongside the other seller
+on the same property, or retained evidence establishes that relationship.
+A primary-seller label alone does not exclude another linked seller. No extra
+property addition or wording-only lookup; independent identity/email questions
+and action gates remain. Runtime, canonical mirror and local maintainer source
+are reconciled with inventory hashes. No customer action or saved-request replay;
+publication remains pending the scheduled evening synchronization.
+
+## Public listing reports from unnamed phone contacts — November 20, 2026
+
+Updated the existing Escalations caller contract, active runtime and canonical
+mirror, plus its inventoried local maintainer source. A public listing-data
+report may use a unique exact-phone CONTACT when the XA confirms no name/email
+is available. Keep the phone in OpsHub, use Agent/Caller without inventing a
+name, and attribute disputed specifications to the report. This does not verify
+personal identity, authorize access/private disclosures or profile changes, or
+skip conflicting-record, real duplicate/cleanup, property/destination/thread,
+authorization or receipt checks. Missing name/email alone is not a reason to
+edit/merge a profile. Source hashes are reconciled locally; publication remains
+with the existing scheduled evening synchronization. Case facts stay private.
+
+## Assigned advisor name before the first note write — November 20, 2026
+
+Tightened the existing Notes assigned-role rule after a name was returned but
+omitted. The caller-matched qualified acquisition lead's
+`sellDirectLead.experiencePartner.name` resolves its acquisition advisor; reuse
+that value and check Solution Offered in the actual outgoing CONTACT body before
+the first authorized write. Preserve role/property/caller matching, accurate
+actions, missing-name behavior and in-place-update receipts. No extra routine
+participant/directory lookup, second corrective write or Router business overlay.
+Active Notes/project guidance, offline field-specific checks and canonical
+mirrors are reconciled with inventory hashes. Fixture and transport checks do
+not establish model compliance, billed-token savings or under-20-second runtime.
+Publication remains local pending the scheduled evening synchronization.
+
+## Pricing valuation scope reconciliation — November 20, 2026
+
+Reconciled the October 29 owner's workflow announcement with blanket legacy
+delayed-offer/queue and technical-refresh routing. Status checks stay in OpsHub;
+Pricing inquiries require eligible valuation/unexpire scope. Contract,
+maintenance and technical assessment-move/unstick work do not become Pricing
+requests. AI screening is not valuation/amount approval; follow-ups retain the
+original thread and incorrect reroutes retain owner review under existing gates.
+Completed XA actions are still recorded faithfully and ordinary Notes stays
+tool-free. Updated owning Notes/Escalations passages, older applicable copies,
+the Notes human reference and Zendesk action-handoff gate, with local canonical
+copies and hashes. The shared evidence/history remains local-only. No customer
+action, new form schema, Router rule overlay or service restart was performed.
+Verification/apply date is separate from the original announcement date;
+GitHub publication remains with the scheduled evening task.
+
+## Workflow dropdowns and note-only Post it — November 20, 2026
+
+The registered Escalations runtime, canonical mirror and inventoried maintainer
+source now omit generic dropdown-selection reminders/questions when no verified,
+fact-supported recommendation is available. Sam handles those selections in
+Slack; they are not missing caller input in Router. A later **Post it** asserts
+the ticket is filed and continues the original caller's note-only flow using
+its verified submitted-ticket permalink. Reuse retained caller CONTACT identity
+even when the generated ticket omits it. A genuinely missing caller identifier
+still blocks posting; retain the pending post through that answer and never
+substitute the ticket submitter/property contact or refile/resend the ticket.
+
+Router separately owns the visible posting control, narrowly scoped legacy
+manual-reminder repair and disabled state for real pending identity questions.
+Synthetic parser/continuation and isolated headless UI checks preserve identity,
+source freshness, duplicate/stale actions and receipt gates. Active/canonical
+copies and inventory hashes agree locally. No live customer/browser action or
+service restart; publication remains with the scheduled evening synchronization.
+
+## Every workflow-channel escalation uses its form — November 20, 2026
+
+The registered Escalations runtime and inventoried maintainer source apply the
+same form-first rule to every workflow-based escalation destination, not only
+Lockbox Helper or a saved channel list. Reuse verified mappings; an unknown
+destination uses bounded read-only channel/form discovery. Present the workflow,
+channel and verified launch link when available, separate exact form fields,
+and verified selector recommendations without invented options; unverified
+recommendations are omitted, not Router questions. An inaccessible required schema
+is a specific partial-handoff blocker, not permission to send generic prose.
+The Lockbox Helper screenshot establishes its fields but not dropdown options;
+address input needs no extra flip-token lookup.
+Existing identity/access and workflow-form gates remain: no compose-box send,
+no automatic form submission, no CONTACT post without its authorized note-only
+continuation and required checks, and no replay during maintenance.
+Canonical mirror and inventory hashes are reconciled locally. Synthetic Router
+checks verify rendering/copying and pending-not-posted state, not live model
+compliance. GitHub publication remains with the scheduled evening sync.
+
+## Bounded escalation instruction/contact loading — November 20, 2026
+
+The registered Escalations runtime accepts its complete exact native attachment
+without repeated file-read/preparation rounds and documents the captured
+GetRespondToSmsCustomer/ListFlipParticipants read contracts. Customer event
+history is not saved contact-list evidence; omitted secondary emails/phone types
+remain unknown and cannot satisfy full-list cleanup verification. Required
+identity, qualification, coverage, duplicate/merge and action-receipt gates remain.
+Live workflows do not inspect connector implementation/query catalogs to invent
+read paths. The local maintainer source follows the same contract.
+
+Router separately owns one first-turn source attachment and explicit per-turn
+low reasoning for new/retained escalation requests. Active source, canonical
+mirror and inventory hashes are reconciled locally. Validation is provider-free,
+not a live latency/quality guarantee. No customer action, browser, service restart,
+commit or push; publication remains with the scheduled evening synchronization.
+
+## Deterministic contact-cleanup execution — November 20, 2026
+
+The registered account-merge owner now includes `scripts/contact_cleanup.js` and
+two synthetic regressions. Once the original workflow establishes identity,
+authority and exact contact targets, the runner performs one saved read, one
+supported contact delta and one persisted verification without intervening model
+decisions. Its Agent 360 adapter reuses the scoped read-only editor probe and
+shared guard, decoding primary flags, phone types and role/preferences instead
+of regenerating that plumbing or printing full helper source into model context.
+The worker-compatible adapter no longer depends on a host `URL` global or waits
+for a heading hidden by an open editor. One read-only state observation handles
+collapsed Details, expanded cards and ready editors, including async rendering;
+each required control is opened once, with a shared bounded readiness budget.
+The final ready read includes the complete saved snapshot and safe concrete
+failure codes avoid another diagnostic round. Regressions now run without injected
+host globals and cover all three layouts, no-op, post-merge consolidation,
+preservation, wrong routes, ambiguous controls and lost/uncertain outcomes.
+Complete direct-connector evidence still avoids browsing. Qualified consolidation
+also requires completed account detection and confirmed keeping contacts; actual
+Admin merges retain identity/candidate/warning review boundaries.
+
+The runner never selects a customer, infers authority, performs an Admin merge,
+posts a note or retries an uncertain write. Verified results resume only the
+original authorized workflow. Canonical and installed copies plus inventory
+hashes are reconciled locally; Router separately owns its per-turn Notes effort
+and between-caller context budget. Provider-free and isolated headless tests do
+not establish live speedup or a measured model-quality guarantee. No live action,
+browser attachment, service restart, commit or push; evening publication remains
+pending on the existing branch.
+
+## Repeated-number-only OpsHub cleanup — November 20, 2026
+
+The registered shared merge owner and Notes entry/project adapter now distinguish
+one verified profile with its primary caller number repeated from separate
+customer accounts. The narrow path preserves every email, distinct number,
+name, role and communication preference, avoids an unnecessary keeping-email
+question/Admin discovery, and prefers the supported connector contact delta.
+Its existing pure planner now exposes `planRepeatedPhone` and verifies the full
+preserved contact set after one save. Real account conflicts, incomplete or
+ambiguous targets, original posting authority and uncertain-write gates remain.
+Source references are loaded only as needed; context reuse, small outputs and
+single final-note composition prioritize latency/tokens without weakening quality.
+
+Synthetic planner regressions cover preserved distinct contacts, no email choice,
+exact type/UUID/identity/authority gates, no-op and fresh persisted verification.
+Active/inventory-selected sources, canonical mirrors and hashes agree locally on
+`codex/zendesk-current-refresh`, reconciled against fetched main `cf67a54` and
+reviewed local work. Router owns separate display/matching changes in its private
+repository. No live edit, merge, post, browser attachment or restart occurred.
+Publication remains with the scheduled evening synchronization task; no live
+end-to-end speedup is claimed by these isolated checks.
+
+## Admin merge completion and contact-editor batching — November 20, 2026
+
+The existing question-first entry guidance now explicitly defers composing,
+formatting and separately storing a new five-field note until the merge/cleanup
+gates are satisfied. Required caller/property reads and missing independent
+choices come first; retain the original shorthand or existing draft and posting
+intent without another draft-generation pass. This clarifies work ordering,
+not identity or write authorization, and does not claim measured live savings.
+
+The account-merge owner now recognizes the pair-bound, settled post-submit
+transition where the inspected removing-customer panel and final warning clear,
+the same keeping UUID remains and the merge screen is ready. A lasting success
+toast or empty candidate sidebar is not required. The read-only result probe
+also recognizes a new merge-success toast; initial blank/loading screens,
+warnings, stale toasts and wrong/missing pair evidence never establish success.
+Verified pairs are retained and excluded from later merges; ambiguous submissions
+get bounded read-only recovery, never a blind irreversible retry.
+
+The contact-editor probe now returns values, exact field/remove/primary controls,
+validation and scoped Save readiness together. The owning execution reference
+uses that read for guarded cleanup and one immediate valid Save, followed by
+one persisted verification. Saving is distinct from ready, preventing an
+in-flight save from being presented as another available submission. Existing
+identity, field preservation, original posting authority and uncertain-outcome
+guards remain. Narrowed the existing guidance rather than adding Router rules.
+
+Provider-free synthetic browser fixtures and contact-planner checks validate
+these observations, targeting and no-retry signals. They do not establish live
+model compliance or a measured reduction from a past run. Canonical and active
+packages and provenance hashes are reconciled locally for the existing evening
+sync. No live customer write, browser attachment, replay or service restart is
+authorized by this maintenance save.
+
+## Home Loans general-support scope — November 20, 2026 review
+
+Reconciled the explicit October 30 XA contact update with an older saved
+application-only interpretation. General mortgage-team help includes closed-loan
+questions, while actual servicer identity and payment instructions still require
+loan-specific verification. The owning Zendesk playbook/card and XA Notes
+skill/contact row retain this distinction, the verified booking route and no
+promised officer/response time. Local canonical copies and hashes are reconciled;
+the shared evidence/history remains local-only. This is a contact-guidance
+correction, not a new product launch or customer action. The prior company
+announcement date and this verification/apply date remain distinct.
+
+## Button-driven post-merge follow-up — November 20, 2026
+
+The shared merge skill and owning Zendesk rules/recipe now describe merge-first
+review followed by explicit no-response, reply-and-solve review, or internal-note
+review buttons. No-response adds no model turn or customer mutation. Drafting
+rechecks the continuing conversation, retains original draft/source evidence and
+does not bypass channel, ownership, privacy or final submission approval. Newer
+handling can eliminate the need for another customer reply; it does not silently
+solve an advisor's continuing ticket. Drafts are never action receipts.
+
+Router owns the separate phase/hold/receipt transport and uses its existing
+project-native draft and exact-payload submission implementations. Validation is
+synthetic; no customer action or service restart occurs during this source save.
+Local copies/hashes are reconciled for scheduled publication on the existing
+branches. No claim of live activation or measured model compliance is implied.
+
+## Router exact-ID merge review control — November 19, 2026
+
+The dedicated merge skill and Zendesk recipe now describe Router's separately
+implemented Preview / Confirm / Check result control. Exact destination IDs do
+not depend on Zendesk suggestions. The app retains its own bound approval and
+uses the same guarded MCP tools, not a second merge algorithm or model pass.
+A separately authorized connector merge has been verified without storing its
+case details here; Router UI validation remains synthetic. App activation still
+requires explicit idle-service restart permission. No publication or live action
+is implied by these local skill/source saves.
+
+## Guarded Zendesk merge connector handoff — November 19, 2026
+
+Updated the dedicated merge skill and Zendesk runtime recipe/project entry for
+the separately authorized local connector implementation in superdojo. Prefer an
+explicit eligible merge choice over note-plus-solve. Use its read-only preview,
+reviewed timestamps, private comments and operation-bound status verification;
+submitted/unknown does not authorize a repeated merge. A solved destination
+requires a separate status decision when an open continuing thread is expected.
+
+Connector source remains in `opendoor-labs/superdojo`, not this public skill
+package. Synthetic lifecycle tests and local connection checks do not establish
+a live merge or measured latency. Customer identifiers, notes, authentication and
+operation receipts are excluded. No Router service restart or customer write is
+part of the skill save. Skills and canonical copies remain local pending the
+existing publication task; company connector publication retains its own review.
+
+## Zendesk merge review and resolved duplicates — November 19, 2026
+
+Added the discoverable `zendesk-ticket-merge` skill: retain/batch exact-ticket
+evidence, distinguish a real split conversation from an already-answered
+duplicate, and require exact action scope before any mutation. The existing
+Zendesk recipe now supports the no-public-reply/private-note plus explicit
+solve path without calling it a merge. Empty suggestions do not prevent entering
+an exact destination ID; a solved destination is not automatically reopened.
+
+The recording demonstrated review only. Official Zendesk controls/API support
+the documented merge route; this connector exposes no merge action. No live
+ticket was changed, no browser was controlled, and no live speed or merge replay
+is claimed. Canonical source is `skills/zendesk-ticket-merge`, with an identical
+installed desktop copy. The existing project recipe remains its registered
+runtime owner. Local checks precede the scheduled GitHub publication task on the
+preserved `codex/zendesk-current-refresh` branch; no Router app code changed.
+
 ## Edited-profile rechecks stop on choices — November 19, 2026
 
 The Escalations runtime now treats an explicit profile recheck as read-only:
@@ -1281,6 +1547,7 @@ selected by modification timestamp. File provenance and SHA-256 hashes are in
 | Skill | Active source relative to the user home | Audit result |
 | --- | --- | --- |
 | `caller-follow-up` | `.codex/skills/caller-follow-up` | Added November 13; canonical repository source and installed runtime match |
+| `zendesk-ticket-merge` | `.codex/skills/zendesk-ticket-merge` | Added November 19; canonical authoring source is `skills/zendesk-ticket-merge`, with an identical installed desktop runtime; merge replay remains unverified |
 | `kb-answer-for-callers` | `.codex/skills/kb-answer-for-callers` | Added November 4; shared business-wide retrieval, original Claude text preserved |
 | `bot-task-notes` | `.codex/skills/bot-task-notes` | Added November 2; canonical package and installed runtime match |
 | `agent-verification` | `.codex/skills/agent-verification` | Updated workflow and UI metadata |

@@ -1,7 +1,49 @@
 {
-  "audited_on": "2026-11-19",
-  "scope": "Eleven custom skills, shared browser selection/timing, project adapters and registered runtime dependencies",
+  "audited_on": "2026-11-20",
+  "scope": "Custom skills, shared browser selection/timing, project adapters and registered runtime dependencies",
   "files": [
+    {
+      "source": ".codex/skills/xa-admin-account-merge/scripts/contact_cleanup.js",
+      "destination": "skills/xa-admin-account-merge/scripts/contact_cleanup.js",
+      "sha256": "6327c51ef04279d5e284e93de37f0ae10ff5bf0669692b91c5ee2957fb8ebfd9",
+      "provenance": "November 20, 2026: qualified single-pass contact cleanup and synthetic verification; no live customer actions"
+    },
+    {
+      "source": ".codex/skills/xa-admin-account-merge/scripts/test_contact_cleanup.mjs",
+      "destination": "skills/xa-admin-account-merge/scripts/test_contact_cleanup.mjs",
+      "sha256": "03248b370ab1aeee3492aedfc0b2db0c024809122f475e39bb5ea78f0a374431",
+      "provenance": "November 20, 2026: qualified single-pass contact cleanup and synthetic verification; no live customer actions"
+    },
+    {
+      "source": ".codex/skills/xa-admin-account-merge/scripts/test_contact_cleanup_browser.mjs",
+      "destination": "skills/xa-admin-account-merge/scripts/test_contact_cleanup_browser.mjs",
+      "sha256": "95220c58f8fc05bc5317a90f90aecb05d90fdf40453d1c51b3fd9373bd377f00",
+      "provenance": "November 20, 2026: qualified single-pass contact cleanup and synthetic verification; no live customer actions"
+    },
+    {
+      "source": ".codex/skills/xa-admin-account-merge/scripts/merge_result_probe.js",
+      "destination": "skills/xa-admin-account-merge/scripts/merge_result_probe.js",
+      "sha256": "603ca28c7b5a0d27530439190a75bae23e8651e5a51023ec53f4cdaab8a03560",
+      "provenance": "November 20, 2026: read-only pair-bound Admin completion probe and isolated synthetic regression; recognizes the settled cleared-panel transition without replay or extra customer actions"
+    },
+    {
+      "source": ".codex/skills/xa-admin-account-merge/scripts/test_merge_result_probe.mjs",
+      "destination": "skills/xa-admin-account-merge/scripts/test_merge_result_probe.mjs",
+      "sha256": "b2823a4e55c0dd6b197421e2de7deca7874b2eaff6a6e5b197ab5d788aa72ef1",
+      "provenance": "November 20, 2026: read-only pair-bound Admin completion probe and isolated synthetic regression; recognizes the settled cleared-panel transition without replay or extra customer actions"
+    },
+    {
+      "source": ".codex/skills/zendesk-ticket-merge/SKILL.md",
+      "destination": "skills/zendesk-ticket-merge/SKILL.md",
+      "sha256": "28e44f10d573bbe2288b728b05ed0d7d9e31dbf704e667b49e3d0fbee9ca81f6",
+      "provenance": "Added November 19, 2026; canonical authoring source is this repository's skills/zendesk-ticket-merge package with an identical installed desktop runtime. Documents guarded MCP merge/status tools and Router's separately implemented exact-ID review control. One authorized connector merge was verified; Router UI tests remain synthetic and no general latency guarantee is claimed."
+    },
+    {
+      "source": ".codex/skills/zendesk-ticket-merge/agents/openai.yaml",
+      "destination": "skills/zendesk-ticket-merge/agents/openai.yaml",
+      "sha256": "ed598994ca2f11c8e7499993032b55a87c0ee7fbf0f07bbfbb8432f9d1360ac2",
+      "provenance": "Discoverable Zendesk Ticket Merge desktop interface; canonical package and installed runtime agree."
+    },
     {
       "source": ".codex/skills/caller-follow-up/SKILL.md",
       "destination": "skills/caller-follow-up/SKILL.md",
@@ -45,12 +87,12 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/AGENTS.md",
       "destination": "adapters/codex/xa-notes/AGENTS.md",
-      "sha256": "33ff02c23224c81c58d3ccbc0d649b7dde3bbfc1f8f532b830a2b922f2b376d4"
+      "sha256": "328fe84192eb937b27e88a3c8f69a36eb127ebee77036bb8c8efcd0d3081c609"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/context/decisions-and-conventions.md",
       "destination": "adapters/codex/xa-notes/context/decisions-and-conventions.md",
-      "sha256": "f9cca723b2bcd9b6f7ec80ef79a485c14170d09c43258cc653692ae296b4d8d7"
+      "sha256": "206e44758ca560942640928092381ec3d2f5d97142c129bf0a9e631fe9e798f0"
     },
     {
       "source": "Documents/ChatGPT Work/Escalations/AGENTS.md",
@@ -60,7 +102,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/AGENTS.md",
       "destination": "adapters/codex/zendesk-record-retrieval/AGENTS.md",
-      "sha256": "d9320c5802a0f016ca324dfa1db4534e006cd23ca985a4c45da178d85cfa58fb"
+      "sha256": "c04654f0e655a0e567e2c66dee35ce666786b655f15101b8aba11a5ca5187fc0"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/context/decisions-and-conventions.md",
@@ -95,12 +137,12 @@
     {
       "source": ".codex/skills/opshub-context/SKILL.md",
       "destination": "skills/opshub-context/SKILL.md",
-      "sha256": "82cabeb909103809290ba080ec378b803c806292b6d27ea9438d92c456b077dd"
+      "sha256": "fcecb52d347e3535390aa16417fd4713d3bc9abd2c47213ef4b8f4a166ef8d94"
     },
     {
       "source": ".codex/skills/opshub-context/references/phone-lookup-recovery-cases.json",
       "destination": "skills/opshub-context/references/phone-lookup-recovery-cases.json",
-      "sha256": "99d7f934e7a08190a70be098d2495b7592e2896d6eb6d9785aeaf5bd424175aa"
+      "sha256": "bb29835ecd6b8d5bb1bfc0d9c54e0b197d8071f626beeb778e1021fefba49bbb"
     },
     {
       "source": ".codex/skills/schedule-final-offer-appointment/SKILL.md",
@@ -115,60 +157,60 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "17126cb38ef078321a0d6a5c2495ed2ddcb0ea152ffbee9db367897f9221f4f1"
+      "sha256": "aa588f67291fbff6e524ac51843b63d728f1084002dcbe4da384a1c2c72fe5b3"
     },
     {
       "source": ".codex/skills/xa-admin-account-merge/references/browser-execution.md",
       "destination": "skills/xa-admin-account-merge/references/browser-execution.md",
-      "sha256": "555a1e7c00c48c6aa2071158770bc59298d4897f87067b61cacb4303888cd685",
+      "sha256": "fc7faab829c9e689fb9af74a44f9ee0dda4eb70e5cb5cb6f6814beaab82627a4",
       "provenance": "Existing browser execution and recovery procedures moved intact from the entry skill on November 17, 2026; load on demand after caller and contact decisions, preserving all action guards"
     },
     {
       "source": ".codex/skills/xa-admin-account-merge/scripts/contact_editor_probe.js",
       "destination": "skills/xa-admin-account-merge/scripts/contact_editor_probe.js",
-      "sha256": "2ec6b11699dd673a800b45cf0145c0feac286fe6fd51b8009433ad03024912c1",
+      "sha256": "466e2e70e5571c8e2ac049c232c952f995cd3329db8dd482aa5fe2b6c8961b67",
       "provenance": "Read-only exact-customer contact-editor targeting and isolated synthetic regression added November 17, 2026; canonical and installed copies agree"
     },
     {
       "source": ".codex/skills/xa-admin-account-merge/scripts/test_contact_editor_probe.mjs",
       "destination": "skills/xa-admin-account-merge/scripts/test_contact_editor_probe.mjs",
-      "sha256": "f4978a5a1df86b60d5fd5ec0e829be81b301496c67285a041722329ddbd72b73",
+      "sha256": "c01f316d99fadd7fc0f4b9659d8b60eed844593afd7f16af6a77eeed13d08f15",
       "provenance": "Read-only exact-customer contact-editor targeting and isolated synthetic regression added November 17, 2026; canonical and installed copies agree"
     },
     {
       "source": ".codex/skills/xa-admin-account-merge/scripts/contact_update_plan.js",
       "destination": "skills/xa-admin-account-merge/scripts/contact_update_plan.js",
-      "sha256": "ae9c3c4ea884297ab7153eab3db58d7658fd7cbbecce2e8ef092acdcba28c8f1",
+      "sha256": "826cac3496f58266c958e78d089913d4f598546006ebd27faeb191f52df5f3bd",
       "provenance": "November 19, 2026: source-verified contact-only UpdateCustomer delta planning and synthetic regression; preserves unknown names, typed contact identity, original authority and persisted verification; no live customer actions"
     },
     {
       "source": ".codex/skills/xa-admin-account-merge/scripts/test_contact_update_plan.mjs",
       "destination": "skills/xa-admin-account-merge/scripts/test_contact_update_plan.mjs",
-      "sha256": "c54796929f71a4cf08a12b981055da00ed81eb0538e02c6aa4d82a2da1f71212",
+      "sha256": "0f5cd5c66395e2d6714d5653a8ed231388395a2a741994dba281d935f40bb0b6",
       "provenance": "November 19, 2026: source-verified contact-only UpdateCustomer delta planning and synthetic regression; preserves unknown names, typed contact identity, original authority and persisted verification; no live customer actions"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/scripts/validate_xa_notes.py",
       "destination": "adapters/codex/xa-notes/scripts/validate_xa_notes.py",
-      "sha256": "6d7c6cdd150d65c3952f54252f77ec3d3e51b8bdf1e28d2507dcbe514e769ac2",
+      "sha256": "4da7de9a73adaf2361784b866a6187a859e8671be6b8421d0d7e4b71cf411175",
       "provenance": "Approved efficiency audit item 3, November 17, 2026. Canonical maintenance source is this repository adapter; workspace is an identical test-only mirror. Not runtime context or evidence of live model/Router acceptance."
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/scripts/test_validate_xa_notes.py",
       "destination": "adapters/codex/xa-notes/scripts/test_validate_xa_notes.py",
-      "sha256": "b5930624ee235b8781e07ee29141474076e6912aa4f88c17ed40f06f7a56b682",
+      "sha256": "1dcb44b7510b0a6e1f002a61086207d326687189e5b0121ca4c81ec4508b2a0d",
       "provenance": "Approved efficiency audit item 3, November 17, 2026. Canonical maintenance source is this repository adapter; workspace is an identical test-only mirror. Not runtime context or evidence of live model/Router acceptance."
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/tests/golden_cases.json",
       "destination": "adapters/codex/xa-notes/tests/golden_cases.json",
-      "sha256": "3e7463e77b7344115a2dfe6c881798d201cc772c40bd45d6641806ce6ae1aa6a",
+      "sha256": "c5dc77ac345130e0fb485df75c01b420b5e392ee3912d86e4daeb4a4a77821b9",
       "provenance": "Approved efficiency audit item 3, November 17, 2026. Canonical maintenance source is this repository adapter; workspace is an identical test-only mirror. Not runtime context or evidence of live model/Router acceptance."
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/tests/README.md",
       "destination": "adapters/codex/xa-notes/tests/README.md",
-      "sha256": "2bf6f1ec999c6ab35d5f6aabe60659eb011353285bf6584880b611d9afae747c",
+      "sha256": "d935d607bd978a4fdca73aa3996f1a66efe855ffbe072cad721a815e702db7cf",
       "provenance": "Approved efficiency audit item 3, November 17, 2026. Canonical maintenance source is this repository adapter; workspace is an identical test-only mirror. Not runtime context or evidence of live model/Router acceptance."
     },
     {
@@ -193,7 +235,7 @@
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/SKILL.md",
       "destination": "skills/xa-notes/SKILL.md",
-      "sha256": "92caa92e46ceed7e9ba187c033685550689400b29358579b0ac41d9adfb2f3cd"
+      "sha256": "220934f933563ae26269a543c1d2e3f3ad516e1544ac71ed01753895528d08ad"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/skills/xa-notes/reference/process-detail.md",
@@ -213,7 +255,7 @@
     {
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/SKILL.md",
       "destination": "skills/xa-quick-slack/SKILL.md",
-      "sha256": "320f5f7cb7196f1a09f23b31643cb73e83bdf7346fd51c54b9fe284aa1429866"
+      "sha256": "35837f4562d2e16ae36fecf5e00b4104fb686567587c8eea9736595eba193238"
     },
     {
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/scripts/post_completion.py",
@@ -224,13 +266,13 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ENTRY.md",
       "destination": "skills/zendesk-record-retrieval/ENTRY.md",
-      "sha256": "cf8930cc3231b9ad1e7bb5a7e01606379932131bd813bebecaf20b3d9933dd1a",
+      "sha256": "97671cd712d60427eb27a4f2f08820c407d364f9319da4c58130f77f8f8fadfc",
       "transformation": "Repository layout: rules path points to adapters/codex/zendesk-record-retrieval/AGENTS.md"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/FAST-INDEX.md",
       "destination": "skills/zendesk-record-retrieval/FAST-INDEX.md",
-      "sha256": "afcdbbfa722cce79af8fe2ac2c4440d9cd70c53379221f50a722a10194dd744f"
+      "sha256": "5b3dd47d9e2ec91ceaf3684d6d0da48d561bd1cc7c0507bacb20f0ee816dd42e"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ROUTING-GATES.md",
@@ -240,7 +282,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/SKILL.md",
       "destination": "skills/zendesk-record-retrieval/SKILL.md",
-      "sha256": "f6e7b497bc8bbd59aca595e9d59b2cdc54d2b284fa1e8a8b06d65482417f59fb"
+      "sha256": "a80825abde2b76f55b618800ede3cea0de3a9b9fe46ff205c80883583155b057"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/VERIFICATION.md",
@@ -315,7 +357,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/policy-product.md",
       "destination": "skills/zendesk-record-retrieval/recipes/policy-product.md",
-      "sha256": "d98c8eb7b3cf1cd799e040c787756bb30ae1a0b98af1832bc16031bde0b2953b"
+      "sha256": "928beb6442d43972abe5ce69a371745f6567400542b6338b539c6716417f5367"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/preliminary-next-steps.md",
@@ -340,7 +382,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/ticket-merge.md",
       "destination": "skills/zendesk-record-retrieval/recipes/ticket-merge.md",
-      "sha256": "0667521a5e2a184d33d0b3f509c20987629ba99eeec2875a5d4e42f56d938dbe"
+      "sha256": "284b82fd7c3986314733f3c8fb43e91e9ab63bdc87b11f47c90c12d828c498c6"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/seller-with-agent.md",
@@ -495,7 +537,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/guides/action-handoffs.md",
       "destination": "skills/zendesk-record-retrieval/guides/action-handoffs.md",
-      "sha256": "82266f9ad67d1ea1734c0a93607223f6b5da1aa6ef14fb46aa0357d361419796"
+      "sha256": "ea7dfd9cd59c0385699bda2eeb176e746bc313e7e92527c3eea87472ee8325f6"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/guides/document-handoffs.md",
@@ -515,7 +557,7 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/ROUTING-DETAILS.md",
       "destination": "skills/zendesk-record-retrieval/ROUTING-DETAILS.md",
-      "sha256": "62abd9485d6af9b7ce3584f49735e700fae89b48c905df8a8511e35cfacfd852"
+      "sha256": "d08c76f755deb9c8461ff5960f81b65ef82eac5444f3bb4d411ee52b6dc31a47"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/guides/case-wording.md",
@@ -525,12 +567,12 @@
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/privacy-initial.md",
       "destination": "skills/zendesk-record-retrieval/recipes/privacy-initial.md",
-      "sha256": "bca8cd2fcd9c66e75a53ded97191fb0343e04679e0e6af9e161e0cff0df24c03"
+      "sha256": "4a10a29ac1580662d4aa0c2177e1da6ebb9464113f3fba2f3b9101e9e5fcb218"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/privacy-follow-up.md",
       "destination": "skills/zendesk-record-retrieval/recipes/privacy-follow-up.md",
-      "sha256": "35cf66bb898bb01eae491d4c207241d51d73c745a08dfb903561d89cb3a1fda0"
+      "sha256": "70d82c2445d43c79b5249c3ade70d346422159ceff9b499135fbe58ac2bfee84"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/property-removal.md",
@@ -550,6 +592,11 @@
   ],
   "local_files": [
     {
+      "source": ".codex/skills/company-knowledge-update/references/pricing-valuation-scope-2026-10.md",
+      "owner": "company-knowledge-update",
+      "sha256": "687f8ccfd7515e50c8477251c586ca0b05fd75e7fe689491df0b6dc383245bb7"
+    },
+    {
       "source": ".codex/skills/company-knowledge-update/references/announcement-review.md",
       "owner": "company-knowledge-update",
       "sha256": "6586d03aff832f1e06348772b9da4226ae07a5139b750a940c9171055ef5b6e0"
@@ -567,7 +614,7 @@
     {
       "source": ".codex/skills/company-knowledge-update/SKILL.md",
       "owner": "company-knowledge-update",
-      "sha256": "11ebe3903acf4a8506970d3f3deeb60eaf357559415d20f379abaef49671db8e"
+      "sha256": "35d125dbb08e0d31f264bb022766efd6030aa6ab2d1724059433da9567e5ba08"
     },
     {
       "source": ".codex/skills/company-knowledge-update/references/agent-representation-tracking-2026-10.md",
@@ -587,12 +634,12 @@
     {
       "source": ".codex/skills/company-knowledge-update/references/home-loans-licenses-2026-10.md",
       "owner": "company-knowledge-update",
-      "sha256": "bec9f08b0890e6b4fddd1a57dc134ca6f7faeda09e114f38d6717a7ce6f8b0b2"
+      "sha256": "7c1d12975cb6172b78c000aa3593ae6c10774503a2c4e948781bc4fb308100bb"
     },
     {
       "source": ".codex/skills/company-knowledge-update/references/privacy-deletion-2026-10.md",
       "owner": "company-knowledge-update",
-      "sha256": "e1c2c7c7150cae89e003da64971c900711512ed928afd548147a887a1a486052"
+      "sha256": "b715520d6a8675c2e51abfa044d87aa3b6c67c7bfac0df5d0821e2b7ba8620af"
     },
     {
       "source": ".codex/skills/company-knowledge-update/references/qualified-flips-only-2026-11.md",
@@ -607,7 +654,7 @@
     {
       "source": "Documents/ChatGPT Work/Escalations/skills/xa-quick-slack/SKILL.md",
       "owner": "xa-quick-slack",
-      "sha256": "39f1597a21bbe862a4690c950be9c0af76f3c644b78312658a773744bf9d83a3"
+      "sha256": "5e2dd28dd00b72387bfdecf9086d688dbbc92851b262d3b909b9227d3c4b3382"
     },
     {
       "source": ".codex/AGENTS.md",

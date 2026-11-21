@@ -88,8 +88,11 @@ This safeguard applies to every skill used in this workflow.
 ## LATENCY-CRITICAL POST FAST PATH
 
 For a routine authorized post with one verified caller match and no observed
-identity conflict, use OpsHub MCP only. Resolve the caller and property in the
-required lookup batch, reuse the operator token, then create the CONTACT note.
+identity conflict, use OpsHub MCP only. Resolve caller/property in the parallel
+lookup batch, reuse the operator token, resolve mentioned assigned roles under
+Part 11, then compose the CONTACT body once. An already-returned assigned name
+belongs in that body before submission, not only in reasoning or the chat reply;
+reuse it without another lookup.
 Do not audit complete email/phone lists, search for hypothetical duplicates,
 inspect contact editors, read activity history to prove contact completeness,
 or open a browser just because a connector omits full contact lists. A missing
@@ -106,7 +109,13 @@ Invoke `xa-admin-account-merge` only when the XA reports a duplicate/contact
 problem or required OpsHub reads actually expose one: conflicting real caller
 matches, distinct relevant customer UUIDs, extra emails/phones, or distinct
 caller-phone and property-seller profiles. Repeated rows with the same UUID are
-not separate accounts. Inspect evidence already returned by required reads;
+not separate accounts. A repeated original caller number on one verified UUID,
+with no distinct-account/identity conflict in the required reads, takes the shared
+skill's repeated-number-only OpsHub cleanup immediately: preserve all emails and
+distinct numbers, remove only redundant copies, and do not ask for a keeping email
+or search for hypothetical accounts. Prefer its connector-only edit and one
+persisted verification; no Admin or browser discovery when the connector suffices.
+Inspect evidence already returned by required reads;
 do not add discovery solely to prove that no duplicate exists. When a concrete
 signal exists, preserve the merge skill's candidate classification, independent
 identity/keeping-email decisions, merge/cleanup verification and posting gates.
@@ -1074,7 +1083,7 @@ preserve ordinary-note fast paths and require explicit authority for any post.
 | Listing agreement not yet on file | support@opendoor.com |
 | Agent commission structure | opendoor.com/agents |
 | Account/customer-profile deletion request website | privacy.opendoor.com; see Account and customer-profile deletion below for scope. |
-| Opendoor Home Loans applications / getting a loan | opendoor.com/mortgage; 947-600-5891; mortgage@opendoor.com. Not a confirmed post-close servicing route. |
+| Opendoor Home Loans applications / general help, including closed-loan questions | opendoor.com/mortgage; 947-600-5891; mortgage@opendoor.com. General team help is distinct from the loan's actual servicer/payment destination. |
 | Vendor asking to work with Opendoor | opendoor.com/vendor-partnerships, and vendoronboarding@opendoor.com |
 | Trust and safety | trust@opendoor.com |
 | Fire investigator / government agency investigative request | Trust & Safety: lawenforcement@opendoor.com; Government Agency Type Fire for a fire investigator. |
@@ -1142,8 +1151,16 @@ optional and customers may shop around. The announcement directs customers to
 opendoor.com/mortgage first; Lower.com may be a referral if they cannot qualify.
 opendoor.com/drop shows listing-specific financing incentives and a pre-approval
 path; its promotional rates are for Opendoor Home Loans and are not retroactive
-after closing. The phone is for applications/getting a loan, not a verified
-post-close loan-servicing contact; that servicing route remained unresolved.
+after closing. The October 30 team update confirms 947-600-5891 and
+mortgage@opendoor.com for general help with both new applications and closed
+loans. Its preferred connection is
+https://opendoor-home-loans.cal.com/odhl/starting-my-application.
+This is general mortgage-team support, not confirmation of the actual loan
+servicer or where to send payments. Do not guarantee a particular loan officer,
+callback time or loan outcome. Record only the referral/help actually given.
+Contact scope: Diego Mendieta's October 30 announcement and November 5 reply,
+read in full November 20, 2026:
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1793376916606999.
 
 Source: September 28 announcement and September 29 / October 21–22 replies,
 https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1790624146909069.
@@ -1524,7 +1541,7 @@ office." **Out of office is not the same as no advisor assigned.**
 
 | Situation | Goes to |
 |---|---|
-| Final Offer delayed or stuck in queue | Pricing team |
+| Final Offer delayed or stuck in queue | Status/queue checks stay in OpsHub; Pricing only for a separate eligible valuation or unexpire review, not delay alone |
 | Questions or pricing disputes on a Final Offer **already issued** | Assigned Home Sale Advisor, else the HSA channel |
 | Seller simply waiting on a Final Offer after assessment | **No escalation.** Give the 3 to 5 business day timeline. |
 | Closing-side: close of escrow changes, late checkout, closing documents | Sales support, not the HSA |
@@ -1540,7 +1557,7 @@ office." **Out of office is not the same as no advisor assigned.**
 | Missing or unsigned closing documents, wrong amendment number, a previous owner's name on the addendum | Sales support, or title when the error came out of the title search |
 | Temporary occupancy after close of escrow | Sales support |
 | Warranty contractor needing access on a homebuilder partner property | The named team member, when one is given |
-| Final Offer refresh blocked by a stale active offer or a mismatch on the property | Pricing team |
+| Final Offer refresh blocked by a stale active offer or a mismatch on the property | Do not default technical unstick/assessment moves to Pricing; seek manager routing. Separate eligible valuation/unexpire review may use Pricing |
 | Assessment or property data missing from OpsHub | OpsHub help channel |
 | OpsHub or tool failure | Tech support |
 | Confirming an agent is attached, or sending them the property link | **No escalation.** Part 6 and Part 5. |
@@ -1549,6 +1566,17 @@ office." **Out of office is not the same as no advisor assigned.**
 
 **XA-internal channels**, when the XA names one: team leads, managers, floor
 support. Write the one they named and nothing more.
+
+Pricing's October 29 scope update limits new inquiries to valuation review,
+explanation or updates; offer/queue/walk status uses OpsHub under the current
+workflow's permissions. Contract questions, maintenance/repairs/invoices and
+unsticking offers or moving assessments to trigger underwriting are outside
+Pricing's workflow. AI acceptance is review eligibility, not amount approval;
+follow-ups stay in the original request thread and incorrect AI reroutes can be
+reviewed by Matt Medrano within the authorized workflow. This changes guidance
+for new routing, not the factual record of an action the XA already completed.
+Ordinary note drafting still performs no extra lookup or escalation. Source:
+https://opendoor.slack.com/archives/C0A14ENTB8A/p1793297865359859.
 
 **Advisor roles are not interchangeable.** An **Acquisition Home Sale Advisor**
 works the seller side, an **Agent Home Sale Advisor** works agent-represented
@@ -2618,13 +2646,22 @@ Solution Offered when the XA refers to a property-associated Opendoor role
 involved in the stated action, not just when the XA supplies the name. This
 includes the Home Sale Advisor and the other roles above only when the current
 record actually assigns that exact role. Reuse the already-verified same-call
-profile/participants for this property and applicable qualified lead. If the
-name is missing from retained context, after the lookup batch use one
+profile/participants for this property and applicable qualified lead. On a
+caller-matched qualified acquisition lead, `sellDirectLead.experiencePartner.name`
+is the assigned acquisition advisor's name: use it for the stated HSA action,
+not another lead's advisor. A populated matching name is resolved, not missing
+because the JSON field says `experiencePartner` rather than `HSA`. Do not fetch
+participants, a directory or the same profile merely to relabel that person.
+If the name is missing from retained context, after the lookup batch use one
 `get_customer_profile` with the matched `address_token` when a street was
 supplied, or the caller's `customer_uuid` when no street was supplied under the
 existing role-resolution exception. Do not repeat an unchanged lookup or search
 a directory by job title. "Scheduled with their HSA" becomes "Scheduled an
 appointment for the seller to speak with their home sale advisor, [name]."
+Before `CreateCustomerNote`/an authorized `UpdateCustomerNote`, check the exact
+outgoing `variables.body`: its Solution Offered must contain that verified name
+beside the role when resolved. Correct a generic role-only body locally before
+the first write; never post generically and then make a second corrective write.
 "Gave the listing agent's number" names the verified listing agent without
 claiming that person was contacted or that an escalation occurred. Preserve
 the actual action: giving contact details, referring, scheduling and escalating

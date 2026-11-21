@@ -68,6 +68,9 @@ try {
   assert.equal(await page.locator(state.editor.save.selector).getAttribute('id'), 'customer-save');
   assert.deepEqual(state.editor.empty_name_fields, ['lastName']);
   assert.equal(state.editor.fields.find(f => f.name === 'lastName').invalid, true);
+  assert.equal(state.editor.fields.find(f => f.name === 'emails.0.email').value, 'caller@example.invalid');
+  assert.equal(await page.locator(state.editor.fields.find(f => f.name === 'phones.0.number').selector).inputValue(), '2025550123',
+    'one probe supplies full values and exact controls without another input inventory');
   assert.deepEqual(state.editor.fields.find(f => f.name === 'lastName').described_errors,
     ['Customer last name', 'Required']);
   assert.deepEqual(state.editor.errors, ['Required'], 'ignore errors in other forms');
@@ -77,7 +80,13 @@ try {
   assert.equal((await inspect()).editor.save.state, 'ready',
     'disabled unrelated submit must not block the customer save');
   await page.locator('#customer-save').evaluate(e => e.textContent = 'Saving...');
-  assert.equal((await inspect()).editor.save.state, 'ready');
+  assert.equal((await inspect()).editor.save.state, 'saving', 'an in-flight save must not look ready to submit again');
+  await page.locator('#customer-form').evaluate(e => e.insertAdjacentHTML('beforeend',
+    '<button type="button" title="Remove email">Remove</button><button type="button" aria-pressed="true">Primary</button>'));
+  state = await inspect();
+  assert.equal(state.editor.controls.length, 2);
+  assert.equal(await page.locator(state.editor.controls[0].selector).getAttribute('title'), 'Remove email');
+  assert.equal(state.editor.controls[1].pressed, 'true');
   await page.locator('#customer-form').evaluate(e => e.insertAdjacentHTML('beforeend',
     '<button type="submit">Save</button>'));
   assert.equal((await inspect()).editor.save.state, 'ambiguous', 'never choose between two customer submits');

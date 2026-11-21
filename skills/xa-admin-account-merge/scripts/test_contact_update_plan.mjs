@@ -84,3 +84,47 @@ for (const [field,value] of [['uuid','wrong'],['firstName','Invented'],['lastNam
 const changedType=clone(persisted); changedType.primaryPhoneNumber.type='HOME';
 assert.equal(api.verify(ready,changedType,true),false);
 console.log('Contact-only planner checks passed: blank name, contact deltas, no invention or unrelated writes, exact-customer/type/identity gates, ambiguity, no-op and persisted verification. No live tools.');
+
+// Repeated-number cleanup is NOT sole-contact consolidation. Preserve every
+// email and different number; no keeping-email selection or account search.
+const repeatedInput = () => ({...input(), primaryEmail: undefined, accountConflict: false});
+let repeated = repeatedInput();
+repeated.customer.otherEmails = [email('secondary@example.invalid')];
+repeated.customer.otherPhoneNumbers.push(phone('+12025550199', 'WORK'));
+const untouched = clone(repeated);
+const narrow = clone(api.planRepeatedPhone(repeated));
+assert.equal(narrow.state, 'ready');
+assert.deepEqual(clone(repeated), untouched);
+assert.deepEqual(narrow.request.variables.input.params,
+  {phones:[{old:{number:'+12025550123',type:'HOME'}}]});
+const narrowSaved = clone(repeated.customer);
+narrowSaved.otherPhoneNumbers = narrowSaved.otherPhoneNumbers.filter(p => p.type !== 'HOME');
+assert.equal(api.verify(narrow, narrowSaved, true), true);
+assert.equal(api.verify(narrow, repeated.customer, true), false);
+assert.equal(api.planRepeatedPhone({...repeated,customer:narrowSaved}).state, 'noop');
+for (const field of ['identityVerified','cleanupAuthorized','contactsComplete','accountConflict']) {
+  const wrong = {...repeated, [field]:field === 'accountConflict' ? true : false};
+  assert.equal(api.planRepeatedPhone(wrong).state,'blocked');
+  delete wrong[field]; assert.equal(api.planRepeatedPhone(wrong).state,'blocked');
+}
+for (const mutate of [
+  p => p.otherEmails.pop(),
+  p => p.otherEmails.push(email('unexpected@example.invalid')),
+  p => p.otherPhoneNumbers.pop(),
+  p => p.otherPhoneNumbers[0].type = 'HOME',
+  p => p.primaryEmail = email('unexpected@example.invalid'),
+  p => p.firstName = 'Changed',
+  p => p.uuid = 'wrong-customer',
+]) {
+  const changed=clone(narrowSaved); mutate(changed);
+  assert.equal(api.verify(narrow,changed,true),false,'Full persisted preservation is required');
+}
+repeated=repeatedInput();repeated.customer.primaryEmail=null;
+assert.equal(api.planRepeatedPhone(repeated).state,'ready','No email is needed for phone-only deduplication');
+repeated=repeatedInput();repeated.customer.otherPhoneNumbers[0].type='MOBILE';
+assert.equal(api.planRepeatedPhone(repeated).reason,'ambiguous-phone-tuple');
+repeated=repeatedInput();repeated.customer.primaryPhoneNumber=phone('+12025550199','WORK');
+assert.equal(api.planRepeatedPhone(repeated).reason,'caller-number-is-not-the-saved-primary');
+repeated=repeatedInput();delete repeated.customer.otherPhoneNumbers[0].type;
+assert.equal(api.planRepeatedPhone(repeated).state,'blocked');
+console.log('PASS: repeated-number-only read/edit/verify planning, no email choice, preserved distinct contacts, no account-conflict bypass and no live tools.');

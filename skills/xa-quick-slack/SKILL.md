@@ -377,6 +377,8 @@ uncovered process question or maintenance.
 
 If this skill is not already in the chat, the first action is only reading this
 file. No other tools. No chat text.
+An exact, complete native source attachment already loads this file. Use it
+directly; do not reread it in chunks or start a separate preparation turn.
 
 ## Execution budget
 
@@ -504,8 +506,8 @@ Do not loop through broad searches or bypass the named-target MCP-only boundary.
 
 Keep CONTACT UUID, property/address UUID and seller lead/flip token separate.
 `get_customer`'s misleading `customer_id` parameter expects a seller lead token,
-not the CONTACT UUID; use `get_customer_profile(customer_uuid=...)` for CONTACT
-identity when needed. Do not call `get_customer` solely for qualification when
+not the CONTACT UUID; use the exact-UUID CONTACT read below when needed.
+Do not call `get_customer` solely for qualification when
 the address-scoped read is available. A wrong-token NOT_FOUND does not establish
 a missing customer/property; correct the identifier without restarting the case.
 Reuse completed qualification on continuation unless stale or the case changes.
@@ -530,6 +532,42 @@ Use the exposed tool names: `user-opshub.*` may appear as
 
 Never `user-slack`. Never `user-opshub.resolveAddress`. Never a Slack pattern
 search for schemas. Casa is not an OpsHub tool.
+
+### Bounded CONTACT and participant reads
+
+Reuse sufficient caller/property evidence already returned. When a required
+identity/contact fact is missing, use `call_operation` with
+`operation_name: "GetRespondToSmsCustomer"` and
+`variables: {"uuid": "<verified caller CONTACT UUID>"}`. Read only
+`customerService.get.customer`: verify its `uuid`, name, `isAgent`,
+`primaryEmail.address.value`, `primaryPhoneNumber.number.value` and
+`otherPhoneNumbers[].number.value` as needed. Bind the result to the retained
+caller UUID; a missing/mismatched customer or failed read is not a verified
+identity. Run independent coverage/thread reads alongside it, not dependent
+mutations. Reuse the result rather than checking the same contact again.
+
+This operation does not expose secondary emails or phone types. It is not
+complete-list evidence for cleanup/merge verification and cannot prove those
+omitted fields empty. Preserve the full-contact and duplicate/identity gates
+below: reuse complete saved evidence, or follow the owning merge skill's
+bounded sufficient-read path when those gates require it. If required evidence
+is unavailable under the current tool/browser boundary, report the specific
+unverified field/blocker and stop before dependent writes; do not guess.
+
+`get_customer_profile(customer_uuid=...)` returns customer event history, not
+the CONTACT's saved contact lists; `full: true` does not fix that. Do not use it
+as an identity/contact-list fallback or scan activity history for contacts.
+With an already verified applicable flip token, `call_operation` with
+`operation_name: "ListFlipParticipants"` and `variables: {"token": "<flip token>"}`
+returns the minimal `webFlip.listFlips[].flip.participants` roles/identities.
+Use that instead of the full resale page when only participants are needed.
+It does not establish qualification, current engagement or caller identity;
+keep those gates and use wider transaction reads only for required missing facts.
+
+Discover only the missing exposed schemas together, then use these contracts.
+Do not inspect connector repositories, query catalogs or implementation code
+during a live escalation. A changed/unavailable contract is a concrete blocker,
+not authority for speculative operations or another broad discovery loop.
 
 ### Property resolution fallback
 
@@ -981,7 +1019,11 @@ Rules:
   cover/group, preserve any stated scheduling constraint in the note, and name
   both in Solution Offered.
 - Delayed Final Offer: caller has not received it in the expected timeframe.
-  Route to pricing team / `#pricing-on-call`, not HSA.
+  Delay/queue/status alone is not a Pricing inquiry: use the matching OpsHub
+  status under existing read permissions. Only a separate eligible valuation
+  review or recently expired-offer unexpire request goes to `#pricing-on-call`.
+  Technical unstick/assessment-move/underwriting-trigger requests are outside
+  Pricing's workflow; obtain manager routing rather than defaulting to HSA.
 - Offer type switch: request a different offer structure. Route to HSA.
 - Inspection/final numbers: review inspection results and effect on proceeds.
   HSA pre-release; acquisition sales support after contingencies release.
@@ -1073,8 +1115,8 @@ Rules:
   “place an offer” stays listing partner; disclosure is the concern, not the
   destination.
 - OpsHub/tool failure: tech support / `#tech-support`.
-- Square footage, bedroom, bathroom, or basement changes: `#pricing-on-call`;
-  never use Wally.
+- Valuation-affecting square footage, bedroom, bathroom, or basement corrections:
+  `#pricing-on-call` within the valuation scope below; never use Wally.
 - Identity verification never escalates. The XA verifies or denies
   scheduling/access when verification cannot be completed.
 - Unknown escalated concern: describe the actual situation and route using the
@@ -1085,26 +1127,76 @@ calendar days; MSRE about 3 days; Lennar 48 hours.
 
 ## Slack workflow-ticket channels
 
-Some Slack channels take workflow forms, not regular compose-box messages.
-Interpret `draft it` according to the destination: prepare ticket fields for
-a workflow channel and an unsent Slack draft for a regular channel. Recognize
-workflow channels from these saved mappings or verified workflow evidence
-already available in the chat, including a screenshot of the channel's form.
-Workflow evidence overrides the generic draft sequence; do not require the XA
-to explicitly say `ticket`. A successful regular draft response does not prove
-that the channel uses regular messages for escalations.
-For these, never call `slack_send_message_draft` or `slack_send_message`.
-Never search Slack, Glean, or project files for how to file the ticket.
+**Pricing scope (Matt Medrano, October 29, 2026):** use the existing Pricing
+workflow only for reviewing, explaining or updating home value, including comps,
+missing valuation data, value-affecting specifications and review of unexpiring
+recently expired offers. Offer/queue/walk status is available in OpsHub and does
+not require an inquiry to Pricing. Contract preparation/changes/execution/status,
+maintenance/repairs/invoices, unstick requests and assessment moves to trigger
+underwriting are out of scope; seek manager routing. AI acceptance means eligible
+for review, not valuation/amount approval. Keep follow-ups in the original
+request thread; an incorrect AI reroute can go to Matt Medrano for review under
+the current workflow's authorization. Dropdown labels such as Final Offer Status
+do not override this scope. Preserve already-completed actions in a note without
+inventing or repeating an escalation. Source:
+https://opendoor.slack.com/archives/C0A14ENTB8A/p1793297865359859.
+
+**Every workflow-based escalation destination follows this rule, listed here
+or not** (Sam, November 20, 2026). The saved channel mappings are examples, not an
+allowlist. Do not require the XA to say `ticket`, provide a screenshot, or teach
+the same verified workflow again. Interpret `draft it` for the destination:
+workflow intake means a form field pack, not a regular Slack draft/message.
+
+Before choosing a compose-box path, use the saved mapping and retained same-case
+workflow evidence. If the destination's intake is unknown, make one bounded
+read of that exact channel's current metadata/entry points and recent posts
+through a supported connector. Workflow-form or generated intake evidence takes
+precedence over the generic Slack path. A successful regular draft is not proof
+that regular messages are the supported intake. Do not rediscover known forms,
+scan unrelated channels, or search Glean/project files for filing instructions.
+
+If the workflow name or schema is missing, inspect directly available form or
+launch metadata/linked entry points with supported read-only tools, under the
+shared browser-navigation gates if UI is actually needed. Reuse already-verified
+labels and options; do not invent a workflow URL, field, selector, or default.
+When a form cannot be inspected, state that specific access/schema gap and keep
+the known facts as a clearly partial paste pack. Never present generic suggested
+request text as a complete replacement for known form fields.
+
+For every verified workflow intake, never call `slack_send_message_draft` or
+`slack_send_message`. Identify the workflow and destination visibly with
+`Open **[verified workflow name]** in **#channel**.` and include a launch link
+only when verified. After the OpsHub note, put each known text field in its own
+labeled copy box. Recommend a dropdown/person selection only when its exact
+option is verified and the known facts support it. Otherwise omit generic
+“select the appropriate dropdown” reminders and questions: Sam handles those
+selections in Slack. An unknown optional recommendation is not missing caller
+input or a blocker to the later note-only post. Do not add discovery just to
+recommend a selector. Genuine routing, identity, access or required-schema gaps
+remain specific blockers; never guess an option or silently submit the form.
+Match that form rather than putting everything into one generic box. Keep
+the not-submitted/not-posted outcome explicit. Leave
+Submit to the XA; preparation, copying or opening the workflow is not filing,
+sending, posting, or permission to resume a saved case.
+After the field pack, say: `After filing the ticket in Slack, click Post it.`
+That explicit command means the ticket is already submitted, not permission to
+file it again. Reuse the original caller's verified CONTACT UUID, phone/email,
+property, note and successful receipts from this saved escalation. A generated
+ticket need not name the calling agent; do not restart caller resolution or ask
+again for retained facts just because the ticket omits them. Never substitute
+the ticket submitter or an arbitrary property contact for the caller. If caller
+identity truly was never resolved, ask only for the missing identifier, retain
+this note-only posting request, then continue the remaining steps after its
+required identity/contact gates. Do not ask for Post it again.
 When the XA says the workflow ticket was already filed or says `post it`, do
 search for that submitted ticket as a related Slack artifact and include its
 verified permalink in the OpsHub note, alongside a separate main escalation
 link only when one actually exists. A workflow ticket can be the sole Slack
 artifact. Already-filed plus a request to post the note is note-only: do not
 send Slack, create a draft, refile the ticket, or require the form again.
-For a ticket not yet filed, after the OpsHub note provide a clearly labeled,
-paste-ready field pack with each known field or suggested text in its own copy
-box, and name the workflow the XA must open when verified. Fill only facts and identifiers actually
-supplied or resolved; never invent a flip token, URL, category, or assignee.
+For a ticket not yet filed, use the form-specific field pack above. Fill only
+facts and identifiers actually supplied or resolved; never invent a flip token,
+URL, category, or assignee.
 Label this section `--- WORKFLOW TICKET ---`, not `--- SLACK ---`.
 
 Write ticket fields and Slack messages as Sam, the XA submitting them. Use
@@ -1112,6 +1204,26 @@ first person for Sam's own question or request, never “XA is asking” or “t
 wants guidance.” For example, “I'm checking that the guidance is correct.”
 Keep the caller's statements attributed to the caller; this wording preference
 does not turn an unverified explanation into a confirmed fact.
+
+- `#lockbox-help` (`C037TBL9C2J`) — **Lockbox Helper**. Explicit `lockbox help`,
+  `lockbox-help`, or `Lockbox Helper` escalation requests use this form, including
+  a post-close agent request for a lockbox code; not a generic suggested-request
+  paragraph, regular Slack message, or default closed-homes/property-info route.
+  Start the field pack with `Open **Lockbox Helper** in **#lockbox-help**.`
+  Match the form shown by Sam on November 20, 2026:
+  - `Flip Token or Address`: its own copy box containing the supplied/resolved
+    full property address or verified flip token. An address is sufficient;
+    do not run an extra token lookup or substitute a Casa ID/customer URL.
+  - `What do you need help with?`: a Slack dropdown, not a Router question. Name an option
+    only when its exact label is verified in current form evidence. The closed
+    dropdown screenshot does not establish its options, including `Other`.
+    Without a supported recommendation, omit it from the handoff entirely.
+  - `Context`: its own copy box with the caller's stated role/request, relevant
+    supplied closing/access facts, and already-verified case links when useful.
+    Do not imply a code failed, was verified, or may be disclosed unless known.
+  Preserve existing access/identity gates. Leave Submit to the XA; say the ticket
+  is prepared, not submitted, and the OpsHub note remains unposted. After the XA
+  reports filing it and requests the note, use the submitted-ticket lookup above.
 
 - `#homebuilder-escalations` — **Homebuilder Escalation**: `Address`,
   `Escalation Type`, `Context`, `Owner`, and `Inform` (optional). Sam clarified
@@ -1125,7 +1237,7 @@ does not turn an unverified explanation into a confirmed fact.
   November 9, 2026 clarification). Do not attempt a compose-box send or draft.
   Exact workflow name, fields and selectors are not yet verified: provide the
   known facts as copyable suggested text, not invented field labels/options,
-  and identify the remaining form selections as manual. If the XA already
+  without generic selector reminders or guessed options. If the XA already
   filed it and requests the note, use the submitted-ticket lookup above and
   post only the CONTACT note after the existing identity and receipt gates.
 - `#keyapp-escalations` (`C09B9U17KR9`) — **Key App Escalation** ticket:
@@ -1160,6 +1272,15 @@ select the relevant live acquisition flip, read its `latestOffer.id`, and use
 `https://admin.opendoor.com/admin/experience_partner_offers_leftovers/{latestOffer.id}`.
 Do not ask the XA to provide the link when the address is sufficient, and never
 substitute the OpsHub property page, Admin closing page, or customer link.
+- `#privacy-escalations` (`C07FM3A439C`) — **Privacy Request Escalations**:
+  this channel is form-only, so never draft or send a channel message here. The
+  Zendesk record-retrieval skill owns the privacy wording, the approved macros
+  and the routing rules; this entry covers only how the ticket is filed. Fields:
+  `Customer Name`, `Customer Profile Link`, `Type of Escalation`,
+  `Escalation Origination`, and `Summary of Communication History`. For an email
+  ticket the origination is Zendesk/Written. Verify the customer-profile link and
+  the available escalation-type options before naming them; never invent them.
+  Prepare the field pack for the XA and leave Submit untouched.
 - `#sign-install-triage` — signage workflow: include the matching category
   (`Signage never installed`, `Signage not removed on time`,
   `Missing-damaged signage`, or `Other`), property address, and request details.
@@ -1177,10 +1298,6 @@ substitute the OpsHub property page, Admin closing page, or customer link.
   requested. Route those issues to Sales Support in
   `#support-hsa-escalations`, tagging the assigned Sales Support specialist
   when known (for example, Sarah Dumke).
-
-If another channel is known to use a workflow but its exact fields are not in
-context, do not draft into the compose box. Give the known facts as a paste pack
-and state that the remaining form fields must be selected in Slack.
 
 ## Slack trigger
 
@@ -1454,6 +1571,29 @@ For explicit `send and post it`, use the Workflow commands above after
 completing the same named-target gates.
 
 Caller lookup contract:
+- When the XA confirms the caller was already added alongside the other seller
+  on the same property, or retained case evidence establishes that relationship,
+  use `[Caller name], calling about their sale` in caller choices and prose,
+  not `calling about [other seller]'s sale`. A primary-seller label or different
+  CONTACT UUID alone does not make an already-linked seller an outside caller.
+  Reuse that relationship; do not require another property addition or lookup
+  solely for wording. A shared phone alone does not establish the relationship,
+  and this wording does not resolve separate identity or primary-email choices.
+- For an inbound public listing-data report, a unique exact normalized-phone
+  match to an unnamed CONTACT can be the documentation destination when the XA
+  confirms no caller name/email is available. Missing name/email alone does not
+  block this report or require a profile edit, merge or agent verification.
+  Retain the exact caller phone and matched CONTACT UUID; label the caller
+  `Agent` or `Caller`, never invent a name or claim personal identity verified.
+  Omit the name from a thread when requested; keep the supplied phone in the
+  OpsHub note, not Slack prose. Attribute disputed listing details to the caller
+  and ask the listings team to review, never assert the reported correction is
+  verified or change the listing. A public report does not require a seller
+  relationship or acquisition qualification merely to identify its reporter.
+  Conflicting people/phones, ambiguous CONTACT selection, protected information,
+  access/scheduling, profile changes and genuine duplicate/cleanup evidence keep
+  their existing gates. Property, destination/thread, authorization, connector
+  and action-receipt checks still apply; resume only remaining authorized work.
 - Reuse a verified surviving customer UUID and contacts retained for this same
   caller after a merge; do not restart with search or repeat the merge. A merge
   reported in another chat is not automatically available context or proof of

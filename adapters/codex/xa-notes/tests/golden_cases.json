@@ -9,14 +9,33 @@
       "role": "Home Sale Advisor",
       "name": "Alex Example",
       "caller": "seller",
-      "posting_target": "verified caller CONTACT"
+      "posting_target": "verified caller CONTACT",
+      "matched_lead": {
+        "customerUuid": "synthetic-caller",
+        "sellDirectLead": {
+          "token": "synthetic-qualified-flip",
+          "isQualified": true,
+          "experiencePartner": {"name": "Alex Example"}
+        }
+      },
+      "other_lead": {
+        "customerUuid": "synthetic-other-customer",
+        "sellDirectLead": {
+          "isQualified": true,
+          "experiencePartner": {"name": "Taylor Prior"}
+        }
+      }
     },
     "expected": "```\nProperty Address: 123 Example Lane\n\nReason for Call: Seller called to schedule an appointment with their home sale advisor.\n\nCustomer Concerns: Seller needed an appointment with their advisor.\n\nSolution Offered: Scheduled an appointment for the seller to speak with their home sale advisor, Alex Example.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/synthetic-example\n```\n\nPosted to OpsHub.",
     "required_phrases": [
       "home sale advisor, Alex Example"
     ],
+    "required_field_phrases": {
+      "Solution Offered": ["home sale advisor, Alex Example"]
+    },
     "forbidden_phrases": [
       "home seller",
+      "Taylor Prior",
       "Escalated"
     ],
     "expected_operations": [

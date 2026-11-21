@@ -144,6 +144,20 @@ any reply text, and the closing fence must come after it; never emit a closing f
 without its matching opening fence. If the check fails, repair the formatting before
 responding. This check applies even when correcting an earlier draft.
 
+**Disposition side-output (Skill Router only).** When the request supplies a
+read-only Zendesk disposition catalog and this ticket's current disposition
+choices, also answer that question in the same turn: after the two copy boxes,
+append exactly one fence tagged `zendesk-disposition` holding a single JSON object
+`{"fields":{"<field_id>":"<option_value>"},"reason":"<short explanation or missing fact>"}`.
+Use only the supplied field IDs, option values and conditions, keep any existing
+nonempty choice, and leave an unsupported or ambiguous choice out rather than
+guessing. Point of Contact is required before the operator can review or send, so
+select it whenever the ticket evidence identifies the contact. This fence is a
+machine hint for the operator's disposition form and never a customer- or
+agent-facing deliverable: it does not replace, repeat or edit either copy box, and
+it authorizes no send, post, status or assignment change. Omit it entirely when the
+request supplies no disposition catalog. See the Output order section of `AGENTS.md`.
+
 **Internal-note quality gate.** The note must be pasteable and detailed enough to
 explain the timeline, evidence, and next operational requirement. It may use
 multiple sentences or lines when that makes the record understandable. For
@@ -1146,10 +1160,17 @@ the shape, the record wins, see "Stage gates the playbook".
   mortgage consultants and do not provide financial advice.
   `opendoor.com/drop` has listing-specific financing incentives and a
   pre-approval path; its promotional rates are for Opendoor Home Loans and
-  are not available retroactively after closing. **Existing active loans:**
-  the announcement explicitly distinguishes application/getting-a-loan support
-  from post-close servicing. The servicing contact remained unresolved; do not
-  present the application phone or email as a verified servicing route.
+  are not available retroactively after closing. **Existing/closed loans:**
+  the October 30 XA announcement confirms general mortgage-team help for both
+  new applicants and customers with closed loans, via **947-600-5891** and
+  **mortgage@opendoor.com**. Its preferred meeting link is
+  https://opendoor-home-loans.cal.com/odhl/starting-my-application.
+  General team support is not confirmation of the actual servicer or a payment
+  destination; verify those from the loan's own servicing information. Do not
+  guarantee a particular officer, callback time or outcome. Contact-scope source:
+  https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1793376916606999,
+  read with its November 5 reply on November 20, 2026. The earlier application-only
+  interpretation must not block this general-support referral.
   Source: September 28 announcement and September 29 / October 21–22 replies,
   https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1790624146909069.
   Sam supplied the fee, incentive and email facts directly on October 31, 2026;
@@ -3158,6 +3179,25 @@ privacy state and could not submit through the portal. Do not generalize that
 case into a current state list, claim all app deletion is state-restricted, or
 send every customer back to the portal. If request type or eligibility is unclear,
 ask Privacy to research it. Do not promise deletion or a completion date.
+
+**Mobile-app account deletion has its own documented customer answer.** When the
+ask is deleting the app account (not a state privacy request), give the documented
+in-app path instead of a bare hold: in the Opendoor app, open the **Account** tab
+in the bottom right corner, choose **Personal Information**, then **Request to
+delete account**, and confirm **Yes, request to delete account**. When the app path
+errors or the customer cannot find it, use the app-account-deletion Help Center
+article's approved fallback: “For any further requests regarding account deletion,
+please email support@opendoor.com.” When the customer also wants their personal
+information deleted, point them to the separate privacy request at
+`privacy.opendoor.com`; the two workflows are not interchangeable. The FAQ says app
+account deletion is typically processed in 5 days — do not promise a specific
+timeframe, and do not claim a deletion, routing or completion that has not been
+verified. A failed in-app attempt still leaves the request type clear, so it does
+not justify withholding the customer reply; escalate to #privacy-escalations only
+when the request type or eligibility is genuinely unresolved, and then name that
+specific question in the note. Sources: Opendoor App Account Deletion Help Center
+article (https://opendoor.zendesk.com/hc/en-us/articles/28351656270363) and the
+Privacy FAQ Mobile App Account Deletion section, read November 19, 2026.
 
 When Privacy says no further response is needed, recommend no customer reply,
 even if the latest message repeats the deletion request or threatens a BBB

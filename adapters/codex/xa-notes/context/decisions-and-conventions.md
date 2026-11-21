@@ -52,7 +52,7 @@ _Last condensed: 2026-09-10 for Codex transfer._
 
 - Only when XA said they escalated; put name in Solution Offered.
 - Named person → `Escalated to [Name] to [action]` (drop redundant "corresponding home sale advisor").
-- FO delayed/queue → pricing team; FO already issued questions → HSA; closing-side → sales support.
+- FO/queue/walk status → OpsHub, not a status-only Pricing inquiry. Pricing is for eligible valuation/unexpire review, not technical unstick/assessment moves; other routing needs manager guidance (October 29 scope update). FO already issued discussion → HSA; closing-side → sales support. Notes still record actions actually stated, without new lookup/escalation.
 - No default HSA fallback.
 - Group tags (phx-asap / mia-asap / agent-acq-eps / sales-support / acq-hsa-managers) encode OOO or manager follow-up — see skill Part 7.
 - Listing agreement in place + seller calls (including for offer or file info) → standing line about speaking with their agent to respect the listing agreement. Do not stop at "have their agent call us."

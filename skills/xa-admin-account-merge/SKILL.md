@@ -16,17 +16,25 @@ background-window and authorization gates.
 
 Target **under two minutes of execution for the Admin merge and verified OpsHub contact cleanup**, starting once the primary email and caller identity are confirmed, when Admin and OpsHub respond normally. Ask for any required details together before starting; user response time is outside this execution target. Resume the original note/escalation immediately after verification; separate Slack routing or posting work adds its own time. This is a performance target, never a reason to skip checks or claim success early. Prioritize few tool round trips, small outputs, and reuse of verified context.
 
-Merge verified same-person duplicates in **Admin** (`admin.opendoor.com`); then clean contacts in **OpsHub**, verify, and post the original XA note/escalation. Extra contacts require the duplicate-detection check below before choosing single-profile cleanup. Unrelated-person matches take the separate phone-cleanup path, never a merge. Never substitute an OpsHub contact edit for a required Admin merge.
+Merge verified same-person duplicates in **Admin** (`admin.opendoor.com`); then clean contacts in **OpsHub**, verify, and post the original XA note/escalation. Repeated copies of one caller number on one verified profile take the narrow OpsHub fast path below, not account-merge discovery. Other extra contacts require the duplicate-detection check before choosing single-profile cleanup. Unrelated-person matches take the separate phone-cleanup path, never a merge. Never substitute an OpsHub contact edit for a required Admin merge.
 
 The complete current source attached by the runtime counts as loaded; apply it
-without rereading this file. On a real profile conflict, reuse the first lookup
-and any required property-identity check, then return the missing caller/identity
-and contact-choice questions together as independent explicit answer lists. Do
-not delay that clarification for browser setup, execution-reference reads,
-unrelated customer history or a newly regenerated note. A known shared phone
+without rereading this file. The containing workflow's required caller/property
+identity reads come before note formatting. On a real profile conflict, reuse
+that first lookup and any required property-identity check, then return the
+missing caller/identity and contact-choice questions together as independent
+explicit answer lists immediately. Retain the original call shorthand or an
+already-existing note and its posting intent; do not compose, format, regenerate
+or make a separate tool call to store a new five-field note before these choices
+or before starting an already-qualified merge. Browser setup, execution-reference
+reads and unrelated history are not prerequisites for the questions. A known shared phone
 does not prove same-person ownership; keep the original post pending. Once the
 answers satisfy the gates, continue the retained authorized workflow immediately
 using those facts and completed-action receipts, not another round of lookups.
+Compose the final note from the retained call content once cleanup is verified;
+do not draft it once before the merge and again afterward. This changes work
+ordering only: identity/choice gates still precede any mutation, and an existing
+draft, explicit draft-only limit or original caller-facing solution is preserved.
 
 ## Preconditions
 
@@ -124,9 +132,54 @@ email answers while continuing the original authorized workflow; do not require
 the XA to retype them alongside the name. A custom name alone still does not
 confirm identity or choose an unresolved primary email.
 
+## Repeated-number-only cleanup — OpsHub fast path
+
+Classify immediately from the required caller/property reads. If one verified
+customer UUID has the original caller number repeated (including different phone
+types), and those reads expose no distinct-account or identity conflict, this is
+**contact cleanup, not an account merge**. Same-UUID rows are not separate people.
+Do not open Admin, search every email, or audit unrelated contacts to prove no
+other account exists. A known distinct relevant UUID or unresolved identity
+conflict instead takes the detection/merge gates below; never ignore it.
+
+Reuse complete saved contacts, or obtain one sufficient exact-UUID read if
+needed. Keep the existing primary entry for that number, remove only its redundant
+non-primary copies, and preserve every email, distinct number, name, role and
+communication preference. Do not ask which email to keep when no email is being
+changed. Do not apply the broader sole-email/sole-phone consolidation here.
+If the primary number differs, the caller's number is unverified, a phone type
+is missing, or safe targeting is ambiguous, resolve only that fact/target; do not
+guess. An indistinguishable API tuple can use the scoped editor when the exact
+non-primary row is safely identifiable, never an unsafe delta.
+
+Prefer the supported connector-only `UpdateCustomer` contact delta described in
+the execution reference, even when names are valid. Its pure planner's
+`planRepeatedPhone` path preserves all unrelated contacts and requires the
+verified caller, full contacts, original cleanup authority and no account
+conflict. Read only that reference section/helper if execution needs it, not
+browser setup. Use a background OpsHub editor only if complete saved contact
+evidence is unavailable through the connector, or it cannot safely target the edit.
+Use the tested `scripts/contact_cleanup.js` runner from the execution reference:
+one orchestration call performs the qualified read → exact delta → fresh
+verification. Its Agent 360 reader opens the scoped editor and decodes complete
+contacts/preferences without another model decision. Load trusted helpers without
+printing their implementation or raw profile data into the conversation. Do not
+regenerate this plumbing, reconstruct contacts from memory, or return to the model
+between ready deterministic steps. Return only the verified result or concrete
+blocker, then finish the original authorized note/escalation once; continue posting
+in that same tool call when its retained body and target are ready. Reconcile an
+uncertain save before another write. Draft-only and maintenance authorize no edit.
+
+Use `OpsHub contact cleanup started — no account merge needed`, then the verified
+cleanup result or exact blocker outside the note. Latency, token efficiency and
+output quality are joint priorities: reuse context, return only relevant fields,
+batch independent reads and ready sequential steps, and avoid repeated source
+loads or note generation. Aim for a short read/edit/verify sequence, not the
+two-minute Admin-merge budget; report measured times without promising a target.
+
 ## Extra contacts and repeated customer links — detect before classifying
 
-During an authorized post/escalation, inspect the selected customer's complete
+Except for the repeated-number-only fast path above, during an authorized post/escalation, inspect the selected customer's complete
 email/phone lists and the customer links exposed by the required matched-property
 read. Multiple emails, multiple phones, or repeated compatible customer entries
 are a duplicate-detection signal even when the original caller-number search
@@ -191,6 +244,14 @@ preserve unrelated fields, save once and verify the full persisted lists before
 step 8 continues the original authorized task. If already correct, reuse the
 fresh complete read and skip the write. Preserve draft-only/paste-only limits;
 maintenance never authorizes live cleanup.
+
+For contact-only consolidation with no pending name correction, use the same
+tested runner in `consolidate` mode after detection and keeping-contact choices
+are complete; this also applies after a verified Admin merge. Never use that mode
+to bypass detection, select contacts, resolve an identity conflict or submit an
+unreviewed merge. Keep the Admin identity/candidate/warning review boundaries;
+batch ready navigation and result checks within each boundary, not every click
+as a separate model turn.
 
 Keep a blocked task pending with `OpsHub profile cleanup blocked` and the actual
 missing fact, failed save or unverified field, never an unverified merge. Reconcile
@@ -277,7 +338,7 @@ a gate for either OpsHub cleanup-only path.
 2. Open Admin in a separate **unfocused** task window using the selected browser's documented controls under `browser-navigation`. In Skill Router, use the re-enabled Agent 360 MCP connection; desktop chats may use native ChatGPT Chrome when supported. A tab group in the operator's window is insufficient. If the selected surface cannot provide the required background window, report that precise capability blocker and retain the pending workflow. Reuse an existing window belonging to this workflow if available. Never reuse the user's active tab or steal focus.
 3. Follow the XA's demonstrated search sequence: **open `https://admin.opendoor.com` → click Customers → finish typing the full confirmed primary email → press Enter**. Use the visible Customers link; `a[ui-sref="customers"]:not(.nav-list-item)` worked in the October 22 checks, while the generic text selector selected a covered duplicate navigation link. Wait for `input[placeholder="Search"]` to exist before filling; a successful click does not mean the destination has finished loading. Keep that field focused with the cursor at the end. Use the selected surface's documented Enter control, then wait for and verify the actual matching result. If it does not appear, complete **Search submission and same-run recovery** below before declaring a blocker; repeating Enter is not that recovery. Admin result links use numeric Admin IDs, not OpsHub UUIDs: wait for a result row containing the confirmed full email, read its actual href, and retain that Admin ID. Never wait for an OpsHub UUID substring in an Admin href; this wasted 15 seconds on October 26. Do not bypass the Customers click with direct navigation or scripted form submission. Do not search by name. Use verified phone/another confirmed identifier only when the primary email is unavailable.
 4. Open the primary-email record (the **keeping** customer), then reach **Links → Merge** using the state-based navigation below. If already on this customer’s Links page, skip the Links click; if already on its merge page, skip navigation entirely. Select the qualifying duplicate immediately; opening its details is inspection and does not submit a merge. Check the displayed keeping customer and primary email, review the irreversible warning, then click **I'm sure. Merge them.** under the existing workflow authorization. The agent handles this Admin confirmation; do not turn it into a new XA approval.
-5. Immediately after the final click, send `Merge submitted — checking Admin result`. This is not a success receipt. Inspect the automatically refreshed surviving Admin profile and the merge-success checkmark/confirmation. Continue the visible **Merge → I'm sure. Merge them.** sequence for each remaining distinct, qualifying unmerged account, including named matching-phone profiles with no email, until no distinct unmerged accounts remain. **A duplicate entry may remain after a successful merge.** When the success checkmark/confirmation is present and the remaining entry resolves to the same surviving account with matching name, normalized phone and primary email (including the same surviving UUID when displayed), the merge is complete; do not merge that account into itself, require the sidebar or search results to become empty, or block the original post because the linked entry is still listed. These merged entries share notes, so post once to the confirmed surviving customer, not once per entry. The agent owns result verification: inspect Admin directly; never ask the XA whether the merge is confirmed, whether it succeeded, or to watch Admin or supply a confirmation screenshot. A voluntarily supplied XA completion report/screenshot may be reused to avoid replay, but must not become a requested prerequisite or an unanswered confirmation question. If the XA says they do not know or are not looking, that supplies no completion evidence and is not a new identity/approval decision: perform the focused result check yourself. Matching names/contact details or a generic keeping-customer checkmark alone, without completed-merge evidence or an already-supplied explicit XA completion report, do not prove that distinct accounts were merged. Establish qualification of any genuinely remaining distinct account from the retained evidence; continue under the established authorization unless a genuine conflict or actual tool restriction arises; skip manual refresh loops, full event histories, and contact cleanup in Admin. A merge-specific completed/success confirmation tied to the submitted keeping/duplicate pair is sufficient evidence even if the confirmation panel or duplicate entry remains visible; retain that receipt and proceed directly to contact cleanup. Distinguish it from the pre-submission irreversible warning or a browser click acknowledgement, neither of which proves completion. Do not stop merely because “the confirmation is still showing,” require it to disappear, or demand a second success indicator. If submission has an uncertain outcome and no completion evidence, perform the bounded result check and exact-account read-only recovery in the execution reference, retaining the exact keeping and duplicate IDs; never blindly repeat an irreversible merge. Only if that recovery still cannot establish completion, report `Merge submitted; result unverified` with the specific evidence checked, remaining distinct-account state or observed access/tool blocker, and keep cleanup/posting pending. Do not convert that blocker into a yes/no merge-confirmation question or ask the XA to certify success. Once the merge is confirmed, continue steps 6–8 without reopening it.
+5. Immediately after the final click, send `Merge submitted — checking Admin result`. Inspect the automatically updated merge screen once, tied to the retained keeping/duplicate pair. **Admin completion does not require a lasting banner or empty Potential Duplicates list.** Either a new `Merged customers` success toast for this submission, an explicit completed-merge receipt, or the settled post-submit transition from the inspected duplicate details + final warning to the same verified keeping account with the removing/merging details and warning cleared establishes completion. The last state is Admin's normal completion even if the old duplicate remains in the sidebar or the toast was missed. Require a ready, non-loading merge screen and the exact pre-submit pair; a blank initial page, generic green keeping checkmark, matching contact details, click acknowledgement, spinner or timeout is not completion. Use the read-only pair-bound result probe in the execution reference to capture this transition, not repeated screenshots or demands for another success indicator. Retain the verified pair's receipt and exclude it from subsequent merge actions even if it is still suggested. Inspect only genuinely remaining distinct qualifying accounts and perform their reviewed sequence once each; never reselect a completed pair to see whether it merged. For a genuinely uncertain submission, use one bounded result wait and, only if still ambiguous, one exact-account read-only recovery from the reference; never repeat the final click. If recovery cannot establish completion, report `Merge submitted; result unverified` with the actual missing evidence/access blocker and keep dependent work pending. Verify results yourself, never ask the XA to watch Admin or certify success. Once all required pairs are verified, leave Admin and continue steps 6–8 immediately; no refresh loop, event-history audit or second completion check.
 6. After verifying the Admin merge, send `Admin merge verified — checking contact cleanup`. Open the surviving OpsHub customer at `https://opshub.apps.opendoor.com/customers/<retained-UUID>` (plural `customers`, never `/customer/`) and inspect the **full email and phone lists**. Prefer an already-verified exact customer URL when retained. A 404 is a wrong route, not evidence that the customer disappeared: inspect the current URL immediately rather than waiting for Customer Info or returning through Admin. Keep only the confirmed primary email. If the XA lookup supplied a phone, keep that exact number as the sole primary phone and remove all others; otherwise preserve the existing phone list. Use the source-verified contact-only `UpdateCustomer` delta path in the execution reference when no name correction is pending and an unknown name would block the full editor; this preserves existing name fields rather than asking for an unavailable surname. It requires complete saved contact evidence, exact number/type targeting, and fresh verification; deltas are not replacement lists. Otherwise use the scoped customer editor, remove extra contacts in one pass, and save once with its exact form-associated Save. A generic `edit_customer.fields` object does not establish list support; never guess keys or try speculative writes. If Save is disabled, use the read-only full-form probe and the supported contact-only path before reporting the precise blocker, not another request to do the same edit manually. Preserve unrelated fields and communication preferences. If already correct, skip the write.
 7. Perform **one fresh read** of the surviving OpsHub profile after cleanup; verify the complete lists show only the primary email and, when supplied, only the original phone with the same number. If a corrected name was selected, or the rare authorized temporary-name fallback was required, save its exact first/last fields with the contact cleanup in step 6 and verify those fields in this same read, preserving roles and all unrelated fields. If the fresh complete step-6 read already proves every desired field is correct and no write is needed, it satisfies this check. A fresh authoritative read tool suffices only if it exposes the full saved lists; otherwise reopen the scoped editor once after the save, not once per field. This is persisted-save verification, not another edit. Use `get_customer_profile(customer_uuid=...)` only if its documented response supplies the missing fields; `get_customer` takes a lead/address token, not a customer UUID. Extract only the relevant fields from a large response, never dump event history. Compact `list_customers` results, a primary-email-only response, and Admin's merge confirmation are insufficient. Retain the successful read and immediately send `Contact cleanup verified — continuing the original task`; do not recheck contacts during posting. An unchanged verification editor may stay open while a connector posts the note; do not cancel it and probe Customer Info again just to post. If UI posting requires it closed, use the observed Cancel once only when there are no unsaved changes. Note read-back never requires reopening contact editing. If the editor/read fails, allow one state-based recovery with a readiness wait up to 10 seconds; if still unavailable, report the exact unverified fields and stop rather than cycle through selectors, reloads and alternate tools.
 8. After verification, including required unrelated-profile phone cleanup above, immediately resume the original authorized XA workflow, not a new draft-only task. A current escalation request such as `escalate to [person/team]` authorizes sending Slack and posting the CONTACT note: complete the escalation's routing/thread/coverage gates, send once, capture its verified permalink, then post the five-field note once to the surviving caller UUID. Do not ask whether to create a draft or send/post, and do not require another `send and post it` or `Post it`. Preserve an explicit draft-only/paste-only or do-not-send/post choice instead. For an authorized note-only task, post only that note. Reuse an already-successful Slack receipt and finish only the pending note; inspect uncertain outcomes before retrying. If this is a resumed run and the note is already confirmed posted, do not post it again. Send `Account merge completed — primary email and phone verified` outside the note only after the required cleanup and note posting succeed. Close the task window/tabs when done.

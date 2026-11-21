@@ -37,6 +37,12 @@ posting target, and not substituting a different role/property's person when
 the requested name is unavailable. The supplied verified context is synthetic;
 these expected-output fixtures do not prove lookup or model compliance.
 
+November 20 adds the qualified acquisition profile's `experiencePartner.name`
+shape with a different customer's advisor as a distractor. The validator now
+requires the resolved name in Solution Offered itself; mentioning it only in
+another field does not pass. These are offline output checks, not generated
+model results, posting receipts or an under-20-second timing acceptance.
+
 All formerly missing shape examples now have synthetic expected outputs.
 New November 17 acceptance examples are synthetic, not observed model results.
 Previously reviewed/anonymized cases retain their original provenance.

@@ -55,6 +55,10 @@ asks. Read a linked detailed section only for the condition named on that line.
   [same-ticket follow-up](recipes/same-ticket-follow-up.md).
 - Initial profile deletion → [initial deletion](recipes/privacy-initial.md).
   Portal failure, objection or deletion pushback → [privacy follow-up](recipes/privacy-follow-up.md).
+- Mobile-app account deletion → [initial deletion](recipes/privacy-initial.md):
+  documented in-app path plus the app-deletion Help Center fallback
+  (`support@opendoor.com`); `privacy.opendoor.com` for a personal-information
+  deletion. A failed in-app attempt alone is a customer answer, not a hold.
 - Remove only one property from an account → [property-only removal](recipes/property-removal.md),
   not automatic whole-account deletion. Mixed cancellation/preliminary-offer and
   deletion asks must also answer the preliminary-estimate/noncommitment concern
