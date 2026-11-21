@@ -100,23 +100,25 @@ status, or a payment timeline. HOA dues payments retain `HOAAP@opendoor.com`.
 Sources: https://docs.google.com/forms/d/1WPkUWBZFOrkVi_IlBVZ_TGB2ub5MoS5037NuLmpm0SA
 and https://drive.google.com/file/d/15ktZSmtJLnvkLZBHcQKlkLVZeXqn9zWw.
 
-**Vendor AP follow-up (Sam, November 6, 2026):** When an established vendor
-has already emailed `accountspayable@opendoor.com` about billing/unpaid invoices
-and is still waiting without a reply or resolution, direct them to submit a
-request at the Trade Partner Support Center:
-https://opendoor.atlassian.net/servicedesk/customer/portal/1133.
-Do not just repeat the AP referral or use new-vendor onboarding. No fixed
-waiting period is established; do not invent one or promise response/payment
-timing. A routing-only answer needs no property/offer lookup. Preserve verified
-resolution and no-contact gates; never claim a request was submitted unless
-verified. If a support-center ticket already exists, do not file another; repeat
-escalations use the verified #vendor-feedback / @trade-partners route under the
-existing action permissions. HOA dues retain `HOAAP@opendoor.com`.
-Evidence: Stephanie Faust's July 20, 2026 reply,
-https://opendoor.enterprise.slack.com/archives/C51K62ETU/p1784553990069269?thread_ts=1784550596.460069&cid=C51K62ETU.
-Sam's accepted follow-up direction puts the support-center request before the
-older Vendor Overview billing FAQ's direct Slack step for this scope; the
-article's separate existing-ticket/repeat-escalation safeguard is retained.
+**Vendor payment support (XA announcement, November 19, 2026):** Established
+vendors use https://opendoor.atlassian.net/servicedesk/customer/portal/1133 with
+their Opendoor-associated email. Offer the link by text/email without claiming
+it was sent. Request company/contact, property address, work-order or visit ID,
+invoice number/amount, submission date, portal status and relevant screenshots.
+If they already submitted a ticket, do not duplicate it: the current repeat
+escalation is a direct channel post in #tpm-requests, not its workflow, containing
+vendor/contact, confirmation of submission and whether payment-related. Vendors
+may have no reply email or ticket number yet; do not require either before routing.
+Route collected details or inability to submit to TPM, which investigates and
+follows up. This replaces the old #vendor-feedback / @trade-partners route for
+this scope, not unrelated vendor workflows. Do not merely repeat the AP email
+or use onboarding. No waiting threshold or response/payment promise. Routing-only
+answers need no property/offer lookup. Preserve resolution/no-contact and action
+gates: this instruction does not send a link, create a Slack draft or submit a
+request. HOA dues retain `HOAAP@opendoor.com`.
+Source: https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795101306964529
+and Diego's thread clarification at
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795104118442119.
 
 **Same-ticket escalation deduplication:** Before preparing a follow-up Slack
 draft, compare the newest customer reply with the verified message already posted
@@ -141,6 +143,20 @@ the second contains the complete internal note. The opening fence must appear be
 any reply text, and the closing fence must come after it; never emit a closing fence
 without its matching opening fence. If the check fails, repair the formatting before
 responding. This check applies even when correcting an earlier draft.
+
+**Disposition side-output (Skill Router only).** When the request supplies a
+read-only Zendesk disposition catalog and this ticket's current disposition
+choices, also answer that question in the same turn: after the two copy boxes,
+append exactly one fence tagged `zendesk-disposition` holding a single JSON object
+`{"fields":{"<field_id>":"<option_value>"},"reason":"<short explanation or missing fact>"}`.
+Use only the supplied field IDs, option values and conditions, keep any existing
+nonempty choice, and leave an unsupported or ambiguous choice out rather than
+guessing. Point of Contact is required before the operator can review or send, so
+select it whenever the ticket evidence identifies the contact. This fence is a
+machine hint for the operator's disposition form and never a customer- or
+agent-facing deliverable: it does not replace, repeat or edit either copy box, and
+it authorizes no send, post, status or assignment change. Omit it entirely when the
+request supplies no disposition catalog. See the Output order section of `AGENTS.md`.
 
 **Internal-note quality gate.** The note must be pasteable and detailed enough to
 explain the timeline, evidence, and next operational requirement. It may use
@@ -1144,10 +1160,17 @@ the shape, the record wins, see "Stage gates the playbook".
   mortgage consultants and do not provide financial advice.
   `opendoor.com/drop` has listing-specific financing incentives and a
   pre-approval path; its promotional rates are for Opendoor Home Loans and
-  are not available retroactively after closing. **Existing active loans:**
-  the announcement explicitly distinguishes application/getting-a-loan support
-  from post-close servicing. The servicing contact remained unresolved; do not
-  present the application phone or email as a verified servicing route.
+  are not available retroactively after closing. **Existing/closed loans:**
+  the October 30 XA announcement confirms general mortgage-team help for both
+  new applicants and customers with closed loans, via **947-600-5891** and
+  **mortgage@opendoor.com**. Its preferred meeting link is
+  https://opendoor-home-loans.cal.com/odhl/starting-my-application.
+  General team support is not confirmation of the actual servicer or a payment
+  destination; verify those from the loan's own servicing information. Do not
+  guarantee a particular officer, callback time or outcome. Contact-scope source:
+  https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1793376916606999,
+  read with its November 5 reply on November 20, 2026. The earlier application-only
+  interpretation must not block this general-support referral.
   Source: September 28 announcement and September 29 / October 21–22 replies,
   https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1790624146909069.
   Sam supplied the fee, incentive and email facts directly on October 31, 2026;
@@ -3157,6 +3180,25 @@ case into a current state list, claim all app deletion is state-restricted, or
 send every customer back to the portal. If request type or eligibility is unclear,
 ask Privacy to research it. Do not promise deletion or a completion date.
 
+**Mobile-app account deletion has its own documented customer answer.** When the
+ask is deleting the app account (not a state privacy request), give the documented
+in-app path instead of a bare hold: in the Opendoor app, open the **Account** tab
+in the bottom right corner, choose **Personal Information**, then **Request to
+delete account**, and confirm **Yes, request to delete account**. When the app path
+errors or the customer cannot find it, use the app-account-deletion Help Center
+article's approved fallback: “For any further requests regarding account deletion,
+please email support@opendoor.com.” When the customer also wants their personal
+information deleted, point them to the separate privacy request at
+`privacy.opendoor.com`; the two workflows are not interchangeable. The FAQ says app
+account deletion is typically processed in 5 days — do not promise a specific
+timeframe, and do not claim a deletion, routing or completion that has not been
+verified. A failed in-app attempt still leaves the request type clear, so it does
+not justify withholding the customer reply; escalate to #privacy-escalations only
+when the request type or eligibility is genuinely unresolved, and then name that
+specific question in the note. Sources: Opendoor App Account Deletion Help Center
+article (https://opendoor.zendesk.com/hc/en-us/articles/28351656270363) and the
+Privacy FAQ Mobile App Account Deletion section, read November 19, 2026.
+
 When Privacy says no further response is needed, recommend no customer reply,
 even if the latest message repeats the deletion request or threatens a BBB
 complaint. This disposition requires direction on the matching case; it is not
@@ -3164,7 +3206,7 @@ a blanket rule for all complaints. A `hold_no_agent_replies` tag points the same
 way. Flag genuinely separate profile/IDV questions to the operator and route the
 decision back to Privacy rather than independently reopening the conversation.
 
-If the customer says “appeal,” preserve the FAQ's prompt internal Legal Jira
+If the customer says “appeal,” preserve the FAQ's prompt internal Legal Linear
 escalation with a communication summary and requested outcome. Do not copy the
 customer, direct them to Legal, or promise a response time. A BBB threat alone
 is not evidence of an appeal.
@@ -3316,3 +3358,33 @@ This clarification supplies no bonus amounts, tiers, qualifying-stage rules,
 payout timing, or backend owner. Preserve separate seller-agent commission
 guidance and existing limits on compensation advice. Notes record only what
 actually happened; ordinary note drafting does not authorize record lookups.
+
+
+## Agent acquisition contract execution — November 19, 2026
+
+For agent acquisition offers, direct the agent to use the dashboard to set up
+the purchase agreement and send it to their sellers for e-signature. Printed,
+wet-signed contracts submitted by email are no longer accepted for this process.
+This is not a change to buyer/resale offer submission, listing-agreement email
+intake or agent verification. Do not claim an agreement was created, sent,
+signed, accepted or legally invalid without the corresponding evidence. Notes
+record only the guidance/actions actually stated; maintenance performs none.
+Source: Matt McCollum's XA announcement, November 19 at 4:17 p.m. EST,
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795123025787719.
+
+
+## Agent bonus program scope — verified November 19, 2026
+
+The November targeted campaign offers selected recipients a one-time 2% bonus
+on an eligible first sell-side acquisition closing by January 31, 2027, paid
+through escrow by Opendoor on top of their commission. It is not a universal
+rate change. The standard program's tiered rates and eligibility remain separate;
+confirm the particular agent's campaign eligibility before promising a rate.
+The bonus does not apply to bringing a buyer to an Opendoor resale; for CNML,
+the bonus is based on the acquisition purchase price and paid at that closing.
+Do not infer individual attribution, qualification, payment, marketing consent
+or current seller closing availability from a flyer. Existing action and
+no-invented-note-facts boundaries remain. Campaign scope and attached terms:
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795118024586539.
+Standard eligibility and tiers (not a self-service transaction-count tracker):
+https://docs.google.com/document/d/1EuBFCTNicSxudpjWS2UKVB36SKr1afLcQxRH1vrw-1c.

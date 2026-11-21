@@ -30,6 +30,18 @@ draft includes this membership step; do not stop at a paste-ready message or ask
 for another confirmation. Verify that joining succeeded before retrying, and
 confirm draft creation only after receiving a draft ID. Never send the draft.
 
+**Pricing scope before preparation (Matt Medrano, October 29, 2026):** the
+existing workflow is for reviewing, explaining or updating home valuation,
+including value-affecting data/comps and recently expired-offer unexpire review.
+Status-only offer/queue/walk questions use matching OpsHub evidence, not a Pricing
+inquiry. Contract questions, maintenance/repairs/invoices, unstick requests and
+moving assessments to trigger underwriting are out of scope; seek manager routing.
+AI acceptance is review eligibility, not approval of a valuation or amount.
+Keep follow-ups in the original request thread; an incorrect AI reroute may be
+reviewed by Matt Medrano within existing action permissions. A form dropdown
+does not grant an exception to this scope. Source:
+https://opendoor.slack.com/archives/C0A14ENTB8A/p1793297865359859.
+
 **Pricing escalations are tickets, not ordinary Slack messages** (Sam, November 3,
 2026). Prepare the verified Pricing ticket fields for the operator to submit:
 Flip Token, Full Address, Admin Link, Question Type, and Question. Use the exact

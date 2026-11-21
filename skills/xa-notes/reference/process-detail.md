@@ -60,7 +60,11 @@ files the report. Tell the caller to have ready the contact details of the
 fraudulent actor and any information he presented.
 
 **Exception — the victim has already moved in.** That is not a Maddie transfer.
-File an Incident Report in OpsHub and dispatch patrol.
+File an Incident Report in OpsHub. XAs do not dispatch patrol; Trust & Safety
+handles patrol dispatch after the report. Concerns about an active situation
+go to a team lead or manager. Never record dispatch as completed without
+confirmation. Source: Chris Lewis, #xa-announcements, November 12, 2026,
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1794506389341569.
 
 ### Deny profile notes
 

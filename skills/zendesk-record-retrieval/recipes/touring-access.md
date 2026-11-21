@@ -7,6 +7,14 @@ read the matching full-playbook section before drafting; this card is the first 
 
 - First follow [resolution-first access](access-resolution.md). Stop if recent
   notes confirm this request was already resolved. Otherwise continue below.
+- **Failed tour from an access issue (November 18 XA update and owner replies):**
+  thank the caller, apologize and take ownership; do not give a resolution date
+  or promise a callback/outbound follow-up. Do not invite another trip before
+  access is confirmed. Retain what happened, what was tried/told and a verified
+  triage-ticket link if one exists in the internal note. Give only the latest
+  confirmed status on an inbound follow-up; do not treat proposed thread ideas
+  as required process. Source:
+  https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795046789458139.
 - **Unresolved touring/access:** Zendesk MCP → property listing stage and any
   existing appointment's booking/confirmation timing. Honor a viewing already
   scheduled or confirmed before the home went under contract; do not honor one

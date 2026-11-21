@@ -28,13 +28,14 @@ Reuse already loaded sections; all evidence and disclosure gates remain required
 
 ## Vendor AP follow-up
 
-- Established vendor waiting after emailing `accountspayable@opendoor.com`
-  about billing/unpaid invoices → submit a request through the Trade Partner
-  Support Center, https://opendoor.atlassian.net/servicedesk/customer/portal/1133.
+- Established-vendor payment request → submit through the Trade Partner
+  Help Center, https://opendoor.atlassian.net/servicedesk/customer/portal/1133,
+  with the vendor's Opendoor-associated email.
   No invented waiting period or response/payment promise; do not repeat only
   the AP referral or send to onboarding. No property/offer lookup for routing
   alone. Existing support ticket → no duplicate; read the full playbook's
-  `Vendor AP follow-up` passage for repeat-escalation and evidence boundaries.
+  `Vendor payment support` passage for the current #tpm-requests direct-channel
+  repeat route, intake, source replies and action boundaries (November 19, 2026).
 
 ## Qualified flip selection
 
@@ -335,6 +336,11 @@ Reuse already loaded sections; all evidence and disclosure gates remain required
   workflow; prepare its form for review without submitting, rather than creating
   a regular channel-message draft.
   Mobile-app account deletion and state privacy requests are separate workflows.
+  Mobile-app account deletion → the documented in-app path plus the Help Center
+  article's approved fallback (`support@opendoor.com`), and
+  `privacy.opendoor.com` for a personal-information deletion. A failed in-app
+  attempt alone is a supported customer answer, not a hold; reserve the hold for
+  a genuinely unresolved request type or eligibility, naming that question.
 
 ## Ambiguous cases
 

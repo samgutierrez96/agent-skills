@@ -52,8 +52,10 @@ skill is present, do not read this summary; the first caller reuses that source.
   new report, escalation, file upload/share, Slack send or OpsHub post.
 - A direct command to post the selected note, such as `Post it` or
   `post the corrected note please`, authorizes OpsHub lookup and posting for
-  that retained caller and draft. Save/update/fix requests and quoted or
-  reported commands do not.
+  that retained caller and draft. Direct fix/correct/update/edit commands for
+  this call's verified already-posted note authorize only Part 11's in-place
+  update. Without its receipt, revise the draft only. Source saves, draft-only
+  requests and quoted or reported commands do not authorize a write.
 - On a post, use the caller's customer page, not merely the property owner;
   use one parallel lookup batch, reuse `whoami`, then create a new note.
   An explicitly posted correction instead updates the verified original

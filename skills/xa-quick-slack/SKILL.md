@@ -12,19 +12,24 @@ Agent 360 in Router while native worker access remains unverified; supported
 native Chrome in desktop chats. Retain direct-connector, no-browser,
 background-window and authorization gates.
 
-## Vendor AP follow-up — November 6, 2026
+## Vendor payment support — November 19, 2026
 
-An established vendor still waiting without a reply or resolution after emailing
-`accountspayable@opendoor.com` about billing/unpaid invoices should submit a
-request through https://opendoor.atlassian.net/servicedesk/customer/portal/1133
-(Trade Partner Support Center), not repeat only the AP email or use onboarding.
-No fixed waiting period or response/payment promise. Do not duplicate an existing
-support-center ticket; repeat escalations use the verified #vendor-feedback /
-@trade-partners route with the existing action permissions. A referral alone is
-not a Slack escalation or submitted ticket. Preserve explicit requested-action
-scope; this knowledge save authorizes no sends/posts. Source: Sam's accepted
-November 6 direction and Stephanie Faust's July 20, 2026 reply:
-https://opendoor.enterprise.slack.com/archives/C51K62ETU/p1784553990069269.
+Established vendors use https://opendoor.atlassian.net/servicedesk/customer/portal/1133
+with their Opendoor-associated email. Offer the link by text/email, under existing
+action permissions. Collect company/contact, property address, work-order/visit
+ID, invoice number/amount, submission date, portal status and relevant screenshots.
+For an already-submitted ticket, do not duplicate it: send a direct channel post
+in #tpm-requests, not its workflow or a private DM, with vendor/contact,
+confirmation of submission and whether payment-related. Do not require a reply
+email or ticket number; these may not exist until TPM responds/assigns the case.
+Route collected details or inability to submit to TPM. XA captures/routes; TPM
+investigates and follows up. This replaces the former #vendor-feedback /
+@trade-partners repeat route in this scope. No waiting threshold, payment/response
+promise, new-vendor onboarding referral or unverified completed-action claim.
+Keep the normal verified-destination, existing-thread and authorization gates;
+maintenance alone never sends/posts. Source: Diego Mendieta's XA announcement
+and clarifying replies, November 19, 2026:
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795101306964529.
 
 ## Workflow commands — updated 2026-11-12
 
@@ -110,6 +115,57 @@ message, the XA's direct `Post it` command authorizes only the CONTACT note.
   to the channel's routing or a lack of user authorization. Do not bypass the
   rejection through browser/native UI or resend through another destination.
   Preserve an existing draft; create a fallback draft only if none exists.
+
+## Participant/record mismatch — hard stop before automatic actions
+
+Before automatic Slack send (new post or thread reply) or its CONTACT note,
+compare the XA's stated person/role, caller/contact and property with the
+verified case and relevant assigned OpsHub participant. Apply this to internal
+listing-partner/resale channels as well as acquisition/HSA channels; a channel
+allowing automatic sends never bypasses this gate.
+
+Reuse required reads and retained same-case evidence. On a matching case, add
+no lookup, model round, confirmation or output. If assignment is not yet
+verified for a property-bound automatic escalation, fetch only the relevant
+participant on the applicable verified engagement through the existing path,
+including a named resale/listing target. Missing evidence is unresolved, not a
+match. Do not audit unrelated participants or reread unchanged context.
+
+A conflicting name, role, caller/property relationship or address blocks BOTH
+Slack send and the follow-up CONTACT post. Never silently substitute the assigned
+person and continue. Show the stated-versus-verified difference briefly, say
+what remains unsent/unposted, and ask only for the correction or intended
+case/recipient choice. Offer known finite choices through shared reply controls;
+unknown corrected facts retain text entry. Do not claim an escalation completed.
+Different legitimate roles, verified coverage and harmless name/address
+formatting differences are not mismatches.
+
+An email selection or generic `proceed` does not resolve a separate mismatch.
+After an explicit resolution, retain the original authorized action and receipts;
+refresh only facts invalidated by that correction. A changed property/caller
+invalidates its old assignment, links, qualification, thread and CONTACT target.
+An intentional off-assignment target still needs verified identity/role/routing.
+Resume only remaining authorized steps in this same conversation. Keep existing
+draft-only, Slack Connect, workflow-form and uncertain-outcome gates; never
+resend confirmed Slack or duplicate a posted note. Maintenance never resumes it.
+
+## Recheck after an operator profile edit
+
+`Check again` / `recheck` asks for a read-only reread, not an identity answer
+or permission to continue pending actions. Reuse the saved case and exact
+CONTACT UUIDs; reread only the edited profile and any affected conflicting
+contact association. Do not repeat unaffected property, qualification, thread
+or coverage work. No Slack draft/send, CONTACT post, merge or cleanup in this
+turn. A generic `go`/`proceed` cannot answer outstanding factual questions.
+
+After the read, stop with each remaining independent decision and its explicit
+answer list, so shared controls can display buttons. Keep caller identity
+separate from whether a phone is legitimately shared or incorrectly assigned.
+Unknown facts retain text entry. If current evidence resolves all blockers,
+offer `Continue with checked records` and `Keep pending`; do not resume until
+the XA chooses. An incomplete read remains a specific blocker, never readiness.
+Retain original authority/receipts for a later answer; never imply an unperformed
+send/post succeeded. This exception adds no reads or output to ordinary cases.
 
 ## Retained-draft Post it completion — November 17, 2026
 
@@ -321,6 +377,8 @@ uncovered process question or maintenance.
 
 If this skill is not already in the chat, the first action is only reading this
 file. No other tools. No chat text.
+An exact, complete native source attachment already loads this file. Use it
+directly; do not reread it in chunks or start a separate preparation turn.
 
 ## Execution budget
 
@@ -448,8 +506,8 @@ Do not loop through broad searches or bypass the named-target MCP-only boundary.
 
 Keep CONTACT UUID, property/address UUID and seller lead/flip token separate.
 `get_customer`'s misleading `customer_id` parameter expects a seller lead token,
-not the CONTACT UUID; use `get_customer_profile(customer_uuid=...)` for CONTACT
-identity when needed. Do not call `get_customer` solely for qualification when
+not the CONTACT UUID; use the exact-UUID CONTACT read below when needed.
+Do not call `get_customer` solely for qualification when
 the address-scoped read is available. A wrong-token NOT_FOUND does not establish
 a missing customer/property; correct the identifier without restarting the case.
 Reuse completed qualification on continuation unless stale or the case changes.
@@ -474,6 +532,42 @@ Use the exposed tool names: `user-opshub.*` may appear as
 
 Never `user-slack`. Never `user-opshub.resolveAddress`. Never a Slack pattern
 search for schemas. Casa is not an OpsHub tool.
+
+### Bounded CONTACT and participant reads
+
+Reuse sufficient caller/property evidence already returned. When a required
+identity/contact fact is missing, use `call_operation` with
+`operation_name: "GetRespondToSmsCustomer"` and
+`variables: {"uuid": "<verified caller CONTACT UUID>"}`. Read only
+`customerService.get.customer`: verify its `uuid`, name, `isAgent`,
+`primaryEmail.address.value`, `primaryPhoneNumber.number.value` and
+`otherPhoneNumbers[].number.value` as needed. Bind the result to the retained
+caller UUID; a missing/mismatched customer or failed read is not a verified
+identity. Run independent coverage/thread reads alongside it, not dependent
+mutations. Reuse the result rather than checking the same contact again.
+
+This operation does not expose secondary emails or phone types. It is not
+complete-list evidence for cleanup/merge verification and cannot prove those
+omitted fields empty. Preserve the full-contact and duplicate/identity gates
+below: reuse complete saved evidence, or follow the owning merge skill's
+bounded sufficient-read path when those gates require it. If required evidence
+is unavailable under the current tool/browser boundary, report the specific
+unverified field/blocker and stop before dependent writes; do not guess.
+
+`get_customer_profile(customer_uuid=...)` returns customer event history, not
+the CONTACT's saved contact lists; `full: true` does not fix that. Do not use it
+as an identity/contact-list fallback or scan activity history for contacts.
+With an already verified applicable flip token, `call_operation` with
+`operation_name: "ListFlipParticipants"` and `variables: {"token": "<flip token>"}`
+returns the minimal `webFlip.listFlips[].flip.participants` roles/identities.
+Use that instead of the full resale page when only participants are needed.
+It does not establish qualification, current engagement or caller identity;
+keep those gates and use wider transaction reads only for required missing facts.
+
+Discover only the missing exposed schemas together, then use these contracts.
+Do not inspect connector repositories, query catalogs or implementation code
+during a live escalation. A changed/unavailable contract is a concrete blocker,
+not authority for speculative operations or another broad discovery loop.
 
 ### Property resolution fallback
 
@@ -667,6 +761,19 @@ read. Ask only for its unresolved identity/keeping-email answers and keep the
 send/post pending until its required merge and verification finish. A unique
 phone hit or property match does not bypass this check.
 
+On an authorized post/escalation, inspect the selected customer's full contact
+lists and customer links exposed by the required property read. Extra emails,
+extra phones or repeated compatible customer links invoke `xa-admin-account-merge`
+even when the caller-phone lookup returns one result. Flag the observed issue
+outside the note, then use that skill's **Extra contacts and repeated customer
+links — detect before classifying** check. Different customer UUIDs are not just
+extra contacts; repeated rows with the same UUID are not separate accounts.
+Do not choose cleanup-only until the relevant observed-contact/property-linked
+candidates are resolved. Merge qualifying same-person accounts; use single-profile
+OpsHub cleanup only when no unresolved separate-account candidate remains. Reuse
+confirmed contacts, original posting intent and action receipts; ask only for
+missing facts. This adds no lookups or cleanup to ordinary tool-free drafts.
+
 **Duplicate-profile gate:** Apply the `xa-admin-account-merge` workflow to
 escalations as well as ordinary XA notes. When the caller lookup returns
 multiple real customer profiles with distinct email addresses, or a named
@@ -686,7 +793,8 @@ Follow `xa-admin-account-merge` for surviving-contact verification and for
 removing only a confirmed misassigned caller number from unrelated profiles in
 OpsHub; preserve their other contacts and legitimate shared numbers. Never
 merge unrelated people or substitute an OpsHub edit for a required Admin merge.
-If no same-person duplicates remain, skip Admin and complete only the required
+If no same-person duplicates remain after that detection check, skip Admin and
+complete the applicable single-profile contact cleanup or unrelated-profile
 phone cleanup and verification. Applicable cleanup/merge gates precede the
 CONTACT note. If required input, an actual Admin merge, cleanup or verification
 is blocked, stop before CONTACT mutation and report the exact blocker; do not
@@ -724,8 +832,9 @@ Never conclude that the message was not sent merely because search missed it.
    the assigned HSA / Agent Home Sale Advisor. Validate the XA-stated name
    against that participant before tagging anyone. Do not choose a Slack user
    by name or title when the property participant record is available. If the
-   participant and stated name conflict, use the assigned participant and note
-   the mismatch under `---`. Skip profile when the named target is a directory
+   participant and stated name conflict, apply **Participant/record mismatch**
+   and stop automatic send/post pending resolution, not silent substitution.
+   Skip profile when the named target is a directory
    usergroup. Do not start a caller subagent on this common path. If OpsHub
    returns no unique customer UUID, fall back once to parent
    `search_indextrious`; use a subagent only when that fallback result is
@@ -910,7 +1019,11 @@ Rules:
   cover/group, preserve any stated scheduling constraint in the note, and name
   both in Solution Offered.
 - Delayed Final Offer: caller has not received it in the expected timeframe.
-  Route to pricing team / `#pricing-on-call`, not HSA.
+  Delay/queue/status alone is not a Pricing inquiry: use the matching OpsHub
+  status under existing read permissions. Only a separate eligible valuation
+  review or recently expired-offer unexpire request goes to `#pricing-on-call`.
+  Technical unstick/assessment-move/underwriting-trigger requests are outside
+  Pricing's workflow; obtain manager routing rather than defaulting to HSA.
 - Offer type switch: request a different offer structure. Route to HSA.
 - Inspection/final numbers: review inspection results and effect on proceeds.
   HSA pre-release; acquisition sales support after contingencies release.
@@ -1002,8 +1115,8 @@ Rules:
   “place an offer” stays listing partner; disclosure is the concern, not the
   destination.
 - OpsHub/tool failure: tech support / `#tech-support`.
-- Square footage, bedroom, bathroom, or basement changes: `#pricing-on-call`;
-  never use Wally.
+- Valuation-affecting square footage, bedroom, bathroom, or basement corrections:
+  `#pricing-on-call` within the valuation scope below; never use Wally.
 - Identity verification never escalates. The XA verifies or denies
   scheduling/access when verification cannot be completed.
 - Unknown escalated concern: describe the actual situation and route using the
@@ -1014,26 +1127,76 @@ calendar days; MSRE about 3 days; Lennar 48 hours.
 
 ## Slack workflow-ticket channels
 
-Some Slack channels take workflow forms, not regular compose-box messages.
-Interpret `draft it` according to the destination: prepare ticket fields for
-a workflow channel and an unsent Slack draft for a regular channel. Recognize
-workflow channels from these saved mappings or verified workflow evidence
-already available in the chat, including a screenshot of the channel's form.
-Workflow evidence overrides the generic draft sequence; do not require the XA
-to explicitly say `ticket`. A successful regular draft response does not prove
-that the channel uses regular messages for escalations.
-For these, never call `slack_send_message_draft` or `slack_send_message`.
-Never search Slack, Glean, or project files for how to file the ticket.
+**Pricing scope (Matt Medrano, October 29, 2026):** use the existing Pricing
+workflow only for reviewing, explaining or updating home value, including comps,
+missing valuation data, value-affecting specifications and review of unexpiring
+recently expired offers. Offer/queue/walk status is available in OpsHub and does
+not require an inquiry to Pricing. Contract preparation/changes/execution/status,
+maintenance/repairs/invoices, unstick requests and assessment moves to trigger
+underwriting are out of scope; seek manager routing. AI acceptance means eligible
+for review, not valuation/amount approval. Keep follow-ups in the original
+request thread; an incorrect AI reroute can go to Matt Medrano for review under
+the current workflow's authorization. Dropdown labels such as Final Offer Status
+do not override this scope. Preserve already-completed actions in a note without
+inventing or repeating an escalation. Source:
+https://opendoor.slack.com/archives/C0A14ENTB8A/p1793297865359859.
+
+**Every workflow-based escalation destination follows this rule, listed here
+or not** (Sam, November 20, 2026). The saved channel mappings are examples, not an
+allowlist. Do not require the XA to say `ticket`, provide a screenshot, or teach
+the same verified workflow again. Interpret `draft it` for the destination:
+workflow intake means a form field pack, not a regular Slack draft/message.
+
+Before choosing a compose-box path, use the saved mapping and retained same-case
+workflow evidence. If the destination's intake is unknown, make one bounded
+read of that exact channel's current metadata/entry points and recent posts
+through a supported connector. Workflow-form or generated intake evidence takes
+precedence over the generic Slack path. A successful regular draft is not proof
+that regular messages are the supported intake. Do not rediscover known forms,
+scan unrelated channels, or search Glean/project files for filing instructions.
+
+If the workflow name or schema is missing, inspect directly available form or
+launch metadata/linked entry points with supported read-only tools, under the
+shared browser-navigation gates if UI is actually needed. Reuse already-verified
+labels and options; do not invent a workflow URL, field, selector, or default.
+When a form cannot be inspected, state that specific access/schema gap and keep
+the known facts as a clearly partial paste pack. Never present generic suggested
+request text as a complete replacement for known form fields.
+
+For every verified workflow intake, never call `slack_send_message_draft` or
+`slack_send_message`. Identify the workflow and destination visibly with
+`Open **[verified workflow name]** in **#channel**.` and include a launch link
+only when verified. After the OpsHub note, put each known text field in its own
+labeled copy box. Recommend a dropdown/person selection only when its exact
+option is verified and the known facts support it. Otherwise omit generic
+“select the appropriate dropdown” reminders and questions: Sam handles those
+selections in Slack. An unknown optional recommendation is not missing caller
+input or a blocker to the later note-only post. Do not add discovery just to
+recommend a selector. Genuine routing, identity, access or required-schema gaps
+remain specific blockers; never guess an option or silently submit the form.
+Match that form rather than putting everything into one generic box. Keep
+the not-submitted/not-posted outcome explicit. Leave
+Submit to the XA; preparation, copying or opening the workflow is not filing,
+sending, posting, or permission to resume a saved case.
+After the field pack, say: `After filing the ticket in Slack, click Post it.`
+That explicit command means the ticket is already submitted, not permission to
+file it again. Reuse the original caller's verified CONTACT UUID, phone/email,
+property, note and successful receipts from this saved escalation. A generated
+ticket need not name the calling agent; do not restart caller resolution or ask
+again for retained facts just because the ticket omits them. Never substitute
+the ticket submitter or an arbitrary property contact for the caller. If caller
+identity truly was never resolved, ask only for the missing identifier, retain
+this note-only posting request, then continue the remaining steps after its
+required identity/contact gates. Do not ask for Post it again.
 When the XA says the workflow ticket was already filed or says `post it`, do
 search for that submitted ticket as a related Slack artifact and include its
 verified permalink in the OpsHub note, alongside a separate main escalation
 link only when one actually exists. A workflow ticket can be the sole Slack
 artifact. Already-filed plus a request to post the note is note-only: do not
 send Slack, create a draft, refile the ticket, or require the form again.
-For a ticket not yet filed, after the OpsHub note provide a clearly labeled,
-paste-ready field pack with each known field or suggested text in its own copy
-box, and name the workflow the XA must open when verified. Fill only facts and identifiers actually
-supplied or resolved; never invent a flip token, URL, category, or assignee.
+For a ticket not yet filed, use the form-specific field pack above. Fill only
+facts and identifiers actually supplied or resolved; never invent a flip token,
+URL, category, or assignee.
 Label this section `--- WORKFLOW TICKET ---`, not `--- SLACK ---`.
 
 Write ticket fields and Slack messages as Sam, the XA submitting them. Use
@@ -1041,6 +1204,26 @@ first person for Sam's own question or request, never “XA is asking” or “t
 wants guidance.” For example, “I'm checking that the guidance is correct.”
 Keep the caller's statements attributed to the caller; this wording preference
 does not turn an unverified explanation into a confirmed fact.
+
+- `#lockbox-help` (`C037TBL9C2J`) — **Lockbox Helper**. Explicit `lockbox help`,
+  `lockbox-help`, or `Lockbox Helper` escalation requests use this form, including
+  a post-close agent request for a lockbox code; not a generic suggested-request
+  paragraph, regular Slack message, or default closed-homes/property-info route.
+  Start the field pack with `Open **Lockbox Helper** in **#lockbox-help**.`
+  Match the form shown by Sam on November 20, 2026:
+  - `Flip Token or Address`: its own copy box containing the supplied/resolved
+    full property address or verified flip token. An address is sufficient;
+    do not run an extra token lookup or substitute a Casa ID/customer URL.
+  - `What do you need help with?`: a Slack dropdown, not a Router question. Name an option
+    only when its exact label is verified in current form evidence. The closed
+    dropdown screenshot does not establish its options, including `Other`.
+    Without a supported recommendation, omit it from the handoff entirely.
+  - `Context`: its own copy box with the caller's stated role/request, relevant
+    supplied closing/access facts, and already-verified case links when useful.
+    Do not imply a code failed, was verified, or may be disclosed unless known.
+  Preserve existing access/identity gates. Leave Submit to the XA; say the ticket
+  is prepared, not submitted, and the OpsHub note remains unposted. After the XA
+  reports filing it and requests the note, use the submitted-ticket lookup above.
 
 - `#homebuilder-escalations` — **Homebuilder Escalation**: `Address`,
   `Escalation Type`, `Context`, `Owner`, and `Inform` (optional). Sam clarified
@@ -1054,7 +1237,7 @@ does not turn an unverified explanation into a confirmed fact.
   November 9, 2026 clarification). Do not attempt a compose-box send or draft.
   Exact workflow name, fields and selectors are not yet verified: provide the
   known facts as copyable suggested text, not invented field labels/options,
-  and identify the remaining form selections as manual. If the XA already
+  without generic selector reminders or guessed options. If the XA already
   filed it and requests the note, use the submitted-ticket lookup above and
   post only the CONTACT note after the existing identity and receipt gates.
 - `#keyapp-escalations` (`C09B9U17KR9`) — **Key App Escalation** ticket:
@@ -1089,6 +1272,15 @@ select the relevant live acquisition flip, read its `latestOffer.id`, and use
 `https://admin.opendoor.com/admin/experience_partner_offers_leftovers/{latestOffer.id}`.
 Do not ask the XA to provide the link when the address is sufficient, and never
 substitute the OpsHub property page, Admin closing page, or customer link.
+- `#privacy-escalations` (`C07FM3A439C`) — **Privacy Request Escalations**:
+  this channel is form-only, so never draft or send a channel message here. The
+  Zendesk record-retrieval skill owns the privacy wording, the approved macros
+  and the routing rules; this entry covers only how the ticket is filed. Fields:
+  `Customer Name`, `Customer Profile Link`, `Type of Escalation`,
+  `Escalation Origination`, and `Summary of Communication History`. For an email
+  ticket the origination is Zendesk/Written. Verify the customer-profile link and
+  the available escalation-type options before naming them; never invent them.
+  Prepare the field pack for the XA and leave Submit untouched.
 - `#sign-install-triage` — signage workflow: include the matching category
   (`Signage never installed`, `Signage not removed on time`,
   `Missing-damaged signage`, or `Other`), property address, and request details.
@@ -1106,10 +1298,6 @@ substitute the OpsHub property page, Admin closing page, or customer link.
   requested. Route those issues to Sales Support in
   `#support-hsa-escalations`, tagging the assigned Sales Support specialist
   when known (for example, Sarah Dumke).
-
-If another channel is known to use a workflow but its exact fields are not in
-context, do not draft into the compose box. Give the known facts as a paste pack
-and state that the remaining form fields must be selected in Slack.
 
 ## Slack trigger
 
@@ -1349,8 +1537,10 @@ is actually out and no named cover is available. Tag the named person too.
 ### Known named target, paste
 
 For a seller-side acquisition with an address, verify the named target against
-the matching flip's participants panel before using the directory mention. For
-other known named targets, use the directory mention and channel above. Do not
+the matching flip's participants panel before using the directory mention.
+Property-bound automatic resale/listing escalations also verify the relevant
+assigned participant under **Participant/record mismatch**. For other known
+named targets, use the directory mention and channel above. Do not
 use browser, file, or schema lookup. Missing customer URL is acceptable.
 
 **First name only, or a first-name pair, on a seller-side acquisition file
@@ -1361,7 +1551,8 @@ unique directory last-name match, do not `slack_search_users` and pick by job
 title. Use the participants path on the ranked flip that matches the caller’s
 seller engagement — not `isHighestRanked` when that flip is a different seller
 or a dead file. Bind the XA’s names to those assigned roles. Keep the stated
-names in the note; Slack tags the assigned people.
+names only when compatible with those roles; a conflicting identity invokes
+**Participant/record mismatch**, never automatic substitution.
 
 ### Known named target, explicit Shape A draft or `draft it/post it`
 
@@ -1380,6 +1571,29 @@ For explicit `send and post it`, use the Workflow commands above after
 completing the same named-target gates.
 
 Caller lookup contract:
+- When the XA confirms the caller was already added alongside the other seller
+  on the same property, or retained case evidence establishes that relationship,
+  use `[Caller name], calling about their sale` in caller choices and prose,
+  not `calling about [other seller]'s sale`. A primary-seller label or different
+  CONTACT UUID alone does not make an already-linked seller an outside caller.
+  Reuse that relationship; do not require another property addition or lookup
+  solely for wording. A shared phone alone does not establish the relationship,
+  and this wording does not resolve separate identity or primary-email choices.
+- For an inbound public listing-data report, a unique exact normalized-phone
+  match to an unnamed CONTACT can be the documentation destination when the XA
+  confirms no caller name/email is available. Missing name/email alone does not
+  block this report or require a profile edit, merge or agent verification.
+  Retain the exact caller phone and matched CONTACT UUID; label the caller
+  `Agent` or `Caller`, never invent a name or claim personal identity verified.
+  Omit the name from a thread when requested; keep the supplied phone in the
+  OpsHub note, not Slack prose. Attribute disputed listing details to the caller
+  and ask the listings team to review, never assert the reported correction is
+  verified or change the listing. A public report does not require a seller
+  relationship or acquisition qualification merely to identify its reporter.
+  Conflicting people/phones, ambiguous CONTACT selection, protected information,
+  access/scheduling, profile changes and genuine duplicate/cleanup evidence keep
+  their existing gates. Property, destination/thread, authorization, connector
+  and action-receipt checks still apply; resume only remaining authorized work.
 - Reuse a verified surviving customer UUID and contacts retained for this same
   caller after a merge; do not restart with search or repeat the merge. A merge
   reported in another chat is not automatically available context or proof of
@@ -1570,3 +1784,33 @@ This clarification supplies no bonus amounts, tiers, qualifying-stage rules,
 payout timing, or backend owner. Preserve separate seller-agent commission
 guidance and existing limits on compensation advice. Notes record only what
 actually happened; ordinary note drafting does not authorize record lookups.
+
+
+## Agent acquisition contract execution — November 19, 2026
+
+For agent acquisition offers, direct the agent to use the dashboard to set up
+the purchase agreement and send it to their sellers for e-signature. Printed,
+wet-signed contracts submitted by email are no longer accepted for this process.
+This is not a change to buyer/resale offer submission, listing-agreement email
+intake or agent verification. Do not claim an agreement was created, sent,
+signed, accepted or legally invalid without the corresponding evidence. Notes
+record only the guidance/actions actually stated; maintenance performs none.
+Source: Matt McCollum's XA announcement, November 19 at 4:17 p.m. EST,
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795123025787719.
+
+
+## Agent bonus program scope — verified November 19, 2026
+
+The November targeted campaign offers selected recipients a one-time 2% bonus
+on an eligible first sell-side acquisition closing by January 31, 2027, paid
+through escrow by Opendoor on top of their commission. It is not a universal
+rate change. The standard program's tiered rates and eligibility remain separate;
+confirm the particular agent's campaign eligibility before promising a rate.
+The bonus does not apply to bringing a buyer to an Opendoor resale; for CNML,
+the bonus is based on the acquisition purchase price and paid at that closing.
+Do not infer individual attribution, qualification, payment, marketing consent
+or current seller closing availability from a flyer. Existing action and
+no-invented-note-facts boundaries remain. Campaign scope and attached terms:
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795118024586539.
+Standard eligibility and tiers (not a self-service transaction-count tracker):
+https://docs.google.com/document/d/1EuBFCTNicSxudpjWS2UKVB36SKr1afLcQxRH1vrw-1c.

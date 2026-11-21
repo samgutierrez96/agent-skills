@@ -23,5 +23,7 @@ read the matching full-playbook section before drafting; this card is the first 
   separately documented application steps. For applications, contacts, fees or
   incentives, also read the adjacent "Opendoor Home Loans application start /
   incomplete application" guidance: opendoor.com/mortgage, 947-600-5891 and
-  mortgage@opendoor.com. Do not use the application contact as a verified route
-  for servicing an existing closed loan.
+  mortgage@opendoor.com. The October 30 XA update also supports these contacts
+  for general help with closed loans and provides a preferred booking link in
+  the full playbook. Distinguish this team-help referral from the actual loan
+  servicer/payment destination; do not promise an officer or response time.

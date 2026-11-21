@@ -74,6 +74,11 @@ def validate_case(case: dict, output: str, operations: list[str] | None = None) 
     for phrase in case.get("required_phrases", []):
         if phrase not in value:
             errors.append(f"must contain '{phrase}'")
+    for label, phrases in case.get("required_field_phrases", {}).items():
+        matches = re.findall(r"^" + re.escape(label) + r": (.*)$", value, re.MULTILINE)
+        for phrase in phrases:
+            if len(matches) != 1 or phrase not in matches[0]:
+                errors.append(f"{label} must contain '{phrase}'")
     for phrase in case.get("forbidden_phrases", []):
         if phrase.lower() in value.lower():
             errors.append(f"must not contain '{phrase}' for this case")

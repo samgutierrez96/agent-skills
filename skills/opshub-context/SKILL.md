@@ -92,13 +92,28 @@ index delay is confirmed, and do not treat a tool error as an empty result.
    the actual lookup blocker. Ask once for an available alternative identifier,
    not repeatedly for a name/email the operator already said is unavailable.
 
-The initial search, one retry and one fallback are the recovery budget for that
-caller, not a new budget for every follow-up. On a later operator continuation
-of the same unresolved authorized request, allow one fresh phone lookup in
-that turn instead of relying forever on the earlier empty result; do not
-repeat an exhausted fallback or poll autonomously. A supplied stable customer
-URL/ID bypasses search and uses direct record resolution. Never create a new
-customer, guess a UUID, or replay a completed note/post to recover a lookup.
+The initial search, one retry and one fallback are the recovery budget for an
+unchanged caller record, not a new budget for every follow-up. On a later
+operator continuation of the same unresolved authorized request, allow one
+fresh phone lookup instead of relying forever on an earlier empty result.
+
+When the operator explicitly says they have since created the account or saved
+the relevant contact change, or reports a missed account-creation/contact-save
+step while asking to try again, treat the earlier empty lookups as stale for
+this bounded recheck. The report does not itself prove that a save succeeded.
+Restart the bounded lookup recovery above once for that changed record: a fresh
+phone search, one alternate-format retry if empty, then one fallback if needed.
+Do not count a fallback performed before the change as a check of the new record.
+Reuse a supplied stable customer URL/ID directly instead. Keep the same caller,
+original request, draft, action limits and successful receipts; a reported
+account change is not proof of identity or permission to repeat a completed
+action. An unchanged repeat message does not restart the recovery budget.
+
+If fresh recovery is still empty, say the updated account is not yet returned
+by the available lookup, not that it does not exist. Preserve the pending work
+and actual blocker, and ask once for an available stable record link/ID. A search
+visibility delay is possible, not confirmed. Do not sleep, poll autonomously,
+create a customer, guess a UUID, or replay a completed note/post to recover a lookup.
 Resolution supplies identity only; the consumer still owns action permission
 and duplicate-write protection.
 

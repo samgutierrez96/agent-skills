@@ -17,7 +17,7 @@ _Last condensed: 2026-09-10 for Codex transfer._
 - **COE window:** 21–60 standard sellers; 21–120 homebuilder/Lennar partners (never invent "14").
 - **Utilities:** stay on 3+ days past **move-out day**, not COE date.
 - **Home must be vacant by close of escrow** (tenant questions → vacancy line, not auto-escalation).
-- **Maddie** files rental-scam reports (XA transfers). Exception: victim already moved in → OpsHub incident + patrol, not Maddie.
+- **Maddie** files rental-scam reports (XA transfers). Exception: victim already moved in → OpsHub incident, not Maddie. XAs do not dispatch patrol; Trust & Safety handles dispatch after the report. Active-situation concerns go to a team lead/manager (November 12, 2026 XA announcement).
 - **Identity / access deny:** "confirm with our trust and safety team" (XA team) — never "identity team," never an escalation by itself.
 - **Cash Now, More Later second half:** **advise** seller to email `cashnowmorelater@opendoor.com` — never "Escalated to."
 - **Closed CNML home, previous owner wants in:** they are no longer the owner; Opendoor is. Treat as a **buyer**, go through access guidelines, **never give the lockbox code**. Thank them for feedback; we own the home now and are selling it. Not the CNML inbox, not closed-homes.
@@ -52,7 +52,7 @@ _Last condensed: 2026-09-10 for Codex transfer._
 
 - Only when XA said they escalated; put name in Solution Offered.
 - Named person → `Escalated to [Name] to [action]` (drop redundant "corresponding home sale advisor").
-- FO delayed/queue → pricing team; FO already issued questions → HSA; closing-side → sales support.
+- FO/queue/walk status → OpsHub, not a status-only Pricing inquiry. Pricing is for eligible valuation/unexpire review, not technical unstick/assessment moves; other routing needs manager guidance (October 29 scope update). FO already issued discussion → HSA; closing-side → sales support. Notes still record actions actually stated, without new lookup/escalation.
 - No default HSA fallback.
 - Group tags (phx-asap / mia-asap / agent-acq-eps / sales-support / acq-hsa-managers) encode OOO or manager follow-up — see skill Part 7.
 - Listing agreement in place + seller calls (including for offer or file info) → standing line about speaking with their agent to respect the listing agreement. Do not stop at "have their agent call us."

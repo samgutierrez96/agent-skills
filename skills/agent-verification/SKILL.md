@@ -1,6 +1,6 @@
 ---
 name: agent-verification
-description: Review an Alfred agent-verification task, verify the agent record, apply the supported outcome, and close the case.
+description: Verify an agent, close the matching Alfred review, then post the IDV verification note and normal XA post-call note on the verified OpsHub customer.
 ---
 
 # Agent Verification
@@ -11,7 +11,7 @@ When this workflow actually requires a browser, follow the shared
 worker Chrome remains unverified; desktop chats may use supported native Chrome.
 Retain direct-connector, no-browser, background-window and authorization gates.
 
-Resolve the matching OpsHub customer, check live agent credentials, and close the matching Alfred review. Target **under 120 seconds** for an authenticated, exact-match run. Preserve identity checks and verify saved results; do not trade correctness for the timer.
+Resolve the matching OpsHub customer, check live agent credentials, close the matching Alfred review, then post two separate OpsHub customer notes: the IDV verification note first and the normal XA post-call note second. This is one retained workflow, not a request to start another chat. The existing **under 120 seconds** target covers verification/closure; document both notes afterward without skipping their checks to meet that target.
 
 ## Outcome and wording
 
@@ -19,7 +19,7 @@ Resolve the matching OpsHub customer, check live agent credentials, and close th
 - A score is meaningful only for the matching customer's identifiers. Missing, ambiguous, below-100, or materially inconsistent live results require operator review; do not guess.
 - When operator review is genuinely required, state the evidence and blocker briefly, then ask one explicit decision with listed answers: **Allow + Verified**, **Deny**, **Leave unchanged**. An answer retains this customer's context; it does not waive identity/evidence checks. Request a denial reason if not established. Do not ask again after an exact matching 100 result already authorizes closure.
 - For Allow/Verified, Alfred's “Why is this user trustworthy?” must contain only **Confirmed and verified**.
-- OpsHub notes are permitted. For Allow/Verified, use only **Confirmed and verified** unless the operator requests more detail. Add relevant, evidence-based red flags only when final HAS is **Deny**. Do not copy historical flags forward as current findings without supporting evidence.
+- Alfred's success explanation stays **Confirmed and verified**; that restriction does not replace either required OpsHub note. Follow [references/post-verification-notes.md](references/post-verification-notes.md) for the two-note sequence, truthful IDV/method fields, posting receipts and same-call XA handoff.
 - Agent credential verification does not establish that government ID validation passed. Do not claim checks that were not performed.
 - Never reuse a prior customer's identifiers, case ID, or outcome. Cache only the current run's resolved values.
 
@@ -50,7 +50,7 @@ selectors or returning to the model after each field, click and status read.
 - Open or reuse Alfred User Reviews within that workflow window and refresh once. Check the current queue for the matching open Requires Verification Review, including remaining pages when needed; do not create a duplicate just because the first page lacks it.
 - If no matching open case exists, select **+ New Case**. Search the exact phone or email, select the result matching the cached customer, set **Requires Verification Review**, and select **Create** once. Wait for the dialog to disappear before any retry. Newly created cases may appear on the last queue page.
 - Select the matching case, choose **Claim and Begin** if unclaimed, and open **Review Case**. Cache its case ID/link. If the link opens a new tab, bind that tab; do not keep clicking the original link. When a popup does not open, navigate to the actual href read from the link.
-- Open **View Full Results** and read the available identity evidence once. Missing Mitek results mean ID validation was not established; they do not alone negate a matching agent credential result.
+- Open **View Full Results** and read the available identity evidence once. Cache the actual Mitek ID validation response for documentation. An explicit **N/A** or absent identity-validation information means **IDV Passed: N** (not passed/not established), not a successful ID check or proof of fraud. An unreadable/unavailable result is unknown, not an observed N/A; resolve it or report that documentation blocker. Missing Mitek results do not alone negate a matching agent credential result.
 
 ### 3. Run the live lookup (budget: 50–80 seconds)
 
@@ -65,11 +65,13 @@ selectors or returning to the model after each field, click and status read.
 - Return directly to the cached Alfred case. Select **Close case**, then **Yes** for “Can this user be trusted?” for the supported Allow/Verified outcome. Verify the dialog shows home access **Allow** and agent verification **Verified**. Do not select Deny or More information needed based only on an older denial.
 - Enter only **Confirmed and verified** in “Why is this user trustworthy?”, then submit **Close case** once. Verify **Case Closed**; a disabled submit button while saving is not completion and is not a reason to resubmit.
 - For a reviewed Deny outcome, use the appropriate denial fields and concise supporting evidence instead of the success wording.
-- Reload the cached OpsHub record once. Verify the actual saved home-access and agent-verification statuses in Customer Info/Agent Info. If adding an OpsHub note, save the concise permitted wording once and verify the note appears. Do not add a duplicate note or a long template.
+- Reload the cached OpsHub record once. Verify the actual saved home-access and agent-verification statuses in Customer Info/Agent Info. Retain the matching caller UUID, case, live confidence/license evidence and actual saved statuses for both notes; do not repeat completed verification.
 
-### 5. Finish (budget: 110–120 seconds)
+### 5. Document both notes, then finish
 
-Report only the verified result: `Case: closed | Outcome: [actual HAS] | Agent: [actual status] | Confidence: [tier and score]`. Mention a saved OpsHub note if added. Report a concrete blocker when closure or statuses cannot be verified. Never claim completion based only on a click.
+Read [references/post-verification-notes.md](references/post-verification-notes.md) before posting. Future authorized end-to-end verification runs include both notes by default. Lookup-only, draft-only, leave-unchanged and maintenance requests do not authorize this chain. Reuse same-call details already supplied; if the XA note needs missing call facts, retain the saved verification note and ask only for those facts in this conversation.
+
+Report `Case: closed | Outcome: [actual HAS] | Agent: [actual status] | Confidence: [tier and score]`, followed by a separate actual outcome for **IDV note** and **XA note**: posted, already verified, pending or unconfirmed, with any concrete blocker. Never turn a closure/status receipt into a note-posting receipt or claim completion based only on a click.
 
 In Router, use the exact final readback probe after all requested customer work
 to durably preserve observed closure/statuses. Then close workflow-created tabs
@@ -87,7 +89,7 @@ logging may delay the result; missing confidence telemetry must not be invented.
 - For Alfred's customer selector, verify the scoped input actually changed and the search produced a settled result/options state. A text value alone does not prove the application received its search event. If no options appear, check focus, loading and input delivery, then try one supported alternate input method on the bound control. Do not cycle through the same phone/email/name with repeated blind clicks or key presses. Report an unconfirmed search/input blocker separately from an explicit settled “no matches” response. Preserve the resolved customer and credential match while blocked; do not reopen the account or rerun the lookup just to retry selection.
 - If input reports it did not land because the tab is inactive, use a supported non-activating bound-page method or report the background-control limitation; do not steal focus to retry. Check “maybe landed” actions before repeating; a stale immediate read does not prove a failed mutation.
 - If an iframe cannot be read by a top-level browser tool, use the selected surface's documented bound frame controls immediately. Foreground-only accessibility remains subject to operator permission. Do not spend several calls proving the top-level content is blank.
-- Do not reopen completed stages or reread a verified fact through multiple surfaces. After Case Closed and the refreshed OpsHub statuses are established, finish.
+- Do not reopen completed stages or reread a verified fact through multiple surfaces. After Case Closed and the refreshed OpsHub statuses are established, continue only the remaining authorized documentation; finish after both notes are verified or a concrete pending/unconfirmed blocker is reported.
 - Stay within the authorized verification workflow. Unexpected destructive or unrelated irreversible actions require explicit authorization.
 
 ## Operator corrections and source ownership

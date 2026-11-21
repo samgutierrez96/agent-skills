@@ -33,6 +33,20 @@ class ValidatorTests(unittest.TestCase):
                 lines = [label + ": " if line.startswith(label + ": ") else line for line in lines]
                 self.assertIn(label + " cannot be empty", API["validate_note"]("\n".join(lines)))
 
+    def test_assigned_name_must_be_in_solution_not_only_elsewhere(self):
+        case = BY_ID["assigned-hsa-name-on-post"]
+        for placement in ("Customer Concerns", "Reason for Call"):
+            output = case["expected"].replace("home sale advisor, Alex Example.", "home sale advisor.")
+            output = output.replace(placement + ": ", placement + ": Home sale advisor, Alex Example. ")
+            self.assertIn("Alex Example", output)
+            self.assertIn("Solution Offered must contain 'home sale advisor, Alex Example'",
+                API["validate_case"](case, output, ["CreateCustomerNote"]))
+
+    def test_other_lead_advisor_cannot_replace_matched_advisor(self):
+        case = BY_ID["assigned-hsa-name-on-post"]
+        output = case["expected"].replace("Alex Example", "Taylor Prior")
+        self.assertTrue(API["validate_case"](case, output, ["CreateCustomerNote"]))
+
     def test_layout_and_output_boundaries(self):
         invalid = [
             VALID.replace("\n\nReason", "\nReason"),
@@ -102,6 +116,15 @@ class ValidatorTests(unittest.TestCase):
         case = BY_ID["explicit-corrected-post-updates-original"]
         self.assertEqual(API["validate_case"](case, case["expected"], ["UpdateCustomerNote"]), [])
         self.assertTrue(API["validate_case"](case, case["expected"], ["CreateCustomerNote"]))
+
+    def test_direct_fix_preserves_facts_and_uses_one_update_only(self):
+        case = BY_ID["direct-fix-updates-verified-original-without-invented-timing"]
+        self.assertEqual(API["validate_case"](case, case["expected"], ["UpdateCustomerNote"]), [])
+        for operations in ([], ["CreateCustomerNote"], ["UpdateCustomerNote", "UpdateCustomerNote"]):
+            self.assertTrue(API["validate_case"](case, case["expected"], operations))
+        invented = case["expected"].replace("I refreshed the offer.",
+            "I refreshed the offer and told them to expect a Final Offer in 3 to 5 business days.")
+        self.assertTrue(API["validate_case"](case, invented, ["UpdateCustomerNote"]))
 
     def test_post_keeps_property_and_report_links(self):
         case = BY_ID["explicit-post-preserves-both-links"]

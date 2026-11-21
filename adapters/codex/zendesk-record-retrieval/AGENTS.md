@@ -155,10 +155,12 @@ together and recommend one continuing ticket so the question, prior answer,
 attachments and newest follow-up are not lost. Follow
 `skills/zendesk-record-retrieval/recipes/ticket-merge.md` for source/destination
 selection, authorization, internal merge notes and verification. A matching
-name, address or subject alone is not enough. Use Zendesk MCP first; the current
-connector exposes no merge action, and `update_ticket` / `batch_update_tickets`
-cannot substitute for one. If that remains true at execution, report the exact
-missing capability and provide the verified manual handoff; do not claim a merge.
+name, address or subject alone is not enough. Use Zendesk MCP first: the local
+connector implements preview-first `merge_tickets` and read-only
+`get_merge_status`; inspect actual current availability because an older running
+connection may need refresh. `update_ticket` / `batch_update_tickets` cannot
+substitute for a merge. If the capability is missing at execution, report the
+precise refresh/capability blocker and verified manual handoff; do not claim a merge.
 Saving this process does not authorize live merges. Sam must authorize the exact
 source ticket(s) and destination before execution; ordinary drafting remains
 read-only. This is a Zendesk ticket merge, not an OpsHub/Admin customer merge.
@@ -170,6 +172,22 @@ manual guide; give an actionable next step instead of a chronology dump or vague
 “manual handling” instruction. Router promotes that section into a visible
 review notice. Do not use this label for a rejected match, a completed merge or
 generic process advice. This is a review-time flag, not a background inbox alert.
+
+**Verified post-merge drafting handoff:** A server-held ticket preview may include
+`post_merge_handoff` with an already verified exact merge, original drafts and
+bounded source-conversation evidence. Use it with the fresh destination thread;
+do not remerge, reply on the closed source, or treat draft wording/customer claims
+as action receipts. Preserve outstanding asks, but newer verified handling governs
+whether another reply is needed. Write for the destination channel, not the old
+source's SMS/email format. If no additional customer reply is needed, use
+`[No reply recommended. Keep current status.]` in its reply box for this handoff;
+do not implicitly solve the continuing ticket. A prepared internal-note box is
+not permission or a requirement to post another note. `requested_followup` selects
+the draft review path only: drafting must not send/post, change status, reassign,
+or resume any completed action. Reuse sufficient supplied evidence and fetch only
+material gaps through the existing recipe. If a reply still asks for needed
+information, explain the open/pending disposition internally rather than claiming
+the concern resolved. Router's buttons and final submission review own execution.
 
 Duplicate-profile / merge guardrail: run an Admin merge only when the records
 match on the same verified customer name and phone number, with the email being
@@ -190,8 +208,12 @@ requester's authority nor permits disclosure of private information. Distinguish
 investigations from routine fire-safety maintenance using the actual request.
 
 For company policy, services, eligibility or process questions, use the shared
-`kb-answer-for-callers` skill when the answer is missing, uncertain, potentially
-stale, or contradicted by available evidence. Research inside this Zendesk workflow;
+`kb-answer-for-callers` skill to verify current governing guidance and relevant
+topic-specific XA announcements/replies, consulting the maintained local shared
+topic reference when available. Reuse sufficient current evidence already read
+for this question; do not scan the entire channel or research unrelated policy
+for a record-only ticket. A saved answer or scheduled review alone is not a
+freshness check. Research inside this Zendesk workflow;
 do not require Sam to switch skills. Retain Zendesk's output and action boundaries.
 Compare the policy owner, effective date, scope and exceptions before using a
 disputed claim. Read the needed source, not merely its title or search snippet.
@@ -207,6 +229,12 @@ not authorize a save. Return corrected current draft boxes when the operator's
 correction changes them, independently of save status. A blocked policy save may
 still produce a researched draft with supported facts/uncertainty; it cannot be
 called a verified save or permission to send, post or change customer records.
+
+When the governing guidance already answers the ask, draft that customer reply.
+Do not replace a supported answer with a no-reply disposition: a failed self-serve
+attempt is not by itself an unresolved question. Use the first-fence no-reply
+disposition only when a specific question is genuinely open or case-specific
+direction requires it, and name that question in the note.
 
 ## Operator feedback and efficiency reviews
 
@@ -236,6 +264,19 @@ read or summary pass solely to populate the display; no fabricated action receip
    not a "Next action" section. Ranking, paste-time prerequisites and verification
    attribution belong in this appendix, not the internal-note copy box.
 4. Warm-up only (`ready`) → reply exactly: `Ready when you are.`
+5. Optional disposition side-output. When the request supplies a read-only
+   Zendesk disposition catalog plus this ticket's current disposition choices,
+   answer that question in the same turn as well: after the copy boxes, append
+   exactly one fence tagged `zendesk-disposition` holding a single JSON object
+   `{"fields":{"<field_id>":"<option_value>"},"reason":"<short explanation or missing fact>"}`.
+   Use only the supplied field IDs, option values and conditions; keep any
+   existing nonempty choice; leave an unsupported or ambiguous choice out rather
+   than guessing. Point of Contact is required before the operator can review or
+   send, so select it whenever the ticket evidence identifies the contact. This
+   fence is a machine hint for the operator's disposition form, never customer-
+   or agent-facing text: it does not replace, repeat or edit either copy box, and
+   it carries no send, post, status, assignment or other authorization. Omit it
+   entirely when the request supplies no disposition catalog.
 
 ## Voice skeleton (Sam)
 

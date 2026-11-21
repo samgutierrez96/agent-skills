@@ -13,6 +13,15 @@ conflicting guidance is unknown, not permission to improvise.
 - Distinguish customer-profile deletion from removing one property, public pages,
   photos/search results, mobile-app deletion and a state privacy request. Property
   absence and duplicate initial tickets alone do not create an objection.
+- **Mobile-app account deletion is a customer answer, not a hold.** When the ask is
+  deleting the app account, read the mobile-app account deletion passage in
+  SKILL.md → [Privacy and deletion requests](../SKILL.md#privacy-and-deletion-requests)
+  and reply with the documented in-app path (Account tab → Personal Information →
+  Request to delete account → confirm), plus the Help Center article's approved
+  fallback when the app errors or the option is missing. Point a customer who also
+  wants personal information deleted to `privacy.opendoor.com`. Do not withhold the
+  customer reply for a failed in-app attempt; hold only for a genuinely unresolved
+  request type or eligibility, and name that question.
 - For an initial profile-deletion request, follow the existing portal response
   and exact current website in the Privacy section. Do not add objection macros,
   directory disclaimers, an automatic Slack draft or an escalation workflow.

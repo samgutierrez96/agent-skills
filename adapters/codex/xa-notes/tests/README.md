@@ -21,7 +21,7 @@ python3 scripts/validate_xa_notes.py
 python3 scripts/test_validate_xa_notes.py
 ```
 
-The first command checks 36 stored expected examples. It does not generate
+The first command checks 37 stored expected examples. It does not generate
 model outputs. The second tests the validator itself, including deliberate
 failures. Neither command calls a model, OpsHub, Slack, tickets or a browser.
 
@@ -36,6 +36,12 @@ and transaction-coordinator names, preserving the stated action and caller
 posting target, and not substituting a different role/property's person when
 the requested name is unavailable. The supplied verified context is synthetic;
 these expected-output fixtures do not prove lookup or model compliance.
+
+November 20 adds the qualified acquisition profile's `experiencePartner.name`
+shape with a different customer's advisor as a distractor. The validator now
+requires the resolved name in Solution Offered itself; mentioning it only in
+another field does not pass. These are offline output checks, not generated
+model results, posting receipts or an under-20-second timing acceptance.
 
 All formerly missing shape examples now have synthetic expected outputs.
 New November 17 acceptance examples are synthetic, not observed model results.

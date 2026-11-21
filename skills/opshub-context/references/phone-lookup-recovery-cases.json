@@ -2,6 +2,26 @@
   "purpose": "Synthetic, tool-free maintenance decision cases. Never load these fixtures during customer work or invoke live actions to evaluate them.",
   "cases": [
     {
+      "id": "created_record_invalidates_prior_empty_budget",
+      "state": {"request":"I created the account, try again", "caller_phone":"+12025550101", "country":"US", "initial_empty":true, "retry_empty":true, "fallback_empty":true, "operator_reported_record_change":true, "recovery_since_change":[]},
+      "expected": {"action":"retry_phone", "phone":"2025550101", "preserve_original_workflow":true, "repeat_completed_actions":false}
+    },
+    {
+      "id": "created_record_fresh_empty_uses_alternate",
+      "state": {"request":"I created the account, try again", "caller_phone":"+12025550101", "country":"US", "operator_reported_record_change":true, "recovery_since_change":[{"tool":"list_customers", "phone":"2025550101", "customers":[]}]},
+      "expected": {"action":"retry_phone", "phone":"+12025550101"}
+    },
+    {
+      "id": "precreation_fallback_does_not_cover_new_record",
+      "state": {"request":"I saved the contact change, try again", "caller_phone":"+12025550101", "operator_reported_record_change":true, "fallback_empty_before_change":true, "fresh_initial_empty":true, "fresh_retry_empty":true, "fallback_since_change":false},
+      "expected": {"action":"global_search", "phone":"+12025550101", "verify_exact_current_phone":true}
+    },
+    {
+      "id": "changed_record_budget_exhausted_is_not_nonexistence",
+      "state": {"request":"Try again", "caller_phone":"+12025550101", "operator_reported_record_change":true, "same_reported_change":true, "fresh_initial_empty":true, "fresh_retry_empty":true, "fallback_since_change":"empty", "fresh_lookup_this_followup":"empty"},
+      "expected": {"action":"blocked", "claim_record_does_not_exist":false, "poll":false, "repeat_completed_actions":false}
+    },
+    {
       "id": "ten_digit_empty_uses_alternate_once",
       "state": {
         "request": "Post it",
