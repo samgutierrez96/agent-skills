@@ -671,6 +671,21 @@ not send, edit, or create another Slack message, and do not tell the XA that the
 Slack message is still unsent. Resolve the real Slack permalink and post the
 corresponding OpsHub CONTACT note.
 
+An existing discussion or older CONTACT note about the same issue does not
+document this new call. In a retained or fresh recovery session, reuse the
+original saved caller, request time, full prepared note and intervening answers,
+not just a historical Slack permalink. Treat a note as already posted for this
+request only when its caller CONTACT UUID, complete current-call body and
+creation time agree with this call, or its exact note ID is backed by this
+request's successful mutation receipt and current read. A shared address, closing
+timeframe or thread link alone is not a duplicate match. An old thread parent
+also does not prove the newly prepared follow-up was sent. If only an older or
+different note exists, finish the remaining authorized CONTACT post after the
+current Slack artifact is verified; never send Slack again for a note-only
+request. If current evidence is incomplete, report posting as unconfirmed,
+preserve the complete note, and name the actual missing evidence. Verification
+alone never posts, and a successful new note-ID receipt needs no extra read.
+
 If the XA clarifies “post it on OpsHub” after a
 draft/post-it exchange, treat it as a clarification of the same ticket. Do not
 restart the ticket, ask them to repeat the request, or bounce the permalink
@@ -961,6 +976,13 @@ Follow Up Link:
 ```
 
 Rules:
+- Never put internal app or transport detail in the note. Wording such as
+  "the Slack connector rejected the message", "delivery is unconfirmed",
+  "sending was blocked", a draft/thread ID, or "remains unsent" describes the
+  tooling, not the caller, and no one reading the record needs it. Solution
+  Offered states the customer-relevant action that happened (for example
+  "Escalated to Name and notified the coverage contact."). A genuine unresolved
+  blocker belongs in the operator-facing status, never inside the note body.
 - Put each value on the same line as its label. Keep one blank line
   between fields. Follow Up Link is blank except a found Shape B thread
   permalink, an XA-supplied Zendesk ticket URL, or on `post it` the Slack

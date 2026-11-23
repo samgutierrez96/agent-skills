@@ -138,3 +138,65 @@ for (const error of [null, 'unknown', Object.assign(Error('private data'), {clea
   assert.equal(f.calls[1][1].variables.input.params.phones.length, 2);
 }
 console.log('Contact cleanup: qualified one-pass edit/verify, preservation, dedup, no-op and uncertain-write gates passed.');
+
+for (const outcome of ['saved', 'lost-response', 'unchanged', 'wrong-name', 'wrong-email', 'changed-preference']) {
+  const original = clone(customer); original.lastName = 'Morgan (Example Appraisals)';
+  original.primaryEmail = email('alex.morgan@example.invalid');
+  const expected = clone(original); expected.lastName = 'Morgan'; expected.otherEmails = []; expected.otherPhoneNumbers = [];
+  let saved = clone(original), writes = 0, reads = 0;
+  const cleanup = fresh();
+  const options = {operationId: 'synthetic-name-request', mode: 'consolidate',
+    customerUuid: customer.uuid, primaryEmail: 'alex.morgan@example.invalid', callerPhone: '+12025550123',
+    identityVerified: true, cleanupAuthorized: true, accountConflict: false, detectionComplete: true,
+    nameCorrectionPending: true, nameCorrection: {firstName: 'Alex', lastName: 'Morgan'},
+    nameCorrectionConfirmed: true, planner,
+    readSavedContacts: async () => {
+      reads++;
+      const result = envelope(saved);
+      if (writes && outcome === 'changed-preference') result.preferences[0].checked = 'true';
+      return result;
+    },
+    updateCustomer: async request => {
+      writes++;
+      assert.deepEqual(clone(request.variables.input.params), {
+        firstName: 'Alex', lastName: 'Morgan',
+        emails: [{old: {address: 'other@example.invalid'}}],
+        phones: [{old: {number: '2025550123', type: 'OTHER'}}, {old: {number: '+12025550124', type: 'WORK'}}],
+      });
+      if (outcome !== 'unchanged') saved = clone(expected);
+      if (outcome === 'wrong-name') saved.lastName = original.lastName;
+      if (outcome === 'wrong-email') saved.primaryEmail.address.value = 'alex@example.invalid';
+      if (outcome === 'lost-response') throw Error('lost acknowledgement');
+      return {accepted: true};
+    }};
+  const result = await cleanup.run(options);
+  assert.equal(result.state, ['saved', 'lost-response'].includes(outcome) ? 'verified' : 'unconfirmed', outcome);
+  assert.equal(writes, 1); assert.equal(reads, 2);
+  assert.equal(await cleanup.run(options), result); assert.equal(writes, 1); assert.equal(reads, 2);
+  assert.equal((await cleanup.run({...options, nameCorrection: {firstName: 'Alex', lastName: 'Different'}})).reason,
+    'operation-scope-mismatch', 'a prior result cannot settle a different selected name');
+}
+for (const changes of [{nameCorrectionConfirmed: false}, {nameCorrection: {firstName: 'Alex'}},
+  {mode: 'repeated-phone'}, {priorWriteUncertain: true}, {cleanupAuthorized: false}]) {
+  const f = fixture({mode: 'consolidate', detectionComplete: true, primaryEmail: 'alex@example.invalid',
+    nameCorrectionPending: true, nameCorrection: {firstName: 'Alex', lastName: 'Morgan'},
+    nameCorrectionConfirmed: true, ...changes});
+  assert.equal((await fresh().run(f.options)).state, 'blocked');
+  assert.equal(f.calls.length, 0, 'unresolved name, authority or prior write stops before any tool');
+}
+console.log('PASS: confirmed name/contact single-save orchestration, unchanged primary email, receipt scope, no replay and full saved verification.');
+
+for (const malformed of ['alex.@example.invalid', 'alex @example.invalid', 'alex@example..invalid']) {
+  const f = fixture({mode: 'consolidate', detectionComplete: true, primaryEmail: malformed});
+  const result = await fresh().run(f.options);
+  assert.equal(result.state, 'blocked'); assert.equal(result.writeAttempted, false);
+  assert.equal(result.reason, 'email-format-confirmation-required');
+  assert.equal(result.emailFormatReview.originalEmail, malformed);
+  assert.equal(f.calls.length, 0, 'retained format evidence asks for a choice without new lookups or saves');
+}
+// Repeated-phone-only cleanup does not audit or change an unrelated email.
+const narrowLegacy = fixture(); const withLegacy = clone(customer);
+withLegacy.primaryEmail = email('alex.@example.invalid');
+narrowLegacy.options.readSavedContacts = async ({phase}) => envelope(phase === 'before' ? withLegacy : {...withLegacy, otherPhoneNumbers: cleaned.otherPhoneNumbers});
+assert.equal((await fresh().run(narrowLegacy.options)).state, 'verified');
+console.log('PASS: format correction requests stop before tools, preserve the retained case and do not broaden phone-only cleanup.');

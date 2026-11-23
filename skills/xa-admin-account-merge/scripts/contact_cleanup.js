@@ -17,9 +17,23 @@
     const last = p.editor.fields.find(f => f.name === 'lastName');
     if (!first || !last) throw Error('name-preservation-evidence-missing');
     const form = document.querySelector(p.editor.form_selector);
+    // Radix switches also render transparent, aria-hidden native inputs for
+    // form submission. Those inputs have dimensions, but are not a second
+    // Agent/preference control. Read the labelled public control exactly once.
     const roles = [...form.querySelectorAll('[role="switch"],[role="checkbox"],input[type="checkbox"]')]
-      .filter(visible).map(e => ({name: e.name || '', text: e.parentElement.innerText.trim(),
-        checked: e.getAttribute('aria-checked') ?? String(e.checked)}));
+      .filter(e => visible(e) && !e.closest('[aria-hidden="true"],[hidden],[inert]')
+        && getComputedStyle(e).opacity !== '0').map(e => {
+        const labels = [...(e.labels || [])].filter(label => form.contains(label) && visible(label));
+        const labelled = (e.getAttribute('aria-labelledby') || '').split(/\s+/).filter(Boolean)
+          .map(id => document.getElementById(id)).filter(label => label && form.contains(label) && visible(label));
+        const text = e.getAttribute('aria-label')?.trim()
+          || (labelled.length ? labelled : labels).map(label => label.innerText.trim()).join(' ')
+          || e.parentElement.innerText.trim();
+        const checked = e.getAttribute('aria-checked')
+          ?? (e.matches('input[type="checkbox"]') ? String(e.checked) : '');
+        if (!text || !['true', 'false'].includes(checked)) throw Error('preference-state-unavailable');
+        return {name: e.name || e.id || '', text, checked};
+      });
     const agents = roles.filter(r => r.text === 'Agent');
     if (agents.length !== 1 || !['true', 'false'].includes(agents[0].checked)) throw Error('agent-role-ambiguous');
     function contacts(prefix) {
@@ -58,7 +72,8 @@
   // One observation returns both readiness and complete saved editor evidence.
   function inspect(probe, snapshot, expectedUrl, allowedStates, timeoutMs) {
     const known = new Set(['saved-editor-unavailable', 'name-preservation-evidence-missing',
-      'agent-role-ambiguous', 'contact-list-incomplete', 'primary-state-ambiguous', 'phone-type-unavailable']);
+      'agent-role-ambiguous', 'preference-state-unavailable', 'contact-list-incomplete',
+      'primary-state-ambiguous', 'phone-type-unavailable']);
     const probeErrors = {
       'Customer page mismatch; no editor target resolved': 'customer-page-mismatch',
       'Ambiguous contact editor; inspect current state': 'ambiguous-contact-editor',
@@ -146,19 +161,31 @@
   function run(options = {}) {
     const {operationId, mode, customerUuid, primaryEmail, callerPhone, identityVerified,
       cleanupAuthorized, accountConflict, detectionComplete, nameCorrectionPending = false,
+      nameCorrection, nameCorrectionConfirmed = false,
       priorWriteUncertain = false, planner, readSavedContacts, updateCustomer} = options;
     if (!operationId || typeof operationId !== 'string' || !customerUuid
         || !['repeated-phone', 'consolidate'].includes(mode)) return Promise.resolve(stopped('missing-bound-operation'));
     // Decisions come from the owning skill and retained original request.
     // The helper never infers identity, a keeping contact or permission to edit.
+    const hasName = nameCorrection !== undefined;
+    const confirmedName = hasName && mode === 'consolidate'
+      && planner?.confirmedNameCorrection?.(nameCorrection, nameCorrectionConfirmed) === true;
     if (identityVerified !== true || cleanupAuthorized !== true || accountConflict !== false
-        || priorWriteUncertain !== false || nameCorrectionPending !== false
+        || priorWriteUncertain !== false || (hasName && !confirmedName)
+        || (nameCorrectionPending !== false && !(nameCorrectionPending === true && confirmedName))
         || (mode === 'consolidate' && detectionComplete !== true)) {
       return Promise.resolve(stopped('unresolved-identity-authority-detection-or-prior-write'));
     }
-    const signature = JSON.stringify([mode, customerUuid, primaryEmail, callerPhone]);
+    const signature = JSON.stringify([mode, customerUuid, primaryEmail, callerPhone,
+      hasName ? [nameCorrection.firstName, nameCorrection.lastName] : null]);
     const previous = attempts.get(operationId);
     if (previous) return previous.signature === signature ? previous.promise : Promise.resolve(stopped('operation-scope-mismatch'));
+    if (mode === 'consolidate') {
+      const emailFormatReview = planner?.reviewEmailFormat?.(primaryEmail);
+      if (emailFormatReview) return Promise.resolve({
+        ...stopped('email-format-confirmation-required'), emailFormatReview,
+      });
+    }
     if (typeof readSavedContacts !== 'function' || typeof updateCustomer !== 'function'
         || typeof planner?.verify !== 'function') return Promise.resolve(stopped('executor-unavailable'));
     const promise = (async () => {
@@ -167,10 +194,14 @@
         const before = copy(await readSavedContacts({phase: 'before', customerUuid}));
         if (before.persisted !== true || before.contactsComplete !== true) return stopped('saved-contacts-incomplete');
         const args = {customer: before.customer, customerUuid, primaryEmail, callerPhone,
-          identityVerified, cleanupAuthorized, accountConflict, contactsComplete: true, nameCorrectionPending};
+          identityVerified, cleanupAuthorized, accountConflict, contactsComplete: true,
+          nameCorrectionPending, nameCorrection, nameCorrectionConfirmed};
         stage = 'plan';
         plan = mode === 'repeated-phone' ? planner.planRepeatedPhone(args) : planner.plan(args);
-        if (!['ready', 'noop'].includes(plan.state)) return stopped(plan.reason || 'unsafe-contact-plan');
+        if (!['ready', 'noop'].includes(plan.state)) return {
+          ...stopped(plan.reason || 'unsafe-contact-plan'),
+          ...(plan.emailFormatReview ? {emailFormatReview: plan.emailFormatReview} : {}),
+        };
         if (plan.state === 'noop') {
           return planner.verify(plan, before.customer, true)
             ? {state: 'verified', customerUuid, writeAttempted: false, plan}
