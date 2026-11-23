@@ -70,5 +70,38 @@ try {
   assert.equal((await page.evaluate(read('read_case.js'))).closed,false);
   await page.evaluate(()=>{document.querySelector('[role=dialog]').remove();document.querySelector('main').innerText='Case Open\nThreat Triggers\nActivity\nCase Closed';});
   assert.equal((await page.evaluate(read('read_case.js'))).closed,false,'An old Activity entry cannot establish current closure');
-  console.log('Synthetic UI controls, delayed save, duplicate guards, and exact readback probes passed. Not a live Agent 360 capability test.');
+
+  // Bounded read-only waits: one call replaces a polling loop. They must never
+  // click, submit or treat a timeout as success.
+  await page.evaluate(()=>{
+    document.body.insertAdjacentHTML('beforeend','<p id="settled">Resolved</p><div id="saving" role="dialog">Saving</div>');
+    setTimeout(()=>{document.querySelector('#saving').remove();},300);
+  });
+  const immediate=await page.evaluate(controls.waitFor({present:[{selector:'#settled',text:'Resolved'}],timeoutMs:5000}));
+  assert.equal(immediate.ok,true);assert.equal(immediate.settled,true);
+  const cleared=await page.evaluate(controls.waitFor({absent:[{selector:'#saving',scope:'body'}],timeoutMs:5000}));
+  assert.equal(cleared.settled,true,'A dialog disappearing is a settled condition');
+  const timedOut=await page.evaluate(controls.waitFor({present:[{selector:'#never-appears'}],timeoutMs:600,intervalMs:100}));
+  assert.equal(timedOut.settled,false,'A missing element must not report settled');
+  assert.equal(timedOut.found,false,'A timeout fails the shared guard read by default');
+  await assert.rejects(async()=>guard.read({content:[{type:'text',text:JSON.stringify(timedOut)}]}),
+    'An unsettled wait must not pass the guard');
+  await page.evaluate(()=>{
+    const node=document.createElement('p');node.id='pending';node.textContent='Working';
+    document.body.append(node);
+    setTimeout(()=>{node.textContent='Ready';},400);
+  });
+  const delayed=await page.evaluate(controls.waitFor({present:[{selector:'#pending',text:'Ready'}],timeoutMs:5000,intervalMs:100}));
+  assert.equal(delayed.settled,true);assert.ok(delayed.elapsed_ms>=300,'It waits for the real transition instead of guessing');
+  assert.equal(guard.read({content:[{type:'text',text:JSON.stringify(delayed)}]}).settled,true,
+    'A settled wait passes the shared guard');
+  // A wait observes only: an adjacent clickable must not receive a stray click.
+  await page.evaluate(()=>{window.__clicks=0;const b=document.createElement('button');b.id='trap';b.textContent='Close case';
+    b.onclick=()=>{window.__clicks++;};document.body.append(b);});
+  for (const bad of [{},{present:[]},{present:[{selector:''}]},{present:[{selector:'#x'}],timeoutMs:0},
+    {present:[{selector:'#x'}],timeoutMs:99999},{present:[{selector:'#x'}],intervalMs:99999}])
+    assert.throws(()=>controls.waitFor(bad),'Invalid wait conditions fail closed');
+  await page.evaluate(controls.waitFor({present:[{selector:'#trap',text:'Close case'}],timeoutMs:1000,intervalMs:100}));
+  assert.equal(await page.evaluate('window.__clicks'),0,'Waiting never clicks or writes');
+  console.log('Synthetic UI controls, delayed save, duplicate guards, exact readback probes and bounded read-only waits passed. Not a live Agent 360 capability test.');
 } finally {await browser.close();}

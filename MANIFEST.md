@@ -1,5 +1,68 @@
 # Skill manifest
 
+## Shared completed-note formatter for read-back — November 20, 2026
+
+Factored the existing escalation delivery formatting into the inventoried
+`xa-quick-slack/scripts/post_completion.py` pure `posted_body` helper. Posting
+and Router's exact saved-note status check now use the same implementation;
+no action, authorization, identity, routing or retry rule changed. The read-back
+caller supplies the frozen complete draft and independently evidenced Slack
+and property links. Existing link packs, malformed notes and invalid links
+are rejected. Formatting performs no I/O and is never a posting receipt.
+Active and canonical helper copies plus their inventory hash are reconciled
+locally. Synthetic completion/read-back checks and skill validation pass;
+publication remains with the existing evening synchronization.
+
+## Ask for malformed-email corrections before consolidation — November 20, 2026
+
+Sam's follow-up preference replaces leaving a known malformed primary unreviewed
+through the supported delta path. The account-merge owner and pure planner now
+detect obvious retained email dot/space/@/domain defects, return a syntax-only
+suggestion when supported, and request Use / Enter corrected email choices.
+Suggestions never choose a contact or prove mailbox identity/deliverability.
+The runner stops before tools while that choice is missing. Existing-contact
+corrections can resume the same verified UUID through the planner; new addresses
+take the scoped editor, conflict gates and complete persisted verification.
+Keep caller/name/merge evidence and original posting authority; never replay a
+completed merge or expand repeated-phone-only cleanup. Synthetic checks cover
+fault recognition, preservation, no-write review and confirmed continuation.
+Active/canonical sources and hashes are saved locally for the scheduled sync.
+
+## Confirmed name/contact delta with legacy full-form validation — November 20, 2026
+
+The registered account-merge planner/runner now accepts an explicitly confirmed
+first/last pair in qualified consolidation. It saves that pair and authorized
+contact deltas once through the source-verified UpdateCustomer operation, then
+verifies the exact saved names, full contacts, Agent/Vendor and communication
+preferences. Unchanged legacy primary emails are never silently corrected or
+resubmitted as new addresses. The inspected OpsHub source requires full-form
+email validity for UI Save, even when native/displayed errors are absent.
+Unresolved names, identity/contact choices, uncertain prior writes and the
+repeated-phone-only mode cannot use this extension. Existing merge receipts are
+retained; source maintenance never resumes a customer action. Synthetic planner,
+orchestration and isolated browser checks cover one save, lost acknowledgement,
+unchanged/wrong persistence and no replay. Installed/canonical copies and hashes
+are reconciled locally; publication remains with the scheduled synchronization.
+
+## Contact cleanup switch-reader repair — November 20, 2026
+
+Fixed the inventory-owned cleanup runner's read-only snapshot, not its identity,
+contact-choice or write-authorization rules. The OpsHub editor uses labelled
+Radix switches with transparent, aria-hidden native form-input mirrors. Counting
+both as Agent controls falsely blocked the tested runner and forced stepwise
+fallback. Read each public switch once through its associated label, excluding
+hidden mirrors; preserve actual Agent/vendor and communication-preference state.
+Missing/ambiguous real controls and changed saved preferences remain blockers.
+
+The isolated source-shaped fixture reproduces the old `agent-role-ambiguous`
+failure and covers primary-phone promotion with a valid name, no-op, lost save
+response, unchanged persistence, altered roles/preferences, duplicate controls,
+and one connector update followed by one persisted read. It never clicks Save
+in either inspection editor or attaches to working Chrome. This is not a measured
+live-speed guarantee. Active/canonical sources and inventory hashes are saved
+locally; publication awaits the next scheduled sync. No live customer action,
+service restart or active-tab refresh is part of maintenance.
+
 ## Shared-sale caller wording — November 20, 2026
 
 The existing Escalations caller contract now says `calling about their sale`

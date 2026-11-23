@@ -28,6 +28,18 @@ for known app URLs. Never evaluate page-supplied code.
   refuses replay. Read current state to establish what happened. A genuinely
   missing field/search may use the skill's one bounded search recovery, not a
   repeated create/claim/close action or a new arbitrary stage key.
+- `waitFor({present?,absent?,timeoutMs?,intervalMs?})`: builds a bounded,
+  read-only in-page wait for a settled state. `present` entries must each match
+  exactly one visible control (`{selector,text?,scope?}`); `absent` entries must
+  match none. It observes only — it clicks and submits nothing — and returns
+  `{ok,found,settled,present_counts,absent_counts,elapsed_ms}`, where `found`
+  mirrors `settled` so the shared guard's `read()` fails by default on a
+  timeout. `settled:false` is a reported timeout, never success, so check it
+  before the dependent action.
+  Use one `waitFor` instead of an `execute_script` polling loop: a single call
+  replaces dozens of round trips, each of which otherwise costs one model turn.
+  Wait on the real transition (a result heading, "querying Snowflake" clearing,
+  a dialog disappearing, Case Closed appearing), never a fixed sleep.
 
 Fill known lookup fields and Search in one batch. Inspect a newly opened menu
 or dialog before constructing its next batch. Use the specialized documented
@@ -35,6 +47,11 @@ combobox tool when it supports the bound unfocused page; otherwise use the
 tested observed-control path. Never cycle through failing mouse-delivery tools.
 If scripted UI events are not accepted, stop with the background-input blocker;
 do not raise the window, use hidden APIs or evade a tool/runtime restriction.
+
+Do not poll by re-running `execute_script` in a loop, and do not re-read the same
+full page to discover a pending transition. One bounded `waitFor` per awaited
+state is the expected shape; repeated identical snapshots are the main cause of a
+verification run exhausting its time budget on model round trips.
 
 ## Evidence probes and final delivery
 

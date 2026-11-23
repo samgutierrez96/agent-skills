@@ -171,7 +171,19 @@ code across model turns. Evaluate the exact trusted helper and
 the `planner`, and documented `readSavedContacts` / `updateCustomer` callbacks.
 Consolidation also requires `detectionComplete: true` and the confirmed
 `primaryEmail`. These values come from the entry skill's completed gates, not
-from the helper. Pending name corrections and uncertain prior writes block it.
+from the helper. Check `planner.reviewEmailFormat(primaryEmail)` from retained
+evidence before execution. An `email-format-confirmation-required` result carries
+`emailFormatReview` with issue codes and an optional syntax-only suggestion;
+the runner returns this before any read/write. Present the entry skill's Use /
+Enter corrected email choices, not a generic disabled-Save dead end. A new
+corrected address takes the scoped editor below; the runner never fabricates a
+missing contact. For an explicitly selected exact first/last pair, also pass
+`nameCorrection: {firstName, lastName}` and `nameCorrectionConfirmed: true` in
+`consolidate` mode. `nameCorrectionPending: true` is allowed only with that
+complete confirmed pair; an unresolved choice or uncertain prior write blocks.
+The repeated-phone fast path never accepts a name correction. The operation's
+retained signature includes the exact pair, so another selection cannot reuse
+an earlier result. Omit name arguments to preserve existing names unchanged.
 `readSavedContacts({phase, customerUuid})` must return `{customer,
 contactsComplete: true, persisted: true, preferences}` from one current complete
 saved read, using the CustomerDetail shape below; never label unsaved form state
@@ -194,7 +206,8 @@ const outcome = await cleanup.run({operationId: retainedRequestId,
   updateCustomer: request => tools.mcp__opshub__call_operation(request)});
 store('contactCleanupOutcome', outcome);
 text({state: outcome.state, reason: outcome.reason,
-  writeAttempted: outcome.writeAttempted, failure: outcome.failure});
+  writeAttempted: outcome.writeAttempted, failure: outcome.failure,
+  emailFormatReview: outcome.emailFormatReview});
 ```
 
 Use the runtime's already-bound documented operation tool; the shown name is
@@ -205,8 +218,11 @@ a heading hidden by that editor. It opens each necessary Details/Edit control
 once through the guarded click tool, shares one ten-second readiness budget per
 visit, and combines editor readiness with the complete saved snapshot. After the
 connector write it revisits once for persisted verification. It decodes actual
-primary flags, phone types and role/preferences; missing or ambiguous evidence
-stops the batch with a safe `failure.stage` / `failure.code`. Do not add a separate input/type inventory or return
+primary flags, phone types and labelled public role/preference switches. Radix's
+transparent, `aria-hidden` native form inputs are mirrors, not additional Agent
+controls; associated labels supply stable names without changing any toggle.
+Missing state or genuinely ambiguous public controls still stop the batch with
+a safe `failure.stage` / `failure.code`. Do not add a separate input/type inventory or return
 to the model between these deterministic steps. The runner makes at most one
 update, reads persisted state once afterward (also after a lost response), and
 never retries an uncertain write. Repeated in-memory operation IDs share their
@@ -240,21 +256,44 @@ first/last pair `Customer` / `Customer` under the entry skill's rare fallback;
 this is not an invented personal identity or a substitute for normally
 obtaining the caller's real name.
 
+Reverified November 20, 2026: the same `editCustomerSchema` validates every email
+with `z.string().email()`, and Save requires the entire form's `isValid`. A
+legacy address with a dot immediately before `@` fails that validation even
+when the name/phone fields have no visible errors. Missing displayed errors or
+native `aria-invalid` flags do not establish schema validity. Do not silently
+remove that dot, substitute a secondary email, force Save, or attribute this to
+an OpsHub outage. Apply the entry skill's email-format correction choices before
+the next write, even when that malformed email was previously selected as the
+keeping account. Do not use omission of the malformed address from a delta as a
+substitute for that correction decision. Retain all completed merge receipts.
+After the exact corrected address is selected/supplied and its relevant account
+conflicts are resolved, keep an existing matching contact through the runner or
+replace the malformed primary in the supported scoped editor when the address
+is new to this profile. Save it with the confirmed name/removals once and verify
+the full persisted result. A still-disabled Save gets one focused full-form
+diagnostic; an actual backend rejection remains a concrete blocker, not success
+or permission to guess another address or retry an uncertain write.
+
 The same feature's `utils/buildCustomerUpdateParams.ts`,
 `utils/buildFieldDiffs.ts`, `graphql/mutations/UpdateCustomerMutation.ts` and
 `protobuf/customer/v1/services/customer.proto` establish a supported alternative:
 `UpdateCustomer` takes `variables.input = {uuid, params}`; `params.emails` and
 `params.phones` are arrays of **old/new deltas**, not replacement contact lists.
 Unchanged names are omitted, not required or repaired by this contact update.
+`buildCustomerUpdateParams.ts` also source-verifies scalar `params.firstName`
+and `params.lastName`, submitted together when a name changes. The tested
+planner/runner supports that exact combined name/contact delta only for an
+explicitly confirmed pair; it never infers or chooses one. It omits Agent,
+Vendor and communication-preference writes and verifies their saved state.
 Use the registered OpsHub `call_operation` connector for this captured operation,
 not an in-page fetch, hidden API, generic `edit_customer.fields` guess or direct
 Admin request. Existing identity, authorization, destination and result guards
 still apply; this is the authorized contact cleanup, not permission to bypass
 an access restriction or retry an uncertain mutation.
 
-When no name correction is pending and the retained profile is missing a name,
-prefer this path before opening a known-invalid full editor. Also use it after
-one scoped editor diagnostic establishes the name-validation blocker:
+Prefer this path for qualified consolidation, including a confirmed name pair,
+before opening a known-invalid full editor. Also use it after one scoped editor
+diagnostic establishes whole-form validation rather than repeating form edits:
 
 1. Reuse a fresh, complete persisted profile read on the resolved surviving UUID,
    including primary/other emails and primary/other phones with each phone's
@@ -283,9 +322,10 @@ one scoped editor diagnostic establishes the name-validation blocker:
    can be removed precisely; indistinguishable number/type tuples cannot be
    safely targeted and return a concrete ambiguity blocker. Never use a row
    index as an API identifier, strip all matches, or invent a phone type.
-   The plan omits firstName, lastName, isAgent and all communication preferences.
-   If an actual name correction was selected, use its existing combined
-   name/contact edit path instead of silently dropping that requested edit.
+   The plan omits isAgent and all communication preferences, and omits names
+   unless the exact pair is explicitly supplied and confirmed as above. With a
+   changed confirmed pair it includes both scalar name fields in this same
+   mutation; never silently drop the requested name edit or invent a payload.
 4. `noop` means no write: verify the complete fresh read and proceed.
    `blocked` means inspect/report the precise missing evidence or unsupported
    target; do not improvise another payload or turn an unavailable name into
@@ -298,8 +338,9 @@ one scoped editor diagnostic establishes the name-validation blocker:
    retry an uncertain write. Prefer an available genuine personal name.
 5. A mutation response is not contact verification. Read the complete saved
    profile once and require `verify(planResult, savedCustomer, true)` to return
-   true: exact surviving UUID, desired sole primary contacts/type, and unchanged
-   names/agent role. A dry-run preview is not a save receipt. On an uncertain
+   true: exact surviving UUID, desired sole primary contacts/type, the exact
+   confirmed name pair (or unchanged names when none was supplied), and unchanged
+   agent role. A dry-run preview is not a save receipt. On an uncertain
    response, reconcile persisted state before any retry; do not blindly repeat.
    Once verified, retain the receipt and continue the original authorized note
    exactly once under steps 7–8; do not reopen the verified Admin merge. The
@@ -345,10 +386,13 @@ removals/field changes sequentially in one guarded call, re-querying current row
 after removal. Read the resulting full fields and scoped Save readiness together
 and save once immediately when valid. Do not return to general discovery or
 pause on an already-ready editor. A disabled button alone does not establish why it is disabled:
-check the whole editor, including first/last-name errors and an unchanged blank
-surname, not just email/phone errors. If the unknown-name restriction above
-applies, continue with the supported contact-only path rather than hand the
-same edit back to the XA. Do not force-enable Save, invoke form handlers, fill
+check the whole editor, including first/last-name errors, an unchanged blank
+surname and retained legacy email syntax, not just visible email/phone errors.
+Use the supported delta path above for unchanged unknown names or an exact
+confirmed name pair rather than hand the same edit back to the XA. Never label
+the current edited form as persisted: reuse a complete pre-edit snapshot or
+obtain a fresh saved read in the workflow's own background window. Do not cancel
+operator-owned work or reopen Admin. Do not force-enable Save, invoke form handlers, fill
 unapproved placeholder surnames or change contact formatting to provoke
 validation. The exact `Customer` / `Customer` pair is permitted only under the
 entry skill's rare, operator-authorized unknown-name fallback.

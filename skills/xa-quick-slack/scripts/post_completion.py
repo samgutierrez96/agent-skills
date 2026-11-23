@@ -173,6 +173,18 @@ def match_message(result, snapshot, now):
     return matches.pop()
 
 
+def posted_body(body, slack_url, property_url):
+    """Pure delivery formatting shared by posting and exact note read-back."""
+    if (not isinstance(body, str) or note('```\n' + body + '\n```') != body
+            or body.split('Follow Up Link:', 1)[1].strip()
+            or not re.fullmatch(r'https://[a-zA-Z0-9.-]+\.slack\.com/archives/[A-Z0-9]+/p[0-9]+', slack_url or '')
+            or not re.fullmatch(PROPERTY, property_url or '')):
+        raise ValueError('The retained draft or verified delivery links are incomplete.')
+    body = re.sub(r'(?m)^Solution Offered: Prepared an escalation to (.+)$',
+                  r'Solution Offered: Escalated to \1', body)
+    return body.rstrip() + ' ' + slack_url + '\n\n' + property_url
+
+
 def complete(snapshot, call, before_write, confirmed, now=None):
     """One lexical lookup and one exact CONTACT post; no model or write retry."""
     now = time.time() if now is None else now
@@ -186,10 +198,7 @@ def complete(snapshot, call, before_write, confirmed, now=None):
         'content_types':'messages', 'include_context':False, 'limit':10,
         'sort':'timestamp', 'response_format':'detailed', 'natural_language_query':''})
     url = match_message(result, snapshot, now)
-    body = snapshot['body']
-    body = re.sub(r'(?m)^Solution Offered: Prepared an escalation to (.+)$',
-                  r'Solution Offered: Escalated to \1', body)
-    body = body.rstrip() + ' ' + url + '\n\n' + snapshot['property_url']
+    body = posted_body(snapshot['body'], url, snapshot['property_url'])
     args = {'operation_name':'CreateCustomerNote', 'dry_run':False, 'variables':{
         'contextType':'CONTACT', 'contextIdentifier':snapshot['customer_uuid'],
         'body':body, 'createdByToken':snapshot['operator']}}

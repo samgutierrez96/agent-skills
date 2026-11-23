@@ -56,5 +56,49 @@
       throw error;
     }
   }
-  return Object.freeze({build, stage});
+
+  // Read-only bounded in-page wait. One call replaces a polling loop of many
+  // execute_script round trips. It observes only; it clicks nothing, submits
+  // nothing and never retries a mutation. A timeout is reported, not inferred
+  // as success: callers must check `settled` before acting on the result.
+  function waitFor({present = [], absent = [], timeoutMs = 20000, intervalMs = 250} = {}) {
+    for (const spec of [...present, ...absent]) {
+      if (!spec || typeof spec.selector !== 'string' || !spec.selector ||
+          (spec.text !== undefined && typeof spec.text !== 'string') ||
+          (spec.scope !== undefined && typeof spec.scope !== 'string')) throw Error('Invalid wait condition');
+    }
+    if (!present.length && !absent.length) throw Error('A wait needs at least one condition');
+    if (!Number.isFinite(timeoutMs) || timeoutMs <= 0 || timeoutMs > 25000) throw Error('Wait timeout must be 1..25000 ms');
+    if (!Number.isFinite(intervalMs) || intervalMs <= 0 || intervalMs > 5000) throw Error('Wait interval must be 1..5000 ms');
+    return `(async () => {
+      const allowed = ['opshub.apps.opendoor.com','alfred.ops.opendoor.com','script.google.com'];
+      if (!allowed.includes(location.hostname) && !location.hostname.endsWith('.script.googleusercontent.com') && location.hostname !== 'script.googleusercontent.com' && location.hostname !== '127.0.0.1') throw Error('Unexpected workflow host');
+      const present = ${JSON.stringify(present)};
+      const absent = ${JSON.stringify(absent)};
+      const timeoutMs = ${timeoutMs};
+      const intervalMs = ${intervalMs};
+      const visible = e => !!(e.getClientRects().length) && getComputedStyle(e).visibility !== 'hidden';
+      const count = spec => {
+        const roots = spec.scope ? [...document.querySelectorAll(spec.scope)].filter(visible) : [document];
+        if (roots.length !== 1) return -1; // Missing or ambiguous scope is not a settled observation.
+        return roots[0].querySelectorAll(spec.selector).length
+          ? [...roots[0].querySelectorAll(spec.selector)].filter(e => visible(e) && (spec.text === undefined || e.textContent.trim() === spec.text)).length
+          : 0;
+      };
+      const started = Date.now();
+      const deadline = started + timeoutMs;
+      let presentCounts = [], absentCounts = [], settled = false;
+      for (;;) {
+        presentCounts = present.map(count);
+        absentCounts = absent.map(count);
+        settled = presentCounts.every(n => n === 1) && absentCounts.every(n => n === 0);
+        if (settled || Date.now() >= deadline) break;
+        await new Promise(resolve => setTimeout(resolve, intervalMs));
+      }
+      // found mirrors settled so the shared guard's read() rejects a timeout by
+      // default; an unsettled wait cannot be mistaken for a satisfied state.
+      return {ok:true, found:settled, settled, present_counts:presentCounts, absent_counts:absentCounts, elapsed_ms:Date.now() - started};
+    })()`;
+  }
+  return Object.freeze({build, stage, waitFor});
 })()

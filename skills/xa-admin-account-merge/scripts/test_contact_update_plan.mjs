@@ -128,3 +128,87 @@ assert.equal(api.planRepeatedPhone(repeated).reason,'caller-number-is-not-the-sa
 repeated=repeatedInput();delete repeated.customer.otherPhoneNumbers[0].type;
 assert.equal(api.planRepeatedPhone(repeated).state,'blocked');
 console.log('PASS: repeated-number-only read/edit/verify planning, no email choice, preserved distinct contacts, no account-conflict bypass and no live tools.');
+
+// An explicitly selected name can share the supported UpdateCustomer delta.
+// Preserve the selected primary; malformed addresses now need a correction choice.
+const namedInput = () => {
+  const x = input();
+  x.customer.firstName = 'Alex Jordan'; x.customer.lastName = 'Morgan (Example Appraisals)';
+  x.customer.primaryEmail = email('alex.jordan@example.invalid');
+  x.customer.otherEmails = [email('secondary@example.invalid')];
+  return {...x, primaryEmail: 'alex.jordan@example.invalid', nameCorrectionPending: true,
+    nameCorrection: {firstName: 'Alex Jordan', lastName: 'Morgan'}, nameCorrectionConfirmed: true};
+};
+const named = clone(api.plan(namedInput()));
+assert.equal(named.state, 'ready', 'confirmed first/last pair must not be dropped or force a full-form save');
+assert.deepEqual(named.request.variables.input.params, {
+  firstName: 'Alex Jordan', lastName: 'Morgan',
+  emails: [{old: {address: 'secondary@example.invalid'}}],
+  phones: [{old: {number: '+12025550123', type: 'HOME'}}],
+});
+const namedSaved = namedInput().customer;
+namedSaved.firstName = 'Alex Jordan'; namedSaved.lastName = 'Morgan';
+namedSaved.otherEmails = []; namedSaved.otherPhoneNumbers = [];
+assert.equal(api.verify(named, namedSaved, true), true);
+assert.equal(api.plan({...namedInput(), customer: namedSaved}).state, 'noop');
+for (const change of [c => {c.lastName = 'Morgan (Example Appraisals)';},
+  c => {c.primaryEmail.address.value = 'alex@example.invalid';}, c => {c.isAgent = true;}]) {
+  const wrong = clone(namedSaved); change(wrong);
+  assert.equal(api.verify(named, wrong, true), false, 'verify the selected name and unchanged keeping email');
+}
+for (const name of [null, {}, {firstName: 'Alex'}, {firstName: '', lastName: 'Morgan'},
+  {firstName: 'Alex', lastName: ' '}, {firstName: 'Alex', lastName: 'Morgan', isAgent: true}]) {
+  assert.equal(api.plan({...namedInput(), nameCorrection: name}).state, 'blocked');
+}
+assert.equal(api.plan({...namedInput(), nameCorrectionConfirmed: false}).state, 'blocked');
+assert.equal(api.plan({...namedInput(), nameCorrectionPending: false, nameCorrectionConfirmed: false}).state, 'blocked');
+assert.equal(api.planRepeatedPhone({...namedInput(), accountConflict: false}).state, 'blocked',
+  'narrow repeated-phone cleanup must not expand into a name edit');
+const nameOnly = {...namedInput(), customer: clone(namedSaved)};
+nameOnly.customer.lastName = 'Morgan (Example Appraisals)';
+assert.deepEqual(clone(api.plan(nameOnly)).request.variables.input.params,
+  {firstName: 'Alex Jordan', lastName: 'Morgan'}, 'omit every unchanged contact, role and preference');
+console.log('PASS: explicit confirmed name/contact delta, primary-email preservation, exact saved-name verification and unconfirmed-name guards.');
+
+for (const [original, suggested] of [
+  ['alex.@example.invalid', 'alex@example.invalid'],
+  [' alex@example.invalid ', 'alex@example.invalid'],
+  ['alex @ example.invalid', 'alex@example.invalid'],
+  ['alex..morgan+work@example.invalid', 'alex.morgan+work@example.invalid'],
+  ['alex@.example.invalid', null], ['alex@example..invalid', null],
+  ['alex@@example.invalid', null], ['alex@', null], ['alex@example', null],
+  ['alex@example.invalid other@example.invalid', null],
+]) {
+  const review = clone(api.reviewEmailFormat(original));
+  assert.equal(review.originalEmail, original);
+  assert.equal(review.suggestedEmail, suggested, original);
+  assert.ok(review.reasons.length);
+  const candidate = namedInput(); candidate.primaryEmail = original;
+  candidate.customer.primaryEmail = email(original);
+  const result = clone(api.plan(candidate));
+  assert.equal(result.state, 'blocked');
+  assert.equal(result.reason, 'email-format-confirmation-required');
+  assert.deepEqual(result.emailFormatReview, review);
+  assert.equal(result.request, undefined, 'a suggestion is not an authorized save');
+}
+for (const valid of ['alex.morgan+work@example.invalid', "o'neal@example.invalid", 'alex@example.invalid']) {
+  assert.equal(api.reviewEmailFormat(valid), null, 'preserve real dots, plus tags and spelling');
+}
+// A new corrected address is not yet attached to this customer. It takes the
+// reviewed scoped edit, never a fabricated contact-only removal payload.
+const unsavedCorrection = namedInput(); unsavedCorrection.primaryEmail = 'corrected@example.invalid';
+assert.equal(api.plan(unsavedCorrection).reason, 'missing-or-ambiguous-keeping-email');
+const retained = namedInput(); retained.customer.primaryEmail = email('alex.@example.invalid');
+retained.customer.otherEmails = [email('alex@example.invalid')]; retained.primaryEmail = 'alex.@example.invalid';
+assert.equal(api.plan(retained).reason, 'email-format-confirmation-required');
+const approved = clone(api.plan({...retained, primaryEmail: 'alex@example.invalid'}));
+assert.equal(approved.state, 'ready', 'an explicitly corrected existing contact resumes the same UUID');
+assert.equal(approved.request.variables.input.uuid, retained.customerUuid);
+assert.deepEqual(approved.request.variables.input.params.emails, [
+  {old: {address: 'alex.@example.invalid'}},
+  {old: {address: 'alex@example.invalid'}, new: {address: 'alex@example.invalid', makePrimary: true}},
+]);
+const approvedSaved = clone(retained.customer); approvedSaved.lastName = 'Morgan';
+approvedSaved.primaryEmail = email('alex@example.invalid'); approvedSaved.otherEmails = []; approvedSaved.otherPhoneNumbers = [];
+assert.equal(api.verify(approved, approvedSaved, true), true);
+console.log('PASS: malformed-email preflight, review-only suggestions, unchanged plus tags/dots, ambiguous manual entry and no save around a pending correction.');

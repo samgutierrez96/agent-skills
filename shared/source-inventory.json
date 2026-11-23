@@ -1,23 +1,23 @@
 {
-  "audited_on": "2026-11-20",
+  "audited_on": "2026-11-23",
   "scope": "Custom skills, shared browser selection/timing, project adapters and registered runtime dependencies",
   "files": [
     {
       "source": ".codex/skills/xa-admin-account-merge/scripts/contact_cleanup.js",
       "destination": "skills/xa-admin-account-merge/scripts/contact_cleanup.js",
-      "sha256": "6327c51ef04279d5e284e93de37f0ae10ff5bf0669692b91c5ee2957fb8ebfd9",
+      "sha256": "6d80f14c8f2e26b0a8bbd5bd7d6b963ced5b04c79793bf7260a8953394b541fa",
       "provenance": "November 20, 2026: qualified single-pass contact cleanup and synthetic verification; no live customer actions"
     },
     {
       "source": ".codex/skills/xa-admin-account-merge/scripts/test_contact_cleanup.mjs",
       "destination": "skills/xa-admin-account-merge/scripts/test_contact_cleanup.mjs",
-      "sha256": "03248b370ab1aeee3492aedfc0b2db0c024809122f475e39bb5ea78f0a374431",
+      "sha256": "663d39d1f1bb8468801e5720ac128f79a23afb9844b7bc81c3d3e8cf928785d7",
       "provenance": "November 20, 2026: qualified single-pass contact cleanup and synthetic verification; no live customer actions"
     },
     {
       "source": ".codex/skills/xa-admin-account-merge/scripts/test_contact_cleanup_browser.mjs",
       "destination": "skills/xa-admin-account-merge/scripts/test_contact_cleanup_browser.mjs",
-      "sha256": "95220c58f8fc05bc5317a90f90aecb05d90fdf40453d1c51b3fd9373bd377f00",
+      "sha256": "82ecef50f00c6d76f3fc1c2a6047bd83646611755714668f2e74a83c617647a1",
       "provenance": "November 20, 2026: qualified single-pass contact cleanup and synthetic verification; no live customer actions"
     },
     {
@@ -127,7 +127,7 @@
     {
       "source": ".codex/skills/agent-verification/SKILL.md",
       "destination": "skills/agent-verification/SKILL.md",
-      "sha256": "c2b132c529a5fe153305374e72fd0bbab753096854f7e98d447b9f91964cd9bf"
+      "sha256": "8f812a347da941dbebd6a6e874d5c3688fe7eb5a48268ef124bff749e2ecf954"
     },
     {
       "source": ".codex/skills/agent-verification/agents/openai.yaml",
@@ -157,12 +157,12 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/SKILL.md",
       "destination": "skills/xa-admin-account-merge/SKILL.md",
-      "sha256": "aa588f67291fbff6e524ac51843b63d728f1084002dcbe4da384a1c2c72fe5b3"
+      "sha256": "c99f01c9e3ac598010bb98ef9d3d4821bb09b6b6fc33881992cda31f6c44d06a"
     },
     {
       "source": ".codex/skills/xa-admin-account-merge/references/browser-execution.md",
       "destination": "skills/xa-admin-account-merge/references/browser-execution.md",
-      "sha256": "fc7faab829c9e689fb9af74a44f9ee0dda4eb70e5cb5cb6f6814beaab82627a4",
+      "sha256": "321ad5a6630f8ab5c661e06f2a395658e8ac239c1f6de5093f3e9ccbd7efd5b5",
       "provenance": "Existing browser execution and recovery procedures moved intact from the entry skill on November 17, 2026; load on demand after caller and contact decisions, preserving all action guards"
     },
     {
@@ -180,14 +180,14 @@
     {
       "source": ".codex/skills/xa-admin-account-merge/scripts/contact_update_plan.js",
       "destination": "skills/xa-admin-account-merge/scripts/contact_update_plan.js",
-      "sha256": "826cac3496f58266c958e78d089913d4f598546006ebd27faeb191f52df5f3bd",
-      "provenance": "November 19, 2026: source-verified contact-only UpdateCustomer delta planning and synthetic regression; preserves unknown names, typed contact identity, original authority and persisted verification; no live customer actions"
+      "sha256": "113e70be62144ab57674619c1969a742309e529dc4ec746c0bf441e7238dbbed",
+      "provenance": "November 20, 2026: source-verified combined confirmed-name/contact deltas, malformed-email review choices and synthetic regression; preserves identity, original authority, unrelated preferences and persisted verification; no live customer actions"
     },
     {
       "source": ".codex/skills/xa-admin-account-merge/scripts/test_contact_update_plan.mjs",
       "destination": "skills/xa-admin-account-merge/scripts/test_contact_update_plan.mjs",
-      "sha256": "0f5cd5c66395e2d6714d5653a8ed231388395a2a741994dba281d935f40bb0b6",
-      "provenance": "November 19, 2026: source-verified contact-only UpdateCustomer delta planning and synthetic regression; preserves unknown names, typed contact identity, original authority and persisted verification; no live customer actions"
+      "sha256": "23fca3e08d1dc1ce32096a78ed1b624728a03f06ffb86615e31ae6ce44f38fcd",
+      "provenance": "November 20, 2026: source-verified combined confirmed-name/contact deltas, malformed-email review choices and synthetic regression; preserves identity, original authority, unrelated preferences and persisted verification; no live customer actions"
     },
     {
       "source": "Documents/ChatGPT Work/XA Post Call Notes/scripts/validate_xa_notes.py",
@@ -255,12 +255,12 @@
     {
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/SKILL.md",
       "destination": "skills/xa-quick-slack/SKILL.md",
-      "sha256": "35837f4562d2e16ae36fecf5e00b4104fb686567587c8eea9736595eba193238"
+      "sha256": "6fd455f642a809904f11f0a72dd11c15369d5211343e9a7487822d7bf5ff89d0"
     },
     {
       "source": "Documents/ChatGPT Work/Escalations/.agents/skills/xa-quick-slack/scripts/post_completion.py",
       "destination": "skills/xa-quick-slack/scripts/post_completion.py",
-      "sha256": "8ef340ebfa0c32cde069436dca65f3af77bd1c338b3e12e624d3c4cd23eb4a03",
+      "sha256": "ff547d2f8c419149dd1d6f65b425b88cf0a3446ea6109120bb2db6b839aeac91",
       "runtime_role": "post-completion-v1"
     },
     {
@@ -484,7 +484,7 @@
     {
       "source": ".codex/skills/agent-verification/references/execution.md",
       "destination": "skills/agent-verification/references/execution.md",
-      "sha256": "b022cc956e5a42a11529738549442a9ae8037c717e91fc4b90d01f08320206c6"
+      "sha256": "c0fb2022ca42a3c3e8a2edee26712b1481e0c56fcfba8a2f7596b9c75ac034fa"
     },
     {
       "source": ".codex/skills/agent-verification/references/post-verification-notes.md",
@@ -516,12 +516,12 @@
     {
       "source": ".codex/skills/agent-verification/scripts/controls.js",
       "destination": "skills/agent-verification/scripts/controls.js",
-      "sha256": "00b8230abb8182e8bb1cb6c33e9142923206bdd8bd01232be509079361228879"
+      "sha256": "3a0bb1064fd78047a7571fef195c5c3b09270e9215f2940e784d0f7531d64fce"
     },
     {
       "source": ".codex/skills/agent-verification/scripts/test_controls.mjs",
       "destination": "skills/agent-verification/scripts/test_controls.mjs",
-      "sha256": "3271744de28acb5aeaa72a2fb290d782222c0f80e491251bb3eaa20929b28a60"
+      "sha256": "aa5acf79d3a0577777b6e82198c5d629ff846bc914b8bc06d809b44b10f91796"
     },
     {
       "source": "Documents/ChatGPT Work/Zendesk/skills/zendesk-record-retrieval/recipes/agent-assessment-photos.md",

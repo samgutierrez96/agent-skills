@@ -17,19 +17,27 @@ const browser = await chromium.launch({headless: true,
 try {
   const context = await browser.newContext();
   let cleaned = false, navigations = 0, updates = 0, warning = false, layout = 'expanded';
-  let lostResponse = false, preserveWrite = true, damageAfter = false;
+  let lostResponse = false, preserveWrite = true, damageAfter = false, promote = false, named = false, nameFix = false;
   const calls = [];
   const fixture = () => `<main><button id="details" ${layout === 'collapsed' ? '' : 'hidden'}>Details</button>
     <section id="customer" ${layout === 'collapsed' ? 'hidden' : ''}><header ${layout === 'open' ? 'hidden' : ''}><span>Customer Info</span><button id="edit">Edit</button></header>
-    <form ${layout === 'open' ? '' : 'hidden'}><input name="firstName" value="Alex"><input name="lastName" value="">
-      <div><input name="emails.0.email" value="alex@example.invalid"><button type="button" aria-pressed="true">Primary</button></div>
+    <form ${layout === 'open' ? '' : 'hidden'}><input name="firstName" value="Alex"><input name="lastName" value="${nameFix ? cleaned ? 'Morgan' : 'Morgan (Example Appraisals)' : named ? 'Morgan' : ''}">
+      <div><input name="emails.0.email" value="${nameFix ? 'alex.morgan@example.invalid' : 'alex@example.invalid'}"><button type="button" aria-pressed="true">Primary</button></div>
       <div><input name="emails.1.email" value="other@example.invalid"><button type="button" aria-pressed="false">Make primary</button></div>
-      <div><input name="phones.0.number" value="+12025550123"><button type="button" role="combobox">Mobile</button><button type="button" aria-pressed="true">Primary</button></div>
+      <div><input name="phones.0.number" value="${promote && !cleaned ? '+12025550125' : '+12025550123'}"><button type="button" role="combobox">${promote && cleaned ? 'Other' : 'Mobile'}</button><button type="button" aria-pressed="true">Primary</button></div>
       ${cleaned ? '' : '<div><input name="phones.1.number" value="2025550123"><button type="button" role="combobox">Other</button><button type="button" aria-pressed="false">Make primary</button></div>'}
       <div><input name="phones.${cleaned ? 1 : 2}.number" value="+12025550124"><button type="button" role="combobox">Work</button><button type="button" aria-pressed="false">Make primary</button></div>
-      <label><button type="button" role="switch" aria-checked="false"></button>Agent</label>
-      <label><button type="button" role="switch" aria-checked="true"></button>SMS allowed</label>
-      <button type="submit" disabled>Save</button>
+      <div><label for="isAgent">Agent</label><button id="isAgent" type="button" role="switch" aria-checked="${named}"><span></span></button>
+        <input type="checkbox" aria-hidden="true" tabindex="-1" style="position:absolute;opacity:0;pointer-events:none" ${named ? 'checked' : ''}></div>
+      <div><label for="isVendor">Vendor</label><button id="isVendor" type="button" role="switch" aria-checked="false"><span></span></button>
+        <input type="checkbox" aria-hidden="true" tabindex="-1" style="position:absolute;opacity:0;pointer-events:none"></div>
+      <div><div><label for="smsMarketing">SMS Marketing</label><p>Enrolled</p></div>
+        <button id="smsMarketing" type="button" role="switch" aria-checked="true"><span></span></button>
+        <input type="checkbox" aria-hidden="true" tabindex="-1" style="position:absolute;opacity:0;pointer-events:none" checked></div>
+      <div><div><label for="callMarketing">Call Marketing</label><p>Unenrolled</p></div>
+        <button id="callMarketing" type="button" role="switch" aria-checked="false"><span></span></button>
+        <input type="checkbox" aria-hidden="true" tabindex="-1" style="position:absolute;opacity:0;pointer-events:none"></div>
+      <button type="submit" ${named && !nameFix ? '' : 'disabled'}>Save</button>
     </form></section><section><span>Agent Info</span><button id="wrong">Edit</button></section>
     <script>document.querySelector('#details').onclick=()=>{document.querySelector('#customer').hidden=false;document.querySelector('#details').hidden=true;};
       document.querySelector('#edit').onclick=()=>{document.querySelector('form').hidden=false;document.querySelector('#customer header').hidden=true;};
@@ -49,6 +57,7 @@ try {
       throw Error('Ready editor must not wait for a hidden Customer Info heading: ' + selector);
     },
     mcp__browser_mcp__browser_click: async ({selector}) => {
+      if (await page.locator(selector).getAttribute('type') === 'submit') calls.push('save');
       calls.push('click'); await page.locator(selector).click();
       return response(warning ? {ok: false, maybe_landed: true} : {ok: true});
     },
@@ -58,11 +67,17 @@ try {
   };
   for (const scenario of [{layout: 'expanded'}, {layout: 'collapsed'}, {layout: 'open'},
     {layout: 'collapsed', warning: true}, {layout: 'open', noop: true},
-    {layout: 'collapsed', mode: 'consolidate'}, {layout: 'collapsed', lost: true},
-    {layout: 'collapsed', unchanged: true}, {layout: 'collapsed', damaged: true}]) {
+    {layout: 'collapsed', mode: 'consolidate'}, {layout: 'open', mode: 'consolidate', promote: true, named: true},
+    {layout: 'open', mode: 'consolidate', correction: true, named: true},
+    {layout: 'collapsed', mode: 'consolidate', correction: true, named: true, lost: true},
+    {layout: 'open', mode: 'consolidate', correction: true, named: true, unchanged: true},
+    {layout: 'open', mode: 'consolidate', correction: true, named: true, damaged: true},
+    {layout: 'collapsed', lost: true}, {layout: 'collapsed', unchanged: true}, {layout: 'collapsed', damaged: true},
+    ...['isAgent', 'isVendor', 'smsMarketing', 'callMarketing'].map(damaged => ({layout: 'open', damaged}))]) {
     layout = scenario.layout; cleaned = false; warning = scenario.warning || false; calls.length = 0;
     cleaned = scenario.noop || false;
     lostResponse = scenario.lost || false; preserveWrite = !scenario.unchanged; damageAfter = scenario.damaged || false;
+    promote = scenario.promote || false; named = scenario.named || false; nameFix = scenario.correction || false;
     await page.goto(expectedUrl);
     // functions.exec has no URL, document, timers, process or require.
     const cleanup = vm.runInNewContext(helperSource);
@@ -75,11 +90,20 @@ try {
     const options = {operationId: 'synthetic-request', mode: scenario.mode || 'repeated-phone',
       customerUuid: 'synthetic-caller', callerPhone: '+12025550123', identityVerified: true,
       cleanupAuthorized: true, accountConflict: false, planner, readSavedContacts: reader,
-      ...(scenario.mode === 'consolidate' ? {detectionComplete: true, primaryEmail: 'alex@example.invalid'} : {}),
+      ...(scenario.mode === 'consolidate' ? {detectionComplete: true,
+        primaryEmail: nameFix ? 'alex.morgan@example.invalid' : 'alex@example.invalid'} : {}),
+      ...(nameFix ? {nameCorrectionPending: true, nameCorrectionConfirmed: true,
+        nameCorrection: {firstName: 'Alex', lastName: 'Morgan'}} : {}),
       updateCustomer: async request => {
         calls.push('update'); updates++;
         if (!scenario.mode) assert.deepEqual(JSON.parse(JSON.stringify(request.variables.input.params)), {
           phones: [{old: {number: '2025550123', type: 'OTHER'}}]});
+        if (nameFix) {
+          assert.equal(request.variables.input.params.firstName, 'Alex');
+          assert.equal(request.variables.input.params.lastName, 'Morgan');
+          assert.deepEqual(JSON.parse(JSON.stringify(request.variables.input.params.emails)),
+            [{old: {address: 'other@example.invalid'}}], 'never rewrite the selected primary email');
+        }
         cleaned = preserveWrite;
         if (lostResponse) throw Error('synthetic lost reply');
         return response({accepted: true});
@@ -92,12 +116,16 @@ try {
         await page.locator('input[name="emails.1.email"]').locator('..').evaluate(e => e.remove());
         await page.locator('input[name="phones.1.number"]').locator('..').evaluate(e => e.remove());
       }
-      if (damageAfter) await page.locator('input[name="lastName"]').evaluate(e => e.value = 'Unrequested');
+      if (damageAfter === true) await page.locator('input[name="lastName"]').evaluate(e => e.value = 'Unrequested');
+      else if (damageAfter) await page.locator('#' + damageAfter).evaluate(e => {
+        e.setAttribute('aria-checked', String(e.getAttribute('aria-checked') !== 'true'));
+      });
       return result;
     };
     const result = await cleanup.run(options);
     tools.mcp__browser_mcp__browser_navigate = originalNavigate;
-    assert.equal(result.state, scenario.unchanged || scenario.damaged ? 'unconfirmed' : 'verified');
+    assert.equal(result.state, scenario.unchanged || scenario.damaged ? 'unconfirmed' : 'verified',
+      JSON.stringify({scenario, failure: result.failure}));
     assert.equal(updates - oldUpdates, scenario.noop ? 0 : 1);
     assert.equal(navigations - oldNavigations, scenario.noop ? 0 : 1, 'at most one persisted-state revisit');
     const perVisit = layout === 'collapsed' ? 2 : layout === 'open' ? 0 : 1;
@@ -106,15 +134,22 @@ try {
     assert.equal(calls.filter(c => c === 'read').length, (perVisit + 1) * visits,
       'each ready state is read once; the final editor read includes complete saved evidence');
     assert.equal(calls.includes('wait'), false, 'no redundant heading/input wait or hidden-heading timeout');
+    assert.equal(calls.includes('save'), false, 'the editor is read-only before and after the single connector update');
+    if (nameFix) {
+      assert.equal(await page.locator('input[name="emails.0.email"]').inputValue(), 'alex.morgan@example.invalid');
+      assert.equal(await page.locator('button[type="submit"]').isDisabled(), true,
+        'an inspection editor cannot force a UI save or suppress persisted delta verification');
+    }
     assert.equal(await page.locator('input[name^="phones."]').count(), scenario.unchanged ? 3 : scenario.mode ? 1 : 2);
-    assert.equal(await page.locator('input[name^="emails."]').count(), scenario.mode ? 1 : 2, 'preserve emails unless qualified consolidation selected');
+    assert.equal(await page.locator('input[name^="emails."]').count(), scenario.mode && !scenario.unchanged ? 1 : 2,
+      'preserve emails unless qualified consolidation actually persisted');
     const settledCalls = calls.length;
     assert.equal(await cleanup.run(options), result, 'repeat returns the original outcome, including an uncertain save');
     assert.equal(calls.length, settledCalls, 'never re-read, re-open or re-save on a duplicate operation');
     await assert.rejects(reader({phase: scenario.noop ? 'before' : 'after', customerUuid: 'synthetic-caller'}),
       /unexpected-contact-read/, 'no extra verification loop');
   }
-  layout = 'expanded';
+  layout = 'expanded'; promote = false; named = false; damageAfter = false; nameFix = false;
   const cleanup = vm.runInNewContext(helperSource);
   assert.throws(() => cleanup.agent360Reader({tools, guard, probeSource, expectedUrl}), /fresh-owned-task-window/);
   cleaned = false; calls.length = 0;
@@ -181,12 +216,25 @@ try {
   const snapshot = await page.evaluate(snapshotCode);
   assert.equal(snapshot.customer.lastName, '', 'unknown names are preserved, not repaired');
   assert.equal(snapshot.customer.isAgent, false);
+  assert.deepEqual(snapshot.preferences.map(r => [r.name, r.text, r.checked]), [
+    ['isAgent', 'Agent', 'false'], ['isVendor', 'Vendor', 'false'],
+    ['smsMarketing', 'SMS Marketing', 'true'], ['callMarketing', 'Call Marketing', 'false'],
+  ], 'use labelled public switches once, excluding the rendered Radix form-input mirrors');
+  assert.ok(await page.locator('input[aria-hidden="true"]').first().evaluate(e => e.getClientRects().length),
+    'the old dimensions-only visibility filter includes the hidden mirror and reproduces the failure');
   assert.equal(await page.content(), unchanged, 'complete snapshot is read-only');
   await page.locator('button[role="combobox"]').first().evaluate(e => e.textContent = 'Unknown');
   await assert.rejects(page.evaluate(snapshotCode), /phone-type-unavailable/);
   await page.goto(expectedUrl); await page.locator('#edit').click();
   await page.locator('button[aria-pressed]').first().evaluate(e => e.removeAttribute('aria-pressed'));
   await assert.rejects(page.evaluate(snapshotCode), /primary-state-ambiguous/);
+  await page.goto(expectedUrl); await page.locator('#edit').click();
+  await page.locator('form').evaluate(e => e.insertAdjacentHTML('beforeend',
+    '<label>Agent<button type="button" role="switch" aria-checked="true"></button></label>'));
+  await assert.rejects(page.evaluate(snapshotCode), /agent-role-ambiguous/, 'real duplicate Agent controls still block');
+  await page.goto(expectedUrl); await page.locator('#edit').click();
+  await page.locator('#smsMarketing').evaluate(e => e.removeAttribute('aria-checked'));
+  await assert.rejects(page.evaluate(snapshotCode), /preference-state-unavailable/, 'missing state is not false');
   await page.goto('https://opshub.apps.opendoor.com/customers/wrong');
   await assert.rejects(page.evaluate(snapshotCode), /Customer page mismatch/);
   await context.close();

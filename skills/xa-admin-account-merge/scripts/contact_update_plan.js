@@ -9,6 +9,34 @@
     return digits.length === 11 && digits.startsWith('1') ? digits.slice(1) : digits;
   };
   const blocked = reason => ({state: 'blocked', reason});
+  // Conservative preflight for obvious formatting faults, not mailbox identity,
+  // deliverability, or a replacement for OpsHub's complete schema validation.
+  function reviewEmailFormat(value) {
+    if (typeof value !== 'string' || !value) return null;
+    const reasons = [];
+    if (/\s/.test(value)) reasons.push('whitespace');
+    const parts = value.replace(/\s/g, '').split('@');
+    if (parts.length !== 2 || parts.some(part => !part)) reasons.push('missing-or-multiple-at-sign');
+    else {
+      if (/^\.|\.$|\.\./.test(parts[0])) reasons.push('local-dot-placement');
+      if (/^\.|\.$|\.\./.test(parts[1]) || !parts[1].includes('.')) reasons.push('domain-dot-placement');
+    }
+    if (!reasons.length) return null;
+    let suggestedEmail = null;
+    if (parts.length === 2) {
+      const local = parts[0].replace(/^\.+|\.+$/g, '').replace(/\.{2,}/g, '.');
+      const domain = parts[1];
+      // Offer only punctuation/space cleanup of supplied characters. Never
+      // invent a domain, remove legitimate interior dots/+tags or select it.
+      if (/^[A-Z0-9_+.!#$%&'*\/=?^{}|~-]+$/i.test(local)
+          && !/^\.|\.$|\.\./.test(local)
+          && /^(?:[A-Z0-9](?:[A-Z0-9-]*[A-Z0-9])?\.)+[A-Z]{2,63}$/i.test(domain)) {
+        const candidate = local + '@' + domain;
+        if (candidate !== value && candidate.length <= 254) suggestedEmail = candidate;
+      }
+    }
+    return {originalEmail: value, reasons, suggestedEmail};
+  }
   function read(customer) {
     if (!customer || typeof customer.uuid !== 'string'
         || typeof customer.firstName !== 'string' || typeof customer.lastName !== 'string'
@@ -29,13 +57,26 @@
     });
     return {emails, phones};
   }
+  const confirmedNameCorrection = (name, confirmed) => confirmed === true && name !== null
+    && typeof name === 'object' && !Array.isArray(name) && Object.keys(name).length === 2
+    && ['firstName', 'lastName'].every(key => Object.hasOwn(name, key)
+      && typeof name[key] === 'string' && name[key].trim().length > 0);
   function plan({customer, customerUuid, primaryEmail, callerPhone, identityVerified,
-                 cleanupAuthorized, contactsComplete, nameCorrectionPending = false} = {}) {
-    if (nameCorrectionPending !== false) return blocked('pending-name-correction');
+                 cleanupAuthorized, contactsComplete, nameCorrectionPending = false,
+                 nameCorrection, nameCorrectionConfirmed = false} = {}) {
+    const hasName = nameCorrection !== undefined;
+    if (hasName && !confirmedNameCorrection(nameCorrection, nameCorrectionConfirmed)) {
+      return blocked('unconfirmed-or-incomplete-name-correction');
+    }
+    if (nameCorrectionPending !== false && !(nameCorrectionPending === true && hasName)) {
+      return blocked('pending-name-correction');
+    }
     if (identityVerified !== true || cleanupAuthorized !== true || contactsComplete !== true) {
       return blocked('unresolved-identity-authority-or-completeness');
     }
     if (!customerUuid || customer?.uuid !== customerUuid) return blocked('customer-mismatch');
+    const emailFormatReview = reviewEmailFormat(primaryEmail);
+    if (emailFormatReview) return {...blocked('email-format-confirmation-required'), emailFormatReview};
     const wantedEmail = emailKey(primaryEmail);
     const wantedPhone = phoneKey(callerPhone);
     if (!wantedEmail || wantedPhone.length !== 10) return blocked('missing-confirmed-email-or-caller-phone');
@@ -67,10 +108,15 @@
       new: {number: keepPhone.number, type: keepPhone.type, makePrimary: true},
     });
     const params = {};
+    if (hasName && (nameCorrection.firstName !== customer.firstName || nameCorrection.lastName !== customer.lastName)) {
+      params.firstName = nameCorrection.firstName;
+      params.lastName = nameCorrection.lastName;
+    }
     if (emailDiffs.length) params.emails = emailDiffs;
     if (phoneDiffs.length) params.phones = phoneDiffs;
     const expected = {
-      uuid: customerUuid, firstName: customer.firstName, lastName: customer.lastName,
+      uuid: customerUuid, firstName: hasName ? nameCorrection.firstName : customer.firstName,
+      lastName: hasName ? nameCorrection.lastName : customer.lastName,
       isAgent: customer.isAgent, email: keepEmail.address, phone: keepPhone.number, phoneType: keepPhone.type,
     };
     return Object.keys(params).length ? {
@@ -83,7 +129,9 @@
     phones: contacts.phones.map(p => [phoneKey(p.number), p.type, p.primary]).sort(),
   });
   function planRepeatedPhone({customer, customerUuid, callerPhone, identityVerified,
-                             cleanupAuthorized, contactsComplete, accountConflict} = {}) {
+                             cleanupAuthorized, contactsComplete, accountConflict,
+                             nameCorrectionPending = false, nameCorrection} = {}) {
+    if (nameCorrectionPending !== false || nameCorrection !== undefined) return blocked('pending-name-correction');
     if (identityVerified !== true || cleanupAuthorized !== true || contactsComplete !== true
         || accountConflict !== false) return blocked('unresolved-identity-authority-completeness-or-account-conflict');
     if (!customerUuid || customer?.uuid !== customerUuid) return blocked('customer-mismatch');
@@ -120,5 +168,5 @@
       && phoneKey(contacts.phones[0].number) === phoneKey(e.phone)
       && contacts.phones[0].type === e.phoneType;
   }
-  return {plan, planRepeatedPhone, verify};
+  return {plan, planRepeatedPhone, verify, confirmedNameCorrection, reviewEmailFormat};
 })()
