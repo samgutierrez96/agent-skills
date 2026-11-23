@@ -1,5 +1,81 @@
 # Skill manifest
 
+## First-review ticket consolidation and verified continuation — November 23, 2026
+
+The Zendesk fast index routes offer reconsideration/low-offer disputes through
+the existing bounded related-concern search on the initial review, before asking
+for an address or waiting for another customer reply. Verify identity, relevant
+property and concern; retained sufficient checks are reused, not broadened into
+an inbox-wide merge scan. The existing consolidation recipe now distinguishes
+normal separately reviewed destination replies from optional draft refreshes
+after a verified merge. Uncertain outcomes never authorize another merge/send.
+The three active source files, canonical mirrors and inventory hashes agree.
+Provider-free source/revision checks and skill validation pass. No customer case
+or action was saved here. Changes remain local for the scheduled evening sync.
+
+## IDV evidence mapping and same-call XA handoff — November 23, 2026
+
+Updated the Agent Verification owner and post-verification note reference to
+use settled caller-matching Full Results rather than loading placeholders or
+historical threat labels. A completed populated matching Mitek response maps to
+Y and ID under the XA note convention; established phone/email matches remain
+listed independently, including when Mitek is absent. Supported saved Allow
+notes use Red Flags: None instead of repeating resolved historical warnings.
+Actual current failures, identity conflicts and unreadable results retain their
+review/documentation blocker; no underlying audit history is removed. Synthetic
+acceptance cases cover the populated, absent, loading and conflicting branches.
+The same owning handoff accepts sufficient call shorthand before or after
+verification and reuses caller/property and independent note receipts. Late
+appointment facts continue only the remaining authorized XA note, without a
+generic concern/resolution interview, repeated identifiers or invented times.
+Decision-only/no-post limits and uncertain first-note readback remain intact.
+Active/canonical sources and inventory hashes are reconciled locally. This is
+source maintenance only: no customer note, case, status or browser was changed.
+Publication remains with the scheduled evening synchronization.
+
+## Verification frame compatibility and manual handoff — November 23, 2026
+
+The inventoried Agent Verification control and bounded-wait builders now accept
+Google Apps Script's generated hyphenated `*-script.googleusercontent.com`
+frame hosts without accepting unrelated `googleusercontent.com` hosts or
+lookalike suffixes. Intercepted synthetic pages exercise allowed and rejected
+origins, no partial fill on rejection, and a cross-origin generated-host frame.
+Verification cleanup preserves workflow pages on blocked, uncertain and manual
+decision handoffs; completed work keeps its existing terminal cleanup. An
+operator-reserved decision is not selected or submitted automatically. Active
+and canonical files plus inventory hashes are reconciled locally. Publication
+remains with the scheduled evening synchronization; customer outcomes are not
+recorded here or inferred from these synthetic checks.
+
+## Baseline closing window plus scoped holiday wording - November 23, 2026
+
+Sam clarified that the standard non-homebuilder window remains 21 to 60 days;
+the dated affected-offer January timing is additional, not a replacement.
+The owning Notes template now keeps separate standard and explicitly stated
+holiday examples, preserving the homebuilder range, cohort/current-option
+checks, existing-contract exceptions and no-invented-call-facts boundary.
+Active/canonical Notes, the independent global Notes template, local-only topic
+reference and inventory hashes are saved together. Other workflow guards already
+carry the same scope. No policy version was retired/reactivated or customer
+operation performed. Skill publication remains with the existing evening sync.
+
+
+## Dated year-end closing-cohort guard — November 23, 2026
+
+Reconciled the November owner/XA announcements with unqualified generic closing
+window wording. Affected new/refreshed year-end offers default to January 2027;
+already-active offers and existing contracts retain separate treatment. The
+scoped forced-January extended-fee safeguard is not a blanket fee waiver. Earlier
+date/offer-option review through HSA is distinct from actual contract-change
+execution and does not promise a date, approval or universal adjustment.
+
+Updated owning Notes guidance/template/checks, Zendesk Closing/policy route,
+Escalations scope guards and applicable older copies/human reference, preserving
+unrelated work. The local evidence/history records announcement versus local
+verification dates and does not retire baseline ranges globally. Required local
+distributions/hashes are reconciled; no customer action, repricing, new workflow
+schema or service restart occurs. Publication remains with the evening task.
+
 ## Shared completed-note formatter for read-back — November 20, 2026
 
 Factored the existing escalation delivery formatting into the inventoried

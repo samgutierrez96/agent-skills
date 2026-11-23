@@ -17,6 +17,15 @@ not claim a closing-date change has been made.
 For an offer-denial reply, end warmly when appropriate: “Our ability to make an offer may change in the future. Thank you for considering Opendoor.” Keep this
 conditional; do not promise a future offer, notification, review, or follow-up.
 
+## Expired-offer refresh wording
+
+When the verified offer has expired and the customer is still engaged on pricing,
+reconsideration, square footage, proceeds, or next steps, state that the prior offer
+has expired and that Opendoor can refresh it. Ask whether they would like Opendoor to
+refresh the offer (yes/no) instead of stopping at expiration alone or only requesting
+supporting documentation. Keep any separate documentation request when the record still
+needs comps or support for review.
+
 ## Presented offer acceptance wording
 
 When the seller must move forward with a presented offer, direct them to confirm and

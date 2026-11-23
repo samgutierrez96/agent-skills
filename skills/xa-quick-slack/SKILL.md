@@ -1053,6 +1053,13 @@ Rules:
   partner even when its state is `CONTINGENCIES_RELEASED`.
 - Close date, late checkout, digital checkout, checkout photos, settlement
   statement, closing documents, or missing/incorrect contract documents:
+  For the dated November 7 year-end program, an affected new/refreshed Final
+  Offer defaults to January 2027. A request to review an earlier-2026 exception
+  is an HSA offer-options review, not approval or execution of a contract date
+  change. Already-active offers/existing contracts stay separate; actual date-
+  change execution retains the closing-side/verified named-target routing below.
+  Do not promise a date, amount, automatic fee removal or universal adjustment.
+  Source: https://opendoor.slack.com/archives/C02K6JVSNUF/p1794102345269489.
   Preserve the XA's explicit current and requested dates as the caller's
   request, not a completed/approved schedule change. Do not correct their
   explanation or ask them to reconfirm those dates merely because a relative

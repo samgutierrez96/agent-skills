@@ -116,7 +116,14 @@ Nothing is merged by opening this guide or the ticket links. A saved recommendat
 
 ## Execute once, verify, then continue
 
-Router's post-merge continuation is button-driven. **No further response needed**
+Once the exact merge is verified, retire that recommendation and continue on the
+destination with the normal separately reviewed reply/internal-note controls.
+Do not require another merge or a draft-regeneration choice just to review an
+existing destination reply. Source closure is not completion of the customer's
+request. Pending/uncertain merge results still require read-only verification;
+an uncertain reply/note retains its separate submission guard.
+
+Router also offers optional post-merge draft refresh buttons. **No further response needed**
 finishes locally without another draft, message, note, solve or reassignment.
 **Review reply & solve** and **Review internal note** retain the original drafts
 as context, recheck the exact continuing ticket and prepare fresh destination

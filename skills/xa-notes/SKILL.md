@@ -142,7 +142,7 @@ name/email matches as explicit answers for buttons instead of asking the XA to
 retype a known email. Ask for a customer
 name only when existing email/phone/record evidence cannot resolve identity;
 if both are needed, ask together in the same message. Otherwise proceed using
-the verified context. Reuse the answer without a second merge confirmation.
+the verified context. Reuse the answer without a second merge confirmation. When the XA has already identified distinct people and chosen the caller's keeping email and name, a confirmation that the caller's number is incorrectly attached to the other named profile means remove that number from the other profile only through connector cleanup, preserve the selected caller profile, and continue the retained posting workflow without asking whether both people legitimately share the number.
 If the XA directly supplies an email after the duplicate signal, that email is
 the explicit primary-selection answer; do not ask the same question again.
 Once the XA supplies that email, trigger
@@ -1186,15 +1186,33 @@ agent who is **not yet** attached.
 
 ## Close of escrow (coe)
 
-**The window depends on who the seller is, and the two are not
-interchangeable.**
+**Check the offer cohort before using the baseline windows.** The November 7,
+2026 announcement sets a January 2027 default for new/refreshed Final Offers
+under that year-end program; offers already active at the change and existing
+contracts are treated separately and honored. Do not promise an earlier date
+from a generic minimum or apply January-only treatment to every seller.
+For an earlier-2026 exception review, the announcement directs an accepted-offer
+seller to their HSA without guaranteeing approval, a date or an adjusted amount.
+For new underwriting whose only option is January, the owner clarified that an
+extended-closing fee should not be added merely for that forced January date;
+do not generalize this into a waiver of every fee. Use current verified offer/
+contract options, not a planned feature's forecast launch date. With an unknown
+cohort, do not invent a 21-day or January-only case fact. Notes retain only what
+was actually discussed; ordinary drafting performs no new research or action.
+Sources: https://opendoor.slack.com/archives/C02K6JVSNUF/p1794102345269489
+and owner clarification
+https://opendoor.slack.com/archives/C0A3J59CS67/p1794267281669999.
+
+**Baseline windows outside a verified temporary restriction depend on seller
+type and are not interchangeable.**
 
 | Seller | Close of escrow window |
 |---|---|
 | Lennar or another homebuilder partner | 21 to 120 days out |
 | Everyone else | 21 to 60 days out |
 
-Both are seller-selectable, and both start at 21 days. **Never write 14 days**,
+These are baseline ranges, not proof a particular offer can close in 21 days.
+Verify applicable temporary restrictions before giving availability. **Never write 14 days**,
 and never quote the 120-day ceiling to a seller who is not on a homebuilder
 partner deal.
 
@@ -2061,7 +2079,20 @@ Follow Up Link: N/A
 
 ## Close of escrow window (coe)
 
-21 to 60 days for a standard seller, 21 to 120 for a homebuilder partner.
+The standard window remains 21 to 60 days for a non-homebuilder seller;
+Lennar/homebuilder partners retain the separate 21 to 120 day baseline in Part 6.
+Use the current offer's available closing options and Part 6's dated cohort
+guard. The holiday/year-end January 2027 date floor is an additional restriction
+for affected offers, not a permanent replacement of the standard range.
+
+Choose only the example that matches what the XA actually told the caller.
+Use the holiday example only when the XA stated the affected offer's January
+earliest closing and discussed the holiday timing. Never add January or a
+holiday explanation to an unrelated call, infer an offer cohort, or promise
+that the standard minimum is currently available. Preserve explicitly stated
+completed-call wording; ordinary Notes does not add research or a new lookup.
+
+### Standard window example
 
 ```
 Property Address: N/A
@@ -2070,7 +2101,21 @@ Reason for Call: Seller called with questions about their close of escrow date.
 
 Customer Concerns: Seller wanted to know how far out they could set the closing.
 
-Solution Offered: Let the seller know the close of escrow date is theirs to select, 21 to 60 days out, and that the home needs to be vacant by close of escrow.
+Solution Offered: Explained the standard close of escrow window is 21 to 60 days. Let the seller know the home needs to be vacant by close of escrow.
+
+Follow Up Link: N/A
+```
+
+### Holiday/year-end example - only when stated
+
+```
+Property Address: N/A
+
+Reason for Call: Seller called with questions about closing during the holiday period.
+
+Customer Concerns: Seller wanted to understand why January was the earliest available closing for their affected offer.
+
+Solution Offered: Explained the standard close of escrow window is 21 to 60 days and the holiday restriction making January 2027 the earliest available closing for their affected offer. Let the seller know the home needs to be vacant by close of escrow.
 
 Follow Up Link: N/A
 ```
@@ -2365,8 +2410,9 @@ uploaded for the digital checkout."
 13. Confirmed wording verbatim, **every address written out in full**, never
     described.
 14. Buyer's agent commission on the resale side is negotiated in the offer.
-15. **Close of escrow window matches the seller type**, 21 to 60 standard and 21
-    to 120 for a homebuilder partner. Never 14.
+15. **Close of escrow guidance matches the verified offer cohort/options and
+    seller type.** Apply the dated January-default guard before baseline ranges;
+    never invent a 21-day availability promise, January-only case fact or 14 days.
 16. Every acronym spelled out, product names capitalized, HODW never about a
     dashboard.
 17. **A dashboard explanation lists close of escrow details only for a seller

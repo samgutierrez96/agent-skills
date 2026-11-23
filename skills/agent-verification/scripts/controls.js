@@ -12,7 +12,7 @@
     // browser-specific pseudo-selectors such as button:text(...).
     return `(() => {
       const allowed = ['opshub.apps.opendoor.com','alfred.ops.opendoor.com','script.google.com'];
-      if (!allowed.includes(location.hostname) && !location.hostname.endsWith('.script.googleusercontent.com') && location.hostname !== 'script.googleusercontent.com' && location.hostname !== '127.0.0.1') throw Error('Unexpected workflow host');
+      if (!allowed.includes(location.hostname) && !location.hostname.endsWith('.script.googleusercontent.com') && location.hostname !== 'script.googleusercontent.com' && !/^[a-z0-9-]+-script\\.googleusercontent\\.com$/.test(location.hostname) && location.hostname !== '127.0.0.1') throw Error('Unexpected workflow host');
       const actions = ${JSON.stringify(actions)};
       const visible = e => !!(e.getClientRects().length) && getComputedStyle(e).visibility !== 'hidden';
       const controls = actions.map(a => {
@@ -72,7 +72,7 @@
     if (!Number.isFinite(intervalMs) || intervalMs <= 0 || intervalMs > 5000) throw Error('Wait interval must be 1..5000 ms');
     return `(async () => {
       const allowed = ['opshub.apps.opendoor.com','alfred.ops.opendoor.com','script.google.com'];
-      if (!allowed.includes(location.hostname) && !location.hostname.endsWith('.script.googleusercontent.com') && location.hostname !== 'script.googleusercontent.com' && location.hostname !== '127.0.0.1') throw Error('Unexpected workflow host');
+      if (!allowed.includes(location.hostname) && !location.hostname.endsWith('.script.googleusercontent.com') && location.hostname !== 'script.googleusercontent.com' && !/^[a-z0-9-]+-script\\.googleusercontent\\.com$/.test(location.hostname) && location.hostname !== '127.0.0.1') throw Error('Unexpected workflow host');
       const present = ${JSON.stringify(present)};
       const absent = ${JSON.stringify(absent)};
       const timeoutMs = ${timeoutMs};
