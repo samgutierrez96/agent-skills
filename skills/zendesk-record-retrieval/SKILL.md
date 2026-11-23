@@ -2130,6 +2130,10 @@ assessment).
   seller assessment up to 7 calendar days from today, not farther out. Ask for
   the preferred date and time within that window; if the requested date is
   beyond it, ask the customer to contact us when that date is within 7 days.
+  When offering or collecting a preferred time, recommend scheduling at least
+  24 hours in advance so someone has time to accept the appointment. Eligible
+  assessment start times run from 9:00 a.m. to 3:30 p.m. in 15-minute
+  increments, subject to availability.
   Preserve agent-only assessment restrictions and verify an existing appointment
   before describing a change as a reschedule. This drafting workflow does not
   book or change appointments, and an available slot is not guaranteed.
@@ -3285,9 +3289,20 @@ market-dependent, so confirm the market before offering it as an option.
 - For a post-contract repair or condition-change report, request photos of the
   damage when needed for review. Do not ask the customer for repair quotes unless
   the record or reviewing team specifically requires them.
-- Closing: the seller picks the date inside the published **21 to 60 business day**
-  window from signing. Some markets are tighter, so check the Market Nuances sheet
-  before naming exact options. Lockbox arrives 7 days before close, digital checkout
+- Closing: verify the offer cohort and its current available dates before using
+  a baseline closing window. The November 7, 2026 year-end update defaults affected
+  new/refreshed Final Offers to January 2027; already-active offers and existing
+  contracts are separate and honored. Do not promise a 21-day close from generic
+  timing alone, or treat every seller as January-only. Accepted-offer sellers
+  needing an earlier-2026 exception review go to their HSA without a guaranteed
+  date/amount. New underwriting with only a January option should not incur an
+  extended-closing fee just because that date is forced; this is not a blanket
+  fee waiver. Verify scope and route an unexpected charge for review rather than
+  claiming it was removed. Sources:
+  https://opendoor.slack.com/archives/C02K6JVSNUF/p1794102345269489
+  and https://opendoor.slack.com/archives/C0A3J59CS67/p1794267281669999.
+  A forecast dynamic-pricing rollout is not proof of present availability.
+  Lockbox arrives 7 days before close, digital checkout
   the day before. **Funds are released on the selected close-of-escrow date.** When
   an agent or seller asks to close and get paid (especially naming 21 days), say
   that in the same reply. Do not invent a post-closing wire lag. Verified on Irmo

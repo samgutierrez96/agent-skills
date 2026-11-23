@@ -51,6 +51,36 @@ try {
   await assert.rejects(controls.stage(blocked,'create-case',guard,async()=>{writes++;},async()=>true));
   assert.equal(writes,1);
 
+  // Google Apps Script uses generated hyphenated frame hosts, not only
+  // dotted subdomains. All requests stay intercepted with synthetic controls.
+  for (const host of ['script.google.com', 'script.googleusercontent.com',
+    'synthetic.script.googleusercontent.com', 'n-synthetic-0lu-script.googleusercontent.com']) {
+    await page.goto('https://' + host + '/synthetic-controls');
+    await page.evaluate(controls.build([{kind:'fill',selector:'#search',value:'agent@example.invalid'}]));
+    assert.equal(await page.locator('#search').inputValue(),'agent@example.invalid');
+    assert.equal((await page.evaluate(controls.waitFor({present:[{selector:'[role=option]'}],timeoutMs:1000}))).settled,true);
+  }
+  for (const host of ['script.googleusercontent.com.example.invalid',
+    'n-synthetic-0lu-script.googleusercontent.com.example.invalid',
+    'n-synthetic-0lu-script.googleusercontent.invalid',
+    'n-synthetic-0lu-scriptxgoogleusercontent.com', 'unrelated.googleusercontent.com']) {
+    await page.goto('https://' + host + '/synthetic-controls');
+    await assert.rejects(page.evaluate(controls.build([{kind:'fill',selector:'#search',value:'must-not-land'}])),
+      /Unexpected workflow host/);
+    assert.equal(await page.locator('#search').inputValue(),'','Rejected hosts receive no partial fill');
+    await assert.rejects(page.evaluate(controls.waitFor({present:[{selector:'#search'}],timeoutMs:1000})),
+      /Unexpected workflow host/);
+  }
+  await context.route('https://script.google.com/synthetic-parent', route=>route.fulfill({
+    contentType:'text/html',body:'<iframe src="https://n-synthetic-0lu-script.googleusercontent.com/synthetic-controls"></iframe>'}));
+  await page.goto('https://script.google.com/synthetic-parent');
+  const frame=page.frames().find(f=>f.url().includes('n-synthetic-0lu-script.googleusercontent.com'));
+  assert.ok(frame,'The synthetic generated Google frame loaded');
+  await frame.waitForSelector('#search');
+  await frame.evaluate(controls.build([{kind:'fill',selector:'#search',value:'agent@example.invalid'}]));
+  assert.equal((await frame.evaluate(controls.waitFor({present:[{selector:'[role=option]'}],timeoutMs:1000}))).settled,true);
+  assert.equal(await frame.locator('#search').inputValue(),'agent@example.invalid');
+
   // The readback probes consume synthetic UI on their exact expected origins.
   const customer='<main style="white-space:pre-line">Customer Info\nEmail\nagent@example.invalid\nPhone\n202-555-0123\nTrust level\nAllow\nAgent Info\nLicense #\nSYNTHETIC\nVerification\nVerified</main>';
   await context.unroute('**/*');

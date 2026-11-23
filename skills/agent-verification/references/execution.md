@@ -81,8 +81,15 @@ the actual UI under the usual identity gates instead of inventing fields.
 The normal verified final response remains available, but is not a durable
 browser-evidence checkpoint. No completion claim may exceed the actual evidence.
 
-Once the final checkpoint is saved, close only the workflow-created tabs and
-return the short verified result immediately. Router allows at most eight
+Blocked, uncertain and operator-decision handoffs are not terminal cleanup:
+preserve the bound OpsHub, Alfred and Agent Verification pages for inspection,
+without repeating a write or choosing/submitting the operator's reserved decision.
+If the browser surface needs an explicit keep-open/handoff mark, apply it to the
+relevant workflow pages before returning. Report what is open and unresolved.
+
+Once the final checkpoint is saved and no requested customer work or operator
+handoff remains, close only the workflow-created tabs and return the short
+verified result immediately. Router allows at most eight
 seconds for this wrap-up and preserves the checkpoint if the worker stops.
 Do not run help commands, discover telemetry tools, inspect history, or perform
 optional work here. Timing is best-effort using the already-known logger call;

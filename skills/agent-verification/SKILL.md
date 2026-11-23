@@ -50,7 +50,7 @@ selectors or returning to the model after each field, click and status read.
 - Open or reuse Alfred User Reviews within that workflow window and refresh once. Check the current queue for the matching open Requires Verification Review, including remaining pages when needed; do not create a duplicate just because the first page lacks it.
 - If no matching open case exists, select **+ New Case**. Search the exact phone or email, select the result matching the cached customer, set **Requires Verification Review**, and select **Create** once. Wait for the dialog to disappear before any retry. Newly created cases may appear on the last queue page.
 - Select the matching case, choose **Claim and Begin** if unclaimed, and open **Review Case**. Cache its case ID/link. If the link opens a new tab, bind that tab; do not keep clicking the original link. When a popup does not open, navigate to the actual href read from the link.
-- Open **View Full Results** and read the available identity evidence once. Cache the actual Mitek ID validation response for documentation. An explicit **N/A** or absent identity-validation information means **IDV Passed: N** (not passed/not established), not a successful ID check or proof of fraud. An unreadable/unavailable result is unknown, not an observed N/A; resolve it or report that documentation blocker. Missing Mitek results do not alone negate a matching agent credential result.
+- Open **View Full Results** and wait for the matching caller’s results to finish loading before reading the identity evidence once. An initial “Unknown Customer”/N/A placeholder is not a settled result. Cache the caller-bound Mitek response and actual phone/email match evidence. For the IDV note, a completed, populated Mitek response matching this caller supports **IDV Passed: Y** and **ID**; settled absent/N/A Mitek information supports **N** and omits ID. Use the exact method and red-flag mapping in [references/post-verification-notes.md](references/post-verification-notes.md), not an older Threat Highlights label. Unreadable or conflicting current evidence remains a documentation blocker; missing Mitek results alone do not negate a matching agent credential result.
 
 ### 3. Run the live lookup (budget: 50–80 seconds)
 
@@ -69,13 +69,17 @@ selectors or returning to the model after each field, click and status read.
 
 ### 5. Document both notes, then finish
 
-Read [references/post-verification-notes.md](references/post-verification-notes.md) before posting. Future authorized end-to-end verification runs include both notes by default. Lookup-only, draft-only, leave-unchanged and maintenance requests do not authorize this chain. Reuse same-call details already supplied; if the XA note needs missing call facts, retain the saved verification note and ask only for those facts in this conversation.
+Read [references/post-verification-notes.md](references/post-verification-notes.md) before posting. Authorized end-to-end verification includes both notes by default, with no separate “you can post it” after successful verification when the required call facts are available. Lookup-only, draft-only, leave-unchanged, decision-only and maintenance requests keep their narrower action limits. Accept call details in the original request or later in this retained conversation. Reuse its caller/property, completed verification and independent note receipts; a late appointment summary continues the remaining XA note rather than starting another verification. If call facts are still missing, ask only for that remaining narrative, not known identifiers or a generic checklist. Do not invent scheduling details. Follow the reference’s same-call handoff and uncertainty guards.
 
 Report `Case: closed | Outcome: [actual HAS] | Agent: [actual status] | Confidence: [tier and score]`, followed by a separate actual outcome for **IDV note** and **XA note**: posted, already verified, pending or unconfirmed, with any concrete blocker. Never turn a closure/status receipt into a note-posting receipt or claim completion based only on a click.
 
 In Router, use the exact final readback probe after all requested customer work
-to durably preserve observed closure/statuses. Then close workflow-created tabs
-and deliver immediately. No help commands, new tool discovery or optional
+to durably preserve observed closure/statuses. Close workflow-created tabs only
+when the requested work is complete and no operator handoff remains. If blocked,
+unconfirmed, awaiting review, or explicitly asked to stop at the decision screen,
+leave the bound workflow pages open and report the current page and concrete
+remaining step. Never choose or submit a decision the operator reserved for themself.
+After verified completion, deliver immediately. No help commands, new tool discovery or optional
 logging may delay the result; missing confidence telemetry must not be invented.
 
 ## Browser execution rules that prevent stalls

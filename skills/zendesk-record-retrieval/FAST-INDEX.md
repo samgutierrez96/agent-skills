@@ -71,7 +71,7 @@ asks. Read a linked detailed section only for the condition named on that line.
   canceled visits → [resolution-first access](recipes/access-resolution.md) and
   [department/access details](ROUTING-DETAILS.md#department-and-resolution-first-access).
   A later call disposition alone is not resolution; required notes/Slack chronology remain.
-- Apparently repeated concern or post-assessment update on any channel →
+- Offer reconsideration/low-offer dispute, apparently repeated concern or post-assessment update on any channel →
   [repeated-concern check](ROUTING-DETAILS.md#repeated-concern-and-login) before
   OpsHub research; use existing same-ticket checks and no added broad merge scan.
 - Simple login/account setup → [repeated-concern/login route](ROUTING-DETAILS.md#repeated-concern-and-login)
@@ -92,6 +92,8 @@ asks. Read a linked detailed section only for the condition named on that line.
   No private resale details or scheduled closing date from former ownership alone.
 - Offer status → [offer-status](recipes/offer-status.md); offer-refresh-only trouble
   also reads [refresh boundary](ROUTING-DETAILS.md#offer-refresh-trouble).
+  Expired offer with ongoing pricing or reconsideration questions →
+  [expired-offer refresh wording](guides/case-wording.md#expired-offer-refresh-wording).
 - Offer denial → [ticket/qualified-denial stop](ROUTING-DETAILS.md#ticket-and-newest-intent)
   and [denial closing](guides/case-wording.md#offer-denial-closing); no specific reason.
 - Low-offer complaint → SKILL.md → Offer complaints, plus

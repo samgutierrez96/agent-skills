@@ -14,7 +14,7 @@ _Last condensed: 2026-09-10 for Codex transfer._
 - **Final Offer clock:** 3–5 business days from assessment **completion**, not the call date.
 - **Refreshed offer clock:** confirming a refresh always includes 3–5 business days **from the day the offer was refreshed** (not the call date, not assessment completion). Do not wait for the XA to restate the timeline.
 - **Withdrawn offer refresh:** tell the seller the assessment has to be completed again (expired refresh does not get this line).
-- **COE window:** 21–60 standard sellers; 21–120 homebuilder/Lennar partners (never invent "14").
+- **COE window:** use the current offer/contract options and Part 6's dated year-end cohort guard first. January 2027 is the announced default for affected new/refreshed Final Offers; active offers/existing contracts are separate. Baseline 21–60 / 21–120 ranges do not guarantee current availability. Never invent 14 days or an approved exception/fee waiver.
 - **Utilities:** stay on 3+ days past **move-out day**, not COE date.
 - **Home must be vacant by close of escrow** (tenant questions → vacancy line, not auto-escalation).
 - **Maddie** files rental-scam reports (XA transfers). Exception: victim already moved in → OpsHub incident, not Maddie. XAs do not dispatch patrol; Trust & Safety handles dispatch after the report. Active-situation concerns go to a team lead/manager (November 12, 2026 XA announcement).

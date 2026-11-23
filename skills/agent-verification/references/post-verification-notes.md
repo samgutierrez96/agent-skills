@@ -29,35 +29,65 @@ to the second note while the first is unconfirmed. Retain concrete blockers.
 ## 1. IDV verification note
 
 Create a separate plain-text note using the observed fields below, not the
-five-field call-note template. For the supported Allow/Verified example where
-Mitek shows N/A, credentials were verified and no current red flags were found:
+five-field call-note template. Sam clarified this note's evidence mapping on
+November 23, 2026. Read the current caller's settled **Full Results**, not an old
+Threat Highlights label or an initial “Unknown Customer”/N/A loading placeholder.
+Wait for the caller heading and result state to settle before classifying Mitek
+as present or absent. Retain these observations for the note; do not rerun a
+completed credential search or reopen a closed case merely to compose it.
+
+When matching phone/email evidence, a completed populated matching Mitek
+response and verified agent credentials are all established, use:
 
 ```text
 Customer Type: Agent
 Final HAS: Allow
-IDV Passed: N
-Verified via: Agent Credentials
+IDV Passed: Y
+Verified via: Phone / Email / ID / Agent Credentials
 Red Flags: None
 Notes:
 ```
 
+With the same phone/email and credential matches but settled missing/N/A Mitek
+information, use **IDV Passed: N** and
+**Verified via: Phone / Email / Agent Credentials**. Missing ID information
+removes ID only; it does not erase independently observed Phone/Email matches.
+
 - **Customer Type** reflects the resolved caller, not the property owner.
 - **Final HAS** is the verified saved home-access outcome, not a proposed answer
   or confidence score. Preserve the actual Deny outcome when applicable.
-- **IDV Passed** is **Y** only for an explicit successful identity-validation
-  response for this caller. Alfred/Mitek **N/A**, missing identity-validation
-  information or an explicit failed result means **N**. N/A means not
-  passed/not established; do not turn it into a fabricated failed test result,
-  fraud finding or automatic denial. Unavailable/unreadable evidence is unknown:
-  report it and keep this note pending instead of guessing N or Y.
-- **Verified via** lists only methods actually established for this caller.
-  A verified license/agent match supports **Agent Credentials**. Merely using
-  the stored phone/email to find the customer or populate the lookup does not
-  verify either contact method. Do not include Phone or Email unless separately
-  confirmed by evidence. Do not invent credential verification for a denial.
-- **Red Flags** is **None** when the current review establishes none; otherwise
-  record only supported current findings. Never post the template's
-  `None / [list]` alternatives or carry historical flags forward as new facts.
+- **IDV Passed** is **Y** for this note when the matching caller's settled
+  Mitek **Submission status: COMPLETE** response contains populated, matching
+  ID details, or an explicit successful identity-validation result. The Mitek
+  section need not display a separate “Passed” label. A populated matching name,
+  identifying details and dossier support the completed response; incidental
+  N/A fields or UNKNOWN_ID_TYPE do not by themselves turn it into N. This is the
+  XA note convention, not a claim that each vendor subcheck separately passed.
+  A heading alone, unrelated data, an in-progress response or a name mismatch is
+  not sufficient. Settled absent/N/A Mitek information or an explicit current
+  failed result means **N**; absence is not a failed test or fraud finding.
+  Unreadable, still-loading or conflicting current evidence is unknown: retain
+  the documentation blocker instead of guessing a value or posting.
+- **Verified via** lists every actually established method in this order:
+  **Phone / Email / ID / Agent Credentials**, omitting only unsupported methods.
+  Caller-bound phone and email matches in the live credential result or the
+  corresponding Ekata “Match to name: Match” fields support **Phone** and
+  **Email** respectively. A source saying the raw contact is “Not stored in
+  ekata” does not cancel its separately displayed match result. Mere stored
+  contact values or their use as search inputs are not match evidence. **ID**
+  accompanies the qualifying Mitek result above; a verified license/agent match
+  supports **Agent Credentials**. Credential verification alone never adds ID;
+  missing Mitek information never removes established Phone/Email matches.
+- **Red Flags** is **None** for a supported, verified saved **Final HAS: Allow**.
+  Do not copy a resolved historical denial or old “Mitek ID verification failed”
+  Threat Highlights entry into that final note as an active red flag when the
+  current review supports Allow and the settled matching Mitek response above.
+  Preserve Alfred's underlying audit history; note wording never deletes it.
+  A current explicit failure, conflicting identity or unresolved current risk
+  must be reviewed before treating Allow as a clean supported outcome: retain
+  the documentation blocker rather than silently suppressing the conflict.
+  For a supported Deny, record the actual current denial findings. Never post
+  the template alternatives `None / [list]`.
 - Leave **Notes:** blank. Put the normal call narrative in the separate XA note.
   Do not append the call note or replace either note with “Confirmed and verified.”
 
@@ -90,13 +120,42 @@ customer CONTACT target, property/link rules and duplicate-profile safeguards
 with that owner rather than duplicating those rules here. Reuse sufficient
 same-call context instead of rerunning customer resolution for a second chat.
 
+Call facts may arrive with the first request or after verification; merge them
+into this same retained call before deciding anything is missing. Within this
+explicit handoff, a later “agent”/caller label or repetition of the same phone
+and property does not start a new call, discard receipts or rerun verification.
+Keep the verified caller/property unless the operator actually changes them;
+resolve a changed/ambiguous target before any write.
+
 A credential check/Allow status alone does not mean an appointment was scheduled,
-a code was supplied, a showing occurred or access instructions were sent. Use
-viewing-call expansions only when the operator supplied that call shorthand.
-If call reason/concerns or the customer-facing resolution are missing, save the
-verified IDV note first and ask one concise question for the missing call facts
-here. A bare “proceed” is not a fact; preserve the pending XA note and ask for the
-specific remaining detail. Never require a new chat or retyping known identifiers.
+a code was supplied, a showing occurred or access instructions were sent. Once
+the operator says they scheduled an appointment for this agent, that is an
+established call fact and customer-facing action. Pass that shorthand and the
+retained verification outcome to the XA owner; do not ask again “What was the
+caller’s concern, and what did you tell them?” merely because separate concerns
+or an exact appointment date/time were not supplied. Use the owning note's
+stated-facts/default-field rules, and omit unstated times, codes, participants
+or other actions rather than inventing them. This documents the operator's
+action; it never authorizes booking or changing a visit.
+
+If no usable call narrative has been supplied, verify/save the IDV note first
+and ask one concise text-entry request in this conversation, such as:
+“Verification is complete. Add the call details for the XA note—what did you
+help the agent with?” Ask only for a genuinely missing fact needed for the
+requested note; do not require a field-by-field interview, repeated caller
+phone/address, another chat, or a second posting approval for the already
+authorized end-to-end workflow. A bare “proceed” supplies no missing call facts.
+A source correction, decision-only limit or explicit do-not-post instruction
+still retains its narrower authority until the operator changes it.
+
+When the operator provides sufficient late facts under the retained posting
+authority, continue only the remaining XA note through its owner and verify its
+own receipt. If the first note's readback is still uncertain, retain the new
+call facts while reconciling that existing note on the original caller first;
+do not recreate it or treat a case closure as its note receipt. An open browser
+dialog is not a connector-readback failure: prefer a sufficient note-ID/body
+read without disturbing the operator's dialog. Preserve a real remaining
+readback/access blocker instead of claiming completion.
 
 Post and verify the XA note separately, preserving its returned ID/body under
 the same call. If it fails, report **IDV note: posted; XA note: pending/unconfirmed**
@@ -119,17 +178,38 @@ bodies or private operator tokens. Close only workflow-created tabs when done.
 
 Review these without live customer writes:
 
-- Mitek N/A + verified license + supported Allow: first note says N and Agent
-  Credentials only; second note uses supplied call facts, not invented scheduling.
-- Explicit successful Mitek + supported Allow: Y is permitted; a stored contact
-  alone never adds Phone/Email to Verified via.
+- COMPLETE, populated caller-matching Mitek + actual phone/email matches +
+  verified credentials + supported saved Allow: Y; Phone / Email / ID / Agent
+  Credentials; Red Flags: None. An old Mitek-failure highlight is not carried
+  into the note. Incidental N/A/UNKNOWN_ID_TYPE fields do not negate this mapping.
+- Settled missing/N/A Mitek + actual phone/email and credential matches +
+  supported saved Allow: N; Phone / Email / Agent Credentials; Red Flags: None.
+- Settled missing/N/A Mitek + verified license only + supported saved Allow:
+  N; Agent Credentials only. Stored phone/email alone never adds either method.
+- Raw contacts “Not stored in ekata” with the caller-bound corresponding match
+  fields showing Match: retain the supported Phone/Email methods.
+- Initial Unknown Customer/N/A placeholder followed by matching COMPLETE
+  results: classify the settled results, not the initial placeholder.
+- Populated Mitek for a different caller, incomplete Mitek, an explicit current
+  failure or conflicting current evidence: never infer Y from data presence;
+  preserve the actual evidence and required review/documentation blocker.
 - Mitek unavailable: retain closure evidence and a documentation blocker; do not
   manufacture an N/A result or post a guessed first note.
+- The separate XA note uses supplied call facts, not invented scheduling.
 - First note saved, second blocked: continuation retains the first ID and creates
   only the missing second note after its blocker is resolved.
 - Either save times out: reconcile that kind on its original caller before any
   create; no second create on a new current customer.
-- Verification-only input lacks call details: IDV note can complete; ask only for
-  the remaining XA facts in the same conversation, without assuming a showing.
+- Verification-only input lacks call details: IDV note can complete; ask once
+  for the remaining call narrative, without assuming a showing.
+- A later appointment-scheduled summary in the same retained verification:
+  preserve the original caller/property and verified first-note receipt; pass
+  that sufficient shorthand to the XA owner and complete only the authorized
+  remaining note. No repeated identity entry, credential lookup, case closure,
+  generic concern/resolution question, extra posting approval or invented time.
+- Late facts arrive while the IDV note is unconfirmed: retain those facts;
+  read back the existing same-call note first, never create it again.
+- Decision-only/no-post handoff: facts may be retained, but no note is posted
+  until the operator authorizes that remaining action.
 - Operator asks to edit these instructions or supplies this recording: save the
   source only; no live case closure, note post, retry or browser attachment.

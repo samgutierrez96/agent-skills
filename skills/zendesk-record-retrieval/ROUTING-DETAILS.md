@@ -149,13 +149,18 @@ Reuse already loaded sections; all evidence and disclosure gates remain required
 
 ## Repeated concern and login
 
-3. Offer update after an assessment, or another apparently repeated concern on
+3. Offer reconsideration/low-offer dispute, offer update after an assessment, or another apparently repeated concern on
    any channel → one early Zendesk search before OpsHub research. Use the exact
    street-address phrase when supplied; otherwise use the verified requester
-   email. Run it alongside required recipe/section reads. SMS may repeat an email
+   email. Do this on the first draft, before requesting an address or waiting for
+   the customer's next reply; a missing address is not a reason to defer the
+   verified-requester search. Reuse a sufficient retained check. Run it alongside
+   required recipe/section reads. SMS may repeat an email
    under another address. Read matching candidate comments and verify the customer,
    exact property, same concern, prior answer and chronology. A split unresolved
-   conversation uses [ticket consolidation](recipes/ticket-merge.md); related
+   conversation uses [ticket consolidation](recipes/ticket-merge.md); surface its
+   verified recommendation in this initial review, independently of any still
+   missing property detail. Do not infer a match from the requester alone. Related
    history can inform the draft without permission to merge. A solved/closed
    answer with no changed circumstance or substantive new question takes the
    no-reply/close path; stop retrieval and put the source number in the appendix.

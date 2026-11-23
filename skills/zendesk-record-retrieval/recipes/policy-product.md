@@ -14,6 +14,12 @@ read the matching full-playbook section before drafting; this card is the first 
   directly. Inspect current source content and stop on sufficient evidence;
   historical customer sends alone are not policy authority. Do not classify
   this seller inquiry as a rental scam.
+- **Seller closing-date availability:** read the full playbook's Closing bullet
+  before quoting a minimum/window. Distinguish affected new/refreshed year-end
+  offers (January 2027 default) from already-active offers/existing contracts;
+  verify current options. Earlier-2026 exception review is not an approved date
+  or a universal quoted fee/price adjustment. Retain the scoped forced-January
+  extended-fee safeguard, not a blanket waiver.
 - **Home Loans / mortgage licensing or lender referral:** read the full
   playbook's named-listing seller-finance recipe under “Per-type recipes” and
   check [ODHL Disclosures and Licenses](https://www.opendoor.com/homeloans/licenses).
