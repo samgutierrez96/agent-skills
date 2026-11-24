@@ -17,7 +17,7 @@ try {
     <section id="keeping"><div>Keeping this customer</div><input value="alex@example.invalid">
       <p>UUID: ${pair.keepingUuid}</p><div class="alert-danger">Both of these customers have logins (humans).</div></section>
     <section id="removing"><div>Removing/merging this customer</div><input value="alex.secondary@example.invalid">
-      <p>UUID: ${pair.duplicateUuid}</p></section>
+      <p>UUID: ${pair.duplicateUuid}</p><div class="alert-danger">This qualification data will be deleted</div></section>
     <div id="warning" class="alert-danger">Are you really sure? This cannot be undone.
       <button ng-click="customer_merge.merge()">I'm sure. Merge them.</button></div>`;
   const inspect = options => page.evaluate(`(${probe})(${JSON.stringify({...pair, ...options})})`);
@@ -25,6 +25,12 @@ try {
   const dom = await page.content();
   const before = await inspect();
   assert.equal(before.state, 'confirmation-ready');
+  assert.deepEqual(before.errors, [], 'normal qualification deletion notice is not a failed merge');
+  const detailed = await inspect({includeIdentity: true});
+  assert.deepEqual(detailed.identities.keeping.values, ['alex@example.invalid']);
+  assert.match(detailed.warningText, /Both of these customers have logins/);
+  assert.match(detailed.warningText, /This qualification data will be deleted/);
+  assert.equal(await page.locator(detailed.controls.submit).count(), 1);
   assert.equal(await page.content(), dom, 'observation must not change the page');
   assert.equal((await inspect({before, submitted: true})).state, 'unverified', 'warning is not success');
   await page.locator('[ng-click="customer_merge.merge()"]').evaluate(e => {e.textContent = ''; e.disabled = true;});
@@ -55,6 +61,28 @@ try {
   assert.equal((await inspect({before, submitted: true})).state, 'unverified', 'different survivor must stop');
   await page.setContent(fixture + '<div class="toast-error">Merge failed</div>');
   assert.equal((await inspect({before, submitted: true})).state, 'unverified', 'failure prevents completion');
+  for (const message of ['This qualification data will be deleted. Merge failed.',
+    'Authorization denied', 'The merge could not be completed']) {
+    await page.setContent(fixture + '<div class="alert-danger">' + message + '</div>');
+    assert.ok((await inspect()).errors.includes(message), 'unexpected/rejection text must not be allowlisted');
+  }
+  await page.setContent(fixture + '<div class="toast-error">This qualification data will be deleted</div>');
+  assert.equal((await inspect()).state, 'unverified', 'an explicit error toast is never a normal notice');
+  await page.setContent(fixture);
+  await page.locator('#warning').evaluate(e => {
+    e.className = 'alert-warning';
+    e.innerHTML = 'This cannot be undone <button ng-click="customer_merge.warned = true">Merge</button>';
+  });
+  const selected = await inspect({includeIdentity: true});
+  assert.equal(selected.state, 'selection-ready');
+  assert.equal(await page.locator(selected.controls.warning).innerText(), 'Merge');
+  await page.locator('#warning').evaluate(e => e.insertAdjacentHTML('beforebegin',
+    '<button style="display:none" ng-click="customer_merge.warned = true">Merge</button>'));
+  assert.equal(await page.locator((await inspect()).controls.warning).count(), 1, 'skip hidden duplicate markup');
+  await page.locator('#warning button').evaluate(e => e.disabled = true);
+  assert.equal((await inspect()).state, 'unverified', 'disabled warning button is not actionable');
+  await page.setContent(fixture.replace('will be deleted', 'will be kept'));
+  assert.equal((await inspect()).state, 'confirmation-ready', 'normal retention notice is not a failure');
   await page.goto('https://admin.opendoor.com/admin/customers/1002/merge');
   await assert.rejects(inspect({before, submitted: true}), 'wrong Admin route must stop');
   assert.equal(result.retryMerge, false, 'probe never recommends repeating a submitted write');

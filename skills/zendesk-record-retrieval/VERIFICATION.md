@@ -15,6 +15,27 @@ state only if observable. Do not introduce automatic warm-up requests.
 
 ## Representative checks
 
+### Seller scheduling intake checks — November 23, 2026
+
+Use synthetic frozen evidence and drafting only. These acceptance cases do not
+claim a fresh-model or live-customer evaluation has passed:
+
+- Eligible seller requests an assessment with no readiness details: the first
+  scheduling reply collects missing vacancy, applicable adult presence and access
+  instructions together, before choosing a slot.
+- The seller already said any day/time works and wants earliest available:
+  retain that preference and collect only missing readiness details; no repeated
+  time-preference question, hours-only response or invented available appointment.
+- A partial answer confirms adult presence but not required gate/access details:
+  request only the remaining applicable access information.
+- All required readiness details are established: no repeated intake; keep the
+  operator's manual scheduling step distinct from a completed booking.
+- Agent-only assessment, completed assessment, disputed appointment or a
+  different requester/property: preserve the existing route and evidence gates.
+- Operator corrects missing intake and asks to draft it again: return corrected
+  boxes and review the reusable lesson without requiring a separate save button.
+  Case-only/no-save instructions and ambiguous/conflicting saves remain bounded.
+
 ### Qualified-flip selection checks — November 5, 2026
 
 Use synthetic frozen records only. These are required decision scenarios, not a

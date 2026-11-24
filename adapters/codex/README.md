@@ -1,5 +1,16 @@
 # Codex project adapters
 
+`schedule-ticket-appointment` is a standalone ticket-driven booking skill with
+Showami as its first supported provider. Its canonical authoring source is
+`skills/schedule-ticket-appointment/`; install that complete folder, including
+`references/showami.md` and `agents/openai.yaml`, at
+`~/.codex/skills/schedule-ticket-appointment/` with byte-for-byte identical content.
+It requires the shared browser owner only for actual UI work and preserves the
+active Zendesk project's evidence and drafting rules. This package does not
+register a Skill Router action or override a host's read-only booking boundary.
+Its source creation never authorizes replaying the recorded booking or sending
+the prepared reply. Other appointment types need separate provider procedures.
+
 `caller-follow-up` is a standalone call-preparation skill. Its canonical authoring
 source is `skills/caller-follow-up/` in this repository. Install that complete
 folder, including `agents/openai.yaml`, at `~/.codex/skills/caller-follow-up/`.

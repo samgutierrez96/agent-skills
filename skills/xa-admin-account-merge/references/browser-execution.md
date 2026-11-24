@@ -85,36 +85,72 @@ Use these selectors observed in the October 22 run as starting points, validatin
 
 ## Pair-bound completion, then ambiguous-result recovery
 
-Load `scripts/merge_result_probe.js` once with the browser helpers. It is a
-read-only DOM function, not a merge executor. On the reviewed final warning,
-evaluate it with `{keepingAdminId, keepingUuid, duplicateUuid}` from the exact
-inspected pair and retain its `confirmation-ready` result as `before`. After
-invoking the final Merge control once, evaluate with the same IDs,
-`{before, submitted: true}` in that guarded orchestration call. A tool timeout
-after a possibly delivered click still permits this read, never another click.
-No intervening search, candidate selection or navigation may be treated as that
-submission's result. The probe checks the exact keeping route/UUID, readiness,
-loading/error state and the before/after panels. `verified` captures either a
-new `Merged customers` toast or the inspected duplicate panel + final warning
-clearing while the same keeping profile and merge search are ready. This
-settled transition is sufficient without a toast, redirect, empty sidebar or
-second success indicator. Never use only the green keeping-customer checkmark.
+Load `scripts/merge_result_probe.js` and `scripts/merge_actions.js` once alongside
+the shared guard in the first necessary setup call; keep their trusted source
+in runtime storage without printing it. The probe is read-only; the runner
+groups documented UI actions within each reviewed decision boundary. Evaluate
+the trusted runner expression and use
+`runner.agent360({tools, guard, probeSource})` as `io`, with the retained exact
+`pair = {keepingAdminId, keepingUuid, duplicateUuid}`.
+
+After selecting the exact candidate, call
+`io.read({...pair, includeIdentity: true})` in that same orchestration call.
+It returns scoped identity UUIDs/input values, unique observed plain-CSS controls
+and state. Review those identities under the entry skill, not more ancestors or
+page dumps; pass its observed CSS selector unchanged instead of composing a new
+text selector. Then call
+`runner.review({operationId, pair, selected, identityVerified: true,
+mergeAuthorized: true, io})` using that inspected `selected` result and flags
+from the original completed gates. This rechecks the identities, opens the warning
+once if needed, and returns `confirmation-ready` with `before.warningText`.
+It never submits. Review the returned irreversible/login consequences before
+the next phase; an already-open final warning skips the first Merge button.
+
+Once reviewed, execute the final phase in one orchestration call:
+
+```javascript
+const journal = load('adminMergeJournal') || [];
+const outcome = await runner.submit({operationId: retainedPairRequestId, pair,
+  reviewed, warningReviewed: true, identityVerified: true, mergeAuthorized: true,
+  io, journal, checkpoint: entries => store('adminMergeJournal', entries)});
+store('adminMergeOutcome', outcome);
+text(outcome);
+```
+
+`reviewed` is that operation's exact review result. The runner freshly checks
+the identities and unchanged warning, checkpoints the pair before the final
+click, submits once, then reads its bound result. Its single read-only DOM
+observer resolves immediately when ready, with a ten-second rendering ceiling;
+no sleeps or repeated tool/model polls. Real errors, changed identities/targets
+or changed review text stop dependent work. The normal qualification
+`will be deleted/kept` notices are not failures; unexpected alerts and explicit
+error toasts still block. A lost click response or repeated/concurrent call
+reconciles only the recorded submission; a verified receipt skips further reads.
+
+Retain the serializable journal and receipts in the original workflow context.
+Runtime storage is not crash-durable and does not replace Router's existing
+request/receipt guards. A fresh recovery reuses recorded action evidence, never
+an empty journal to retry an uncertain merge. No intervening search, selection or
+navigation may stand in for this pair's result. `verified` requires a new
+success toast or the inspected pair + final warning clearing on the same ready
+keeping account, not a sidebar entry, green checkmark or click acknowledgement.
 
 Retain the pair IDs and returned evidence with completed-action receipts in the
 original workflow, exclude that pair from remaining work, and move directly to
-the next genuinely distinct candidate or OpsHub cleanup. The helper performs no
-storage or action and never returns merge-retry authority. If already verified,
+the next genuinely distinct candidate or OpsHub cleanup. The read-only probe
+performs no action and never returns merge-retry authority. If already verified,
 reuse the receipt without rerunning the probe. A retained sidebar suggestion is
 not a new unmerged candidate and must not trigger reselection of that pair.
 An empty old profile or missing association on an unrelated/initial page is not
 this captured transition: missing before/after evidence takes the recovery below.
 
-Regression: `node scripts/test_merge_result_probe.mjs` uses intercepted synthetic
-pages in a new isolated headless browser. It covers toast-free completion with
+Regressions: `node scripts/test_merge_result_probe.mjs` and
+`node scripts/test_merge_actions.mjs` use intercepted synthetic
+pages in a new isolated headless browser. They cover toast-free completion with
 a retained sidebar entry, a new/stale toast, loading, warning/error states,
 missing pre-submit evidence and mismatched keeping/duplicate IDs. Like the
-contact-editor regression, it requires the existing Playwright dependency on
-`NODE_PATH`; it never attaches to working Chrome or exercises a live merge.
+contact-editor regression, they require the existing Playwright dependency on
+`NODE_PATH`; they never attach to working Chrome or exercise a live merge.
 
 A confirmation that remains visible is a state to inspect, not by itself a
 blocker or permission to click Merge again. Reuse any completed-merge receipt

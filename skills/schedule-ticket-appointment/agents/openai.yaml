@@ -1,0 +1,4 @@
+interface:
+  display_name: "Schedule Ticket Appointment"
+  short_description: "Book Showami from a ticket and prepare reply drafts"
+  default_prompt: "Use $schedule-ticket-appointment to schedule an authorized Showami assessment from verified ticket details, then prepare the updated reply without sending it."

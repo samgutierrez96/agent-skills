@@ -76,6 +76,24 @@ original record and must not replace the currently visible ticket. Preserve
 other draft fields and unsent text; keep draft saving separate from reusable
 guidance and external sending/posting.
 
+Keep debugging, test, maintenance and display/status-repair prompts in Codex or
+isolated fixtures, never production customer/workflow chats via UI, local API or
+another transport. A zero-tool display prompt still mutates saved history.
+Do not use Sam's active working composer for agent-generated follow-ups. For an
+explicitly authorized live run, retain the original saved request and exact
+caller/ticket/workflow binding before acting, and verify it immediately before
+submitting only the authorized action. Never substitute the currently open
+record or treat a valid binding as permission to choose an unrelated target.
+If the target changes or is uncertain, stop and report in Codex. Do not repair a
+misdirected message by adding more prompts, rewriting history, deleting a chat
+or marking it handled; obtain direction for that exact repair first. Preserve
+other conversations and unsent text. These boundaries do not add another
+approval to an unchanged, already-authorized operational action.
+After the authorized live action is verified, stop operating the live app.
+Cosmetic warnings, completion labels and output-format issues are reported in
+Codex and tested in isolation; they never authorize another live conversation
+turn, regeneration, repost or repair without explicit direction for that action.
+
 ## Time real work without adding work
 
 For browser tasks, capture timestamps in the existing orchestration calls, then
