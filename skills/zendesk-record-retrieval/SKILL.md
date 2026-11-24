@@ -1460,9 +1460,10 @@ the shape, the record wins, see "Stage gates the playbook".
 - **Seller asks whether Opendoor can conduct the assessment.** Draft that Opendoor
   can schedule an assessment with a licensed professional through Showami to take
   the required photos, or the seller can complete the assessment through the
-  **Opendoor Key App**. Ask for the property address and preferred date/time.
-  If the home will be vacant and the seller will not be present, ask for the
-  access code. Do not state that Opendoor directly conducts the assessment;
+  **Opendoor Key App**. Reuse the verified property address and supplied
+  availability; for help scheduling, apply
+  [seller scheduling intake before slot selection](#assessment-reschedules-and-confirmations)
+  rather than asking for a time alone. Do not state that Opendoor directly conducts the assessment;
   Showami is the third-party assessment provider for the scheduled professional
   visit.
 - **Seller says they are working with an agent, asks whether the agent can meet
@@ -2092,6 +2093,16 @@ assessment).
 
 - **Never offer to call a customer and never promise a callback**, even when an
   escalation task is open on the file. Outbound calling is not ours to commit.
+- **Existing current-hour access CBR (November 23 XA update):** If the notes
+  identify an agent or appraiser requesting access, the first requested callback
+  is unanswered, and their appointment and communications match the current hour
+  so they are likely still at the home, the XA should make one immediate second
+  courtesy attempt before moving to the next call. Requests/texts from hours ago
+  do not need that second attempt. This is not an offer or promise of later
+  outbound follow-up, repair monitoring, or permission for this drafting workflow
+  to place calls. Record attempts only when actually completed; retain identity,
+  appointment, Trust and Safety and access gates. Source:
+  https://opendoor.slack.com/archives/C02K6JVSNUF/p1795462285205729.
 - **Exception for a presented final offer.** When the seller wants to speak with
   someone about their FO, send the **assigned Home Sale Advisor’s Calendly** from
   the HSA directory (see the per-type recipe). That is the path, not
@@ -2114,6 +2125,26 @@ assessment).
 
 ## Assessment reschedules and confirmations
 
+- **Seller scheduling intake before slot selection (Sam, November 23, 2026):**
+  For an eligible seller requesting an in-home walkthrough, first establish what
+  the assessor needs to complete it. Reuse the verified record and full exchange;
+  ask all still-missing readiness questions together in one concise reply:
+  whether the home will be vacant or occupied, whether the seller or another
+  adult age 18 or older will be present under the applicable presence requirement,
+  and how the assessor will get in, including any gate, lockbox, door code or
+  other necessary access instructions. A vacant, unattended visit needs usable
+  access details. Ask the seller for those details through Opendoor; this is not
+  permission to disclose codes or bypass an agent-only assessment restriction.
+  Do not wait for the operator to remember these intake questions.
+  "Any day/time works" and "earliest available" already answer the preference
+  question, not the readiness questions. Retain that preference, do not ask for
+  it again, and do not replace the intake with a scheduling-hours explanation.
+  Confirm the required readiness details before choosing or proposing a slot;
+  then apply the scheduling horizon below. If information is already established,
+  do not ask again; a partial answer gets only the remaining applicable questions.
+  The internal note distinguishes the retained preference, confirmed details and
+  missing information from a booked appointment. Drafting does not check live
+  availability, book a visit or prove an SMS was sent.
 - **Disputed booking / do not send anyone:** Use the
   [resolution-first appointment recipe](recipes/access-resolution.md) to verify
   the same requester, property and exact slot, recent resolution and current

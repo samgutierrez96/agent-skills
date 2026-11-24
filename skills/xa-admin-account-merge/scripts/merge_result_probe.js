@@ -1,7 +1,7 @@
 // Read-only, pair-bound Admin observation. No clicks, network, focus or retries.
 // Keep the returned pre-submit snapshot; pass it back only after invoking the
 // final reviewed merge, on the same page without another candidate selection.
-(({keepingAdminId, keepingUuid, duplicateUuid, before = null, submitted = false}) => {
+(({keepingAdminId, keepingUuid, duplicateUuid, before = null, submitted = false, includeIdentity = false}) => {
   const visible = e => e.getClientRects().length > 0
     && getComputedStyle(e).visibility !== 'hidden';
   const uuid = text => text.match(/UUID:\s*([a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12})/i)?.[1] || null;
@@ -23,22 +23,50 @@
   };
   const keeping = card('Keeping this customer');
   const removing = card('Removing/merging this customer');
+  const warningButtons = [...document.querySelectorAll('button[ng-click="customer_merge.warned = true"]')].filter(visible);
   const finalButtons = [...document.querySelectorAll('button[ng-click="customer_merge.merge()"]')].filter(visible);
   const searchReady = [...document.querySelectorAll('input[ng-model="customer_merge.query"]')]
     .some(e => visible(e) && !e.disabled);
   const busy = [...document.querySelectorAll('[aria-busy="true"],.fa-spinner,.glyphicon-refresh.glyphicon-spin,.loading-spinner')]
     .some(visible) || finalButtons.some(e => e.disabled || /merging/i.test(e.innerText)
       || !e.innerText.trim());
-  const errors = [...document.querySelectorAll('[role="alert"],.alert-danger,.toast-error')]
-    .filter(e => visible(e) && !/Are you really sure\? This cannot be undone\.|Both of these customers have logins/i.test(e.innerText))
+  const normalNotice = text => /^This qualification data will be (?:deleted|kept)[.!]?$/.test(text)
+    || /^Are you really sure\? This cannot be undone\.(?:\s*I'm sure\. Merge them\.)?$/.test(text)
+    || /^Both of these customers have logins \(humans\)\./.test(text);
+  const alerts = [...document.querySelectorAll('[role="alert"],.alert-danger,.toast-error')].filter(visible);
+  const errors = alerts
+    .filter(e => e.matches('.toast-error') || !normalNotice(e.innerText.trim()))
     .map(e => e.innerText.trim()).filter(Boolean);
   const success = [...document.querySelectorAll('[role="status"],.toast,.toast-message,.md-toast-content')]
     .some(e => visible(e) && /^Merged customers[.!]?$/i.test(e.innerText.trim()));
   const snapshot = {keepingAdminId: route, keepingUuid: keeping ? uuid(keeping.innerText) : null,
     duplicateUuid: removing ? uuid(removing.innerText) : null,
     removingPresent: Boolean(removing), confirmationPresent: finalButtons.length > 0,
-    successVisible: success, ready: Boolean(keeping && searchReady && !busy && !errors.length && finalButtons.length <= 1)};
-  const result = (state, evidence = null) => ({state, evidence, snapshot, errors,
+    successVisible: success, ready: Boolean(keeping && searchReady && !busy && !errors.length
+      && finalButtons.length <= 1 && warningButtons.length <= 1)};
+  const selector = element => {
+    if (!element || element.disabled) return null;
+    const parts = [];
+    for (let e = element; e && e.nodeType === 1; e = e.parentElement) {
+      parts.unshift(e.tagName.toLowerCase() + (e.parentElement
+        ? ':nth-child(' + ([...e.parentElement.children].indexOf(e) + 1) + ')' : ''));
+    }
+    return parts.join(' > ');
+  };
+  const controls = {
+    warning: warningButtons.length === 1 ? selector(warningButtons[0]) : null,
+    submit: finalButtons.length === 1 ? selector(finalButtons[0]) : null,
+  };
+  const identity = panel => panel && ({uuid: uuid(panel.innerText),
+    values: [...panel.querySelectorAll('input')].filter(e => visible(e)
+      && !['checkbox', 'radio', 'hidden', 'submit', 'button'].includes(e.type)).map(e => e.value)});
+  const result = (state, evidence = null) => ({state, evidence, snapshot, errors, controls,
+    ...(includeIdentity ? {identities: {keeping: identity(keeping), removing: identity(removing)},
+      warningText: finalButtons.length ? [...new Set([
+        finalButtons[0].closest('.alert-danger,.alert,[role="alert"]')?.innerText.trim() || '',
+        ...alerts.filter(e => !e.matches('.toast-error') && normalNotice(e.innerText.trim()))
+          .map(e => e.innerText.trim()),
+      ].filter(Boolean))].join('\n') : ''} : {}),
     // A probe never authorizes a merge, including on an ambiguous submitted run.
     retryMerge: false});
   if (snapshot.keepingUuid !== keepingUuid || busy || errors.length || !snapshot.ready) {
@@ -56,6 +84,8 @@
     return result('verified', 'submitted-pair-panel-cleared');
   }
   if (submitted) return result('unverified');
-  return result(snapshot.duplicateUuid === duplicateUuid && snapshot.confirmationPresent
-    ? 'confirmation-ready' : 'unverified');
+  return result(snapshot.duplicateUuid === duplicateUuid
+    ? snapshot.confirmationPresent ? 'confirmation-ready'
+      : controls.warning ? 'selection-ready' : 'unverified'
+    : 'unverified');
 })

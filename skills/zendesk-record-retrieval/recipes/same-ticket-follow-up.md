@@ -7,6 +7,9 @@ read the matching full-playbook section before drafting; this card is the first 
 
 - **Same-ticket follow-up:** reuse facts and schemas already in the chat. Do not
   restart customer/property lookups unless the new reply needs a missing fact.
+  For seller assessment scheduling, apply
+  [readiness intake before slot selection](../SKILL.md#assessment-reschedules-and-confirmations):
+  keep supplied availability and ask only the remaining presence/access questions.
 - **Draft completeness review:** questions such as “Did you catch everything?” or
   “Am I missing something?” review the selected draft, not just the newest inbound.
   Check the underlying customer ask, prior support question and any later resolution

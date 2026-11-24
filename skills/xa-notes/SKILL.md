@@ -59,10 +59,11 @@ they want it flagged, output the fix-forward flag and the confirmed note as two
 labeled blocks. See "Correction reveals a process gap" in Part 11. Never on a
 first note, and never unless the XA explicitly asks for the flag.
 
-The third: when the XA said **post** for the last note, you may add one short
-line under the updated fence: that it posted, or which property/customer to
-pick. Never on an ordinary paste. Never auto-post because an address was in the
-shorthand.
+The third: an explicit post permits one short post-result line under the fence.
+A required supporting-link lookup that cannot be completed permits a concise
+missing-link blocker and question under the otherwise ready draft, even on an
+ordinary paste. Keep the note unposted until the required link is resolved.
+Never auto-post because an address or a report was mentioned in the shorthand.
 
 **If the shorthand does not cover something, the note covers only what they
 said, and you say nothing about it.** No flag, no caveat, no "I used the closest
@@ -87,36 +88,49 @@ This safeguard applies to every skill used in this workflow.
 
 ## LATENCY-CRITICAL POST FAST PATH
 
-For a routine authorized post with one verified caller match and no observed
-identity conflict, use OpsHub MCP only. Resolve caller/property in the parallel
+For a routine authorized post, resolve caller/property in the parallel
 lookup batch, reuse the operator token, resolve mentioned assigned roles under
-Part 11, then compose the CONTACT body once. An already-returned assigned name
+Part 11, and complete `xa-admin-account-merge`'s bounded saved-contact check on
+the verified caller before posting. Reuse complete saved contacts when available;
+otherwise use its connector-first exact-caller read and, only when necessary,
+separate background Customer Info read. One search hit and its single displayed
+email do not establish that no secondary contacts exist. With complete,
+conflict-free lists, return immediately to the MCP post without Admin, contact
+searches or edits, then compose the CONTACT body once. An already-returned assigned name
 belongs in that body before submission, not only in reasoning or the chat reply;
 reuse it without another lookup.
-Do not audit complete email/phone lists, search for hypothetical duplicates,
-inspect contact editors, read activity history to prove contact completeness,
-or open a browser just because a connector omits full contact lists. A missing
-optional contact field or an activity-only profile response is not a duplicate
-signal. If the caller/property target itself remains unresolved, ask only for
+Do not search for hypothetical duplicates, audit unrelated contacts, or read
+activity history to prove contact completeness. The bounded saved-contact check
+is required even when compact search omits secondary contacts; missing fields
+are not themselves a duplicate signal or evidence that the lists are empty.
+If the caller/property target itself remains unresolved, ask only for
 that missing identifier; never guess or launch contact cleanup to fill the gap.
-Target at most 15 seconds end-to-end for this routine path when the model and
-connector respond normally. This is a target, not a measured guarantee or a
+Target at most 15 seconds end-to-end for the connector-only, complete-contact
+path when the model and connector respond normally; required background reads
+or cleanup add their own time. This is a target, not a measured guarantee or a
 reason to skip identity checks, retry an uncertain write, or claim success early.
 
 ### Duplicate customer profiles
 
 Invoke `xa-admin-account-merge` only when the XA reports a duplicate/contact
-problem or required OpsHub reads actually expose one: conflicting real caller
+problem or the required saved-contact/caller/property reads expose one: conflicting real caller
 matches, distinct relevant customer UUIDs, extra emails/phones, or distinct
 caller-phone and property-seller profiles. Repeated rows with the same UUID are
-not separate accounts. A repeated original caller number on one verified UUID,
-with no distinct-account/identity conflict in the required reads, takes the shared
-skill's repeated-number-only OpsHub cleanup immediately: preserve all emails and
-distinct numbers, remove only redundant copies, and do not ask for a keeping email
-or search for hypothetical accounts. Prefer its connector-only edit and one
-persisted verification; no Admin or browser discovery when the connector suffices.
-Inspect evidence already returned by required reads;
-do not add discovery solely to prove that no duplicate exists. When a concrete
+not separate accounts. Count distinct normalized contact values, not repetitions
+in a compact search display. A WebCustomer.phone_numbers string such as
+`202-555-0124 / (202) 555-0124`, or a legacy list repeating that same number, is
+one distinct number, not evidence of separately editable saved rows. It does
+not waive the bounded complete saved-contact check. With complete, conflict-free
+lists on the verified caller, continue the MCP note post without cleanup;
+do not search activity or open Admin merely to investigate display repetition.
+An explicit XA cleanup request or already-returned structured saved contacts
+showing distinct redundant rows can invoke the shared repeated-number-only path.
+That path preserves all emails and distinct numbers, removes only safely
+targetable redundant copies, and retains its persisted verification and
+identity/authority gates. Distinct UUIDs, different normalized numbers, extra
+emails and real identity conflicts still take the applicable shared gates.
+Reuse evidence returned by the bounded saved-contact and required identity reads;
+do not add broader discovery without a concrete signal. When a concrete
 signal exists, preserve the merge skill's candidate classification, independent
 identity/keeping-email decisions, merge/cleanup verification and posting gates.
 This adds no lookups or cleanup to ordinary tool-free drafts.
@@ -200,9 +214,10 @@ instead. An empty phone result
 must take the bounded recovery path in Part 11 before asking for more identity.
 Do not scan tool catalogs or rediscover loaded schemas. Part 11’s exact-name
 binding is allowed only for missing deferred tools, before a speculative call.
-Browser automation or filesystem searches remain excluded for routine posts.
-Only an actually triggered shared merge workflow may use its required browser
-execution and post-merge verification when structured evidence is insufficient.
+Filesystem searches remain excluded for routine posts. The shared merge skill's
+bounded saved-contact check may use its background Customer Info read when the
+connector cannot expose complete lists; only a concrete conflict permits its
+further merge/cleanup execution and verification.
 Bounded empty-phone recovery remains scoped to resolving the posting target,
 not a general full-contact audit.
 
@@ -297,7 +312,7 @@ the second from the bullets only.
 **Do not drop a fact they typed** to squeeze the call into a closer template.
 If they said the in-home walkthrough is already scheduled, the note says
 scheduled. If they said vacant, HODW, or that they added the agent, those go
-in as given. Copy the bullets and output the fence.
+in as given. If they said the buyer was unable to gain access, they remotely unlocked the door, provided a keypad code, or filed a home issue report, include each stated action in Solution Offered and Customer Concerns as given; do not replace them with only the caller-type verified-info identity and scheduling line. Copy the bullets and output the fence.
 
 **Do not stall.** A coworker pastes shorthand between calls. Reconciling two
 standing answers, an unknown acronym, or whether something is an incident vs a
@@ -788,7 +803,7 @@ A four-word Solution Offered usually means something is missing. Write only what
 they mentioned.
 
 **Access method wording:** lockbox → "provided the lockbox code," only when they
-said lockbox. Gate code → "provided the gate code." Generic → "provided the
+said lockbox. Gate code → "provided the gate code." Keypad code → "provided the keypad code." Generic → "provided the
 access code." The XA unlocked it themselves → "unlocked the door remotely to give
 access."
 
@@ -2914,6 +2929,24 @@ matches. A conflicting property needs clarification or the XA's explicit link
 selection. Use authorized private-channel search when needed, respecting the
 connector's access/consent requirements; an empty public search is not proof
 that no thread exists. Keep the lookup budget below across these alternatives.
+
+**Newly filed work needs a current source read, not search alone.** Slack search
+may not yet return a just-created workflow report. Include bot messages when
+searching for completed work; a report generated by OpsHub can document the XA's
+submission without the XA being its Slack author. For a just-filed home issue/HQI
+report, prefer a bounded `slack_read_channel` read of the public `#hqi-feedback`
+channel (`C0B345SKN77`), scoped to this call's time, then match the property's
+address/token and the reported issue. This bypasses search indexing, not access
+controls. It is the initial lookup, not an extra lookup allowance. If an initial
+search instead returns no match or an unrelated alert, use the one remaining
+targeted read of the known report channel; do not stop after that search or pick
+the unrelated alert. For other completed work, use its verified retained channel
+or direct ticket/document reference; never discover unrelated channels broadly.
+Use at most 50 recent channel messages in a bounded call-time window. If necessary,
+the one refinement may read the candidate's thread. No sleep, polling, private
+channel consent bypass, new report, message or other mutation is authorized.
+<!-- supporting-link-channel: C0B345SKN77 -->
+
 If the XA identifies a ticket system and ticket ID, or a specific document/
 attachment record, read that record directly instead of guessing its URL or
 searching every system. For an inspection report, match the property and report
@@ -2938,12 +2971,27 @@ from a previous caller.
 
 This bounded lookup is an exception to ordinary notes' zero-tool fast path and
 the OpsHub-only posting boundary, not permission for any additional mutation.
+**The supporting link is a posting prerequisite, not a best-effort extra.** Before
+`CreateCustomerNote` or an authorized `UpdateCustomerNote`, inspect the exact
+outgoing five-field body: every stated completed item that requires a link must
+have its verified matching URL in that body. The property URL and the words
+"Filed a home issue report" do not satisfy this check. This applies to new notes,
+corrections and retained continuations, not just one trigger phrase.
+
 If the connector is unavailable, context is insufficient, or no unique match is
-verified within the bound, finish the otherwise ready note/post without inventing
-a link or claiming it was attached. Keep other valid links (or `N/A` when none
-exist). On an explicit post, briefly state in the post-result line that the
-report link could not be verified. Do not block the note or repeat a completed
-post merely to add a link; an update/repost requires its own authorization.
+verified within the lookup bound, preserve the otherwise ready draft and valid
+links, but do not post/update it without the required supporting link. State
+`Supporting link needed; note not posted.` and ask for that existing report,
+thread, ticket or document link, naming the concrete lookup/access gap. Do not
+say the report does not exist merely because search missed it. Keep the original
+caller, property and posting intent through the answer; a supplied link continues
+only the remaining authorized work. Verify its case match before using it. An
+explicit XA instruction to post without that link may waive this prerequisite
+for that call only; never infer a waiver from urgency or a repeated post command.
+Do not invent a URL, file another report or send Slack. If a note was already
+posted without the link, report those two outcomes separately; do not call the
+whole request complete. An in-place correction still requires its own authority;
+never create a duplicate or replay the completed post merely to add a link.
 
 This is process, not a wording preference. Do not offer to save it to My
 wording.

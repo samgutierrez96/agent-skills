@@ -8,6 +8,13 @@ small compatibility notes or wrappers when a host needs them.
 
 ## Current scope
 
+`schedule-ticket-appointment` was added November 23, 2026 from Sam's recorded
+workflow. Its first supported provider is Showami: reuse verified Zendesk context,
+perform an authorized booking, verify the saved appointment, then prepare the
+same-ticket reply and internal-note drafts. Sending, disposition changes and
+the recorded send-error recovery are excluded. Other appointment types await
+their own procedures; this desktop package does not change Skill Router.
+
 The repository contains reviewed custom skills. The October 27, 2026 audit reconciles
 the original seven with their active Codex or project runtime sources, including
 required project rules and references. Bot Task notes was added November 2, 2026.

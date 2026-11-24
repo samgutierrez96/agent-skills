@@ -99,6 +99,10 @@ asks. Read a linked detailed section only for the condition named on that line.
 - Low-offer complaint → SKILL.md → Offer complaints, plus
   [intent details](ROUTING-DETAILS.md#intent-and-policy-routing).
 - Assessment day/time → [assessment time](recipes/assessment-time.md).
+- Seller requests help scheduling an assessment, including "any time" or
+  "earliest available" → SKILL.md → Assessment reschedules and confirmations:
+  readiness intake before slot selection. Retain supplied availability; collect
+  missing presence/access details together, not another time-preference request.
 - Seller asks who can conduct assessment → [provider](recipes/assessment-provider.md).
 - Preliminary offer next steps → [preliminary next steps](recipes/preliminary-next-steps.md).
 - Seller working with agent → [seller with agent](recipes/seller-with-agent.md).

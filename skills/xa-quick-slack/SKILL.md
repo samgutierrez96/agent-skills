@@ -161,11 +161,23 @@ turn. A generic `go`/`proceed` cannot answer outstanding factual questions.
 After the read, stop with each remaining independent decision and its explicit
 answer list, so shared controls can display buttons. Keep caller identity
 separate from whether a phone is legitimately shared or incorrectly assigned.
-Unknown facts retain text entry. If current evidence resolves all blockers,
-offer `Continue with checked records` and `Keep pending`; do not resume until
-the XA chooses. An incomplete read remains a specific blocker, never readiness.
-Retain original authority/receipts for a later answer; never imply an unperformed
-send/post succeeded. This exception adds no reads or output to ordinary cases.
+Unknown facts retain text entry. The read-only pause applies to this reread turn,
+not permanently to later factual answers. When the XA subsequently answers the
+remaining identity/contact questions, retain each answer independently. Once the
+last actual blocker is resolved, immediately continue the original authorized
+escalation and CONTACT note with the checked records and existing receipts. Do
+not ask for another Continue, send/post approval, or verification merely because
+the earlier turn was read-only. Partial answers keep only the unanswered facts
+pending; they never answer another independent question or expand action scope.
+
+If the reread itself resolves all blockers without a subsequent factual answer,
+ask `How would you like to continue?` followed by the explicit answers
+`Continue with checked records` and `Keep pending`, each as a separate bullet.
+Do not return a bare action list without its question. Stop this read-only turn;
+the XA's later continuation retains the original posting authority, not a new
+draft-only workflow. An incomplete read or uncertain prior action remains its
+specific blocker. Never imply an unperformed send/post succeeded. This exception
+adds no reads or output to ordinary cases.
 
 ## Retained-draft Post it completion — November 17, 2026
 
@@ -273,6 +285,10 @@ or evidence of current existence.
   records, make no sends/posts/drafts or source edits, and distinguish current
   observations from historical receipts. If live reads fail, say verification
   is incomplete; never substitute an old successful create/send response.
+  An incidental existing-issue search result is not this request's submitted
+  escalation. Verify a retained delivery reference only when its provenance
+  binds it to this case; otherwise report that no case-specific delivery was
+  recorded. Do not describe a never-attempted action as deleted or missing.
 
 Operator feedback about wording or future escalation handling remains discussion
 even after a case is complete; it never authorizes replaying actions. Explicit
@@ -548,11 +564,16 @@ mutations. Reuse the result rather than checking the same contact again.
 
 This operation does not expose secondary emails or phone types. It is not
 complete-list evidence for cleanup/merge verification and cannot prove those
-omitted fields empty. Preserve the full-contact and duplicate/identity gates
-below: reuse complete saved evidence, or follow the owning merge skill's
-bounded sufficient-read path when those gates require it. If required evidence
-is unavailable under the current tool/browser boundary, report the specific
-unverified field/blocker and stop before dependent writes; do not guess.
+omitted fields empty. Before the first dependent send/post, apply the owning
+merge skill's bounded saved-contact check even for a unique caller search hit:
+reuse complete saved lists or obtain its connector-first exact-caller read,
+using its separate background Customer Info read only when necessary. Missing
+fields are not themselves duplicates, but may not be treated as empty lists.
+Only a concrete contact/account signal permits broader duplicate discovery or
+cleanup. Reuse that complete evidence through continuation. If the required
+saved-contact check or evidence for an actual conflict is unavailable,
+report the specific unverified field/blocker and stop before dependent writes;
+do not guess or dismiss a real duplicate merely because the phone match is unique.
 
 `get_customer_profile(customer_uuid=...)` returns customer event history, not
 the CONTACT's saved contact lists; `full: true` does not fix that. Do not use it
@@ -776,8 +797,12 @@ read. Ask only for its unresolved identity/keeping-email answers and keep the
 send/post pending until its required merge and verification finish. A unique
 phone hit or property match does not bypass this check.
 
-On an authorized post/escalation, inspect the selected customer's full contact
-lists and customer links exposed by the required property read. Extra emails,
+On an authorized post/escalation, inspect the caller/contact facts and customer
+links already exposed by the required reads. A unique verified caller with no
+observed contact conflict stays on the MCP-only escalation/posting path; do not
+fetch full lists or open a browser solely because optional contact fields are
+omitted. A buyer and the property's seller are distinct roles, not automatic
+duplicate accounts. An XA-reported contact problem or concrete extra emails,
 extra phones or repeated compatible customer links invoke `xa-admin-account-merge`
 even when the caller-phone lookup returns one result. Flag the observed issue
 outside the note, then use that skill's **Extra contacts and repeated customer

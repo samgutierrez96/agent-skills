@@ -67,7 +67,9 @@ try {
   };
   for (const scenario of [{layout: 'expanded'}, {layout: 'collapsed'}, {layout: 'open'},
     {layout: 'collapsed', warning: true}, {layout: 'open', noop: true},
-    {layout: 'collapsed', mode: 'consolidate'}, {layout: 'open', mode: 'consolidate', promote: true, named: true},
+    {layout: 'collapsed', mode: 'consolidate'},
+    {layout: 'collapsed', mode: 'consolidate', prechecked: true},
+    {layout: 'open', mode: 'consolidate', promote: true, named: true},
     {layout: 'open', mode: 'consolidate', correction: true, named: true},
     {layout: 'collapsed', mode: 'consolidate', correction: true, named: true, lost: true},
     {layout: 'open', mode: 'consolidate', correction: true, named: true, unchanged: true},
@@ -87,9 +89,31 @@ try {
     assert.equal(open.state, layout === 'collapsed' ? 'details-ready' : layout === 'open' ? 'editor-open' : 'edit-ready');
     assert.equal(await page.content(), before, 'probe is read-only');
     const oldUpdates = updates, oldNavigations = navigations;
+    let savedContactCheck;
+    if (scenario.prechecked) {
+      // A unique compact hit conceals a saved secondary email and duplicate row.
+      // The entry check must read the real lists, never mutate or pick an email.
+      const compact = {uuid: 'synthetic-caller', email: 'alex@example.invalid',
+        phone_numbers: '202-555-0123 / (202) 555-0123'};
+      savedContactCheck = await reader({phase: 'before', customerUuid: compact.uuid});
+      assert.equal(savedContactCheck.persisted, true);
+      assert.equal(savedContactCheck.contactsComplete, true);
+      assert.equal(savedContactCheck.customer.primaryEmail.address.value, compact.email);
+      assert.deepEqual(Array.from(savedContactCheck.customer.otherEmails, e => e.address.value),
+        ['other@example.invalid'], 'compact primary-only search must not hide secondary email');
+      assert.equal(savedContactCheck.customer.otherPhoneNumbers.length, 2);
+      assert.equal(planner.plan({customer: savedContactCheck.customer,
+        customerUuid: compact.uuid, callerPhone: '+12025550123', identityVerified: true,
+        cleanupAuthorized: true, contactsComplete: true}).state, 'blocked',
+      'complete contacts do not choose the keeping email');
+      assert.equal(updates, oldUpdates, 'contact discovery performs no save');
+      assert.equal(calls.includes('save'), false);
+    }
     const options = {operationId: 'synthetic-request', mode: scenario.mode || 'repeated-phone',
       customerUuid: 'synthetic-caller', callerPhone: '+12025550123', identityVerified: true,
-      cleanupAuthorized: true, accountConflict: false, planner, readSavedContacts: reader,
+      cleanupAuthorized: true, accountConflict: false, planner,
+      readSavedContacts: args => savedContactCheck && args.phase === 'before'
+        ? savedContactCheck : reader(args),
       ...(scenario.mode === 'consolidate' ? {detectionComplete: true,
         primaryEmail: nameFix ? 'alex.morgan@example.invalid' : 'alex@example.invalid'} : {}),
       ...(nameFix ? {nameCorrectionPending: true, nameCorrectionConfirmed: true,

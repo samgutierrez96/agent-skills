@@ -68,11 +68,17 @@ blank. Explicit posts use resolved caller/property values.
   their schema is available. Never enumerate unrelated tools or repeat discovery
   in later turns, and do not make exploratory or duplicate lookup calls. An empty phone result takes Part 11's
   bounded shared-context recovery before asking for more identity; its exact
-  shared-skill read, retry and fallback are the fast-path exception. Repeated copies
-  of the caller's primary number on one verified profile use the shared skill's
-  narrow connector-first OpsHub cleanup, not an Admin merge or a new email-choice
-  round. Preserve distinct contacts and existing email; known distinct accounts
-  retain all merge/identity gates. Return only relevant connector fields, reuse
+  shared-skill read, retry and fallback are the fast-path exception. Repetition
+  of one normalized caller number in a compact search summary is not a cleanup
+  trigger or proof of complete contacts. Before posting, follow the shared merge
+  skill's bounded saved-contact check on the verified caller, using sufficient
+  connector evidence first and its separate background Customer Info read only
+  when needed. Complete, conflict-free lists return directly to the MCP post;
+  no broader duplicate searches or edits are needed. Explicit XA cleanup requests or already
+  established distinct saved duplicate rows use the shared skill's narrow
+  connector-first cleanup. Preserve distinct contacts and existing email;
+  known distinct accounts retain all merge/identity gates.
+  Return only relevant connector fields, reuse
   the original call/draft, and compose the final note once after required checks.
   For a stated assigned-role action, Part 11 resolves the acquisition advisor
   from the caller-matched qualified lead's `experiencePartner.name`; check that

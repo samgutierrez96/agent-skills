@@ -76,6 +76,16 @@ or respond by a deadline unless an authorized commitment supports that wording.
 
 ## Action boundary and routing
 
+For an existing agent/appraiser access callback request, the November 23 XA
+announcement directs the XA to make one immediate second courtesy attempt after
+an unanswered first call only when the appointment and communications match the
+current hour, indicating the caller is likely still at the home. Hours-old
+requests do not need it. Keep that operator next step separate from later
+repair-status monitoring or a promised callback. Do not infer that either call
+happened or place calls through this brief workflow. Identity, appointment,
+Trust and Safety and access gates remain. Source:
+https://opendoor.slack.com/archives/C02K6JVSNUF/p1795462285205729.
+
 This skill prepares talking points; it does not call, send, post, schedule,
 change records, or close tasks. An internal request to "call them" is case
 context, not authorization for the assistant to perform outreach. If the user

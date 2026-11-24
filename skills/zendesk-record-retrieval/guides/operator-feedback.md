@@ -22,6 +22,12 @@ verified without a measured comparison. A correct no-reply result remains correc
 when the operator is questioning its latency.
 
 Actual output corrections still return the corrected workflow deliverable.
+An unambiguous correction to a selected draft also triggers guarded future-use
+review; Sam does not need to say "save" separately or click a correction button.
+Save only the reusable change in its owning source, not customer facts. Honor
+case-only/no-save/preview-only instructions, and report unresolved ownership,
+conflicts or validation rather than claiming a save. Existing verified coverage
+needs application, not a duplicate rule. The review authorizes no customer action.
 When the operator asks for a revised reply now as well as a future-use update,
 return the revised customer reply and internal note even if the reusable save
 needs more context. State that save blocker separately; never substitute the old

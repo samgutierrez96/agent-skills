@@ -15,6 +15,14 @@ read the matching full-playbook section before drafting; this card is the first 
   confirmed status on an inbound follow-up; do not treat proposed thread ideas
   as required process. Source:
   https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795046789458139.
+- **Existing current-hour access CBR (November 23):** Notes must identify an
+  agent/appraiser access callback request, an unanswered first attempt, and an
+  appointment and communications matching the current hour. The XA makes one
+  immediate second courtesy attempt before the next call; hours-old requests
+  do not need it. This is not a later repair-status callback promise and does
+  not authorize assistant calls or bypass identity/Trust/access gates. Document
+  actual attempts only. Source:
+  https://opendoor.slack.com/archives/C02K6JVSNUF/p1795462285205729.
 - **Unresolved touring/access:** Zendesk MCP → property listing stage and any
   existing appointment's booking/confirmation timing. Honor a viewing already
   scheduled or confirmed before the home went under contract; do not honor one

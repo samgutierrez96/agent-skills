@@ -1,5 +1,156 @@
 # Skill manifest
 
+## Keep maintenance out of customer conversations — November 23, 2026
+
+The shared browser safety owner and local-only global agent instructions now
+explicitly prohibit agent-generated diagnostics and display/status-repair
+prompts in production conversations through either UI or APIs. Authorized live
+work stays bound to its original request/caller/workflow and actions; an unrelated
+chat is never a repair target. Mistakes are reported in Codex and require direction
+for the exact repair rather than more messages or history changes. Active and
+canonical browser sources plus inventory hashes are reconciled locally. The
+Router project instructions and synthetic HTTP regression remain in its own
+repository. No live browser, customer record, chat, service or action was touched.
+Publication remains with the existing evening synchronization.
+
+## Complete caller contacts before the no-cleanup path — November 23, 2026
+
+Reconciled the shared account-merge entry gate with Notes' posting fast path and
+Escalations' partial CONTACT read. An authorized post now requires one bounded
+complete saved-contact check on the verified caller, reusing sufficient evidence
+or a supported connector before a separate background Customer Info fallback.
+Compact one-email search results and repeated-number display strings do not
+establish completeness. Broader discovery/mutations still require an actual
+signal; missing keeping-email choices remain independent explicit answers.
+Warm-up, tool-free drafting, maintenance and note-status checks remain excluded.
+An authorized cleanup follow-up preserves an existing posted note and receipt.
+Its Notes completion displays that unchanged retained note plus the verified
+cleanup result, satisfying the containing output contract without another write.
+Active sources, canonical mirrors and inventory hashes are saved locally;
+GitHub publication remains with the existing evening synchronization.
+
+Validation: 1,217 isolated Router tests (one skip), submission and routing
+checks, the hidden-secondary-contact browser regression, shared choice controls,
+contact planner/runner checks, skill validation and mirror/hash checks passed.
+
+## Scoped current-hour access callback retry — November 23, 2026
+
+The explicit XA team update adds one immediate second courtesy attempt for an
+existing unanswered agent/appraiser access callback request only when appointment
+and communications match the current hour. Hours-old requests do not need it.
+Zendesk's Callbacks/touring-access owners and Caller Follow-Up now retain this
+scope separately from the no-later-callback-promise/repair-monitoring rule. Notes
+and Bot Tasks still record only actual actions; no assistant calling authority
+or ordinary Notes research was added. The single local-only shared topic reference,
+active sources, required distribution/runtime copies and inventory hashes are
+reconciled locally. No calls, customer changes or service restart occurred.
+GitHub publication remains with the existing evening synchronization.
+
+## Supporting links are required before Notes posting — November 23, 2026
+
+Replaced the registered Notes owner's best-effort post-without-link fallback.
+Completed-work links now gate the first create or authorized update; unresolved
+evidence keeps the draft and original posting intent pending. A property URL is
+not a report link. Just-filed HQI reports use a bounded direct public-channel read
+rather than relying only on search indexing; bot authorship does not disqualify
+the matching form receipt. The same two-read bound and no-extra-action/private
+access gates remain. Active/canonical source and inventory hashes agree locally.
+Customer examples and live receipts are excluded. Publication awaits evening sync.
+
+## Bounded merge execution and normal-warning handling — November 23, 2026
+
+The shared account-merge package now distinguishes Admin's normal qualification
+retention/deletion notices from actual failures. Its read-only probe returns
+focused identity values and unique visible controls. A staged execution helper
+groups warning readiness and submit/result checks while retaining separate
+identity and irreversible-warning review. Pair-bound pre-click checkpoints,
+fresh target/review checks and read-only lost-response reconciliation prevent
+duplicate submissions within the retained workflow; runtime storage does not
+replace durable Router receipts. Synthetic tests cover normal notices, real
+errors, delayed rendering, stale targets, lost responses/checkpoints and resumed
+or concurrent calls. The selected-pair ready path uses five focused reads and
+two UI clicks; this is a fixture count, not a measured live latency claim.
+Active/distribution copies and inventory hashes agree locally. No live browser,
+customer action, service restart or publication is part of this source change.
+GitHub validation and integration remain with the scheduled evening sync.
+
+Validation: 16 staged merge scenarios, the expanded read-only probe regression,
+existing contact planner/cleanup/browser tests, ten shared guard tests, skill
+validation, copy/hash checks, submission, 17 routing and nine fast-path checks
+pass. The isolated Router suite ran 1,204 tests with one skip and one unrelated
+saved-wording source-fingerprint mismatch; saved wording content is unchanged
+and was not rewritten for this merge correction. No full-suite green claim.
+
+## Recheck pause ends before later resolved-answer continuation — November 23, 2026
+
+The registered Escalations owner now scopes a profile reread's read-only pause
+to that turn. Later factual answers remain independent and, when the final actual
+blocker resolves, continue the original authorized remaining work without another
+send/post or Continue approval. A reread that itself resolves everything still
+stops with a self-contained question and explicit continuation/pending answers,
+not an unlabelled action list. Incomplete reads, uncertain earlier mutations,
+draft-only limits and original receipts retain their guards. Active/canonical
+content and its inventory hash agree locally. Publication remains with the
+evening task; private live receipts and customer facts are not package content.
+
+## Compact repeated-phone summaries stay on the direct posting path — November 23, 2026
+
+The Notes owner and shared account-merge gate now distinguish repetitions of one
+normalized number in a compact WebCustomer summary from independently established
+distinct saved contact rows. A unique verified caller with only that summary
+repetition stays MCP-only: no contact audit, activity/profile detour, cleanup
+reference loads or browser setup. Explicit cleanup requests, distinct relevant
+accounts, different contacts, confirmed redundant saved rows and real identity
+conflicts retain the existing cleanup/merge and persisted-verification guards.
+Notes project instructions and canonical mirrors are reconciled through the
+inventory. This is a source correction, not a claim of measured 15-second
+performance or permission to replay a customer action. Publication remains with
+the evening synchronization.
+
+## Escalation contact-entry conflict removed — November 23, 2026
+
+The registered Escalations runtime now follows the shared merge skill's concrete
+signal entry gate: missing optional contact fields alone do not block a uniquely
+verified routine escalation or initiate a contact audit. Real extra contacts,
+duplicate candidates, seller-profile splits and identity conflicts retain their
+existing merge/cleanup and verification gates. Buyer versus seller roles alone
+do not establish duplicate accounts. Verification also distinguishes incidental
+thread-search results from this case's submitted escalation. The active source,
+canonical package and inventory hash agree locally; source maintenance performs
+no customer action. GitHub publication remains with the scheduled evening task.
+
+## Recorded Showami booking and draft handoff — November 23, 2026
+
+Added `schedule-ticket-appointment` as a discoverable desktop skill, authored in
+this repository and installed identically under `.codex/skills/`. It reuses
+verified ticket/customer/property/participant context, retains readiness and
+provider-eligibility gates, follows the recorded OpsHub Showami controls for an
+authorized booking and requires a saved-outcome check before claiming success.
+The final output is revised same-ticket customer-reply and internal-note drafts;
+the later disposition/send attempt and error recovery are explicitly excluded.
+The recording does not expose a settled booking receipt or final revised draft
+text; neither is invented. Additional appointment types remain unsupported until
+their own procedures are established. Raw recordings and customer facts stay out
+of the package. Structural validation and installed/canonical equality are checked
+locally, not a live booking replay or a claim of Router integration. Publication
+remains with the existing evening synchronization on the retained working branch.
+
+## Seller assessment readiness before slot selection — November 23, 2026
+
+The Zendesk scheduling owner now collects missing vacancy, applicable adult
+presence and access instructions together before choosing a slot. Any-time or
+earliest-available preferences are retained rather than asked again or answered
+with hours alone. First-pass, provider and same-ticket routes reach that intake;
+all-complete and partial-answer cases avoid redundant questions. Existing
+eligibility, presence/access, agent-only and manual-booking boundaries remain.
+The operator-feedback guide also makes automatic guarded future-use review of a
+clear draft correction explicit, while excluding case facts, no-save requests
+and unverified/conflicting saves. Router owns correction-intent detection and
+submission-status presentation separately. Six active/distribution files and
+inventory hashes are reconciled locally; synthetic decision acceptance cases
+are documented, not claimed as a completed live-model evaluation. No customer
+action or service restart occurred. Publication awaits the evening sync.
+
 ## First-review ticket consolidation and verified continuation — November 23, 2026
 
 The Zendesk fast index routes offer reconsideration/low-offer disputes through
@@ -1685,6 +1836,7 @@ selected by modification timestamp. File provenance and SHA-256 hashes are in
 
 | Skill | Active source relative to the user home | Audit result |
 | --- | --- | --- |
+| `schedule-ticket-appointment` | `.codex/skills/schedule-ticket-appointment` | Added November 23; canonical authoring source is `skills/schedule-ticket-appointment`; installed desktop runtime matches; Showami only, no send or Router change |
 | `caller-follow-up` | `.codex/skills/caller-follow-up` | Added November 13; canonical repository source and installed runtime match |
 | `zendesk-ticket-merge` | `.codex/skills/zendesk-ticket-merge` | Added November 19; canonical authoring source is `skills/zendesk-ticket-merge`, with an identical installed desktop runtime; merge replay remains unverified |
 | `kb-answer-for-callers` | `.codex/skills/kb-answer-for-callers` | Added November 4; shared business-wide retrieval, original Claude text preserved |
