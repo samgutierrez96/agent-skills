@@ -58,19 +58,27 @@ line-number drift and repeated keyword searches. Examples:
 - Tenant occupancy policy: recipes/tenant-occupancy.md and AGENTS.md's
   `Business intent, evidence and conflicting guidance` gate; inspect current
   owner policy, not a broad Per-type recipes/Cost discipline section.
+- General policy/product: `Policy and product questions` plus its focused card
+  and current evidence. `Per-type recipes` and `Fast recipe index` are collections,
+  not required wholesale reads. The reader rejects them without an exact entry.
 - Signed documents/counteroffer follow-up: recipes/document-follow-up.md and
   guides/document-handoffs.md; preserve chronology and existing related-ticket checks.
 - Specialist action, operator-feedback or Router evidence: exact matching guide
   named in FAST-INDEX.md. Do not preload all guide bodies for ordinary tickets.
 
-Extract by exact heading from the known workspace SKILL.md path; no repository
-search, global loader, or preliminary heading-discovery call is needed. In a
-single `python3` read, locate each requested heading and its next same-level
-heading, then emit just those sections. A missing heading is Not verified: do
-not guess a line range or draft without its required rule. Keep each emitted
-chunk at most 200 lines and 12,000 characters; label heading, part and continuation.
-For longer sections, read all required continuations before relying on them.
-These bounds govern targeted reads; do not treat truncated output as complete.
+Use `python3 skills/zendesk-record-retrieval/scripts/read_playbook.py --section
+"Public listings"` with the exact required heading(s), repeating `--section` when
+needed. It emits one combined packet (4,000 characters by default, hard ceiling
+6,000), its source revision and an explicit completion flag. Follow the returned
+`continue_with` command for every required continuation; never print all pages in
+one tool output. A missing/ambiguous heading fails closed. For a named top-level
+bold recipe bullet, use `--entry` with its exact label and one section; this keeps
+the governing preamble and nested conditions but excludes unrelated sibling recipes.
+No repository search, global loader or preliminary heading-discovery call is needed.
+Do not batch a source packet with raw connector payloads or tool catalogs; the
+combined output can truncate even when each individual chunk is small. Retain
+connector responses and emit the relevant fields, contradictions and coverage in
+the same call. Missing, partial or truncated evidence remains Not verified.
 Reuse loaded sections on follow-ups. Independent reads may run together; record
 lookups needing a returned identifier must wait. Inspect every result and preserve
 newer resolutions, contradictions and pagination when compacting evidence.

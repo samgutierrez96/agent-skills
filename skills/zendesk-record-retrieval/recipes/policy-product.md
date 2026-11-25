@@ -1,7 +1,11 @@
 # Policy/product question
 
 Apply the packaged entry contract and project rules before this recipe.
-The full playbook remains authoritative: [Per-type recipes](../SKILL.md#per-type-recipes).
+The focused full-playbook rule is [Policy and product questions](../SKILL.md#policy-and-product-questions).
+Read it with `python3 skills/zendesk-record-retrieval/scripts/read_playbook.py
+--section "Policy and product questions"`, not the entire Per-type recipes
+collection. This is the routing procedure; use current governing business evidence
+for the actual answer. A separate record-specific ask still gets its matching card.
 For assessment/photo/app/walkthrough, stage-sensitive, ambiguous, or multi-record asks,
 read the matching full-playbook section before drafting; this card is the first lookup path.
 

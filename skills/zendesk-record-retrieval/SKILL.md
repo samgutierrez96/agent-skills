@@ -63,10 +63,29 @@ automatically; keep the internal note accurate about the actual handoff or unsen
 status. Email tickets have no OpsHub call note. Estimated/expired offers without a final offer
 or contract do not trigger HSA escalation.
 
+## Customer acknowledgment after an escalation
+
+An unanswered customer question still needs a brief public acknowledgment when
+Support must investigate, retrieve a document or wait for another team. After a
+confirmed escalation, draft the customer reply and separate internal note using
+the saved outcome; do not substitute a no-reply placeholder just because the
+answer is pending. State only the verified handoff/current status, without a
+response-time promise, a guaranteed result or a claim that an unsent draft was
+submitted. Use the ticket's email/SMS format. Keep the underlying request open
+for follow-up; an internal escalation is not resolution. Drafting never sends,
+posts, reassigns, closes or repeats the escalation. Preserve no-contact,
+spam/phishing and verified already-resolved handling, and do not duplicate an
+acknowledgment already present in the verified public thread. See AGENTS.md's
+Output order and Hard gates for the governing reply and disposition rules.
+
 ## Related-ticket consolidation
 
-When a related-ticket check finds a split conversation, or Sam requests a ticket
-merge, use [ticket consolidation](recipes/ticket-merge.md). Read both sides of the
+When a related-ticket check finds a split conversation, a draft cites another
+ticket as an unanswered continuation or as the answer to the same request, or
+Sam requests a ticket merge, use [ticket consolidation](recipes/ticket-merge.md).
+A verified duplicate in the same support episode merits an eligible merge
+recommendation even if no further customer reply is needed; do not default to
+note-plus-close merely because Sam has not requested a merge. Read both sides of the
 conversation before drafting, recommend one continuing ticket, and preserve source
 links and outstanding asks. Actual merging is a separately authorized operation,
 not part of ordinary read-only drafting or an OpsHub customer-account merge.
@@ -149,10 +168,11 @@ read-only Zendesk disposition catalog and this ticket's current disposition
 choices, also answer that question in the same turn: after the two copy boxes,
 append exactly one fence tagged `zendesk-disposition` holding a single JSON object
 `{"fields":{"<field_id>":"<option_value>"},"reason":"<short explanation or missing fact>"}`.
-Use only the supplied field IDs, option values and conditions, keep any existing
-nonempty choice, and leave an unsupported or ambiguous choice out rather than
-guessing. Point of Contact is required before the operator can review or send, so
-select it whenever the ticket evidence identifies the contact. This fence is a
+Follow `AGENTS.md` → Disposition selection for both this hint and standalone
+suggestions: use General/Misc/Other → Spam/Junk for closing thanks only after
+our verified prior answer, with no new or unresolved ask. An isolated thank-you
+or unknown role alone is not that disposition. Preserve existing choices and
+retain supported contacts despite an uncertain dependent choice. This fence is a
 machine hint for the operator's disposition form and never a customer- or
 agent-facing deliverable: it does not replace, repeat or edit either copy box, and
 it authorizes no send, post, status or assignment change. Omit it entirely when the
@@ -735,13 +755,16 @@ already resolves the category. Three shortcuts are common enough to name:
   describes their interest in working with Opendoor, asks about referral or agent
   programs, training, compensation, or a working relationship, or provides a
   resume/accomplishments for consideration. Use the Partnership inquiry recipe;
-  do not use the unsolicited-marketing no-send disposition. When an agent asks whether Opendoor can purchase a home they represent, or a direct
-  seller asks whether Opendoor can purchase their own home, including a client's listed
-  home with a named address, treat it as a genuine selling inquiry. Use
-  `recipes/unsolicited-email.md` and [Submission surfaces](#submission-surfaces): agents
-  on a client home use `opendoor.com/agent`; unrepresented homeowners use `opendoor.com`.
-  Do not use the unsolicited spam/close disposition merely because a listing address is
-  named.
+  do not use the unsolicited-marketing no-send disposition. When an agent asks whether Opendoor can purchase a home they represent, how to request
+  an offer before listing, or where to get the offer process started, or a direct seller
+  asks whether Opendoor can purchase their own home, treat it as a genuine selling
+  inquiry even when only partial location is given. Use `recipes/unsolicited-email.md`
+  and [Submission surfaces](#submission-surfaces): agents on a client home use
+  `opendoor.com/agent` and enter the address there; unrepresented homeowners use
+  `opendoor.com`. Direct agents to that entry point in the reply; do not default to
+  collecting the address in the ticket only to check eligibility when they need where
+  to begin. Do not use the unsolicited spam/close disposition merely because a listing
+  address or location appears.
   Treat an email as an unsolicited listing/marketing email only when it is a blast pitching a specific
   home or service (listing copy, beds/baths, price, tracking links, or a generic
   promotion) with no genuine partnership, selling, or support ask. In that case, fence
@@ -900,6 +923,8 @@ first result is visibly incomplete. Do not list tabs first unless an existing-ta
 decision is actually needed.
 
 Note `.apps` in the host. `opshub.opendoor.com` is dead. Never guess a URL, ask.
+
+### Policy and product questions
 
 Policy and product questions need no record lookup. Order: #xa-announcements
 (`num_results: 3`) in the same block as the ticket Glean when the inbound is
@@ -2128,12 +2153,16 @@ assessment).
 - **Seller scheduling intake before slot selection (Sam, November 23, 2026):**
   For an eligible seller requesting an in-home walkthrough, first establish what
   the assessor needs to complete it. Reuse the verified record and full exchange;
-  ask all still-missing readiness questions together in one concise reply:
-  whether the home will be vacant or occupied, whether the seller or another
-  adult age 18 or older will be present under the applicable presence requirement,
-  and how the assessor will get in, including any gate, lockbox, door code or
-  other necessary access instructions. A vacant, unattended visit needs usable
-  access details. Ask the seller for those details through Opendoor; this is not
+  when no other scheduling clarification is still outstanding, ask all
+  still-missing readiness questions together in one concise reply: whether the
+  home will be vacant or occupied, whether the seller or another adult age 18 or
+  older will be present under the applicable presence requirement, and how the
+  assessor will get in, including any gate, lockbox, door code or other
+  necessary access instructions. When the reply must first resolve another
+  scheduling fact, such as an ambiguous date, time or confirmation mismatch, ask
+  only that question first and wait for the customer's answer before collecting
+  vacancy, presence and access details; do not bundle readiness intake onto that
+  first clarification. A vacant, unattended visit needs usable access details. Ask the seller for those details through Opendoor; this is not
   permission to disclose codes or bypass an agent-only assessment restriction.
   Do not wait for the operator to remember these intake questions.
   "Any day/time works" and "earliest available" already answer the preference
@@ -2216,7 +2245,9 @@ assessment).
 **Simple login troubleshooting fast path:** For a bare “cannot log in” or
 account-setup failure, use Zendesk plus the requester-email duplicate search.
 Read comments only when the ticket indicates a prior support exchange or the
-newest inbound is missing. A verified solved duplicate takes the no-reply path.
+newest inbound is missing. A verified solved duplicate needs no repeat public
+reply, but still uses the ticket-consolidation recipe before any close-only
+recommendation.
 Otherwise ask what happens during sign-in or for the error message and offer
 (888) 352-7075. This is an inbound-supported reply: skip OpsHub recent notes,
 customer/property/offer reads, Glean, and browser. Do not look up an account email
@@ -2479,10 +2510,9 @@ When the existing preliminary offer still needs an assessment, explain the
 next step: complete the assessment in the **Opendoor Key App** by taking the
 required photos live at the home. Existing photos cannot be uploaded separately.
 
-Check the `is_agent` tag and the requester's role before naming a surface in a
-draft. If the site will not accept the address a seller or agent enters, that is
-itself the ineligibility result, there is no separate submission path to point them
-to.
+Check the `is_agent` tag and the requester's role before naming a surface in a draft. If the site will not accept the address a seller or agent enters, that is itself the ineligibility result, there is no separate submission path to point them to. When a customer-facing reply explains that a property, entrance setup, or similar factor does not meet Opendoor's purchase criteria, also tell them they can still enter the address at `https://www.opendoor.com` to request an offer, and state that eligibility and an offer are not guaranteed.
+
+**Buying-criteria message after a completed offer request:** When the requester says they already completed the online offer-request process and received a buying-criteria or similar ineligibility message—especially when explaining it to clients—treat that message as meaning the home falls outside Opendoor's current buying criteria (buybox/range). Explain that plainly and courteously; do not ask for city, state, ZIP, or other address details merely to identify the property, and do not repeat getting-started or submission steps they already finished. Do not research or state a specific exclusion reason unless verified. End with the warm offer-denial close in [offer-denial closing](guides/case-wording.md#offer-denial-closing) when appropriate.
 
 ## Address lookups
 
@@ -2819,6 +2849,18 @@ never surfaced.
   "we are not showing an assessment completed", never as a flat negative.
 
 ## Access codes
+
+**Safehaven agent troubleshooting (November 9 XA announcement, verified November
+24):** For an otherwise authorized agent accessing a home with an applicable
+mechanical lockbox, have them fully cycle the rollers three or four revolutions
+before entering the code; this can help, not guarantee an unlock. If the keypad
+is not working and the agent is live on the call, the XA verifies agent identity
+and current Trust level before sharing the mechanical lockbox code, only if
+otherwise applicable. Keep property, appointment/listing-stage, denial and Trust
+and Safety gates; this is not permission for a ticket draft to disclose a code,
+remote unlock, or bypass verification. Do not extend this agent-only instruction
+to buyers, former owners or every vendor. Source:
+https://opendoor.slack.com/archives/C02K6JVSNUF/p1794252711113129.
 
 **Resolution check first:** Follow [resolution-first access](recipes/access-resolution.md)
 before property/status research or drafting a record-specific access or appointment

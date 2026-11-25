@@ -20,6 +20,11 @@ treating old skill text, a prior ticket, or model memory as current policy.
 - Start with the connected Glean search tool. Use a short sequence of
   discriminative keywords, not full sentences, synonym stuffing, or boolean
   logic. Follow the current tool schema rather than assuming Claude tool names.
+  In Router, the current exact lookup hint is the suffix
+  `__glean_glean_opendoor_search` in `ALL_TOOLS`; inspect just that descriptor
+  once and reuse its schema. If absent, discover only the required Glean search
+  capability, not every tool with "search" in its name or description. Start
+  with three results when the schema supports `num_results`.
 - Search across sources initially. Use returned source links to locate canonical
   KB articles, owner-maintained guides, approved macros, official announcements,
   and the relevant team's policy or process documentation.
@@ -49,11 +54,16 @@ treating old skill text, a prior ticket, or model memory as current policy.
   unavailable source was checked, or contact an owner without authorization.
 - Stop when the current answer and relevant exceptions are supported. Do not
   search every system or retrieve customer records for a generic business question.
+  Before refining a search, identify the material answer condition still missing.
+  Follow a returned governing article/thread for that condition instead of
+  repeatedly searching synonyms for an already-supported fact. A linked source
+  is not verified until read; a genuinely unresolved condition remains a visible
+  gap, not a reason to invent certainty or broaden into unrelated policy.
 
 ## Establish what is current
 
-For a current business-policy/process answer, check the relevant saved topic
-reference in the local `company-knowledge-update` skill when available, then
+For a current business-policy/process answer, use the topic map below to read
+the matching saved reference directly when available, then
 verify the governing source and topic-specific XA announcement/thread evidence.
 Use a targeted Glean channel search or direct Slack read, not a whole-channel
 scan on every question. Inspect material replies and linked owner guidance;
@@ -128,11 +138,29 @@ customer-record verification gates and existing permissions for sends or writes.
 
 ## Saved topic evidence, not a second knowledge base
 
-The local `company-knowledge-update/SKILL.md` indexes maintained topic references,
-including `references/privacy-deletion-2026-10.md` and
-`references/vendor-ap-follow-up-2026-11.md`. Read the relevant reference, not
-every reference. They retain provenance, scope, superseded guidance and active
-workflow locations; this retrieval skill should not duplicate their policy text.
+The local `~/.codex/skills/company-knowledge-update/references/` folder contains
+the following topic evidence. This is a routing map, not policy text:
+
+- Privacy/deletion: `privacy-deletion-2026-10.md`.
+- Vendor payments: `vendor-ap-follow-up-2026-11.md`.
+- Year-end closing cohorts: `year-end-closing-dates-2026-11.md`.
+- Pricing valuation: `pricing-valuation-scope-2026-10.md`.
+- Patrol dispatch: `patrol-dispatch-2026-11.md`.
+- Failed-tour communication/access-ticket macro: `failed-tour-access-2026-11.md`.
+- Thanksgiving assessment coverage (unresolved date advisory): `holiday-assessment-coverage-2026-11.md`.
+- Safehaven agent lockbox troubleshooting: `safehaven-access-2026-11.md`.
+- Qualified flips: `qualified-flips-only-2026-11.md`.
+- Government/fire investigations: `fire-investigator-requests-2026-11.md`.
+- Agent representation/tracking: `agent-representation-tracking-2026-10.md`.
+- Home Loans: `home-loans-licenses-2026-10.md`.
+- Buyer offer submission: `buyer-offer-submission-2026-10.md`.
+
+Read only the matching reference. If the topic is absent or its file unavailable,
+continue with current governing evidence; do not load the maintenance skill,
+scan its other topics or audit dependent workflows just to answer a question.
+The maintenance procedure is for a separately authorized save/review, not a
+prerequisite for read-only retrieval. These references retain provenance, scope,
+superseded guidance and active workflow locations without duplicating their text.
 Those business references are local-only, not bundled in this public package.
 If unavailable, retrieve current first-party evidence through connected sources.
 Obsidian exposes the same local files; its presence is not freshness verification.

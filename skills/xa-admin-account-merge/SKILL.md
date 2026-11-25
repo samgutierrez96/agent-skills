@@ -16,7 +16,7 @@ background-window and authorization gates.
 
 Target **under two minutes of execution for the Admin merge and verified OpsHub contact cleanup**, starting once the primary email and caller identity are confirmed, when Admin and OpsHub respond normally. Ask for any required details together before starting; user response time is outside this execution target. Resume the original note/escalation immediately after verification; separate Slack routing or posting work adds its own time. This is a performance target, never a reason to skip checks or claim success early. Prioritize few tool round trips, small outputs, and reuse of verified context.
 
-Merge verified same-person duplicates in **Admin** (`admin.opendoor.com`); then clean contacts in **OpsHub**, verify, and post the original XA note/escalation. Complete the bounded saved-contact check below before declaring cleanup unnecessary. Established distinct repeated-phone contact rows on one verified profile take the narrow OpsHub fast path below, not account-merge discovery; repetition in a compact summary alone proves neither extra saved rows nor contact completeness. Other extra contacts require the duplicate-detection check before choosing single-profile cleanup. Unrelated-person matches take the separate phone-cleanup path, never a merge. Never substitute an OpsHub contact edit for a required Admin merge.
+Merge verified same-person duplicates in **Admin** (`admin.opendoor.com`); then clean contacts in **OpsHub**, verify, and post the original XA note/escalation. Routine contact checks use OpsHub MCP evidence and do not require a browser audit. Established distinct repeated-phone contact rows on one verified profile take the narrow OpsHub fast path below, not account-merge discovery; repetition in a compact summary alone proves neither extra saved rows nor contact completeness. Other observed extra contacts require the duplicate-detection check before choosing single-profile cleanup. Unrelated-person matches take the separate phone-cleanup path, never a merge. Never substitute an OpsHub contact edit for a required Admin merge.
 
 The complete current source attached by the runtime counts as loaded; apply it
 without rereading this file. The containing workflow's required caller/property
@@ -36,40 +36,45 @@ do not draft it once before the merge and again afterward. This changes work
 ordering only: identity/choice gates still precede any mutation, and an existing
 draft, explicit draft-only limit or original caller-facing solution is preserved.
 
-## Bounded saved-contact check before posting
+## Routine contact check — OpsHub MCP, no browser audit
 
-For an authorized XA note or escalation, check the verified caller's complete
-saved email and phone lists before the first dependent send/post, even when the
-phone search returns one UUID and one email. A compact `list_customers` result
-or primary-only read does not prove there are no secondary contacts. Repetition
-of the same normalized phone in that summary does not waive this check or prove
-that editable duplicate rows exist. This check is read-only, not merge authority.
+For an authorized XA note or escalation, inspect the caller/contact facts and
+customer UUIDs already returned by required OpsHub MCP reads. Normalize contacts
+and deduplicate repeated UUIDs before classifying. A unique verified caller with
+no observed contact/account conflict continues directly to the originating MCP
+send/post path. Do not load browser-navigation, browser execution references or
+helpers, check browser connectivity, open Customer Info/the editor, or require
+complete secondary-contact lists merely to prove that cleanup is unnecessary.
+Omitted optional fields are unknown, not a conflict or proof of empty lists;
+report only that no conflict was observed, never that a full audit was verified.
 
-Reuse current complete saved evidence for this caller/request. Otherwise obtain
-one documented exact-UUID complete-contact read. Prefer a sufficient connector;
-`GetRespondToSmsCustomer` omits secondary emails/types, and an activity-only
-`get_customer_profile` is not a complete-contact fallback. Do not guess a query
-or scan event history. If the available connector cannot supply the lists, read
-the exact caller's Customer Info in the workflow's separate unfocused task
-window under the browser execution reference. Expand additional-contact lists;
-use the scoped editor's unchanged saved snapshot only when necessary. Never
-edit/save merely to inspect contacts or use the operator's existing editor.
-One state-based recovery is allowed; unresolved completeness/access keeps the
-dependent action pending with the actual blocker, not a clean-profile claim.
+Reuse current caller evidence. If a required identity/contact fact is missing,
+use one exact-caller MCP read: `call_operation` with
+`operation_name: "GetRespondToSmsCustomer"`, `variables: {"uuid": "<retained caller UUID>"}`.
+Verify `customerService.get.customer.uuid` and the needed name, `isAgent`,
+`primaryEmail.address.value`, `primaryPhoneNumber.number.value` and
+`otherPhoneNumbers[].number.value`. This query omits secondary emails and phone
+types; that limitation alone does not trigger browser work or block a routine
+post. Do not repeat a sufficient read. An activity-only `get_customer_profile`
+is not saved-contact evidence; do not scan event history or guess a query.
 
-With complete lists and no contact/account conflict, return immediately to the
-originating posting path: no Admin visit, exact-email search, cleanup, or
-keeping-email question is needed. Multiple distinct emails/phones or relevant
-UUIDs enter detection below; independently established redundant phone rows
-enter the narrow repeated-number path only when no broader conflict exists.
-Reuse the complete read during detection and cleanup rather than reading again.
-If using `contact_cleanup.agent360Reader`, retain its `before` snapshot for the
-runner's `before` callback and reuse that reader only for its `after` read.
-Ask any missing keeping-email/identity choices through the existing independent
-answer lists; neither the current primary badge nor this check selects an email.
+An XA-reported duplicate/contact problem, observed distinct extra contacts,
+relevant distinct UUIDs, identity conflict or independently established redundant
+saved rows enters the applicable detection/cleanup path below. A repeated compact
+phone string alone does not. For a genuine issue, complete saved lists and types
+remain required before contact edits and for their persisted verification. Reuse
+complete evidence or one documented sufficient exact-UUID MCP read; load browser
+guidance and use the separate unfocused Customer Info/editor fallback only when
+that actual issue needs evidence or an edit the MCP cannot safely supply. Never
+edit/save merely to inspect, use the operator's editor, or invent MCP fields.
+Allow one state-based recovery; unresolved identity, actual conflict, access or
+write outcome keeps dependent actions pending with the concrete blocker.
+Reuse the complete snapshot during detection/cleanup, including the runner's
+`before` callback; use its reader only for the fresh `after` read. Keep independent
+identity/keeping-contact choices and all existing merge, cleanup and no-replay gates.
 
 Ordinary tool-free drafts, warm-up, instruction maintenance, and read-only note
-status checks do not run this check. A continuation reuses its complete evidence
+status checks do not run this check. A continuation reuses its current evidence
 unless contacts/identity changed; uncertain writes are reconciled first. An
 explicit cleanup follow-up after a note was already posted performs only the
 remaining authorized cleanup/merge and verification, retaining the original
@@ -81,8 +86,11 @@ note is not a new create/update or permission to repeat any customer action.
 
 ## Preconditions
 
+Maintenance acceptance cases: [routine contact checks](references/routine-contact-check-cases.json).
+Use only in isolated tests/reviews, never as an extra live-call read.
+
 - Use the applicable XA caller verification. Reuse verification already completed in this workflow.
-- **Entry gate:** run the bounded saved-contact check for authorized posts/escalations before choosing the no-cleanup path. Account discovery and mutations start only from an XA-reported duplicate/contact problem or a concrete signal in that check or required caller/property reads. A unique caller search alone does not establish complete contacts. A verified caller with complete, conflict-free lists returns directly to the originating post without broader searches or Admin. Missing target identity still requires clarification, never a guessed post. Once a real signal exists, retain all classification, same-person, primary-choice and verification gates below.
+- **Entry gate:** routine authorized posts/escalations use the MCP-only contact check above, not a mandatory complete-list/browser audit. Account discovery and mutations start only from an XA-reported duplicate/contact problem or a concrete signal in required caller/property reads. A unique verified caller with no observed conflict returns directly to the originating post without browser setup, broader searches or Admin, without claiming complete contact lists. Missing target identity still requires clarification, never a guessed post. Once a real signal exists, retain all classification, same-person, primary-choice and verification gates below.
 - **Split phone/email seller profiles:** when required caller/property reads expose distinct caller-phone and property-seller UUIDs, compare their retained identities. Do not add a property/contact read solely to search for a hypothetical split on an otherwise resolved routine post. An email-only seller profile on that property plus a distinct caller-phone profile is a duplicate candidate even without a shared phone, matching email, multiple phone-search hits, or a Potential Duplicates entry. Missing phone on the property profile and missing email/name on the caller profile do not dismiss the pair as stubs. Retain both exact UUIDs, displayed identities, known emails, original caller number and property relationship.
   Complementary contacts or a shared property alone do not prove the same person. If the caller's ownership of the email-only seller profile is not already verified, explain the split and ask whether both profiles belong to this seller, using the separate identity answers below. Ask for the keeping email in that same turn only if it is genuinely unconfirmed, listing the known email(s); one listed email is not an operator confirmation. Email selection never answers the identity question. Reuse prior explicit confirmations and do not ask again when both facts are established. Keep the original send/post pending until identity, keeping email, Admin merge and cleanup verification are complete. Do not silently choose one UUID, post to both as different people, or just add the phone/email to bypass an actual merge. Once verified, keep the confirmed email profile and merge the retained distinct phone profile in Admin under the existing authorization; inspect the exact candidate even if Admin did not suggest it automatically. A different person, uncertain ownership, same UUID returned twice, or a single email-only profile with no separate phone account is not an authorized two-account merge; clarify only missing facts and never create a duplicate to merge.
 - **Unnamed phone-only exception:** once the caller and keeping profile are verified, merge a remaining unnamed profile whose only contact is that same normalized caller phone into the keeping profile in Admin. Blank or generic placeholder names do not supply another person's identity. This is a qualifying duplicate even without an email or compatible personal name; do not ask for another identity confirmation, try to strip its sole phone, or block because OpsHub has no phone-removal control. Inspect the full candidate before submission: a different person's displayed name or other conflicting identity evidence excludes this exception and stays on the separate identity/phone-cleanup path. Preserve the selected caller, primary email, original phone and all merge-result/posting verification guards. This exception overrides the compatible-name requirement below only for this unnamed, phone-only case.
@@ -234,10 +242,11 @@ this path, subject to the complete-contact and safe-targeting gates below.
 Same-UUID rows are not separate people. Normalize compact search summaries
 before classifying: `WebCustomer.phone_numbers` can be a slash-separated String
 or a legacy list. Repetitions of the same normalized number alone establish
-neither distinct saved rows nor their types. Complete the bounded saved-contact
-check above before returning a unique caller to the originating posting path.
+neither distinct saved rows nor their types. With a unique verified caller and
+no other conflict, return directly to the originating MCP posting path without
+loading browser guidance or auditing complete lists for display repetition.
 Do not announce cleanup, open Admin, or search for duplicates merely because the
-compact display repeats a number; classify from the complete saved lists.
+compact display repeats a number; actual cleanup requires complete saved lists.
 This does not dismiss different normalized contacts, distinct relevant UUIDs,
 an XA-reported contact problem or an already-established saved-row conflict.
 Do not open Admin, search every email, or audit unrelated contacts to prove no

@@ -1,5 +1,285 @@
 # Skill manifest
 
+## Access-issue Home Feedback macro — November 24, 2026
+
+The official XA announcement and explicit owner reply establish the home-issue
+macro for access-issue ticket input: Severity, Issue, Area, Notes and Able To
+Access, with the last value Yes or No from confirmed facts. The inspected
+example establishes structure, not a universal severity/priority mapping.
+Zendesk's touring recipe, Notes' incident section and compact/detailed Escalations
+helpers distinguish this report body from normal customer replies and five-field
+post-call notes. Actual completed actions and report types remain intact, and
+ordinary Notes gains no research/action requirement. Affected local copies and
+ownership hashes are reconciled; no customer work was run.
+
+The shared local-only evidence also flags a contradictory temporary Thanksgiving
+assessment-date advisory. No definite Friday/restart rule was activated. Pending
+business references and source-history migrations remain local, not published in
+this package. Publication stays with the existing evening synchronization task.
+
+## Customer acknowledgment after escalation — November 24, 2026
+
+The registered Zendesk project rules and retrieval skill now distinguish an
+unacknowledged customer question from a duplicate holding reply. A confirmed
+escalation does not require waiting for the receiving team's answer before
+drafting a brief factual acknowledgment. Underlying unresolved work remains
+open; no promised response time/result or claim that an unsent action completed.
+No-contact, spam/phishing and verified answered/already-acknowledged handling stay
+intact. The verification card includes five synthetic acceptance scenarios,
+not a fresh semantic-model evaluation or live-customer test.
+
+Active sources, canonical mirrors and their inventory hashes are saved locally
+on the existing branch, reconciled with fetched main. Router separately owns
+the automatic, once-per-workflow draft trigger and original-ticket/version guards.
+No live case, conversation, working browser or service was changed. Publication
+remains with the existing evening synchronization.
+
+## Explain Closed-ticket merge restrictions — November 24, 2026
+
+The registered Zendesk project adapter/recipe and desktop merge source now
+explicitly distinguish Closed from Solved. Verified ineligible directions retain
+the exact ticket link/status under Merge unavailable outside the copy boxes,
+rather than a bare No merge needed. Missing/stale status remains unknown, and no
+reversal, replacement destination/ticket, reopening or other unapproved workaround
+is implied. Synthetic acceptance scenarios cover that distinction and the
+separate Router-owned display-only saved-blocker card.
+
+Four affected source/mirror pairs and inventory entries are saved locally on the
+existing branch. Full owning-package validation is not claimed: an unrelated
+inventory fingerprint for the untouched Zendesk SKILL.md is stale, although its
+active/canonical text agrees. Unrelated content is preserved. No customer action,
+saved conversation, working browser tab or service was operated. Publication
+remains with the existing evening synchronization after required checks.
+
+## Answered duplicates still need consolidation review — November 24, 2026
+
+The registered Zendesk project rules, recipe and routing sources now separate
+answer coverage from consolidation. A verified same-episode duplicate receives
+an eligible merge recommendation even when its answer is already on another
+ticket; lack of an explicit merge request is no longer a note-plus-close default.
+The desktop merge owner agrees. Explicit alternative choices, concrete
+separation/eligibility reasons, privacy/identity checks and exact informed merge
+approval remain. No reopened destination or other customer action is implied.
+
+Active sources, canonical distributions, synthetic acceptance scenarios and
+seven affected inventory hashes agree locally on the existing branch after
+reconciliation with fetched main. Router owns its separate neutral old-draft
+discovery correction and isolated display tests. These are not a fresh semantic
+model evaluation or live merge. No customer identifiers or observed case records
+are retained here. Publication awaits the existing evening synchronization.
+
+## Routine contact checks stay on OpsHub MCP — November 24, 2026
+
+Replaced the blanket pre-post complete-contact/browser audit in the registered
+Notes, Escalations and shared account-merge sources and Notes project adapter.
+Routine checks reuse required OpsHub MCP caller/contact evidence; omitted optional
+secondary fields and compact phone repetition do not require browser setup.
+An unresolved required identity or observed/reported contact problem still keeps
+its existing detection, independent choices, full-contact edit verification and
+no-replay gates. Actual cleanup prefers sufficient supported MCP reads/edits;
+browser fallback remains only for a genuine issue the MCP cannot safely resolve.
+Seven synthetic acceptance cases distinguish these paths; they are review cases,
+not a live latency result or recorded semantic-model evaluation. Sources and
+inventory are saved locally for scheduled publication; no customer workflow,
+browser, service restart or action replay is needed to save this correction.
+
+Local validation: 1,312 isolated Router Python tests pass (one skip), submission,
+17 routing and nine fast-path checks, all three skill validators, deterministic
+contact planner/runner safeguards, 41 stored Notes examples and 22 validator
+tests. Seventeen affected source/mirror/hash checks, saved-wording verification
+and both repository whitespace checks pass. No semantic-model or live latency
+evaluation was performed; publication validation remains scheduled.
+
+## Named-channel completed Slack work in Notes — November 24, 2026
+
+The registered Notes skill's existing completed-work-link passage now applies its
+bounded source read to any Slack channel the XA says they filed, submitted,
+reported, posted, sent or replied in. A named channel plus current-call issue or
+filing window is lookup context, including informal "filed something" wording.
+The channel is not merely a property-search keyword. Recent-channel fallback
+covers search misses, issue-only messages and bot/workflow submissions; ambiguous
+or conflicting cases, access controls, lookup bounds and separate write authority
+remain. HQI stays only the known fallback for its own report type, not a default
+destination for other completed work. The optional CORE summary defers to the
+full rule and retains the required-link posting gate.
+
+Active source, canonical distribution and affected inventory hashes agree
+locally on existing `codex/zendesk-current-refresh`, reconciled with fetched main
+`e1f1535`. Four synthetic output/acceptance examples cover named tech support,
+an arbitrary ticket channel, a bot report after a search miss and an access
+blocker. All 41 stored examples and 22 validator tests pass; those checks do not
+establish model lookup behavior or live receipts. Skill Router loads the existing
+registered owner; no Router business-rule overlay, live conversation, Slack or
+OpsHub action, browser operation or service restart is part of this change.
+Publication remains queued for the existing evening synchronization.
+
+## Reassess disposition after substantive replies — November 24, 2026
+
+The registered Zendesk Disposition selection passage now distinguishes saved
+ticket values from explicit operator choices in the current review. A reply with
+new supported information can justify a replacement classification even when
+the saved chain is complete; a reply alone need not change a still-correct route.
+Manual parent/child decisions stay protected and uncertain facts remain explicit.
+Only the suggestion changes until the separate ticket review and approval.
+This supersedes the passage's blanket preservation of all populated values.
+
+The active owner, canonical adapter, acceptance scenarios and inventory hashes
+agree locally on existing `codex/zendesk-current-refresh`, reconciled with fetched
+main `e1f1535`. Router owns the form/transport correction and isolated validation;
+its 1,308-test Python suite (one skip), focused browser and submission checks pass.
+The older full-page submission fixture retains its documented unrelated
+completion-message timeout, not a claimed pass. No live customer action or
+semantic-model evaluation occurred. Publication awaits scheduled synchronization.
+
+## Scoped Safehaven agent troubleshooting — November 24, 2026
+
+Reconciled the queued November 9 XA instruction into Zendesk's Access codes and
+touring-access owners: three or four full mechanical-roller revolutions before
+code entry, with the live-agent keypad fallback conditional on identity, current
+Trust and otherwise applicable access. No guaranteed unlock, buyer/vendor
+expansion, ticket-draft code disclosure or denial bypass. Shared KB discovery
+points to one local-only topic reference; its business contents remain outside
+this repository. Active owners, affected copies and inventory hashes agree
+locally. Notes, Bot Tasks and escalation safeguards retain their existing scope;
+no live customer action, app conversation or service was operated. Publication
+remains with the existing evening synchronization.
+
+## Assessment-photo disposition follows the Zendesk sender — November 23, 2026
+
+Sam clarified that a photo-submission problem establishes the Assessment topic,
+while the Zendesk sender's established role determines Seller or Agent. The
+registered Zendesk owner's Disposition selection section governs both draft-time
+hints and standalone suggestions; an unknown platform does not erase the topic,
+and submitting photos alone does not establish Seller identity. Missing sender
+role or a missing live option remains explicit. Checkout/listing-photo context,
+existing choices and all action gates remain separate and unchanged.
+
+The active rules and acceptance scenarios are mirrored in this distribution;
+their inventory hashes agree locally after reconciliation with fetched main
+`e1f1535`. Router hosts isolated source/reachability and synthetic transport
+checks, not a second policy map or a live semantic evaluation. No live ticket,
+saved customer conversation, browser or service was operated. Publication awaits
+the existing scheduled synchronization task.
+
+## Unanswered related tickets require an explicit review decision — November 23, 2026
+
+The Zendesk project rules, registered skill entry and ticket-consolidation recipe
+now route any draft that cites another unanswered ticket through consolidation
+review. Complementary asks in one verified support episode are not independent
+merely because their wording differs. Verified split cases retain the compact
+Possible ticket merge handoff; missing match/direction evidence stays explicit,
+and genuinely independent issues stay separate. The desktop merge skill agrees.
+Exact identity, property, privacy, direction and separate action approval remain.
+No general inbox scan, automatic merge or customer action is authorized.
+
+Active sources, canonical distributions and inventory hashes agree locally on
+the existing branches after reconciliation with fetched main. Router separately
+owns neutral old-draft discovery, the shared filter/count and isolated synthetic
+UI tests. No customer example is retained. Publication awaits scheduled sync.
+
+## Lifecycle-aware escalation destination ownership — November 23, 2026
+
+The registered Escalations runtime establishes issue purpose and verified stage
+before applying acquisition-role defaults. A generic ticket handoff is not an
+HSA target. Closed-sale documents, completed paperwork, uploaded photos and basic
+home information follow the closed-homes rule, separate from still-active
+acquisition closing document/date tasks. Basic records requests require no tag;
+release eligibility and file availability are not promised. The Executive
+Experience guide's Step 1 was read with XA-announcement evidence, retaining the
+newer CNML inbox and existing access exceptions rather than copying the guide's
+superseded CNML line. Uncovered/conflicting routing uses the shared KB skill and
+targeted announcement evidence; uncertain facts remain pending.
+
+Active runtime, canonical package and the inventoried local maintainer are
+reconciled with fetched main `e1f1535`; hashes match locally. Router separately
+owns its destination review, source-derived channel picker and draft-email
+next-step card with isolated UI/transport tests. No new Router policy table,
+customer example, live workflow replay or service restart was introduced.
+Publication remains with the existing scheduled synchronization task.
+
+## Unknown-role disposition contact fallback — November 23, 2026
+
+The Zendesk project's Disposition selection section owns both draft-time and
+standalone suggestions. It selects the supplied live General/Misc/Other contact
+when no specific sender category is established, preserves a supported contact
+despite an uncertain dependent choice, and applies General/Misc/Other → Spam/Junk
+to closing thanks only after our verified prior answer with no new or unresolved
+ask. Standalone thanks, thanks with another question and unresolved exchanges
+do not qualify; missing context cannot prove a prior answer. Unsolicited-spam
+handling remains separate.
+The skill points to this single decision rule; existing selections, live options,
+evidence and action gates remain. Router separately removes its conflicting
+all-or-nothing selection prompt and hosts provider-free transport/source and
+isolated form regressions. Active/canonical copies and inventory hashes agree
+locally, reconciled with fetched main `e1f1535`; unrelated work is preserved.
+No live case or model replay occurred. Router separately records Sam's authorized
+idle restart, verified healthy with unchanged saved state. Publication awaits the
+existing scheduled synchronization.
+
+## Self-contained buyer drafting and one public listing read — November 23, 2026
+
+The registered Zendesk buyer card covers ordinary buyer/investor interest and
+first-offer inquiries without loading unrelated full-listing/wording sections.
+It retains exact-home checks, current process/eligibility evidence and conditional
+access, disclosure, condition, submitted-offer and stage-sensitive routes. A new
+registered standard-library reader performs a bounded unauthenticated official
+listing fetch and emits text with explicit coverage, not raw scripts. Failure or
+truncation never proves absence or authorizes an action. Synthetic HTML/HTTP tests
+live in Router and verify one read, preserved instructions, bounds, errors, safe
+redirects and exact active/canonical hashes. No live latency guarantee is made.
+
+Active source, canonical distribution and inventory hashes agree locally on the
+existing branch, reconciled with fetched main `e1f1535`. Router separately owns
+its draft-only effort override and lossless disposition-packet compaction. No
+business-policy change, customer action, browser or service restart was performed.
+Publication awaits the scheduled synchronization task.
+
+Validation: Router's isolated suite passes 1,281 tests with one skip; final focused
+checks, submission, 17 routing/nine fast-path cases, both skill validators and
+whitespace checks pass using the configured local packages. This does not measure
+live model latency or establish customer-action completion.
+
+## Recipe collections require a named entry — November 23, 2026
+
+The prior bounded reader still permitted many sequential pages of an unrelated
+recipe collection. It now rejects whole `Per-type recipes`/`Fast recipe index`
+reads without a specific entry. General policy cards target the focused
+authoritative `Policy and product questions` section instead. Entry preambles,
+nested exceptions, required section reads and revision-bound continuations are
+preserved. The correction changes retrieval scope, not business policy, model,
+timeout, evidence gates or action authority. Active and canonical files plus
+inventory hashes agree locally. Router owns executable/synthetic regressions;
+no live customer workflow was retried. Publication awaits the scheduled sync.
+
+Validation: collection rejection, exact entry/preamble preservation and one-packet
+focused policy selection pass in the isolated Router suite (1,272 tests, one
+skip), with owning-source/canonical hash checks and skill validation. Synthetic
+coverage is not a live completion-time guarantee.
+
+## Bound source reads and avoid lookup-time maintenance detours — November 23, 2026
+
+The Zendesk owner now provides `scripts/read_playbook.py`: exact sections or
+named bold recipe entries, governing preambles and nested exceptions retained,
+one combined character/line budget, explicit continuations and revision checks.
+This replaces ad-hoc scripts that printed all bounded chunks together and could
+still overflow the execution output. Entry instructions require exact-tool
+discovery and relevant retained connector excerpts, not broad catalogs/raw dumps.
+The shared KB owner maps local topic references directly so read-only evidence
+retrieval does not load the company-maintenance procedure or audit other topics.
+Business evidence, current-source, action and uncertainty gates are unchanged.
+No longer timeout, model change, live ticket replay or browser repair is involved.
+
+Active sources and canonical distribution copies plus inventory hashes are saved
+locally on the existing branch, compared against fetched main (`e1f1535`) while
+preserving unrelated work. Router hosts the synthetic executable-reader and
+integration regressions. These establish source/reader behavior, not live model
+completion time. Publication remains with the scheduled synchronization task.
+
+Validation: the 1,262-test isolated Router run (one skip), final focused
+reader/ownership/revision/native-parity checks, submission, routing/fast paths,
+timeout and preserved-draft page fixtures, both skill validators, active/canonical
+hashes and whitespace checks pass. No measured live latency claim is made.
+
 ## Keep maintenance out of customer conversations — November 23, 2026
 
 The shared browser safety owner and local-only global agent instructions now

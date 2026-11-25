@@ -170,6 +170,15 @@ not ask for another Continue, send/post approval, or verification merely because
 the earlier turn was read-only. Partial answers keep only the unanswered facts
 pending; they never answer another independent question or expand action scope.
 
+The same turn boundary applies to verification-only checks of an unresolved
+escalation. A later supplied address or OpsHub property URL answers the pending
+property gap; it is not merely an apology/process comment or a new read-only
+instruction. Verify the supplied record under Property resolution fallback,
+retain the original caller and send/post or draft-only limits, and continue only
+remaining authorized steps once actual blockers are resolved. Do not require
+another send/post command. An uncertain prior mutation still requires outcome
+reconciliation before any retry; a link alone does not settle it.
+
 If the reread itself resolves all blockers without a subsequent factual answer,
 ask `How would you like to continue?` followed by the explicit answers
 `Continue with checked records` and `Keep pending`, each as a separate bullet.
@@ -460,14 +469,36 @@ Agent <https://opshub.apps.opendoor.com/customers/{customer_uuid}|Agent Name> ca
 
 ## Hard-stop channel routing check
 
+Choose the issue owner from the request purpose and verified lifecycle before
+using an assigned person's role. A generic `Escalate this ticket` handoff has no
+HSA destination; reuse the retained ticket's customer message, prior researched
+guidance, property/stage evidence and case receipts. Do not substitute a historical
+acquisition advisor for the team owning a closed-home request. Missing lifecycle
+evidence is unknown, not an active acquisition. Explicit channel/person choices
+remain binding under the existing routing and mismatch gates; surface conflicts
+instead of silently choosing another target.
+
+When the destination is uncovered, unclear or conflicts with retained guidance,
+use the shared `kb-answer-for-callers` skill for a bounded governing-source and
+topic-specific XA-announcement check before drafting or sending. The local XA
+Announcements project (`../XA Announcements/PROJECT.md` from the Escalations
+workspace) points to the shared knowledge sources and policy-history index;
+it is evidence context, not another routing table. Reuse sufficient verified
+same-case research. Do not run a knowledge-maintenance audit or source save on
+a live handoff. If evidence cannot settle the destination, ask only the missing
+fact or offer the supported destination choices; do not default to HSA. An
+ordinary explicit, supported route needs no extra knowledge lookup. The unnamed
+acquisition-target paths below apply only after establishing that acquisition
+owns the issue; they are not default routes for every unnamed team.
+
 **HOA dues payment exception:** Any request to make a payment for HOA dues
 routes to `HOAAP@opendoor.com`, the team that makes all of Opendoor's HOA
 payments. Do not route this payment request to `#hoa-communications`, another
 Slack channel, or a general HOA contact. This exception overrides the general
 HOA-workflow routing below.
 
-Resolve the assigned participant's role before choosing the channel. An
-acquisition participant with `ACQ_AE`, `ACQ_CX`, `ACQ_TC`, or
+For an applicable active acquisition issue, resolve the assigned participant's
+role before choosing its role-based channel. An acquisition participant with `ACQ_AE`, `ACQ_CX`, `ACQ_TC`, or
 `ACQ_SALES_SUPPORT` routes to `#support-hsa-escalations` unless the verified
 engagement is a resale/listing-partner case. Use
 `#support-listing-partner-escalations` for buyer or buyer-agent
@@ -476,13 +507,14 @@ verified resale agent, resale transaction coordinator, or Listing Partner.
 Do not route to listing partner merely because the caller is an agent or
 because the target was named.
 
-When the XA names an individual, the verified Slack role controls the channel:
-a Home Sale Advisor or Agent Home Sale Advisor always routes to
+For a supported individual-target escalation, the verified Slack role controls
+the role-based channel: a Home Sale Advisor or Agent Home Sale Advisor routes to
 `#support-hsa-escalations`, even for buyer-side or listing-related topics.
 `#support-listing-partner-escalations` is only for a verified Listing Partner,
 Resale Agent, or resale transaction coordinator, or for the resolved resale
 participant who owns the escalation. Topic wording never overrides the verified
-target role.
+target role. This does not make an old advisor the owner of a specialist
+post-close request; resolve a genuine request/recipient conflict before acting.
 
 ## Tool homes (named-target draft)
 
@@ -564,16 +596,20 @@ mutations. Reuse the result rather than checking the same contact again.
 
 This operation does not expose secondary emails or phone types. It is not
 complete-list evidence for cleanup/merge verification and cannot prove those
-omitted fields empty. Before the first dependent send/post, apply the owning
-merge skill's bounded saved-contact check even for a unique caller search hit:
-reuse complete saved lists or obtain its connector-first exact-caller read,
-using its separate background Customer Info read only when necessary. Missing
-fields are not themselves duplicates, but may not be treated as empty lists.
-Only a concrete contact/account signal permits broader duplicate discovery or
-cleanup. Reuse that complete evidence through continuation. If the required
-saved-contact check or evidence for an actual conflict is unavailable,
-report the specific unverified field/blocker and stop before dependent writes;
-do not guess or dismiss a real duplicate merely because the phone match is unique.
+omitted fields empty. Routine contact checks use OpsHub MCP: a unique verified
+caller with no observed conflict continues to the MCP send/post path without a
+complete-list audit. Do not load browser-navigation or execution references,
+check browser connectivity, or open Customer Info/the editor merely because
+secondary contacts/types are omitted. Reuse sufficient returned facts; do not
+make this exact-caller read again solely to rule out hypothetical cleanup.
+Only an XA-reported contact problem or concrete contact/account signal enters
+the owning merge skill's full detection/cleanup and persisted-verification gates.
+For that actual issue, prefer sufficient exact-UUID MCP evidence and supported
+edits; use its separate background browser fallback only when MCP cannot safely
+supply what the issue requires. Reuse complete evidence through continuation.
+Missing target identity or unresolved actual conflict still blocks dependent
+writes with the specific missing fact/access/outcome; never guess or dismiss a
+real duplicate merely because the phone match is unique.
 
 `get_customer_profile(customer_uuid=...)` returns customer event history, not
 the CONTACT's saved contact lists; `full: true` does not fix that. Do not use it
@@ -598,6 +634,15 @@ ID/link already in this call, then complete the fallback below. If those lookups
 still cannot verify a unique property, retain the call and report the specific
 lookup blocker; ask only for a missing address detail that resolves a concrete
 ambiguity (such as city or unit). Never invent a link or bypass verification.
+If the XA supplies an OpsHub `/property/{UUID}` URL, including a full
+`/flip/{token}` URL, bypass the failed address-search index: extract the exact
+property UUID and read `get_property(property_id=...)` (or the exposed
+`address_token` equivalent) once. Verify the returned full address/unit against
+the retained request before using that property. A search miss is not evidence
+against this direct record. Keep the supplied URL as case evidence; a flip token
+in it does not prove qualification, assignment, ownership or caller identity.
+A mismatched/inaccessible record remains its specific blocker, not permission
+to substitute another property, repeat broad searches or replay an action.
 When the primary-email choice is missing, ask only that choice, list the known
 email candidates, and wait. Retain property lookup responsibility and the original
 send/post action across the answer; do not add a property-link request to the
@@ -1094,7 +1139,7 @@ Rules:
   dates and purpose faithfully; omit a computed interval the XA did not request.
   Ask only when competing explicit dates leave the requested date genuinely
   unresolved; creating an actual schedule change retains its own validation.
-  Route to acquisition sales support in `#support-hsa-escalations`, not HSA or title,
+  For a still-active acquisition closing, route to acquisition sales support in `#support-hsa-escalations`, not HSA or title,
   unless the verified named target is a Listing Partner / resale agent or
   resale transaction coordinator. Participant role is authoritative: when the
   named target resolves to `RESALE_AGENT`, `RESALE_TC`, or Listing Partner,
@@ -1152,15 +1197,30 @@ Rules:
   code, not closed homes, not the CNML inbox unless they also asked about the second
   half. Access-only belongs in xa-notes.
 - Rental scam: put 1-888-352-7075 in the note; no Slack block.
-- Post-close vendor/property condition or post-close property-information request:
+- Post-close vendor/property condition, closed-sale records or property-information request:
   closed homes team / `#closed-homes-customer`. This includes a prior seller or
-  buyer who already purchased the home asking about equipment identifiers,
-  manuals, filters, or other home-system information. Not for a previous owner
+  buyer who already purchased the home asking for documents, completed paperwork,
+  uploaded photos, equipment identifiers, manuals, filters, or other basic home
+  information. Closed-sale document/photo retrieval is not an active acquisition
+  document-production/date-change task; do not route it to HSA/sales support just
+  because it says documents or the record retains an acquisition advisor. For
+  basic documents/information, post without tagging anyone; do not promise
+  file availability, release eligibility or a reply time. Governing source:
+  [Internal Escalation to the Executive Experience Team, Step 1](https://docs.google.com/document/d/1bolBlm_-akPJcTcCnWVN3uOIo4X9GcaDO38fUJwSHnM),
+  read November 23, 2026. Its older CNML inbox wording is superseded by the
+  October 30 XA announcement above; retain that distinct scope. Not for a previous owner
   asking to enter. CNML closed-home questions use the CNML inbox above, not this
   generic closed-homes route. A Cash Now More Later second-half offer/process question remains a
   post-call note workflow, not closed homes.
 - Home damage/issue: `Filed a home issue report.` Emergency message prefix is
   `UXA - `.
+  For access-issue Home Feedback ticket input, use the home-issue macro fields
+  `Severity`, `Issue`, `Area`, `Notes`, `Able To Access`; the last value is exactly
+  `Yes` or `No` from confirmed facts. Clarify unknowns, never infer no access from
+  one failed door/code or copy an example's severity. This is report input, not
+  the five-field note or proof a report/vendor dispatch occurred. Sources:
+  https://opendoor.slack.com/archives/C02K6JVSNUF/p1795550961051789 and
+  https://opendoor.slack.com/archives/C02K6JVSNUF/p1795554332314589.
 - Code works but key fails: incident report for lockbox issue.
 - Completed assessment showing not started: `#keyapp-escalations`.
 - Property line/boundary concern: corresponding team member.

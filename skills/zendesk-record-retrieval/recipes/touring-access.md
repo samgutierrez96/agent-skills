@@ -7,6 +7,16 @@ read the matching full-playbook section before drafting; this card is the first 
 
 - First follow [resolution-first access](access-resolution.md). Stop if recent
   notes confirm this request was already resolved. Otherwise continue below.
+- **Access-issue Home Feedback ticket input (November 24):** Use the home-issue
+  macro with `Severity`, `Issue`, `Area`, `Notes`, and `Able To Access`.
+  `Able To Access` must be exactly `Yes` or `No`, based on confirmed facts;
+  an unsuccessful code/door attempt alone does not prove no other access.
+  Clarify an unknown value rather than defaulting it. This is the report body,
+  not a replacement for Zendesk's reply/internal-note boxes or the XA call note.
+  Do not infer severity from one example, reclassify completed reports, create
+  another ticket, submit, dispatch a vendor or promise resolution. Sources:
+  https://opendoor.slack.com/archives/C02K6JVSNUF/p1795550961051789 and
+  https://opendoor.slack.com/archives/C02K6JVSNUF/p1795554332314589.
 - **Failed tour from an access issue (November 18 XA update and owner replies):**
   thank the caller, apologize and take ownership; do not give a resolution date
   or promise a callback/outbound follow-up. Do not invite another trip before
@@ -40,6 +50,15 @@ read the matching full-playbook section before drafting; this card is the first 
   missing credentials, not a phone-support-only referral. Never provide a code,
   remote unlock, or direct entry while denial/verification is unresolved; preserve
   non-negotiable Trust and Safety and rental-scam restrictions.
+- **Safehaven agent troubleshooting (November 9 XA update):** Only for an
+  otherwise authorized agent and applicable mechanical lockbox, fully cycle the
+  rollers three or four revolutions before entering the code; do not guarantee
+  success. If the keypad fails while the agent is live on the call, the XA must
+  verify agent identity/current Trust and all property/appointment/access gates
+  before sharing an applicable mechanical code. This does not authorize codes
+  in a ticket draft, remote unlock, denial bypass, or general buyer/former-owner/
+  vendor access. Source:
+  https://opendoor.slack.com/archives/C02K6JVSNUF/p1794252711113129.
 - When the customer asks specific questions about showing length, lockbox signage,
   or whether additional access is required, address those questions in the
   customer reply together with any ask about whether the appointment occurred or

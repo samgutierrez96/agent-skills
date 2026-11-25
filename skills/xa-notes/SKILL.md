@@ -90,22 +90,24 @@ This safeguard applies to every skill used in this workflow.
 
 For a routine authorized post, resolve caller/property in the parallel
 lookup batch, reuse the operator token, resolve mentioned assigned roles under
-Part 11, and complete `xa-admin-account-merge`'s bounded saved-contact check on
-the verified caller before posting. Reuse complete saved contacts when available;
-otherwise use its connector-first exact-caller read and, only when necessary,
-separate background Customer Info read. One search hit and its single displayed
-email do not establish that no secondary contacts exist. With complete,
-conflict-free lists, return immediately to the MCP post without Admin, contact
-searches or edits, then compose the CONTACT body once. An already-returned assigned name
+Part 11, and inspect the caller/contact facts already returned by OpsHub MCP.
+A unique verified caller with no observed contact/account conflict stays on the
+MCP-only path; do not load browser-navigation or execution references, check
+browser connectivity, open Customer Info/the editor, or fetch complete secondary
+lists merely to prove no cleanup is needed. Optional omitted fields are unknown,
+not duplicate signals or proof of empty lists. Use the shared merge skill's one
+exact-caller MCP read only for a genuinely missing required identity/contact fact.
+Return directly to the MCP post without Admin, contact searches or edits, then
+compose the CONTACT body once. An already-returned assigned name
 belongs in that body before submission, not only in reasoning or the chat reply;
 reuse it without another lookup.
 Do not search for hypothetical duplicates, audit unrelated contacts, or read
-activity history to prove contact completeness. The bounded saved-contact check
-is required even when compact search omits secondary contacts; missing fields
-are not themselves a duplicate signal or evidence that the lists are empty.
+activity history to prove contact completeness. A real duplicate/contact signal
+takes the shared merge skill's detection and verified-cleanup gates; only that
+actual issue may need its browser fallback when MCP evidence/editing is insufficient.
 If the caller/property target itself remains unresolved, ask only for
 that missing identifier; never guess or launch contact cleanup to fill the gap.
-Target at most 15 seconds end-to-end for the connector-only, complete-contact
+Target at most 15 seconds end-to-end for the routine connector-only
 path when the model and connector respond normally; required background reads
 or cleanup add their own time. This is a target, not a measured guarantee or a
 reason to skip identity checks, retry an uncertain write, or claim success early.
@@ -113,15 +115,15 @@ reason to skip identity checks, retry an uncertain write, or claim success early
 ### Duplicate customer profiles
 
 Invoke `xa-admin-account-merge` only when the XA reports a duplicate/contact
-problem or the required saved-contact/caller/property reads expose one: conflicting real caller
+problem or the required MCP caller/property reads expose one: conflicting real caller
 matches, distinct relevant customer UUIDs, extra emails/phones, or distinct
 caller-phone and property-seller profiles. Repeated rows with the same UUID are
 not separate accounts. Count distinct normalized contact values, not repetitions
 in a compact search display. A WebCustomer.phone_numbers string such as
 `202-555-0124 / (202) 555-0124`, or a legacy list repeating that same number, is
 one distinct number, not evidence of separately editable saved rows. It does
-not waive the bounded complete saved-contact check. With complete, conflict-free
-lists on the verified caller, continue the MCP note post without cleanup;
+not trigger a complete-list audit. With no other observed conflict on the
+verified caller, continue the MCP note post without cleanup;
 do not search activity or open Admin merely to investigate display repetition.
 An explicit XA cleanup request or already-returned structured saved contacts
 showing distinct redundant rows can invoke the shared repeated-number-only path.
@@ -129,7 +131,7 @@ That path preserves all emails and distinct numbers, removes only safely
 targetable redundant copies, and retains its persisted verification and
 identity/authority gates. Distinct UUIDs, different normalized numbers, extra
 emails and real identity conflicts still take the applicable shared gates.
-Reuse evidence returned by the bounded saved-contact and required identity reads;
+Reuse evidence returned by the required MCP caller/property reads;
 do not add broader discovery without a concrete signal. When a concrete
 signal exists, preserve the merge skill's candidate classification, independent
 identity/keeping-email decisions, merge/cleanup verification and posting gates.
@@ -215,9 +217,10 @@ must take the bounded recovery path in Part 11 before asking for more identity.
 Do not scan tool catalogs or rediscover loaded schemas. Part 11’s exact-name
 binding is allowed only for missing deferred tools, before a speculative call.
 Filesystem searches remain excluded for routine posts. The shared merge skill's
-bounded saved-contact check may use its background Customer Info read when the
-connector cannot expose complete lists; only a concrete conflict permits its
-further merge/cleanup execution and verification.
+routine contact check stays MCP-only even when optional secondary fields are
+not exposed. Only a concrete duplicate/contact issue permits its complete-list
+review and, when MCP is insufficient for that issue, background browser fallback,
+merge/cleanup execution and verification.
 Bounded empty-phone recovery remains scoped to resolving the posting target,
 not a general full-contact audit.
 
@@ -1505,6 +1508,15 @@ rolls into mechanical systems, and no age fields. An age has to come from an
 inspection report, the county assessor, or permit records.
 
 ## Incident reports (incident)
+
+**Access-issue ticket macro (November 24):** A Home Feedback/access-issue ticket
+uses the home-issue macro: `Severity`, `Issue`, `Area`, `Notes`, `Able To Access`.
+The last value is exactly `Yes` or `No` from confirmed facts, not a guess from
+one failed code/door. This is report intake, never this note's five-field format.
+Preserve the report type/actions the XA actually stated; do not add a macro,
+verification, new report or extra research to an ordinary note. Sources:
+https://opendoor.slack.com/archives/C02K6JVSNUF/p1795550961051789 and
+https://opendoor.slack.com/archives/C02K6JVSNUF/p1795554332314589.
 
 An OpsHub record of something that happened at a property. The note says it was
 filed and what was reported. File one when:
@@ -2898,9 +2910,10 @@ action (included in evidence, attached the listing agreement), write that
 action too.
 
 **Completed-work links are automatic and meaning-based, not exact keywords.**
-When the XA says they continued/replied to a thread, sent something through
-Slack, started/opened a ticket, or describes equivalent completed work, retrieve
-and include its verified permalink without a separate request. This also applies
+When the XA says they continued/replied to a thread, sent/posted something in
+Slack, filed/reported something in a channel, started/opened a ticket, or describes
+equivalent completed work, retrieve and include its verified permalink without a
+separate request. This also applies
 when they say they filed/submitted
 a ticket, incident report, home issue report, HQI or TPM request; attached or
 shared an inspection report or other supporting document; or made a Key app or
@@ -2916,11 +2929,16 @@ uploaded or an escalation was delivered.
 Reuse a supplied URL or an already verified matching receipt first. Otherwise,
 use connected read-only Slack, ticket, or document tools with the supplied
 property address, exact ticket/report reference, or verified retained context for
-this same call. A bare "filed a ticket" or "attached a report" with no identifying
-context does not justify a broad search.
+this same call. A named Slack channel plus the current call's issue or filing
+window is identifying context: "I filed something in #channel", "I filed a ticket
+in #channel", and "I sent/reported it in #channel" all trigger the same lookup;
+do not require the XA to say "find the link" or name a formal report type.
+A bare "filed a ticket" or "attached a report" with no identifying context does
+not justify a broad search.
 For Slack, use the best retained identifier, not only an exact address phrase:
-reuse an existing same-call ticket/note receipt or thread reference, then search
-by the reported issue and scoped property, caller or known author/time. A thread
+reuse an existing same-call ticket/note receipt or thread reference, then use the
+known-channel read below or search by the issue and scoped property, caller or
+known author/time when the channel is unknown. A thread
 may identify the property only by its OpsHub URL/token. Reuse an already-read
 customer note's matching link; when scoped caller context exists but no link is
 retained, one targeted read of that caller's recent notes may be the initial
@@ -2930,21 +2948,42 @@ selection. Use authorized private-channel search when needed, respecting the
 connector's access/consent requirements; an empty public search is not proof
 that no thread exists. Keep the lookup budget below across these alternatives.
 
-**Newly filed work needs a current source read, not search alone.** Slack search
-may not yet return a just-created workflow report. Include bot messages when
-searching for completed work; a report generated by OpsHub can document the XA's
-submission without the XA being its Slack author. For a just-filed home issue/HQI
-report, prefer a bounded `slack_read_channel` read of the public `#hqi-feedback`
-channel (`C0B345SKN77`), scoped to this call's time, then match the property's
-address/token and the reported issue. This bypasses search indexing, not access
-controls. It is the initial lookup, not an extra lookup allowance. If an initial
-search instead returns no match or an unrelated alert, use the one remaining
-targeted read of the known report channel; do not stop after that search or pick
-the unrelated alert. For other completed work, use its verified retained channel
-or direct ticket/document reference; never discover unrelated channels broadly.
-Use at most 50 recent channel messages in a bounded call-time window. If necessary,
-the one refinement may read the candidate's thread. No sleep, polling, private
-channel consent bypass, new report, message or other mutation is authorized.
+**Read the named Slack channel before asking for a completed-work link.**
+For anything the XA says they filed, submitted, reported, posted, sent or replied
+to in a particular Slack channel, use that channel as the source to check, not
+merely as a keyword in a property search. This applies to any stated channel,
+not only HQI, incident reports or `#tech-support`. Reuse its verified channel ID,
+or resolve only that exact named channel with the read-only connector if needed;
+do not enumerate or read unrelated channels. Prefer a bounded
+`slack_read_channel` read scoped to the call/filing window as the initial lookup.
+Reuse a supplied permalink or verified same-call receipt instead of rereading.
+
+**Newly filed Slack work needs a current channel read, not search alone.**
+Search can miss recent posts or reports whose body contains no street address.
+If an initial scoped search returns no match or an unrelated result, use the
+remaining targeted read of the named or otherwise verified report channel before
+asking the XA for its link. Do not spend both content lookups on address variants
+and then stop. Match the stated issue and the available case context, author,
+filing time or ticket reference; an address/token may be in a linked record,
+thread or attachment rather than the message body. Do not require an exact street
+or caller-name phrase in the Slack post when the other evidence uniquely verifies
+this call's completed work. A conflicting property or multiple plausible reports
+remains unresolved; never pick a generic, newest or unrelated post.
+Include bot/workflow messages: the XA may be the submitter without being the
+Slack message's author.
+
+When no channel was named, reuse the verified same-call channel/reference or the
+scoped lookup above. For a just-filed home issue/HQI report without a stated
+channel, the known source is public `#hqi-feedback` (`C0B345SKN77`).
+The named channel takes precedence; do not route every completed Slack item to
+HQI or tech support. Channel resolution permits metadata for that channel only,
+not additional report searches. Keep the shared budget of one initial content
+lookup and one targeted refinement/read; use at most 50 recent channel messages
+in the bounded filing window. The refinement may read the candidate's thread.
+If access fails, context is insufficient or no unique match is verified within
+that bound, preserve the draft and ask for the existing link with the concrete
+blocker. This bypasses search indexing, not access controls. No sleep, polling,
+private-channel consent bypass, new report, message or other mutation is authorized.
 <!-- supporting-link-channel: C0B345SKN77 -->
 
 If the XA identifies a ticket system and ticket ID, or a specific document/

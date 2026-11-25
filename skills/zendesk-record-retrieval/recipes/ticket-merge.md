@@ -18,6 +18,11 @@ repeat the demonstrated action.
    and same support concern or explicit continuation. A shared email/phone, name,
    subject or address alone does not establish that two tickets belong together.
    Different people, properties, transactions or independent issues stay separate.
+   Complementary questions about the same active support episode are not
+   automatically independent: offer eligibility/reconsideration and requested
+   updated photos may be one continuing case even when the wording differs.
+   Verify the relationship and current relevance; do not merge merely because
+   both tickets mention the home.
    Conflicting identities, requester changes, recipients/CCs, restricted content
    or SMS/email channel differences require review before proposing execution.
 3. Reconstruct the relevant sequence: customer ask, support answer/question,
@@ -31,21 +36,49 @@ repeat the demonstrated action.
    source IDs/URLs → destination ID/URL and any unanswered ask or attachment that
    must remain findable. Use verified Zendesk URLs, not guessed record links.
 
-## Already answered elsewhere: no merge needed
+5. Before returning a draft that cites another ticket as an unanswered
+   continuation or as the answer to this same request, make the consolidation
+   decision explicit outside the copy boxes. For a verified split
+   case, emit the compact `Possible ticket merge` handoff below without waiting
+   for Sam to ask. If identity, relationship, privacy or direction is not yet
+   established, use `Related ticket review needed` with the exact links and
+   missing evidence. If genuinely independent, say `Keep tickets separate` and
+   explain why. Do not bury the only review signal in the internal note, treat
+   an unresolved linked ask as resolved by this reply, or present a routine
+   reply-and-solve as the complete disposition for a still-unreviewed split case.
+   Reuse exact candidates already found; this adds no inbox-wide search.
 
-Honor Sam's explicit eligible merge choice instead of replacing it with solving
-the duplicate. Use this no-merge branch when consolidation is not requested or
-Sam chooses the alternative. Empty suggestions do not rule out an exact-ID merge.
+## Already answered elsewhere: decide consolidation separately
+
+No further reply needed does not mean no merge needed. For a verified duplicate
+in the same support episode, recommend an eligible source → destination merge
+without waiting for Sam to request it, even when the destination already contains
+the answer or is solved. Review requester, exact property/transaction, chronology,
+recipients/CCs and channel/privacy conflicts; do not choose by age alone. State
+that no further public reply is needed, but retain the visible merge handoff.
+Until that review is settled, use
+`[No reply recommended. Merge review pending; keep current status.]` in the first
+copy box, not a standalone close recommendation. Missing match, direction or
+eligibility evidence belongs under `Related ticket review needed`.
+
+Use note-plus-solve only when Sam explicitly chooses that alternative, or a
+concrete separation/eligibility reason rules out consolidation. Explain that
+reason outside the copy boxes. A historical answer from a different support
+episode is not automatically a current duplicate. Neither the lack of a merge
+request, empty suggestions, an answered question nor a solved destination is by
+itself a no-merge reason. A missing merge capability remains a blocker, not
+permission to substitute solving. Honor Sam's explicit eligible merge choice.
 
 When the related conversation demonstrably answers the entire current ask, with
-no unanswered follow-up, prefer no additional public reply and an internal note
+no unanswered follow-up, prefer no additional public reply and an internal-note draft
 identifying the verified responder, what was answered and the related ticket's
 full URL. Do not repeat the current ticket number. “No comment” means no public
 reply, not literal text to send or permission to omit the internal note. Do not
 hard-code the demonstration's staff name. A solved status or earlier outreach
 alone does not establish resolution.
 
-Recommend solving only the duplicate; leave the other ticket unchanged. Drafting
+For the justified note-plus-solve alternative, recommend solving only the
+duplicate; leave the other ticket unchanged. Drafting
 or approving a merge does not authorize this alternative. If Sam explicitly asks
 to solve that exact duplicate, one Zendesk `update_ticket` may combine
 `status:"solved"` with `internal_note`, omitting public/html replies. Verify the
@@ -63,9 +96,18 @@ An absent suggestion is not proof that merging by exact ticket ID is unavailable
 - Prefer the Zendesk MCP's actual merge operation when exposed. Inspect its current
   schema and supported eligibility, note-visibility and completion controls; never
   invent a tool or unsupported parameters. A source must be unsolved; a solved
-  destination may be eligible and remains solved, not automatically reopened. An
-  ineligible or uncertain destination requires a different verified choice, not
-  reopening/changing records to force the merge.
+  destination may be eligible and remains solved, not automatically reopened.
+  Closed is not Solved: a Closed ticket cannot be a merge source or destination.
+  When the required current ticket evidence or read-only preview verifies this
+  restriction, show `Merge unavailable:` outside both copy boxes, naming the
+  exact ticket's full verified URL, its Closed status and the blocked direction.
+  Explain that a Solved destination can still be eligible; do not report the
+  closed pair merely as "No merge needed" or offer another merge attempt.
+  Missing or stale status is unknown, not a Closed finding. Preserve the current
+  ticket's remaining work and supported no-reply disposition independently.
+  Do not reopen/change records, reverse direction, choose another destination or
+  create a follow-up ticket to work around the restriction without a separately
+  verified, authorized request.
 - The local connector now implements `merge_tickets` and `get_merge_status`;
   inspect their current schemas once when execution is requested. Older running
   connections may need refresh; do not infer callable availability from a save.

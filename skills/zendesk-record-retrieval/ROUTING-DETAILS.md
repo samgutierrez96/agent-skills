@@ -157,13 +157,17 @@ Reuse already loaded sections; all evidence and disclosure gates remain required
    verified-requester search. Reuse a sufficient retained check. Run it alongside
    required recipe/section reads. SMS may repeat an email
    under another address. Read matching candidate comments and verify the customer,
-   exact property, same concern, prior answer and chronology. A split unresolved
-   conversation uses [ticket consolidation](recipes/ticket-merge.md); surface its
+   exact property, same concern, prior answer and chronology. A split conversation
+   or same-episode duplicate, including an already answered one, uses
+   [ticket consolidation](recipes/ticket-merge.md); surface its
    verified recommendation in this initial review, independently of any still
    missing property detail. Do not infer a match from the requester alone. Related
    history can inform the draft without permission to merge. A solved/closed
-   answer with no changed circumstance or substantive new question takes the
-   no-reply/close path; stop retrieval and put the source number in the appendix.
+   answer with no changed circumstance or substantive new question needs no
+   repeat reply, but does not settle consolidation. Recommend an eligible merge
+   for a verified same-episode duplicate; otherwise state the exact review gap or
+   concrete keep-separate reason. Stop unrelated retrieval and retain the verified
+   full source URL in the internal note.
    Status, a name/address alone, or email subjects do not establish resolution.
    No matching answer → normal recipe, without a series of search variants.
    Skip inbound-only fast paths and reuse completed same-ticket checks.

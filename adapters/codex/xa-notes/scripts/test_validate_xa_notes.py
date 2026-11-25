@@ -66,6 +66,24 @@ class ValidatorTests(unittest.TestCase):
             case = BY_ID[case_id]
             self.assertEqual(API["validate_case"](case, case["expected"], []), [])
 
+    def test_named_channel_cases_preserve_links_and_never_authorize_mutations(self):
+        case_ids = (
+            "named-tech-channel-filed-something",
+            "named-arbitrary-channel-filed-ticket",
+            "named-channel-bot-report-after-search-miss",
+            "named-channel-access-blocker-no-post",
+        )
+        for case_id in case_ids:
+            case = BY_ID[case_id]
+            with self.subTest(case=case_id):
+                self.assertEqual(API["validate_case"](case, case["expected"], []), [])
+                for url in case["expected_urls"]:
+                    self.assertTrue(API["validate_case"](
+                        case, case["expected"].replace(url, ""), []))
+                for operation in ("CreateCustomerNote", "UpdateCustomerNote", "slack_send_message"):
+                    self.assertTrue(API["validate_case"](
+                        case, case["expected"], [operation]))
+
     def test_links_must_be_preserved_once_and_in_full(self):
         case = BY_ID["attach-existing-report-and-ticket"]
         url = case["expected_urls"][0]

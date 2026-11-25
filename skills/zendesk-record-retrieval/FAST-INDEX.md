@@ -19,6 +19,10 @@ Batch independent card/required-tool discovery; dependent IDs wait for verificat
 Extract required full-playbook passages by exact heading using
 [Targeted playbook reads](ROUTING-GATES.md#targeted-playbook-reads), without a
 heading-discovery search. Reuse material already in context on follow-ups.
+Use the bundled `scripts/read_playbook.py --section "Exact heading"` through
+`python3`; its combined packet budget and revision-bound continuation prevent
+large multi-section reads from truncating and being read again. Do not emit
+unrelated tool catalogs or raw connector payloads beside the source packet.
 
 ## Always-required gates
 
@@ -48,7 +52,9 @@ Each route keeps its own evidence gates. Combine only routes needed for separate
 asks. Read a linked detailed section only for the condition named on that line.
 
 - Agent existing assessment photos → [agent photos](recipes/agent-assessment-photos.md).
-- Requested/split-ticket merge → [ticket consolidation](recipes/ticket-merge.md).
+- Requested merge, split conversation or same-episode duplicate already answered
+  elsewhere → [ticket consolidation](recipes/ticket-merge.md). No-reply does not
+  mean no merge; review consolidation before standalone closure.
   Missing capability → verified manual handoff. No automatic merge or closure.
 - Ticket number only → [ticket-only](recipes/ticket-only.md) if its initial read is not yet satisfied.
 - Latest reply, draft completeness or same-ticket continuation →
@@ -101,8 +107,10 @@ asks. Read a linked detailed section only for the condition named on that line.
 - Assessment day/time → [assessment time](recipes/assessment-time.md).
 - Seller requests help scheduling an assessment, including "any time" or
   "earliest available" → SKILL.md → Assessment reschedules and confirmations:
-  readiness intake before slot selection. Retain supplied availability; collect
-  missing presence/access details together, not another time-preference request.
+  readiness intake before slot selection. Retain supplied availability; if date,
+  time or confirmation is ambiguous, clarify that first and wait for the answer
+  before readiness intake; otherwise collect missing presence/access details
+  together, not another time-preference request.
 - Seller asks who can conduct assessment → [provider](recipes/assessment-provider.md).
 - Preliminary offer next steps → [preliminary next steps](recipes/preliminary-next-steps.md).
 - Seller working with agent → [seller with agent](recipes/seller-with-agent.md).
@@ -110,7 +118,9 @@ asks. Read a linked detailed section only for the condition named on that line.
 - Code after scheduled assessment → [code follow-up](recipes/assessment-code-follow-up.md).
   Unexplained lockbox details instead use [clarification wording](guides/case-wording.md#unexplained-lockbox-information).
 - Any assessment-help invitation → [assessment wording](guides/case-wording.md#assessment-assistance-wording).
-- Buyer interest in named listing → [buyer listing](recipes/buyer-listing.md).
+- Ordinary buyer/investor interest or first-offer inquiry → self-contained
+  [buyer listing](recipes/buyer-listing.md); no broad listing/wording-guide read.
+  Its conditional routes preserve access, availability, eligibility and prior-offer checks.
 - Buyer condition/systems/layout → [buyer condition](recipes/buyer-condition.md).
 - Resale FHA eligibility/active offers → [resale facts](recipes/resale-listing-facts.md).
 - Disclosures/records/repair history/listing-agent handoff → SKILL.md → Public listings

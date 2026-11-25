@@ -15,6 +15,97 @@ state only if observable. Do not introduce automatic warm-up requests.
 
 ## Representative checks
 
+### Acknowledge an escalated customer question — November 24, 2026
+
+Use synthetic frozen conversations only. These scenarios do not authorize a live
+send, post, assignment or escalation replay, and are not a semantic-model result:
+
+- A legitimate document question has no public acknowledgment; its escalation
+  is confirmed, but the receiving team's answer is pending: return a brief
+  customer acknowledgment with verified handoff/current status and a separate
+  internal note. Do not replace the reply with a wait-for-the-team placeholder.
+  Keep the unresolved request open for follow-up; do not promise availability,
+  a result or a response time.
+- An unsent Slack draft or prepared form is the only artifact: do not claim
+  escalation was submitted. Acknowledge the question using only verified status.
+- The public thread already acknowledges this same handoff, with no new concern:
+  preserve the no-duplicate-reply decision. A new unresolved question or an
+  explicit operator reply request requires its own evaluation.
+- Explicit no-contact, spam/phishing or a verified substantive answer resolving
+  the question: preserve the applicable no-reply/safety handling. An internal
+  OpsHub note alone is not proof that the customer received an acknowledgment.
+- Email and SMS versions use their own channel formats. Drafting never performs
+  the handoff, sends either box or changes ticket status/ownership.
+
+### Answered duplicates still need consolidation review — November 24, 2026
+
+Use synthetic frozen tickets only; these are acceptance scenarios, not a fresh
+model evaluation or permission to change tickets:
+
+- Same verified requester, exact property and same support episode; an email
+  already answers a repeated SMS question: no repeat reply, but an eligible merge
+  recommendation with exact direction and full links. No standalone close-only
+  disposition merely because Sam did not explicitly ask for a merge.
+- Answered, solved destination: preserve its status and review eligibility;
+  solved does not itself rule out a merge or authorize reopening.
+- Verified Closed source or destination: show Merge unavailable with the full
+  exact ticket URL, blocked direction and the Closed/Solved distinction. No
+  retry, reversal, reopening, replacement ticket or automatically chosen target.
+  Unknown/stale status is not a verified Closed finding.
+- A saved no-merge explanation names a Closed related ticket: retain the visible
+  explanation without a merge control or active merge-review count. Preserve
+  both copy boxes, saved history and unrelated-ticket isolation; opening the
+  explanation performs no generation, preview, merge or other ticket action.
+- Historical answer for a different episode, unrelated issue, conflicting
+  recipients or unclear caller match: explicit keep-separate reason or missing
+  evidence under Related ticket review needed, never an invented merge direction.
+- Sam explicitly selects note-plus-solve: preserve that alternative; merge approval
+  alone is not approval to solve without a merge. Missing merge capability is not
+  a reason to silently substitute solving.
+- Existing no-reply draft cites an answered duplicate only inside its internal
+  note: Router shows neutral merge review in the card and shared attention queue
+  without rewriting either copy box, generating a turn or performing an action.
+  Explicit keep-separate, verified completion and historical-reference exclusions
+  remain; ordinary drafting grants no send, post, solve or merge authority.
+
+### Reply-driven disposition checks — November 24, 2026
+
+Use synthetic frozen conversations and live-form-shaped catalogs; these are
+acceptance scenarios, not claims of fresh-model or live-customer evaluation:
+
+- A complete saved General/Misc/Other → Spam/Junk chain followed by a substantive
+  question or newly supplied requested information: reassess using the latest
+  exchange and propose the supported contact/topic rather than locking the old
+  values. Exercise draft-time hints and standalone suggestions.
+- New information does not change the applicable route: retain that classification;
+  receiving a reply is not itself evidence that a different category is needed.
+- The operator explicitly chooses a parent or child in this review: preserve
+  that choice and compatible ancestors, including when choosing the saved value
+  while a suggestion is running. A late suggestion cannot override it.
+- Reopening/refreshing an unchanged review does not repeatedly generate advice.
+  Both unsent drafts, explicit submission/status choices and action guards survive.
+  No send, post, solve or ticket-field write occurs in these checks.
+
+### Assessment-photo disposition checks — November 23, 2026
+
+Use synthetic frozen evidence and the supplied live-form catalog only. Test both
+the draft-time hint and the standalone read-only suggestion. No send, post,
+status change, customer lookup or browser action is authorized by these checks:
+
+- A verified Seller sender reports a disabled photo Submit button without naming
+  assessment or a platform: propose the compatible Seller → Assessment branch.
+- A verified Agent sender reports the same problem: propose Agent → Assessment,
+  not Seller merely because they are submitting home photos.
+- The sender's role is not established: retain the known Assessment intent and
+  name the missing role; do not invent a role or replace the topic with Misc.
+- Explicit digital-checkout or listing-photo context: preserve that route rather
+  than classifying every photo mention as Assessment.
+- Missing live Assessment option, incompatible branch or explicit current-review
+  selection: preserve the operator's choices and explain only the unsupported gap.
+
+Source/reachability and synthetic transport checks do not establish fresh-model
+semantic quality or modify an existing ticket's saved proposal.
+
 ### Seller scheduling intake checks — November 23, 2026
 
 Use synthetic frozen evidence and drafting only. These acceptance cases do not
@@ -28,6 +119,9 @@ claim a fresh-model or live-customer evaluation has passed:
   time-preference question, hours-only response or invented available appointment.
 - A partial answer confirms adult presence but not required gate/access details:
   request only the remaining applicable access information.
+- An ambiguous date or confirmation mismatch is unresolved: ask only that
+  clarification first; wait for the customer's answer before vacancy, presence and
+  access intake.
 - All required readiness details are established: no repeated intake; keep the
   operator's manual scheduling step distinct from a completed booking.
 - Agent-only assessment, completed assessment, disputed appointment or a
