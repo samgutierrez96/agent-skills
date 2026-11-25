@@ -43,13 +43,15 @@ skill is present, do not read this summary; the first caller reuses that source.
 ## Tool boundary
 
 - Ordinary notes use zero tools, except the full skill's silent listing-type
-  check and bounded read-only filed-report link lookup. When the XA says they
-  reports completed work in their own words, including filing a report, starting
-  a ticket, sending Slack or continuing a thread, or attaching an inspection
-  report/document, reuse its verified URL or find the matching Slack, ticket,
-  or document link using scoped context and include it once. No verified match means no
-  invented link, no broad search, and no blocked note. This never authorizes a
-  new report, escalation, file upload/share, Slack send or OpsHub post.
+  check and bounded read-only completed-work link lookup. When the XA reports
+  completed work in their own words, reuse its verified URL or retrieve the
+  matching Slack, ticket, report or document link under Part 11 and include it
+  once. Anything filed/reported/posted/sent in a named Slack channel uses that
+  channel's bounded current-message read before asking for a link; this is not
+  limited to HQI or tech support. Preserve Part 11's case-match, access and lookup
+  limits. An unresolved required link keeps the draft unposted with a concrete
+  blocker; never invent a link or broaden the search. This authorizes no new
+  report, escalation, file upload/share, Slack send or OpsHub post.
 - A direct command to post the selected note, such as `Post it` or
   `post the corrected note please`, authorizes OpsHub lookup and posting for
   that retained caller and draft. Direct fix/correct/update/edit commands for

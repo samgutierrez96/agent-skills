@@ -23,6 +23,13 @@ authorizes review, not a ticket change.
   concern. A name/address/subject match alone is insufficient. Compare the ask,
   prior response, subsequent inbound and remaining work. Status alone is not
   evidence that the question was answered.
+- When a draft cites another ticket as an unanswered continuation or as the
+  answer to the same request, explicitly review consolidation
+  outside the copy boxes: recommend the exact direction for a verified split
+  case, flag missing match/direction evidence, or explain why the issues must
+  stay separate. Complementary asks in one verified support episode can belong
+  together even when their wording differs. Do not leave the only signal buried
+  in the internal note or equate replying to one ask with resolving the other.
 - Merge suggestions are optional discovery, not the only way to choose a ticket.
   Their absence proves neither that no related ticket exists nor that a merge is
   impossible. Keep independent issues separate; review recipient, CC, channel
@@ -30,12 +37,23 @@ authorizes review, not a ticket change.
 
 ## Choose the outcome
 
-Honor an explicitly requested, eligible consolidation even when the related
-ticket already contains an answer; do not replace it with note-plus-solve merely
-because suggestions are empty. The no-merge branch applies when consolidation
-is not requested or Sam chooses that alternative.
+Recommend eligible consolidation for a verified duplicate in the same support
+episode even when the related ticket already answers the question. Do not wait
+for Sam to request a merge. No new public reply needed is independent of merge
+review; a solved destination or empty suggestions is not a no-merge reason.
+Keep the exact-direction recommendation visible, with
+`[No reply recommended. Merge review pending; keep current status.]` when embedded
+in a draft. Missing match, direction, privacy or eligibility evidence stays a
+review blocker, not a close-only recommendation. Actual merging still requires
+Sam's exact informed approval.
 
-**Already answered elsewhere, no merge needed:** Prefer no new public reply and
+Use note-plus-solve only when Sam explicitly chooses it or a concrete
+separation/eligibility reason rules out consolidation; explain that reason.
+A historical answer from a different support episode is not automatically a
+current duplicate. A missing merge capability is a blocker, not permission to
+substitute solving. Honor an explicitly requested eligible consolidation.
+
+**Justified no-merge alternative, already answered elsewhere:** Prefer no new public reply and
 a concise internal note identifying the verified responder, what was answered
 and the other ticket's full verified URL. Do not repeat the current ticket ID.
 Interpret “no comment” here as no customer-facing reply, not literal text to send
@@ -89,7 +107,16 @@ already established in the same execution. Preserve unsent drafts.
   privacy and notification effects, then confirm once. Stop on an unavailable
   action, ineligible ticket or unclear privacy effect; do not force eligibility.
 - A source must be unsolved; an eligible solved destination is possible and stays
-  solved. If Sam expects an open continuing thread but the preview says solved,
+  solved. Closed is not Solved: a Closed ticket cannot be a merge source or
+  destination. When required current evidence or the read-only preview verifies
+  that blocker, show `Merge unavailable:` with the exact full ticket URL, Closed
+  status and blocked direction outside any copy boxes. Explain the distinction
+  from an eligible Solved destination instead of only saying "No merge needed."
+  Unknown/stale status is not a Closed finding. Do not retry that blocked pair,
+  reverse direction, change/reopen records or create a follow-up as a workaround
+  without a separately verified, authorized request. Preserve remaining work and
+  any supported no-reply disposition independently.
+  If Sam expects an open continuing thread but the preview says solved,
   resolve that status choice before writing. Reopening is a separate explicitly
   authorized action; do not silently add it to a merge or promise automatic reopening.
 - Verify the merge relationship/receipt, source closure and intended destination,

@@ -21,7 +21,7 @@ python3 scripts/validate_xa_notes.py
 python3 scripts/test_validate_xa_notes.py
 ```
 
-The first command checks 37 stored expected examples. It does not generate
+The first command checks 41 stored expected examples. It does not generate
 model outputs. The second tests the validator itself, including deliberate
 failures. Neither command calls a model, OpsHub, Slack, tickets or a browser.
 
@@ -46,6 +46,13 @@ model results, posting receipts or an under-20-second timing acceptance.
 All formerly missing shape examples now have synthetic expected outputs.
 New November 17 acceptance examples are synthetic, not observed model results.
 Previously reviewed/anonymized cases retain their original provenance.
+
+November 24 adds named-channel examples for informal filed-work wording, a
+ticket in an arbitrary channel, a bot report found after a search miss, and an
+access-blocked report that must not authorize posting. Supplied lookup contexts
+and lookup_acceptance criteria are synthetic review inputs, not executed tool
+traces. The validator checks the output links and mutation-operation boundary;
+it does not prove that a model performed the intended first-pass channel read.
 
 ## Check captured model outputs
 

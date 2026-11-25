@@ -70,11 +70,15 @@ blank. Explicit posts use resolved caller/property values.
   bounded shared-context recovery before asking for more identity; its exact
   shared-skill read, retry and fallback are the fast-path exception. Repetition
   of one normalized caller number in a compact search summary is not a cleanup
-  trigger or proof of complete contacts. Before posting, follow the shared merge
-  skill's bounded saved-contact check on the verified caller, using sufficient
-  connector evidence first and its separate background Customer Info read only
-  when needed. Complete, conflict-free lists return directly to the MCP post;
-  no broader duplicate searches or edits are needed. Explicit XA cleanup requests or already
+  trigger or proof of complete contacts. Routine checks inspect already-returned
+  OpsHub MCP caller/contact facts. A unique verified caller with no observed
+  conflict continues directly to the MCP post; do not load browser-navigation,
+  check browser connectivity, open Customer Info/the editor or demand full
+  secondary-contact lists just to rule out cleanup. Missing optional fields are
+  unknown, not duplicate signals or verified empty lists. An actual contact issue
+  takes the shared merge skill's complete-list and verification gates, using its
+  browser fallback only if MCP cannot safely resolve that issue. No broader
+  duplicate searches or edits are needed on the routine path. Explicit XA cleanup requests or already
   established distinct saved duplicate rows use the shared skill's narrow
   connector-first cleanup. Preserve distinct contacts and existing email;
   known distinct accounts retain all merge/identity gates.

@@ -38,6 +38,10 @@ phone, or email), if the fast index is **not already in this chat**, read
 `skills/zendesk-record-retrieval/FAST-INDEX.md` once in the first lookup block.
 For an exact ticket ID, read that index and retrieve Zendesk `get_ticket` in the
 same awaited parallel block when supported; inspect both results before routing.
+For deferred tools, select the one exact required suffix in `ALL_TOOLS` (for
+example `__zendesk__get_ticket`); inspect that descriptor once. Never print
+search-tool catalogs or match names/descriptions across every connector to find
+it. Discover only the next required read, alongside independent source reads.
 Then open the matching `recipes/` card and discover only its required tool schemas
 in one independent block when possible. Do not read `recipes/ticket-only.md` after
 `get_ticket` has already satisfied that card's only step. Read required full-playbook
@@ -49,11 +53,20 @@ narrow recipe; it replaces, rather than adds to, a broad full-playbook read for
 that branch. Reuse sufficient server-supplied Zendesk ticket/comment evidence,
 inspecting its identity, freshness and coverage instead of repeating those reads.
 For hard, ambiguous, or multi-record tickets, first read matching full-playbook
-sections. If the complete playbook is required, read it in explicitly bounded
-chunks of at most 200 lines and 12,000 characters each, with labeled continuations;
-inspect every required part. Independent chunks may run together within the tool's
-output budget. Never use an unbounded remainder or accept truncated output as a
-complete read. Do not attempt a full unchunked read for a routine ticket. Later tickets in the same chat reuse loaded material. Do not
+sections with the bundled read-only source reader:
+`python3 skills/zendesk-record-retrieval/scripts/read_playbook.py --section "Public listings"`.
+Use the recipe's exact section name, not this example for every ticket. Repeat
+`--section` for independent required sections; they share one bounded packet.
+For a named bold recipe bullet, use `--section "Per-type recipes" --entry` with
+its exact label to retain that entry and its governing preamble, not sibling
+recipes. Collection headings without an entry are rejected; do not bypass this
+with broad `sed`, `cat` or an all-pages loop. General policy uses the focused
+`Policy and product questions` section, not the whole recipe collection.
+Follow `continue_with` until `complete:true`; a partial page is not full
+coverage. Never print all continuation pages in one call. Keep connector results
+in `store()` and emit only needed verified fields plus coverage; do not batch raw
+payloads/catalogs with source text and overflow the combined tool-output budget.
+Do not attempt a full unchunked read for a routine ticket. Later tickets in the same chat reuse loaded material. Do not
 wait for the operator to name the skill. Warm-up `ready` is the only exception.
 
 Portable installs must bundle `skills/zendesk-record-retrieval/ENTRY.md` and this
@@ -171,7 +184,23 @@ current approval/capability blocker. Use the recipe's compact labeled handoff an
 manual guide; give an actionable next step instead of a chronology dump or vague
 “manual handling” instruction. Router promotes that section into a visible
 review notice. Do not use this label for a rejected match, a completed merge or
-generic process advice. This is a review-time flag, not a background inbox alert.
+generic process advice. Before returning a draft that cites another ticket as an
+unanswered continuation or as the answer to this same request, use the recipe to
+explicitly recommend consolidation, flag the exact
+missing evidence under `Related ticket review needed`, or explain `Keep tickets
+separate`. Complementary asks in the same verified support episode can belong
+together; different wording alone is not an independent-issue finding. Do not
+leave the only signal inside the internal-note box. This is review-time discovery
+from the existing bounded related-ticket check, not an inbox-wide merge scan.
+No new reply needed is not a no-merge decision. For a verified duplicate in the
+same support episode, recommend the eligible merge without waiting for Sam to
+request consolidation, even if the other ticket already answered the question.
+Use `[No reply recommended. Merge review pending; keep current status.]` rather
+than a standalone close recommendation while consolidation is unreviewed.
+When eligibility rules out a merge, retain its concrete reason outside both copy
+boxes under `Merge unavailable:` with the exact verified related-ticket URL.
+Distinguish Closed from Solved using the recipe; do not leave only a bare
+"No merge needed" decision or imply that refreshing enables an ineligible pair.
 
 **Verified post-merge drafting handoff:** A server-held ticket preview may include
 `post_merge_handoff` with an already verified exact merge, original drafts and
@@ -255,9 +284,71 @@ Before emitting a Router source-evidence snapshot, read
 It defines the exact source-only schema and sensitive-data exclusions. No extra
 read or summary pass solely to populate the display; no fabricated action receipt.
 
+## Disposition selection
+
+Apply this guidance to both the draft-time `zendesk-disposition` hint and a
+standalone read-only disposition suggestion. Use only the supplied live field
+IDs, option values and dependency conditions; preserve explicit operator choices
+made in the current review, including their compatible parent branch.
+Point of Contact identifies the sender's business category, not a named person
+or Zendesk's generic `end-user` role. Prefer the specific category supported by
+the relevant ticket exchange and already-verified context.
+
+**Reassess after a reply:** Saved ticket values (`current_values`) describe the
+prior classification; they are evidence, not immutable operator selections.
+Read the newest verified inbound with the relevant prior exchange. When a reply
+adds a substantive question, supplies requested information or establishes a
+different supported contact/topic, propose the currently applicable live branch
+even if the saved disposition is already complete. Do not retain Spam/Junk or
+another stale route solely because its fields are populated. A reply alone does
+not require a different classification when the current one still fits. Preserve
+the operator's explicit current-review selections (`current_fields`); explain
+any conflict instead of replacing or hiding them. If no applicable live choice
+is supported, name the missing fact or option rather than inventing one.
+This updates the suggestion only; external fields change only through the
+separate exact-ticket review and approval, never by receiving or reading a reply.
+
+**Assessment photo submission:** A Zendesk sender trying to submit or upload
+home photos, including a disabled Submit button or failed photo upload, is
+raising an Assessment issue even if they never use the word "assessment".
+Determine the sender's business role separately: use the supplied live
+Seller → Assessment or Agent → Assessment branch according to the sender's
+established role, with its actual field IDs, values and dependency conditions.
+Photo submission does not by itself make the sender a Seller. An unknown app
+or website does not make the Assessment topic unknown. If the sender's role
+is genuinely unresolved, retain the known Assessment intent and explain the
+missing role rather than substituting General/Misc/Other for the known topic.
+Keep only the unsupported role-dependent choices unset. Explicit evidence of
+a different photo purpose, such as digital checkout or listing photos, keeps
+its own substantive route; not every mention of photos is an assessment.
+
+**Closing thanks after our answer:** Select the supplied live
+`General/Misc/Other` Point of Contact and its dependent `Spam/Junk` disposition
+when the verified ticket exchange shows that Support already answered the
+customer's request and the newest inbound is only a closing acknowledgment
+such as "Thank you", with no new question or remaining unresolved request.
+This specific closing-acknowledgment rule takes precedence over the sender's
+business category for this suggestion, while preserving explicit current-review choices.
+It is a proposed field selection, not permission to mark the ticket as spam.
+
+Do not apply that pair to an isolated "Thank you" without evidence of our prior
+answer, thanks that also asks a question, or acknowledgment of a still-unresolved
+request. Missing prior context is not proof that we already answered. Use the
+applicable substantive route and supported contact/category instead; do not
+invent prior resolution or add customer/property research solely for taxonomy.
+Existing unsolicited-spam handling remains separate.
+
+When the evidence establishes no specific contact category, the supplied live
+`General/Misc/Other` contact can still be selected without inventing a dependent
+Spam/Junk choice. Unknown sender role or no-reply alone does not establish that
+disposition. Retain a supported contact if the dependent choice remains uncertain
+and explain that gap. If the live form lacks the applicable option or the evidence
+conflicts, leave only the unsupported choice unset and state the precise blocker.
+These are review suggestions only, never permission to send, post, solve or mark spam.
+
 ## Output order
 
-1. Customer reply in its own plain triple-backtick fence, with nothing above it. The internal note must be in a separate plain triple-backtick fence immediately after it. On no-send, fence `[No reply recommended. Close ticket.]` Unsolicited listing / marketing email: fence `[No reply recommended. Mark as spam and close.]` Put spam/close only in that fence, not in the internal note or appendix. When there is no customer reply because the operator must assign or escalate internally, use the first fence for a brief no-reply disposition that also names the verified assignee or escalation target and the ticket disposition (for example, keep open for follow-up rather than close). Do not save customer-specific names as generic rules; use the verified owner from the applicable recipe or handoff guidance. The internal note in the second fence should state who to assign or escalate to, for example `Assigned to [full name], [role], for [purpose].` Match ranked-assignment handoff note shape when a verified individual owner exists; use the verified queue or team when no individual is selectable.
+1. Customer reply in its own plain triple-backtick fence, with nothing above it. The internal note must be in a separate plain triple-backtick fence immediately after it. On a supported no-send disposition, fence `[No reply recommended. Close ticket.]` Unsolicited listing / marketing email: fence `[No reply recommended. Mark as spam and close.]` Put spam/close only in that fence, not in the internal note or appendix. Internal assignment, escalation or waiting for another team is not by itself a no-reply reason: acknowledge a legitimate, unacknowledged customer question and give its verified current status even when the answer is not yet available. A confirmed escalation should produce that customer-facing update plus the separate internal note, not a placeholder telling the operator to wait for an answer. Do not send a duplicate acknowledgment already present in the verified public thread; preserve explicit no-contact, spam/phishing and verified already-resolved handling. Keep an unresolved request open for follow-up rather than presenting the escalation as resolution. Do not save customer-specific names as generic rules; use the verified owner from the applicable recipe or handoff guidance. The internal note in the second fence should state the verified handoff target, purpose and actual status, for example `Assigned to [full name], [role], for [purpose].` Use completed-action wording only for a verified completed action; otherwise describe the pending action or unsent draft. Match ranked-assignment handoff note shape when a verified individual owner exists; use the verified queue or team when no individual is selectable.
 2. A Zendesk internal note in its own fenced copy box, with enough detail to explain what the record shows and what the operator needs to do next. When a customer supplies information a team member requested, connect it to the original purpose and explicitly state the supported next action: the specific OpsHub update or escalation and its verified destination, as applicable. For example, requested listing-agent contact details now supplied → “Add the listing agent to the property in OpsHub using the supplied contact details.” Do not stop at acknowledging receipt or hedge a clear action with “review and add as appropriate.” Keep required identity/property checks and authorization gates; distinguish a pending action or unsent Slack draft from a completed update or sent escalation. This instruction does not authorize OpsHub writes or external sends. Do not repeat the routine assigned agent's name; name the receiving person and role when documenting a document handoff or reassignment. It may use multiple sentences or lines when the timeline or evidence needs explanation. Spell out acronyms (`buyer's agent`, not `BA`). Do not start it with `No outbound`. Because the note is added inside the ticket, never repeat the current ticket number or include drafting/process commentary in it. When referencing a different verified Zendesk ticket, include its full URL in the internal note so the conversations can be connected; a ticket number or “the email thread” alone is not enough.
 3. Optional short operator appendix below (gaps, trust deny, unverified claims, confidence).
    Completed ranked-assignment handoffs use the completed-action note format above,
@@ -269,10 +360,8 @@ read or summary pass solely to populate the display; no fabricated action receip
    answer that question in the same turn as well: after the copy boxes, append
    exactly one fence tagged `zendesk-disposition` holding a single JSON object
    `{"fields":{"<field_id>":"<option_value>"},"reason":"<short explanation or missing fact>"}`.
-   Use only the supplied field IDs, option values and conditions; keep any
-   existing nonempty choice; leave an unsupported or ambiguous choice out rather
-   than guessing. Point of Contact is required before the operator can review or
-   send, so select it whenever the ticket evidence identifies the contact. This
+   Follow Disposition selection above, including the live General/Misc/Other
+   fallback when the sender's category is unknown. This
    fence is a machine hint for the operator's disposition form, never customer-
    or agent-facing text: it does not replace, repeat or edit either copy box, and
    it carries no send, post, status, assignment or other authorization. Omit it
@@ -322,7 +411,7 @@ The Opendoor Team
   Save only this general guidance, never customer identifiers, contact details
   or case-specific facts in standing instructions.
 
-- Do not reply solely to repeat a request already visible in the email thread or say its answer is pending. When the thread already asks the right person for confirmation, wait for a substantive answer unless Support has a useful new fact or next step. This does not make a customer's clarification of an unresolved concern a closing acknowledgment: provide a brief, courteous acknowledgment when needed, especially when the operator requests a reply. Do not repeat an outstanding request, imply resolution, or promise an unverified action.
+- Do not send duplicate holding replies solely to repeat an already acknowledged request or say its answer is still pending. A legitimate customer question that has not received a public acknowledgment still needs a brief, courteous reply; waiting for another team or a document search does not suppress it. After a confirmed escalation, acknowledge the question and state the verified handoff/current status without waiting for the final answer. If the public thread already acknowledges that same request and handoff, wait for a substantive update unless the customer adds an unresolved concern or the operator requests a reply. Never repeat the escalation, imply resolution, promise a response time, or claim an unsent action completed. Preserve explicit no-contact, spam/phishing and verified already-resolved handling.
 
 - **Qualified flips only:** Property-specific status, assessment, routing and next
   steps must use the requester/property-matched current **Qualified flips** record,
@@ -480,8 +569,10 @@ The Opendoor Team
   reuse loaded schemas and never reuse an old customer or property identifier.
 - Before drafting an email ticket that may repeat a recent issue, search Zendesk
   by the requester email and compare matching open or solved tickets. If a
-  solved duplicate already contains the answer, recommend no reply and close
-  the duplicate; do not repeat retrieval or send a second answer. Include the
+  duplicate already contains the answer, recommend no new public reply, then
+  apply the ticket-consolidation recipe before choosing a standalone close.
+  A solved destination can remain eligible; its status is not a reason to skip
+  merge review. Do not repeat retrieval or send a second answer. Include the
   verified source ticket's full Zendesk URL in the internal note so the duplicate
   can be found; do not repeat the current ticket number.
 - Keep duplicate internal notes direct; do not refer to the operator in the

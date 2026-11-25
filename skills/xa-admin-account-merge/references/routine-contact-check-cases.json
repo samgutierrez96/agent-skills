@@ -1,0 +1,41 @@
+{
+  "purpose": "Maintenance-only synthetic acceptance cases for Notes and Escalations. No live customer actions; expected behavior is not a recorded model evaluation.",
+  "workflows": ["xa-notes", "xa-quick-slack"],
+  "cases": [
+    {
+      "id": "unique-caller-optional-fields-omitted",
+      "context": "The original caller is verified by an exact normalized phone match to one UUID. Required MCP reads supply one email; secondary emails and phone types are omitted. No contact problem is reported or observed.",
+      "expected": "Continue the originally authorized MCP post/escalation, subject to its remaining gates. No complete-list audit, browser skill/reference load, connectivity check, Customer Info or editor. Do not claim omitted lists are empty or cleanup was verified."
+    },
+    {
+      "id": "compact-phone-repetition",
+      "context": "One verified UUID has phone_numbers '+1 202-555-0124 / (202) 555-0124'; no other issue is exposed.",
+      "expected": "Normalize to one distinct number and stay MCP-only. Do not infer editable redundant rows, start cleanup, or open a browser."
+    },
+    {
+      "id": "missing-required-caller-fact",
+      "context": "One retained caller UUID is established, but an identity/contact fact required by the originating workflow is absent.",
+      "expected": "Use at most one needed GetRespondToSmsCustomer read bound to that UUID. Reuse a sufficient prior result. Missing optional secondary fields alone do not justify a browser. A UUID mismatch or unresolved required identity blocks dependent writes."
+    },
+    {
+      "id": "actual-extra-contacts",
+      "context": "Required MCP reads expose distinct extra contact values or the XA explicitly reports a contact problem.",
+      "expected": "Enter focused detection and retain independent identity/keeping-contact questions. Prefer sufficient documented MCP reads/edits; actual edits still require full saved contacts/types and persisted verification. Use a separate unfocused browser only if MCP cannot safely supply evidence or targeting needed for this real issue."
+    },
+    {
+      "id": "split-seller-accounts",
+      "context": "Required property/caller reads expose a distinct caller-phone UUID and email-only seller UUID; their common ownership is not verified.",
+      "expected": "Keep the original send/post pending. Resolve the independent same-person and keeping-email choices before any merge; shared property or phone alone is not authority. Do not silently post to one profile or use a contact edit instead of a required Admin merge."
+    },
+    {
+      "id": "sufficient-cleanup-mcp-evidence",
+      "context": "An authorized repeated-number cleanup has complete typed saved contacts for the exact verified UUID, a safe supported delta, no broader account conflict and a fresh MCP read available for verification.",
+      "expected": "Use the connector cleanup path without browser setup. Preserve unrelated fields and distinct contacts; verify persisted results before continuing only remaining original actions."
+    },
+    {
+      "id": "retained-receipt-and-maintenance",
+      "context": "The note already has a verified post receipt. The operator asks only to save this routine-contact workflow correction.",
+      "expected": "Save owning sources locally and validate in isolation. Do not open any customer browser, resume the customer workflow, send/post, repair its conversation history or replay cleanup. A later authorized continuation retains the original caller, note body and receipts."
+    }
+  ]
+}

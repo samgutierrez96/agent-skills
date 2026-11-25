@@ -571,5 +571,136 @@
     "required_phrases": ["I refreshed the offer.", "Updated the original OpsHub note."],
     "forbidden_phrases": ["business days", "Final Offer in", "Post it"],
     "expected_operations": ["UpdateCustomerNote"]
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 24, 2026; not an observed model or lookup result",
+    "id": "named-tech-channel-filed-something",
+    "kind": "shape",
+    "input": "123 Example Lane. Seller called because assessment photos would not upload. I filed something in #tech-support just now.",
+    "context": [
+      {
+        "channel": "#tech-support",
+        "filing_window": "current call",
+        "issue": "assessment photo upload failure",
+        "verified_links": [
+          {
+            "url": "https://example.com/slack/threads/synthetic-upload",
+            "issue": "assessment photo upload failure",
+            "property": "123 Example Lane",
+            "message_body_has_address": false,
+            "matched_by": [
+              "issue",
+              "operator",
+              "filing time"
+            ]
+          }
+        ]
+      }
+    ],
+    "lookup_acceptance": "Use the named channel's bounded current read on the first pass, not address-only searches or a request for the link. These supplied results are synthetic, not an executed lookup trace.",
+    "expected": "```\nProperty Address: 123 Example Lane\n\nReason for Call: Seller called because assessment photos would not upload.\n\nCustomer Concerns: Seller could not upload assessment photos.\n\nSolution Offered: Filed a report in #tech-support. https://example.com/slack/threads/synthetic-upload\n\nFollow Up Link: N/A\n```",
+    "expected_urls": [
+      "https://example.com/slack/threads/synthetic-upload"
+    ],
+    "forbidden_phrases": [
+      "Posted to OpsHub",
+      "Please provide",
+      "Supporting link needed"
+    ],
+    "expected_operations": []
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 24, 2026; not an observed model or lookup result",
+    "id": "named-arbitrary-channel-filed-ticket",
+    "kind": "shape",
+    "input": "123 Example Lane. Vendor called about an incorrect invoice amount. I filed a ticket in #example-invoice-review.",
+    "context": [
+      {
+        "channel": "#example-invoice-review",
+        "issue": "incorrect invoice amount",
+        "verified_links": [
+          {
+            "url": "https://example.com/slack/threads/synthetic-invoice",
+            "issue": "incorrect invoice amount",
+            "property": "123 Example Lane",
+            "property_evidence": "matched attachment record",
+            "message_body_has_address": false
+          }
+        ]
+      }
+    ],
+    "lookup_acceptance": "Resolve/read only the stated channel, not HQI or tech support. Verify the issue and linked case evidence without requiring the address in the message body.",
+    "expected": "```\nProperty Address: 123 Example Lane\n\nReason for Call: Vendor called about an incorrect invoice amount.\n\nCustomer Concerns: Vendor needed the invoice amount reviewed.\n\nSolution Offered: Filed a ticket in #example-invoice-review. https://example.com/slack/threads/synthetic-invoice\n\nFollow Up Link: N/A\n```",
+    "expected_urls": [
+      "https://example.com/slack/threads/synthetic-invoice"
+    ],
+    "forbidden_phrases": [
+      "#hqi-feedback",
+      "#tech-support",
+      "Please provide"
+    ],
+    "expected_operations": []
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 24, 2026; not an observed model or lookup result",
+    "id": "named-channel-bot-report-after-search-miss",
+    "kind": "shape",
+    "input": "123 Example Lane. Neighbor called about a broken fence. I submitted the report in #example-property-intake just now.",
+    "context": [
+      {
+        "initial_search": {
+          "status": "no match"
+        },
+        "channel": "#example-property-intake",
+        "current_channel_read": {
+          "message_author": "workflow bot",
+          "submitter": "verified operator",
+          "filing_window": "current call",
+          "issue": "broken fence",
+          "property": "123 Example Lane",
+          "verified_link": "https://example.com/slack/threads/synthetic-fence"
+        }
+      }
+    ],
+    "lookup_acceptance": "After the search miss, spend the remaining lookup on the current named channel, including bot posts; do not ask for a link or repeat address queries first.",
+    "expected": "```\nProperty Address: 123 Example Lane\n\nReason for Call: Neighbor called about a broken fence.\n\nCustomer Concerns: Neighbor was concerned about the broken fence.\n\nSolution Offered: Submitted the report in #example-property-intake. https://example.com/slack/threads/synthetic-fence\n\nFollow Up Link: N/A\n```",
+    "expected_urls": [
+      "https://example.com/slack/threads/synthetic-fence"
+    ],
+    "forbidden_phrases": [
+      "Please provide",
+      "Supporting link needed",
+      "Posted to OpsHub"
+    ],
+    "expected_operations": []
+  },
+  {
+    "source": "Synthetic offline acceptance fixture, November 24, 2026; not an observed model or lookup result",
+    "id": "named-channel-access-blocker-no-post",
+    "kind": "post",
+    "input": "202-555-0124, 123 Example Lane. Seller called about a missing document. I reported it in #example-private-intake. Post it.",
+    "context": [
+      {
+        "channel": "#example-private-intake",
+        "channel_resolution": "exact named channel",
+        "current_channel_read": "access denied",
+        "verified_property_url": "https://example.com/property/synthetic-example",
+        "other_channel_results": "unrelated; not usable"
+      }
+    ],
+    "lookup_acceptance": "Stop at the actual access blocker, preserve the draft and property link, ask for the existing report link, and do not post or search unrelated channels.",
+    "expected": "```\nProperty Address: 123 Example Lane\n\nReason for Call: Seller called about a missing document.\n\nCustomer Concerns: Seller needed help with the missing document.\n\nSolution Offered: Reported the issue in #example-private-intake.\n\nFollow Up Link: https://example.com/property/synthetic-example\n```\n\nSupporting link needed; note not posted. Access to #example-private-intake was denied. Please provide the existing report link.",
+    "expected_urls": [
+      "https://example.com/property/synthetic-example"
+    ],
+    "required_phrases": [
+      "Supporting link needed; note not posted.",
+      "Access to #example-private-intake was denied."
+    ],
+    "forbidden_phrases": [
+      "Posted to OpsHub",
+      "https://example.com/slack/"
+    ],
+    "expected_operations": []
   }
 ]
