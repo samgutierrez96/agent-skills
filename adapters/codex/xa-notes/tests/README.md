@@ -56,6 +56,24 @@ it does not prove that a model performed the intended first-pass channel read.
 
 ## Check captured model outputs
 
+### HQI action acceptance samples - November 25, 2026
+
+`tests/hqi_cases.json` adds 12 synthetic report-and-note cases: create before
+post, already-filed work, report-only/draft-only, unknown access/severity,
+uncertain creation, note failure and note-only recovery, quoted commands and
+ordinary posting without report authority. No recording/customer identifiers or
+access-code values are included. Run:
+
+```text
+python3 scripts/validate_xa_notes.py --cases tests/hqi_cases.json
+```
+
+These are expected outputs and ordered mutation-operation acceptance samples,
+not executed MCP calls or a model evaluation. The validator's tests deliberately
+reject duplicate report creates, reversed order, missing links and added writes.
+Use `--outputs` with independently captured outputs/traces to evaluate a model;
+fixture checks alone never establish permissions, live success or latency.
+
 Supply a JSON array of objects with `id` and `output`. For authorization cases,
 also supply `operations`: the ordered external mutation operation names from
 the captured trace (for example, `[]`, `["CreateCustomerNote"]`, or

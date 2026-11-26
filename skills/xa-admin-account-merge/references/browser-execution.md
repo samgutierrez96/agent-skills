@@ -121,10 +121,17 @@ text(outcome);
 the identities and unchanged warning, checkpoints the pair before the final
 click, submits once, then reads its bound result. Its single read-only DOM
 observer resolves immediately when ready, with a ten-second rendering ceiling;
-no sleeps or repeated tool/model polls. Real errors, changed identities/targets
-or changed review text stop dependent work. The normal qualification
-`will be deleted/kept` notices are not failures; unexpected alerts and explicit
-error toasts still block. A lost click response or repeated/concurrent call
+no sleeps or repeated tool/model polls. Real merge/permission errors, changed
+identities/targets or changed review text stop dependent work. The normal
+qualification `will be deleted/kept` notices are not failures. The probe separately
+returns `profileWarnings` for the exact pre-existing MLS-agent lookup validation
+inside an inspected keeping/removing profile; that embedded form warning is not
+a merge rejection and does not require editing unrelated agent/MLS fields.
+Continue the reviewed merge when the exact pair and controls are ready. The same
+message outside those profiles, any explicit error toast, unknown/mixed rejection
+text, or a warning newly appearing after submission remains blocking. Do not
+claim Admin rejected a merge that was never submitted.
+A lost click response or repeated/concurrent call
 reconciles only the recorded submission; a verified receipt skips further reads.
 
 Retain the serializable journal and receipts in the original workflow context.

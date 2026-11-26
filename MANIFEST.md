@@ -1,5 +1,189 @@
 # Skill manifest
 
+## Scoped merge warnings and operator-completed handoffs — November 25, 2026
+
+The account-merge probe now separates the exact pre-existing MLS-agent lookup
+validation inside an inspected keeping/removing profile from actual merge
+errors. It retains that scoped warning as evidence while permitting the reviewed
+merge. Page-level/explicit toast errors, mixed rejection text, new post-submit
+warnings, wrong identities and uncertain outcomes still block; the fix never
+edits unrelated MLS data or replays a submitted pair. The owning procedure also
+preserves a documented XA-completed merge/cleanup handoff on the same verified
+CONTACT instead of rerunning it or restoring deliberately changed contacts.
+
+Installed owner, canonical distribution and five ownership hashes are saved
+locally on the existing branch after comparison with fetched main. Both skill
+validators, the isolated result-probe fixtures and all 17 staged merge scenarios
+pass, including warning review, one final submission and no-replay verification.
+These are synthetic functional checks, not a live timing or model-evaluation
+claim. Customer recordings, contacts and observed case details remain excluded.
+No customer conversation, source-refresh run, service restart, commit or push is
+part of this maintenance save; publication remains with the scheduled sync.
+
+## Contextual single-email seller merge — November 25, 2026
+
+The shared account-merge owner now treats an explicit same-person merge
+instruction for the exact displayed phone-only/email-only seller pair as selecting
+its sole known valid saved email, retaining the original verified caller phone.
+It does not ask a redundant one-option email question. Identity-only answers,
+competing emails/sellers, unknown fields, prior explicit choices, real name/email
+corrections and conflicting evidence retain their independent gates. Required
+pre-submit inspection, merge/cleanup verification and original action authority
+are unchanged; no communication history is inferred or fetched for this purpose.
+
+The installed owner, canonical distribution and two inventory hashes are saved
+locally on the existing branch. Seven synthetic decision-review cases document
+the shortcut and exclusions; these are not a model evaluation or live acceptance
+test. No Router business-rule overlay, customer action, saved conversation,
+browser operation, service restart, commit or push is part of this correction.
+Publication remains with the existing evening synchronization.
+
+Validation: both entrypoint validators, all 14 merge package owner/canonical/hash
+records, 114 focused isolated unit tests, contact planner, 16 staged merge
+fixtures, shared pending-question/independent-choice presentation checks,
+submission checks, 17 routing/nine fast-path cases and both whitespace checks
+pass. The seven new decision cases are structurally checked, not model-evaluated.
+
+## App Stripe ID/selfie privacy and support scope — November 25, 2026
+
+The official XA announcement and complete replies establish the app touring
+ID/selfie flow and prohibit requesting ID images through alternative channels.
+Zendesk's access guidance/agent recipe and Escalations separate app technical
+support from routine XA-owned HAS decisions, manual credentials and an automatic
+identity-channel referral. Calling Support is not proof the app completed or a
+guaranteed access bypass. The dated successful-app cadence is not every app use;
+the tentative ShowingTime exception is not a blanket waiver.
+
+Four affected registered pairs, detailed local owner, applicable older global
+passages and shared knowledge hashes are reconciled locally. Sensitive manual
+decision criteria and full governing documents stay out of public packages.
+No customer data, ID images, browser, verification, access or production chat
+was operated. Publication remains with the existing evening synchronization.
+
+## Final-offer advisor routing — November 25, 2026
+
+Sam's accepted operational correction and the September 18 XA process-thread
+owner replies separate listed regular-HSA Final offer call scheduling/link
+sharing from assigned Agent-HSA outreach escalation, including a verified
+assigned advisor absent from a complete successful current-directory check.
+An offer expiring soon takes urgent advisor escalation rather than routine
+future scheduling; no numeric cutoff, callback deadline or extension is invented.
+Unread/partial directory results, listed unavailable advisors and no assignee
+remain distinct. Link sharing, booking, escalation and note outcomes are separate.
+
+The inventory-selected Zendesk, Notes, compact/detailed Escalations and final-
+offer appointment sources, affected canonical distributions and shared KB
+discovery are reconciled locally. Detailed business evidence remains local-only.
+No customer facts, recording frames, live actions, production chats, browser
+operation, service restart, commit or push are part of this save. Validation is
+local/offline, not a live or semantic-model acceptance claim. Publication remains
+with the existing evening synchronization.
+
+Validation: six affected entrypoint validators, 131 focused isolated unit tests,
+submission checks, 17 routing and nine fast-path regressions, 91 applicable
+owner/canonical/inventory records, policy-history integrity and 132 usage bindings
+pass. Nine new synthetic acceptance scenarios document routing decisions; they
+were not run as a model evaluation. Both repository whitespace checks pass.
+The complete publication suite remains with the scheduled evening sync.
+
+## Optional HQI report and caller note - November 25, 2026
+
+The registered XA Notes source now owns an explicit report-and-note action in
+the existing Call notes workflow. Its on-demand procedure completes the five
+Home Feedback fields, uses the local OpsHub StartTriageProcess operation,
+verifies the new report/task link, then posts the unchanged five-field caller
+CONTACT note only when requested. Report-only, draft-only and past-tense filed
+work retain distinct authority. Confirmed reports are reused during note-only
+recovery; uncertain writes never trigger automatic resubmission or a browser
+retry. Browser fallback is limited to a real report-connector gap under the
+shared background-window rules; caller-note posting remains MCP-only.
+
+The active skill, project adapter, compatibility pointer, procedure, maintenance
+documentation and synthetic tests are reconciled locally with ownership hashes.
+The twelve new acceptance samples are expected outputs/operation boundaries,
+not live or model evaluation. No recorded customer facts, access codes, customer
+action, production chat, service restart, commit or push is part of this save.
+Publication remains with the existing evening synchronization.
+
+Validation: both skill validators, 24 offline validator tests, 41 existing and
+12 HQI acceptance fixtures, 68 focused Router source/transport tests, submission,
+17 routing/nine fast-path checks, saved-wording freshness and both whitespace
+checks pass. All 16 registered XA Notes source/canonical/hash records agree.
+Router's full isolated run completed 1,349 tests with one skipped test and the
+already-documented unrelated Escalations runtime-topics evidence-hash failure.
+The indexed-only publication guard passed; new files still require evening
+publication review. No claim of all-green publication or live/model acceptance.
+
+## Property-aware incomplete seller profiles — November 25, 2026
+
+The shared account-merge owner now scopes discovery to the original supplied or
+verified property when an authorized seller/previous-owner workflow has a
+confirmed missing personal name or primary email. Notes, its project adapter
+and the compact Escalations runtime route through that shared check before the
+routine fast-path exit; otherwise resolved calls retain their MCP-only path.
+Distinct candidates produce a profile comparison and independent identity and
+keeping-contact choices. Same-UUID/no-candidate, genuinely blank profiles,
+private-relay email, co-sellers and unavailable evidence remain distinct.
+Existing action authority, exact caller/property binding and posted receipts
+are preserved; discovery never supplies same-person or mutation authority.
+
+Active owners, canonical copies and five ownership hashes agree locally on
+the existing branch after fetching main. Ten synthetic decision-review cases
+and two comparison samples supplement the existing contact-check cases; they
+are not a semantic-model evaluation. Router's isolated presentation checks
+exercise both samples with/without a note across Notes, retained merge tasks
+and Escalations, without a model, real account, working browser or live action.
+No customer records or recording-derived identifiers were saved here. No
+service restart, commit or push; publication remains with the evening sync.
+
+Validation: three affected skill validators, contact planner, 16 staged merge
+fixtures, 17 relevant owner/mirror/hash checks, Router submission/choice checks,
+12 comparison presentations, 17 routing/nine fast-path cases and whitespace
+checks pass. Router's full 1,345-test isolated rerun retains one unrelated
+pre-existing runtime-topics evidence-fingerprint failure and one skipped test;
+no claim of a fully green publication gate or live/model evaluation is made.
+
+## Typed Slack escalation mentions — November 25, 2026
+
+The registered Escalations runtime and detailed maintainer source distinguish
+U/W member mentions from S usergroups across new posts, replies and coverage.
+The pure local `scripts/slack_mentions.py` preflight checks the final body
+against verified recipient IDs/types/handles before the native send/draft call.
+It returns checked text unchanged; it performs no lookup, send or repair.
+Utilities-team and seller-disclosure group examples use native subteam syntax.
+Note-only completion no longer equates an invalid person-style group token with
+a real group mention or prepares automatic completion from that invalid draft.
+
+Active/canonical copies and ownership hashes are saved locally. Synthetic Router
+tests exercise valid and invalid groups, named people, additive coverage, missing
+or mismatched targets, safe CLI failure and group-preserving message matching.
+These are local deterministic checks, not a live send, semantic-model evaluation
+or blanket transport interception. No customer message/note, saved conversation,
+browser or service was changed. Publication awaits the existing evening sync.
+
+Validation: 25 focused mention/completion tests, submission and routing checks,
+three skill validators and owner/mirror/hash checks pass. Router's full
+1,345-test suite retains two unrelated pre-existing freshness failures in its
+Notes wording bundle and earlier escalation topic evidence (one skipped test).
+The mention change does not alter either failing source excerpt. Publication
+validation stays with the scheduled synchronization.
+
+## ShowingTime static-code access and scoped HQI fallback — November 25, 2026
+
+Reconciled the November 24 XA owner announcement: static codes in current
+ShowingTime confirmations carry lockbox-code sharing restrictions. The verified
+live-agent path checks the current confirmation, then remote-unlock/rotating-code
+options and an available lockbox fallback; continued failure uses HQI Triage.
+Notes retain appointment time, actual attempts/results, access outcome and the
+direct filed-ticket link. Older generic incident defaults are narrowed for this
+specific scope without rewriting actual completed reports or other caller rules.
+
+Zendesk's touring recipe, Notes, compact/detailed Escalations, applicable older
+global passages and shared KB discovery agree locally with required copies and
+ownership hashes. Shared business evidence/history remain local-only. No code,
+customer action, production conversation, service restart or Router overlay was
+used. Publication stays with the existing evening synchronization.
+
 ## Access-issue Home Feedback macro — November 24, 2026
 
 The official XA announcement and explicit owner reply establish the home-issue

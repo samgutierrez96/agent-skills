@@ -17,6 +17,10 @@ not claim a closing-date change has been made.
 For an offer-denial reply, end warmly when appropriate: “Our ability to make an offer may change in the future. Thank you for considering Opendoor.” Keep this
 conditional; do not promise a future offer, notification, review, or follow-up.
 
+## Walkthrough legitimacy wording
+
+When a seller fears the walkthrough is a scam or questions it while awaiting an offer update after completing one, briefly tell them in the customer reply that the walkthrough is not a scam and is part of Opendoor’s process for evaluating the home. Keep it to one short clause or sentence; do not argue at length. Retain applicable walk/offer-status or denial wording when the record supports it, including the no-specific-reason limit when underwriting walked or denied. In the internal note, note that the walkthrough is part of the home evaluation process when the customer raised a scam or legitimacy concern.
+
 ## Expired-offer refresh wording
 
 When the verified offer has expired and the customer is still engaged on pricing,

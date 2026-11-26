@@ -41,6 +41,19 @@ Warm-up (`ready`, or attaching/`@`ing the skill / pasting `SKILL.md` with no cal
 
 ## Speed
 
+### Optional HQI report and note
+
+In the existing Call notes workflow, give the caller/property, actual issue,
+affected area, severity, appointment and troubleshooting results, then say:
+`File the HQI report and post it.`
+The owning skill completes all five report fields, submits through the existing
+local OpsHub MCP, verifies the report link and posts the same caller note.
+It asks only for required missing facts. A report-only or draft-only request
+keeps its narrower scope; saying a report was already filed never creates one.
+Confirmed reports are reused if the note step needs a follow-up. Ordinary notes
+and warm-up retain their fast paths. The detailed procedure loads on demand.
+These are saved instructions, not proof of a live run or a refreshed worker.
+
 Warm up once with the complete `skills/xa-notes/SKILL.md`, then reuse it for
 later notes and posts in that chat. If exact full source is already attached,
 do not read it again. Otherwise load the full skill in bounded chunks before

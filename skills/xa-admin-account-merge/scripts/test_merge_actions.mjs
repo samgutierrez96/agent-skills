@@ -46,12 +46,13 @@ try {
     }
     saved = JSON.parse(JSON.stringify(entries));
   };
-  async function fixture({confirmation = false, delay = 0, error = false, complete = true} = {}) {
+  async function fixture({confirmation = false, delay = 0, error = false, complete = true, profileWarning = false} = {}) {
     reads = 0; clicks = []; journal = []; checkpoints = 0; saved = null;
     loseReply = false; rejectClick = false; checkpointFailure = false;
     await page.setContent('<aside><input ng-model="customer_merge.query"><p>Retained suggestion</p></aside>'
       + '<section id="keeping"><div>Keeping this customer</div><input value="Alex"><input value="Morgan">'
-      + '<input value="alex@example.invalid"><p>UUID: ' + pair.keepingUuid + '</p></section>'
+      + '<input value="alex@example.invalid"><p>UUID: ' + pair.keepingUuid + '</p>'
+      + (profileWarning ? '<div role="alert">"Could not find an MLS agent with that MLS ID."</div>' : '') + '</section>'
       + '<section id="removing"><div>Removing/merging this customer</div><input value="Alex"><input value="Morgan">'
       + '<input value="alex.secondary@example.invalid"><p>UUID: ' + pair.duplicateUuid + '</p>'
       + '<div class="alert-danger">This qualification data will be deleted</div></section>'
@@ -112,6 +113,17 @@ try {
   const restored = eval(source);
   assert.deepEqual(await restored.submit({...gates, reviewed, warningReviewed: true,
     journal: saved, checkpoint}), result, 'restored journal survives helper re-evaluation');
+  assert.equal(clicks.length, 2);
+  checks++;
+
+  await fixture({profileWarning: true});
+  reviewed = await review();
+  assert.equal(reviewed.before.profileWarnings.length, 1);
+  result = await submit(reviewed);
+  assert.equal(result.state, 'verified', 'embedded profile validation permits the reviewed merge and verified result');
+  assert.equal(clicks.length, 2);
+  assert.equal(await page.evaluate('window.submits'), 1);
+  assert.deepEqual(await submit(reviewed), result, 'profile warning never permits a completed-pair replay');
   assert.equal(clicks.length, 2);
   checks++;
 

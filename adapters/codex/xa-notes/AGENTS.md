@@ -23,6 +23,16 @@ Do not substitute an installed or global copy. When loading it in bounded
 chunks, retain the returned file contents in model context; a tool call that
 only reports `loaded` does not satisfy the load.
 
+## Explicit HQI reporting in Call notes
+
+The existing note skill also owns an explicitly requested HQI-report-and-note
+action. Follow its optional-action entry and on-demand
+`reference/hqi-report-and-note.md`; do not create a second agent or Router rule.
+That scoped procedure is the exception to ordinary note-only/tool restrictions
+below. It preserves the caller note format and caller CONTACT posting target.
+Past-tense filed-work wording, `Post it` alone, warm-up and source maintenance
+do not authorize a report. Never repeat a confirmed report to finish its note.
+
 ## Fast path
 
 For ordinary notes without `post`, use `N/A` for both `Property Address` and
@@ -72,7 +82,11 @@ blank. Explicit posts use resolved caller/property values.
   of one normalized caller number in a compact search summary is not a cleanup
   trigger or proof of complete contacts. Routine checks inspect already-returned
   OpsHub MCP caller/contact facts. A unique verified caller with no observed
-  conflict continues directly to the MCP post; do not load browser-navigation,
+  conflict continues directly to the MCP post after any applicable shared
+  **Incomplete seller identity — scoped property check**. That narrow
+  known-property exception and its visible comparison/no-candidate/unavailable
+  outcomes do not make unknown optional fields a duplicate signal.
+  Do not load browser-navigation,
   check browser connectivity, open Customer Info/the editor or demand full
   secondary-contact lists just to rule out cleanup. Missing optional fields are
   unknown, not duplicate signals or verified empty lists. An actual contact issue

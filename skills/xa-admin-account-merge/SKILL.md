@@ -1,6 +1,6 @@
 ---
 name: xa-admin-account-merge
-description: Detect and resolve duplicate customer profiles or extra contacts while posting an OpsHub XA note or escalation. Inspect multiple emails/phones and repeated customer links for distinct accounts; merge verified same-person duplicates, clean a single profile without a merge, or remove confirmed misassigned phones.
+description: Detect and resolve duplicate customer profiles or extra contacts during an authorized OpsHub XA workflow, including incomplete seller identity on a known property. Merge verified same-person accounts in Admin, clean one profile without a merge, or remove confirmed misassigned phones; ordinary drafts and maintenance authorize no customer actions.
 ---
 
 # XA Admin Account Merge
@@ -42,7 +42,8 @@ For an authorized XA note or escalation, inspect the caller/contact facts and
 customer UUIDs already returned by required OpsHub MCP reads. Normalize contacts
 and deduplicate repeated UUIDs before classifying. A unique verified caller with
 no observed contact/account conflict continues directly to the originating MCP
-send/post path. Do not load browser-navigation, browser execution references or
+send/post path after any applicable **Incomplete seller identity — scoped
+property check** below. Do not load browser-navigation, browser execution references or
 helpers, check browser connectivity, open Customer Info/the editor, or require
 complete secondary-contact lists merely to prove that cleanup is unnecessary.
 Omitted optional fields are unknown, not a conflict or proof of empty lists;
@@ -84,15 +85,89 @@ normal copy box, with the verified cleanup result outside it. A cleanup-only
 prose final does not satisfy Notes' output contract; displaying the retained
 note is not a new create/update or permission to repeat any customer action.
 
+When the XA reports completing the merge/contact cleanup and explicitly asks
+to finish the pending note, preserve that handoff instead of rerunning the
+manual work. Reuse the exact already-verified surviving CONTACT UUID and case;
+check only missing current evidence and uncertain posting outcomes. An
+XA-supplied recording of a deliberate contact change on that same UUID, with
+the retained name/confirmed email and a successful save, can explain why its
+saved phone differs from the historical caller phone. Do not restore the old
+phone or invent an identity conflict solely from that documented change.
+The recording is evidence, not new action authority: the XA's current request
+controls posting scope. A changed/uncertain survivor, incompatible identity,
+unexplained contact change or uncertain write still stops dependent actions.
+
+## Incomplete seller identity — scoped property check
+
+On an authorized seller/previous-owner post, escalation or account-merge task,
+if sufficient current caller evidence confirms no usable personal name or no
+primary email and this same request supplies a specific property, check that
+property's seller participants before treating the caller profile as the only
+relevant account. This is a discovery signal, not proof of a duplicate or an
+unverified caller. A blank profile remains valid when its full current phone
+matches the original caller. An omitted optional field is unknown, not a saved
+blank, and alone does not trigger this check.
+
+Reuse the original caller UUID/phone, verified property and already-returned
+seller links. If that evidence is insufficient, use one scoped
+`get_customer_profile(address_token=<matched property token>)` read under the
+shared context resolver; resolve a supplied full address with the existing
+property lookup first when needed. Inspect only distinct relevant seller
+customer UUIDs from that property, using sufficient retained evidence or the
+exact-UUID CONTACT read above for missing identity/contact facts. Do not use a
+customer event-history payload to infer saved contacts. Do not search broadly
+by name, check unrelated properties, open a browser merely for discovery, or
+repeat sufficient reads on continuation. If no specific property is supplied
+or already verified for this caller/request, do not demand one solely to hunt
+for hypothetical duplicates. This exception adds no reads to ordinary
+tool-free drafts, maintenance, status-only checks or otherwise resolved calls.
+
+Classify the scoped result before any dependent write:
+
+- Distinct caller-phone and plausible property-seller UUIDs take **Split
+  phone/email seller profiles** below, even without a shared contact or an
+  Admin duplicate suggestion. A shared property, complementary contacts or a
+  primary-seller badge never establishes common ownership.
+- Repeated links to the same UUID are one account. If the completed scoped read
+  finds no distinct relevant candidate, continue the original workflow on the
+  verified caller without Admin, contact edits, invented names/emails or a
+  mandatory name/email question. Report only that no separate candidate was
+  found on this property, not that no duplicate exists anywhere.
+- Keep co-sellers, agents and other people separate. With multiple plausible
+  seller profiles, show their identities/relationships and ask only which, if
+  any, belongs to the caller; never select by list order or merge the household.
+- A failed, truncated or incomplete scoped read is **Property-linked profile
+  check unavailable**, not “none found.” Retain its precise missing evidence or
+  access blocker and keep dependent writes pending, without a polling loop.
+
+When distinct candidates are found, show a compact **Profile comparison**
+outside all note/Slack copy boxes, before the independent answer lists. Use
+plain descriptive lines for **Caller profile**, **Property seller profile**
+(one per distinct candidate) and **Why this surfaced**. Include each exact
+customer link, displayed name, known email/phone, the verified property link
+and seller relationship. Distinguish confirmed blanks (“no name saved”) from
+unknown fields (“not returned”); an Apple private-relay address is an existing
+email, not a missing email or a guessed personal name. Do not turn these facts
+into answer buttons or put questions in the comparison. Keep the actual
+pending outcome/blocker visible alongside it. Identity, keeping-email and any
+supported name choice remain separate explicit question-and-answer groups;
+reuse existing confirmations, never silently copy identity between accounts.
+
+Retain this discovery result with the original caller/property, independent
+answers and action receipts. A later authorized cleanup of an already-posted
+call performs only the remaining work; preserve its note body/receipt and do
+not recreate, edit or repost it to repair this discovery gap.
+
 ## Preconditions
 
 Maintenance acceptance cases: [routine contact checks](references/routine-contact-check-cases.json).
 Use only in isolated tests/reviews, never as an extra live-call read.
 
 - Use the applicable XA caller verification. Reuse verification already completed in this workflow.
-- **Entry gate:** routine authorized posts/escalations use the MCP-only contact check above, not a mandatory complete-list/browser audit. Account discovery and mutations start only from an XA-reported duplicate/contact problem or a concrete signal in required caller/property reads. A unique verified caller with no observed conflict returns directly to the originating post without browser setup, broader searches or Admin, without claiming complete contact lists. Missing target identity still requires clarification, never a guessed post. Once a real signal exists, retain all classification, same-person, primary-choice and verification gates below.
-- **Split phone/email seller profiles:** when required caller/property reads expose distinct caller-phone and property-seller UUIDs, compare their retained identities. Do not add a property/contact read solely to search for a hypothetical split on an otherwise resolved routine post. An email-only seller profile on that property plus a distinct caller-phone profile is a duplicate candidate even without a shared phone, matching email, multiple phone-search hits, or a Potential Duplicates entry. Missing phone on the property profile and missing email/name on the caller profile do not dismiss the pair as stubs. Retain both exact UUIDs, displayed identities, known emails, original caller number and property relationship.
-  Complementary contacts or a shared property alone do not prove the same person. If the caller's ownership of the email-only seller profile is not already verified, explain the split and ask whether both profiles belong to this seller, using the separate identity answers below. Ask for the keeping email in that same turn only if it is genuinely unconfirmed, listing the known email(s); one listed email is not an operator confirmation. Email selection never answers the identity question. Reuse prior explicit confirmations and do not ask again when both facts are established. Keep the original send/post pending until identity, keeping email, Admin merge and cleanup verification are complete. Do not silently choose one UUID, post to both as different people, or just add the phone/email to bypass an actual merge. Once verified, keep the confirmed email profile and merge the retained distinct phone profile in Admin under the existing authorization; inspect the exact candidate even if Admin did not suggest it automatically. A different person, uncertain ownership, same UUID returned twice, or a single email-only profile with no separate phone account is not an authorized two-account merge; clarify only missing facts and never create a duplicate to merge.
+- **Entry gate:** routine authorized posts/escalations use the MCP-only contact check above, not a mandatory complete-list/browser audit. Discovery starts from an XA-reported duplicate/contact problem, a concrete signal in required reads, or the narrow incomplete-seller/property check above; discovery alone never authorizes a mutation. Otherwise a unique verified caller with no observed conflict returns directly to the originating post without browser setup, broader searches or Admin, without claiming complete contact lists. Missing target identity still requires clarification, never a guessed post. Once a real signal exists, retain all classification, same-person, primary-choice and verification gates below.
+- **Split phone/email seller profiles:** when required caller/property reads or the scoped incomplete-seller check expose distinct caller-phone and property-seller UUIDs, compare their retained identities and show the Profile comparison above. Do not add property/contact discovery outside that scoped exception solely to search for a hypothetical split on an otherwise resolved routine post. An email-only seller profile on that property plus a distinct caller-phone profile is a duplicate candidate even without a shared phone, matching email, multiple phone-search hits, or a Potential Duplicates entry. Missing phone on the property profile and missing email/name on the caller profile do not dismiss the pair as stubs. Retain both exact UUIDs, displayed identities, known emails, original caller number and property relationship.
+  Complementary contacts or a shared property alone do not prove the same person. If the caller's ownership of the email-only seller profile is not already verified, explain the split and ask whether both profiles belong to this seller, using the separate identity answers below. Ask for the keeping email in that same turn only if it is genuinely unconfirmed, listing the known email(s); one listed email alone is not an operator confirmation. Apply the narrow contextual merge instruction below before asking again. Email selection never answers the identity question. Reuse prior explicit confirmations and do not ask again when both facts are established. Keep the original send/post pending until identity, keeping email, Admin merge and cleanup verification are complete. Do not silently choose one UUID, post to both as different people, or just add the phone/email to bypass an actual merge. Once verified, keep the confirmed email profile and merge the retained distinct phone profile in Admin under the existing authorization; inspect the exact candidate even if Admin did not suggest it automatically. A different person, uncertain ownership, same UUID returned twice, or a single email-only profile with no separate phone account is not an authorized two-account merge; clarify only missing facts and never create a duplicate to merge.
+  **Contextual merge instruction — one known email:** after this exact pair has been shown, an XA instruction such as “it's the same person, merge them” confirms common ownership and selects the existing email-only seller profile as the keeping account when it has the only known valid saved email, the verified caller-phone profile has no email, and no competing seller candidate, contact choice or identity conflict remains. Retain that email and the original caller phone without a separate one-option email question, another same-person/merge approval or a missing-name question. State the retained email/phone briefly outside the note, then continue the original authorized merge, cleanup, verification and remaining posting steps. Missing phone on the seller profile is not contrary ownership evidence; do not require a shared phone or research whether the seller previously called or worked through email. Do not assert that communication history without evidence. A bare same-person answer, one displayed email without this pair-bound merge instruction, an unrelated “merge them,” multiple known emails, conflicting evidence, or unknown rather than confirmed blank caller-email data does not take this shortcut: ask only the genuinely unresolved independent questions together. Do not infer a different keeping email or overwrite an earlier explicit choice. If required pre-submit inspection exposes a new conflict, stop for that fact before submitting; do not broaden discovery merely to qualify for the shortcut. All exact-target, name/email-format, action-authority, draft-only, uncertain-outcome and no-replay guards remain. Source maintenance never continues the live case.
 - **Unnamed phone-only exception:** once the caller and keeping profile are verified, merge a remaining unnamed profile whose only contact is that same normalized caller phone into the keeping profile in Admin. Blank or generic placeholder names do not supply another person's identity. This is a qualifying duplicate even without an email or compatible personal name; do not ask for another identity confirmation, try to strip its sole phone, or block because OpsHub has no phone-removal control. Inspect the full candidate before submission: a different person's displayed name or other conflicting identity evidence excludes this exception and stays on the separate identity/phone-cleanup path. Preserve the selected caller, primary email, original phone and all merge-result/posting verification guards. This exception overrides the compatible-name requirement below only for this unnamed, phone-only case.
 - Resolve the keeping customer and property from the verified caller context. A candidate in that customer’s **Potential Duplicates** list qualifies when its normalized phone matches the verified caller phone and its displayed name is compatible: a matching first name with a missing surname is sufficient. An Agent role, absent surname, or different email spelling is not by itself conflicting identity. Reuse an XA confirmation that the profiles belong to the same person. Potential Duplicates is a candidate list, not proof for unrelated people: a shared phone alone with no compatible name or prior XA confirmation, an affirmative name/phone conflict, or unresolved property scope requires clarification before submission.
 - A named profile with the same normalized verified caller phone is a duplicate candidate even when its email is blank. Apply the compatible-identity or prior XA same-person confirmation rule above; missing email alone never excludes it. Keep the confirmed primary-email profile and inspect its Potential Duplicates in Admin. Ignore only true placeholders such as `Client-####` with no independent compatible identity or verified matching phone; do not classify a named, matching-phone profile as a stub just because it has no email. Without a duplicate/contact signal, return directly to the original note/escalation MCP path; do not inspect contacts or initiate cleanup.

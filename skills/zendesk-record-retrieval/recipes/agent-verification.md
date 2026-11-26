@@ -4,6 +4,16 @@ Apply AGENTS.md and the packaged entry contract. Use this card when the requeste
 says they are an agent and requests access or a showing; do not treat their stated
 role as verified credentials or tell them to find an agent.
 
+For app IDV/selfie questions, the November 25 update applies Stripe verification
+to buyers and agents using the app's touring flow; follow its actual prompts.
+Do not request ID images through another channel. App technical issues use the
+current XA IDV guide/team-lead support; phone assessment does not itself guarantee
+app completion, codes or entry. Declining self-tour upload is distinct from a
+technical failure; an agent-assisted tour remains subject to normal access rules.
+The thread's tentative ShowingTime exception is not a blanket verification waiver.
+Keep app verification separate from manual agent-credential/HAS checks. Source:
+https://opendoor.slack.com/archives/C02K6JVSNUF/p1795638600356649.
+
 Required full-playbook sections, read together by exact heading if not loaded:
 [Agents vs sellers](../SKILL.md#agents-vs-sellers),
 [Access codes](../SKILL.md#access-codes), [Trust level](../SKILL.md#trust-level).

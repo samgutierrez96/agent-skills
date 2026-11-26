@@ -42,6 +42,12 @@ skill is present, do not read this summary; the first caller reuses that source.
 
 ## Tool boundary
 
+- An explicit request to file an HQI/Home Feedback report follows the full
+  skill's optional-action entry and on-demand report procedure. It submits one
+  complete five-field report, verifies its link and posts the normal caller note
+  only when requested. This is not triggered by past-tense filed-work wording
+  or `Post it` alone. Reuse confirmed reports when only note posting remains.
+
 - Ordinary notes use zero tools, except the full skill's silent listing-type
   check and bounded read-only completed-work link lookup. When the XA reports
   completed work in their own words, reuse its verified URL or retrieve the

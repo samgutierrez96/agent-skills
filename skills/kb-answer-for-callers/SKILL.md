@@ -145,10 +145,13 @@ the following topic evidence. This is a routing map, not policy text:
 - Vendor payments: `vendor-ap-follow-up-2026-11.md`.
 - Year-end closing cohorts: `year-end-closing-dates-2026-11.md`.
 - Pricing valuation: `pricing-valuation-scope-2026-10.md`.
+- Final-offer discussion / regular versus Agent HSA routing:
+  `final-offer-advisor-routing-2026-11.md`.
 - Patrol dispatch: `patrol-dispatch-2026-11.md`.
-- Failed-tour communication/access-ticket macro: `failed-tour-access-2026-11.md`.
+- ShowingTime/static-code access, failed tours and ticket macro: `failed-tour-access-2026-11.md`.
 - Thanksgiving assessment coverage (unresolved date advisory): `holiday-assessment-coverage-2026-11.md`.
 - Safehaven agent lockbox troubleshooting: `safehaven-access-2026-11.md`.
+- App Stripe ID/selfie verification and support scope: `app-identity-verification-2026-11.md`.
 - Qualified flips: `qualified-flips-only-2026-11.md`.
 - Government/fire investigations: `fire-investigator-requests-2026-11.md`.
 - Agent representation/tracking: `agent-representation-tracking-2026-10.md`.

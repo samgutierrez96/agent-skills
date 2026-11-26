@@ -1,6 +1,6 @@
 ---
 name: schedule-final-offer-appointment
-description: Schedule a seller’s final-offer advisor appointment through the available HSA Calendly link and record the follow-up note on the matching OpsHub customer record.
+description: "Arrange a seller's final-offer discussion: share or book a listed regular HSA's Final offer call link, route Agent-HSA or urgent-expiry outreach through escalation, and document only authorized actions."
 ---
 
 # Schedule Final Offer Appointment
@@ -10,7 +10,7 @@ When this workflow actually requires a browser, follow the shared
 (packaged alongside this skill). Prefer the new ChatGPT Chrome integration;
 retain direct-connector, no-browser, background-window and authorization gates.
 
-Use this skill when an Experience Advocate needs to arrange a seller’s final-offer call with a home sale advisor and document the interaction in OpsHub. Use Computer Use for the browser workflow because the recorded flow depends on the visible OpsHub, Google Sheets, Calendly, and (when applicable) Twilio interfaces.
+Use this skill when an Experience Advocate needs to arrange a seller’s final-offer call with a home sale advisor or offer the advisor's scheduling link. Keep direct connectors first; use Computer Use only for required page-only booking/sharing steps. Link sharing, booking, escalation and OpsHub posting are distinct actions with their own authorization and verified outcomes.
 
 ## Inputs
 
@@ -23,11 +23,53 @@ Collect or infer these from the active customer/property record and the user’s
 
 Treat customer names, email addresses, phone numbers, addresses, property IDs, and booking URLs as runtime data. Never hard-code or repeat captured personal data in the skill or in a chat summary.
 
+## Choose the advisor path before scheduling
+
+Sam's November 25, 2026 operational correction uses the verified assigned advisor
+on the caller/property-matched current qualified acquisition and
+[HSA Schedules for XA](https://docs.google.com/spreadsheets/d/1gMPcyjLEEF4yBYiuTZybVaxzgr9UWiaYcFUoYb93zBs/edit?gid=741428371#gid=741428371).
+Read the live directory through a sufficient connector before browser fallback;
+do not hard-code its roster or infer absence from a partial/failed read.
+
+- Listed regular HSA: use that advisor's actual Calendly link and `Final offer
+  call` event. Offer to send the link so the seller can schedule, or book only
+  under explicit booking authority and the required time preference. Do not use
+  `15 Minute Meeting`, another HSA's link or the internal sheet as the seller link.
+- Agent HSA: escalate to that assigned advisor to contact the seller rather than
+  defaulting to booking. A verified assigned HSA absent from a complete successful
+  current-directory check takes this Agent-HSA path. A listed ON LEAVE advisor,
+  blank/broken link, unknown assignee or name mismatch is a coverage/verification
+  gap, not proof of an Agent HSA. Preserve existing escalation/coverage permissions.
+- Expiring soon, including today: use urgent assigned-advisor escalation rather
+  than routine future scheduling. Verify and retain the expiry; do not invent a
+  numeric cutoff for “soon”, callback deadline, extension or preserved offer terms.
+  If urgency cannot be determined, resolve it before booking. Already-expired
+  offers keep their refresh/unexpire path; expiry alone does not prove readiness.
+
+The September 18 process-thread owner replies, read November 25, support the
+unlisted-advisor escalation exception:
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1789757961962119.
+This save authorizes no contact, booking, escalation or note. Use the active
+escalation workflow when that path is required, within its existing permissions.
+
+## Link-only handoff
+
+When the operator chooses to send the scheduling link, verify the assigned HSA
+and actual Final offer call URL, then prepare it in the permitted customer reply
+or share control. Send only under the originating workflow's send authorization;
+an unsent draft is not delivery. Stop after the requested link handoff, without
+selecting a slot, booking an event or adding an unrequested OpsHub note. Describe
+the outcome as offered/prepared/sent a link, never “scheduled” without a confirmed
+booking. Generic maintenance requests never operate a live customer composer.
+
 ## Workflow
 
-1. In Chrome, locate the matching OpsHub customer and property record. Confirm that the customer and property are the intended ones before copying any details. Select only the current applicable record in **Qualified flips**, never **Unqualified flips**, to verify final-offer status, assigned advisor and the scheduling path. Newest/primary alone does not prove qualification. An unqualified denial cannot override a qualified expired offer; expiry alone does not establish readiness for a final-offer call. If qualification or the applicable qualified record cannot be verified, stop before booking and report the gap rather than infer denial/no offer or use an unqualified advisor.
+Only continue below for an authorized booking with a listed regular HSA after
+the advisor/expiry gate above; link-only and escalation paths stop before slots.
+
+1. Resolve the matching OpsHub customer and property through sufficient direct connectors, using the browser only for a required remaining page fact. Confirm that the customer and property are the intended ones before copying any details. Select only the current applicable record in **Qualified flips**, never **Unqualified flips**, to verify final-offer status, assigned advisor and the scheduling path. Newest/primary alone does not prove qualification. An unqualified denial cannot override a qualified expired offer; expiry alone does not establish readiness for a final-offer call. If qualification or the applicable qualified record cannot be verified, stop before booking and report the gap rather than infer denial/no offer or use an unqualified advisor.
 2. From the property record, use the visible `Copy address` control. From the customer record, obtain the customer name, email, and best phone number using the page’s copy controls or accessible text. Do not transcribe these values into chat.
-3. If the HSA’s scheduling URL is not already known, open the `HSA Schedules for XA` Google Sheet from the saved bookmark, locate the appropriate HSA, open their Calendly link, and choose the `Final offer call` event type. Prefer semantic link/button targets over coordinates.
+3. Reuse the current directory-verified HSA scheduling URL, open it and choose the `Final offer call` event type. Do not bypass the advisor/expiry gate because an old booking URL is known. Prefer semantic link/button targets over coordinates.
 4. In Calendly, select the requested date and an available time. If no requested time is available, stop and ask the user whether to choose another slot; do not make an unrequested booking.
 5. Fill the Calendly booking form with the runtime customer name, email, phone, and property address. Review all fields and the date/time before selecting `Schedule Event`.
 6. Before the booking mutation, ensure the user has authorized scheduling for this customer. Select `Schedule Event` only after that confirmation is established. Verify that Calendly shows a confirmation page or equivalent booked state.

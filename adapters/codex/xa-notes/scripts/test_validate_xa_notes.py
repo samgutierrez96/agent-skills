@@ -15,9 +15,33 @@ API = runpy.run_path(str(ROOT / "scripts" / "validate_xa_notes.py"))
 CASES = json.loads((ROOT / "tests" / "golden_cases.json").read_text())
 BY_ID = {case["id"]: case for case in CASES}
 VALID = BY_ID["already-written-hodw-process"]["expected"]
+HQI_CASES = json.loads((ROOT / "tests" / "hqi_cases.json").read_text())
 
 
 class ValidatorTests(unittest.TestCase):
+    def test_hqi_fixtures_and_ordered_mutation_boundaries(self):
+        self.assertEqual(len(HQI_CASES), len({case["id"] for case in HQI_CASES}))
+        for case in HQI_CASES:
+            expected = case["expected_operations"]
+            with self.subTest(case=case["id"]):
+                self.assertEqual(API["validate_case"](case, case["expected"], expected), [])
+                self.assertTrue(API["validate_case"](case, case["expected"]))
+                # A duplicate create, reordered action or unrequested note
+                # never passes merely because the final prose looks correct.
+                for operations in (["StartTriageProcess", *expected],
+                                   [*expected, "CreateCustomerNote"],
+                                   ["slack_send_message"]):
+                    self.assertTrue(API["validate_case"](case, case["expected"], operations))
+                if len(expected) > 1:
+                    self.assertTrue(API["validate_case"](case, case["expected"], expected[::-1]))
+
+    def test_hqi_report_and_property_links_are_independent(self):
+        for case in HQI_CASES:
+            for url in case["expected_urls"]:
+                with self.subTest(case=case["id"], url=url):
+                    self.assertTrue(API["validate_case"](case,
+                        case["expected"].replace(url, ""), case["expected_operations"]))
+
     def test_all_fixtures_are_present_and_valid(self):
         self.assertEqual(len(CASES), len(BY_ID))
         for case in CASES:

@@ -467,6 +467,45 @@ Agent <https://opshub.apps.opendoor.com/customers/{customer_uuid}|Agent Name> ca
   listing-partner and HSA escalations; existing-thread replies follow the
   verified conversation style.
 
+## Typed Slack mention preflight — November 25, 2026
+
+Apply before every Slack send or draft, new post or thread reply, for the target
+and every required coverage tag. A readable OpsHub note, display label, channel
+description or successful send/draft receipt does not prove a working Slack tag.
+
+- People/bot members use verified U/W member IDs: `<@U…|Name>`.
+  Usergroups use verified S group IDs: `<!subteam^S…|@handle>` (the label may
+  be omitted). Never place an S ID inside `<@…>`, even when channel/search
+  output presents it that way. Never guess an ID, infer group membership from
+  a name, substitute another group, or use plain `@handle` as a working tag.
+- Resolve identity/type and exact handle from verified directory/current
+  same-case evidence; preserve explicit targets, coverage and destination gates.
+  A raw `slack_read_thread` message can preserve native group syntax where
+  search/channel summaries flatten it. If identity/type remains ambiguous,
+  stop before sending/drafting and report the specific unresolved tag.
+- Run the bundled `scripts/slack_mentions.py` locally with JSON on stdin:
+  `{"message":"<complete assembled body>","recipients":[{"kind":"group","id":"<verified S ID>","handle":"<verified handle>"}]}`.
+  Include every intended person and coverage group; people use
+  `{"kind":"user","id":"<verified U/W ID>"}`. An intentionally tag-free
+  route uses an empty recipients list. Do not interpolate customer prose as
+  executable shell text. The helper performs no lookup or external action.
+- In the same execution block, call the native Slack send/draft tool only
+  after helper exit code 0 and parsed `ok: true`; pass its returned `message`
+  unchanged. Validate the final connector payload, not just the displayed
+  note. A changed body or recipient set needs a fresh check. A failed or
+  unavailable preflight blocks the mutation; do not bypass it with plain
+  text, a guessed handle, UI automation or another send route.
+- A receipt proves delivery/creation only, not rendering or team notification.
+  If actual mention rendering is in doubt, use a bounded read of the exact
+  created message (or supported draft read), not a search-summary alias.
+  Report any unresolved mention outcome separately. Never resend, edit or
+  create a replacement to repair a delivered tag without explicit authority.
+  Maintenance and tests never continue a completed customer action.
+
+This is a local workflow preflight, not an interception layer for arbitrary
+native tool calls. Keep its use mandatory; do not claim transport enforcement
+or visual verification that did not occur.
+
 ## Hard-stop channel routing check
 
 Choose the issue owner from the request purpose and verified lifecycle before
@@ -602,8 +641,12 @@ complete-list audit. Do not load browser-navigation or execution references,
 check browser connectivity, or open Customer Info/the editor merely because
 secondary contacts/types are omitted. Reuse sufficient returned facts; do not
 make this exact-caller read again solely to rule out hypothetical cleanup.
-Only an XA-reported contact problem or concrete contact/account signal enters
-the owning merge skill's full detection/cleanup and persisted-verification gates.
+The shared merge skill's **Incomplete seller identity — scoped property check**
+is the narrow discovery exception for a seller/previous-owner with a known
+property and confirmed missing personal name or primary email. Omitted optional
+fields alone do not qualify. An XA-reported contact problem or concrete
+contact/account signal enters that skill's full detection/cleanup and
+persisted-verification gates; discovery alone never authorizes a mutation.
 For that actual issue, prefer sufficient exact-UUID MCP evidence and supported
 edits; use its separate background browser fallback only when MCP cannot safely
 supply what the issue requires. Reuse complete evidence through continuation.
@@ -833,14 +876,16 @@ or a response without a note ID, do not retry automatically because the note
 may already exist. Never turn a clear, correctable validation failure into a
 request for the XA to repeat `post it`.
 
-For an authorized seller/previous-owner post, apply the merge skill's **Split
-phone/email seller profiles** check against the matched property's customer,
-even with one phone-search result. Distinct caller-phone and email-only seller
-UUIDs trigger that workflow without a shared contact or operator duplicate
-keyword. Reuse retained evidence; otherwise make its one scoped property-profile
-read. Ask only for its unresolved identity/keeping-email answers and keep the
-send/post pending until its required merge and verification finish. A unique
-phone hit or property match does not bypass this check.
+For an authorized seller/previous-owner task, apply the shared merge skill's
+**Incomplete seller identity — scoped property check** before the routine exit
+when its conditions hold, even with one phone-search result. Otherwise reuse
+only already-exposed property/caller evidence. Distinct caller-phone and
+email-only seller UUIDs take its **Split phone/email seller profiles** path
+without a shared contact or operator duplicate keyword. Show its Profile
+comparison outside copy boxes, retain its no-candidate/unavailable distinctions,
+and ask only unresolved independent identity/keeping-contact choices. Keep
+dependent writes pending for a real unresolved candidate or scoped-read blocker;
+do not add discovery to otherwise resolved routine calls or tool-free drafts.
 
 On an authorized post/escalation, inspect the caller/contact facts and customer
 links already exposed by the required reads. A unique verified caller with no
@@ -1110,6 +1155,22 @@ Rules:
   OOO/coverage gate. If coverage applies, tag the assigned person and verified
   cover/group, preserve any stated scheduling constraint in the note, and name
   both in Solution Offered.
+  For a presented-offer discussion, apply Sam's November 25 advisor/expiry split:
+  a regular HSA listed in [HSA Schedules for XA](https://docs.google.com/spreadsheets/d/1gMPcyjLEEF4yBYiuTZybVaxzgr9UWiaYcFUoYb93zBs/edit?gid=741428371#gid=741428371)
+  uses their verified `Final offer call` link for seller self-scheduling or a
+  separately authorized booking, not an automatic escalation. An Agent HSA,
+  including a verified assigned HSA absent from a complete successful current-
+  directory check, takes an outreach escalation to that assigned advisor.
+  A failed/partial read, ambiguous name, blank link or ON LEAVE row is not
+  verified absence. An offer expiring soon, including today, takes urgent
+  advisor escalation instead of routine future scheduling; no invented numeric
+  cutoff, callback deadline or extension promise. Already-expired offers retain
+  their refresh/unexpire route. Preserve an explicitly authorized/named escalation,
+  existing thread/coverage gates and actual completed handling; never infer a
+  send, booking or note from policy or a shared link. Source maintenance performs
+  no customer action. The September 18 process-thread owner replies explicitly
+  support escalation for unlisted HSAs:
+  https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1789757961962119.
 - Delayed Final Offer: caller has not received it in the expected timeframe.
   Delay/queue/status alone is not a Pricing inquiry: use the matching OpsHub
   status under existing read permissions. Only a separate eligible valuation
@@ -1221,7 +1282,16 @@ Rules:
   the five-field note or proof a report/vendor dispatch occurred. Sources:
   https://opendoor.slack.com/archives/C02K6JVSNUF/p1795550961051789 and
   https://opendoor.slack.com/archives/C02K6JVSNUF/p1795554332314589.
-- Code works but key fails: incident report for lockbox issue.
+- Code works but key fails: for ShowingTime touring agents, continued failure
+  after the verified live-agent access fallbacks uses the usual HQI Triage under
+  the property address, not the older generic incident default. Keep ShowingTime
+  appointment time, actual attempts/outcomes, all five access-macro fields and
+  Yes/No access status. Caller notes retain actual reason, Solution Offered,
+  entry outcome and the direct HQI link if filed; no invented action or entry.
+  Static door codes have lockbox-code sharing restrictions. Outside this scope,
+  retain existing failed-key incident routing and actual completed reports;
+  no new unlock/submission authority. Source:
+  https://opendoor.slack.com/archives/C02K6JVSNUF/p1795560605110109.
 - Completed assessment showing not started: `#keyapp-escalations`.
 - Property line/boundary concern: corresponding team member.
 - Seller's disclosure: request with disclosure team; only Slack if contract
@@ -1231,8 +1301,12 @@ Rules:
 - OpsHub/tool failure: tech support / `#tech-support`.
 - Valuation-affecting square footage, bedroom, bathroom, or basement corrections:
   `#pricing-on-call` within the valuation scope below; never use Wally.
-- Identity verification never escalates. The XA verifies or denies
-  scheduling/access when verification cannot be completed.
+- Routine identity/HAS decisions remain XA-owned: verify or deny access under
+  the current checklist, not an automatic escalation or callback promise. App
+  Stripe ID/selfie technical questions use the current XA IDV guide/team-lead
+  support; no ID images through other channels and no guaranteed phone bypass.
+  Do not infer a channel submission, access waiver or successful verification.
+  Source: https://opendoor.slack.com/archives/C02K6JVSNUF/p1795638600356649.
 - Unknown escalated concern: describe the actual situation and route using the
   closest rule; never leave Customer Concerns blank.
 
@@ -1436,7 +1510,9 @@ as a suggestion. Draft/post uses the stated channel as `channel_id`.
   the XA provides a target name, use that named target and do not replace it
   with a channel-description tag unless the XA explicitly asks for both.
 - Known channel-description routing: `#utilities-support` (`C13LF642W`) uses
-  `@utilities-team` for stuck utility issues. Its other listed tags are
+  `@utilities-team` (`SAVT92V2S`), serialized as
+  `<!subteam^SAVT92V2S|@utilities-team>`, for stuck utility issues. This is a
+  usergroup, never `<@SAVT92V2S|utilities-team>`. Its other listed tags are
   `@HPM Ops Bot` for lookup/status, `@Phone Bot` for provider calls,
   `@emergency-alert` for alerts, and `@feedback` for agent ideas; choose only
   the tag matching the request.
@@ -1571,7 +1647,7 @@ Shape B:
 - Tech support: `#tech-support` `C0A9LM99EBZ`
 - Key app: `#keyapp-escalations` `C09B9U17KR9`
 - Seller disclosure: `#od-seller_disclosure-team` `C0B9C9DAPDY`,
-  tag `<@SAFRUQQT1>`
+  tag `<!subteam^SAFRUQQT1>`
 - Pricing: `#pricing-on-call` `C0A14ENTB8A`
 - Title fallback: `#title-escalations` `C01K3C66LMN`; do not draft when market
   channel is uncertain.
