@@ -100,6 +100,12 @@ asks. Read a linked detailed section only for the condition named on that line.
   also reads [refresh boundary](ROUTING-DETAILS.md#offer-refresh-trouble).
   Expired offer with ongoing pricing or reconsideration questions →
   [expired-offer refresh wording](guides/case-wording.md#expired-offer-refresh-wording).
+- Presented-final-offer discussion / fee questions for the advisor → SKILL.md →
+  Per-type recipes → `Seller wants to speak with someone about their final offer`.
+  Verify assigned advisor and expiry: listed regular HSA uses their Final offer
+  call link; Agent HSA / verified absence from the complete current directory uses
+  outreach escalation to that advisor. Expiring soon takes urgent advisor escalation,
+  not routine scheduling. A failed sheet read is not absence; draft-only stays draft-only.
 - Offer denial → [ticket/qualified-denial stop](ROUTING-DETAILS.md#ticket-and-newest-intent)
   and [denial closing](guides/case-wording.md#offer-denial-closing); no specific reason.
 - Low-offer complaint → SKILL.md → Offer complaints, plus

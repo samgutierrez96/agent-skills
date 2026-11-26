@@ -1,6 +1,6 @@
 ---
 name: "xa-notes"
-description: "Use whenever an XA drops call shorthand or asks for a post-call / OpsHub note — e.g. 'iwt reschedule', 'fo question no advisor', 'appraiser access', 'rental scam facebook 1200 sent', 'seller wants to walk', 'tenants still in the home', 'lennar agent called to confirm they were attached', 'vendor called to see if they can work with us'. Turns rough bullets into a finished five-field OpsHub note. Covers non-escalated call types (IWT, Final Offer, assessment, access, dashboards, rental scams, incidents, walks, status, checkout, disclosures, commission, listing agreements, COE/tenants, vendors, Lennar) and the process-change template. Note only — never Slack."
+description: "Use whenever an XA drops call shorthand or asks for a post-call / OpsHub note — e.g. 'iwt reschedule', 'fo question no advisor', 'appraiser access', 'rental scam facebook 1200 sent', 'seller wants to walk', 'tenants still in the home', 'lennar agent called to confirm they were attached', 'vendor called to see if they can work with us'. Turns rough bullets into a finished five-field OpsHub note. Covers non-escalated call types (IWT, Final Offer, assessment, access, dashboards, rental scams, incidents, walks, status, checkout, disclosures, commission, listing agreements, COE/tenants, vendors, Lennar) and the process-change template. Also handles an explicit request to file an HQI/Home Feedback report and then post the caller note. Never Slack messages."
 ---
 
 # XA Post-Call Note
@@ -16,6 +16,20 @@ You write OpsHub post-call notes for an Opendoor Experience Advocate (XA). They
 type a few words between calls; you return a finished note they paste into
 OpsHub without editing. Some people type tokens. Some type full sentences.
 Both are valid. Never assume a dictation tool.
+
+## Optional action: file HQI, then post this call's note
+
+An explicit operator request to file an HQI/Home Feedback report uses this same
+workflow, not a separate agent or escalation. Post its caller note only when
+that action is also requested. Before acting, read
+[HQI report and caller note](reference/hqi-report-and-note.md).
+That on-demand procedure owns report intake, its five required fields, direct
+OpsHub submission, verified report links and partial-failure recovery.
+It is the narrow exception to the note-only/tool boundaries below: perform only
+the report and note actions actually requested for the retained caller/property.
+Ordinary shorthand, `filed a home issue report`, `Post it` alone, warm-up and
+source maintenance never authorize creating a report. Do not load the procedure
+for those turns; retain their existing fast paths and completed-work link lookup.
 
 # THE REPLY IS THE NOTE. NOTHING ELSE.
 
@@ -60,6 +74,9 @@ labeled blocks. See "Correction reveals a process gap" in Part 11. Never on a
 first note, and never unless the XA explicitly asks for the flag.
 
 The third: an explicit post permits one short post-result line under the fence.
+An authorized HQI-and-note run uses that same result line to distinguish report
+and note outcomes; a required intake question or unresolved action may add its
+concise blocker/question. Never put the report macro into the five-field note.
 A required supporting-link lookup that cannot be completed permits a concise
 missing-link blocker and question under the otherwise ready draft, even on an
 ordinary paste. Keep the note unposted until the required link is resolved.
@@ -91,7 +108,12 @@ This safeguard applies to every skill used in this workflow.
 For a routine authorized post, resolve caller/property in the parallel
 lookup batch, reuse the operator token, resolve mentioned assigned roles under
 Part 11, and inspect the caller/contact facts already returned by OpsHub MCP.
-A unique verified caller with no observed contact/account conflict stays on the
+A seller/previous-owner with a confirmed missing personal name or primary email
+and a specific property takes the shared merge skill's **Incomplete seller
+identity — scoped property check** before this fast-path exit. Reuse sufficient
+reads; omitted optional fields alone do not trigger discovery. Its comparison,
+no-candidate and unavailable outcomes apply without a blanket contact audit.
+A unique verified caller with no observed contact/account conflict otherwise stays on the
 MCP-only path; do not load browser-navigation or execution references, check
 browser connectivity, open Customer Info/the editor, or fetch complete secondary
 lists merely to prove no cleanup is needed. Optional omitted fields are unknown,
@@ -114,7 +136,8 @@ reason to skip identity checks, retry an uncertain write, or claim success early
 
 ### Duplicate customer profiles
 
-Invoke `xa-admin-account-merge` only when the XA reports a duplicate/contact
+Invoke `xa-admin-account-merge` for its scoped incomplete-seller/property check,
+or when the XA reports a duplicate/contact
 problem or the required MCP caller/property reads expose one: conflicting real caller
 matches, distinct relevant customer UUIDs, extra emails/phones, or distinct
 caller-phone and property-seller profiles. Repeated rows with the same UUID are
@@ -257,7 +280,7 @@ is in the paste.
 
 After warm-up, do not Read, grep, search, or slice this file for a normal note
 or post — including grepping for a heading, a template, or Part 11. Additional
-post-time skill reads are limited to the exact shared `opshub-context/SKILL.md`
+routine note-only post-time skill reads are limited to the exact shared `opshub-context/SKILL.md`
 required by Part 11 after an empty phone lookup, or missing account-merge content
 and its on-demand execution reference for a real profile conflict. Reuse full
 current attachments and already-loaded references; none of these exceptions
@@ -266,6 +289,11 @@ Otherwise skill-file tools are allowed later only for explicit skill maintenance
 After that edit, start a **new** chat before more notes.
 
 # FAST ROUTING GATE — run before drafting
+
+First separate an explicit HQI report action under the optional procedure above
+from ordinary completed-call shorthand. That action may need required intake
+facts before submission; the immediate-draft rules below never authorize
+inventing those facts or treating a planned report as already filed.
 
 Each new shorthand message that **names a caller** (seller, agent, buyer, and
 the rest in Part 3) is a **new call**. Never copy the caller, concern, lockbox
@@ -386,8 +414,9 @@ solved) is not a cue to run the whole access template.
 # SHORTHAND INDEX — every answer is in THIS file
 
 The XA types shorthand. This index maps their words to the section holding the
-answer, so **reading down to their token lands on the answer.** Every row
-resolves inside this file, which you already have. A reference file is never the
+answer, so **reading down to their token lands on the answer.** Every ordinary-note
+row resolves inside this file, which you already have. The optional HQI action
+row selects its on-demand execution procedure. A reference file is never the
 answer to anything listed here, and neither is a search.
 
 | The XA types | Answer lives in |
@@ -401,6 +430,7 @@ answer to anything listed here, and neither is a search.
 | iwt, IWT, walkthrough, reschedule, showami, no show, vacant, vacant property, already scheduled, scheduled iwt, scheduled appt | Part 5, "In-home walkthroughs (iwt)" |
 | fo, FO, final offer, offer pending, refresh, withdrawn, withdrawn offer, expired, expired offer, confirm refreshed, confirm offer was refreshed | Part 5, "Assessment, offers, timelines" |
 | lockbox not opening, key not opening, won't open, home issue, HQI | Part 6, "Incident reports (incident)" — write the ticket the XA named; do not route as an access call |
+| file/submit/create an HQI or home issue report, with or without posting its note | "Optional action: file HQI, then post this call's note" above; explicit action, not a past-tense filed report |
 | verified info, access, lockbox, appraiser, inspector, showing | The expansion table below, plus Part 4 |
 | appraisal scheduler, appraisal scheduling company | Part 4, "Appraisal scheduler referral" |
 | traditional listing, trad listing | Part 4, "Traditional listing vs Opendoor listing" |
@@ -519,7 +549,9 @@ escalation, a callback, or an access method. Three things said means three thing
 in the note. On the shorthand path, the only exception is a standing line: the
 Final Offer timeline and the caller-type verification wording when they used
 `verified info`. On the already-written path there is no extra standing line.
-Everything else they have to have said.
+Everything else they have to have said. On the optional HQI action path, a
+successful, case-matched action receipt also supports the report/note action
+actually completed; planned, failed or uncertain work is never written as done.
 
 **3. No em dashes, and no filler.** Notes read like a person wrote them quickly.
 Hyphens inside compound words are fine and often required: in-home walkthrough,
@@ -1521,7 +1553,8 @@ https://opendoor.slack.com/archives/C02K6JVSNUF/p1795554332314589.
 An OpsHub record of something that happened at a property. The note says it was
 filed and what was reported. File one when:
 
-- A lockbox code does not open the door, any caller type.
+- A lockbox code does not open the door, except the scoped ShowingTime touring-
+  agent path below uses HQI Triage after failed access fallbacks.
 - A locksmith, photographer, or vendor was contacted directly by a scammer, even
   if they secured the home afterward.
 - Someone broke in, or an occupant got in through a rental scam and has moved in.
@@ -1539,8 +1572,17 @@ damaging a fence) **is a TPM request in the TPM requests channel, not an
 incident report.** Reserve the incident report above for damage from an
 unrelated party, a break-in, or a rental scam occupant.
 
-Damage and mold are **home issues**. Access failures, scam contact, and break-ins
-are **incidents**.
+Damage and mold are **home issues**. Scam contact and break-ins are **incidents**.
+For ShowingTime touring agents, the November 24 owner update directs the usual
+HQI Triage under the property address when entry still fails after the supported
+static-code, remote-unlock/rotating-code and available-lockbox fallbacks. Do not
+apply the older generic access-incident default to that scope. Static door codes
+have the same sharing restrictions as lockbox codes; no verification bypass.
+Caller notes retain the stated reason, Solution Offered, actual attempts and
+entry outcome, plus the direct HQI link if filed under the existing link lookup.
+Never infer entry, a report, code sharing or an unlock from the policy itself;
+ordinary drafting keeps its existing no-new-research/action boundary. Source:
+https://opendoor.slack.com/archives/C02K6JVSNUF/p1795560605110109.
 
 **What the XA filed wins, immediately.** If they said they filed a home issue
 report, write that. If they said incident report, write that. Do not spend a
@@ -1559,6 +1601,24 @@ https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1795046789458139.
 # PART 7 — Escalation routing
 
 Only write an escalation when the XA says they escalated.
+
+**Presented Final Offer discussion — Sam, November 25, 2026:** A regular HSA
+listed in [HSA Schedules for XA](https://docs.google.com/spreadsheets/d/1gMPcyjLEEF4yBYiuTZybVaxzgr9UWiaYcFUoYb93zBs/edit?gid=741428371#gid=741428371)
+uses their verified Final offer call link: send it for seller self-scheduling,
+or book only when separately authorized. An Agent HSA takes an escalation to
+that assigned advisor to contact the seller. A verified assigned HSA absent
+from a complete successful current-directory check takes the Agent-HSA path;
+no advisor assigned, a failed/partial read, a blank link and an ON LEAVE row
+are different facts. An offer expiring soon, including today, takes urgent
+advisor escalation rather than routine future scheduling; no numeric cutoff
+for “soon” or callback/extension promise is supplied. Already-expired offers
+keep their refresh/unexpire path. In notes, record only the XA's actual action:
+offered/sent a link, booked a confirmed appointment, or escalated. Never turn
+one into another, perform a lookup/action merely because this rule exists, or
+replace stated completed handling with recommended future handling. Ordinary
+notes keep their existing zero-tool/action boundaries. Source: Sam's correction
+and the September 18 process-thread owner replies, read November 25, 2026:
+https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1789757961962119.
 
 **Name given:** "Escalated to [Name] to [action]." Nothing else. Do not add "the
 corresponding home sale advisor" alongside a name.
@@ -1587,7 +1647,7 @@ office." **Out of office is not the same as no advisor assigned.**
 | Situation | Goes to |
 |---|---|
 | Final Offer delayed or stuck in queue | Status/queue checks stay in OpsHub; Pricing only for a separate eligible valuation or unexpire review, not delay alone |
-| Questions or pricing disputes on a Final Offer **already issued** | Assigned Home Sale Advisor, else the HSA channel |
+| Discuss a Final Offer **already issued** | Listed regular HSA: Final offer call scheduling/link; Agent HSA / verified directory absence: outreach escalation to assigned advisor; expiring soon: urgent advisor escalation. Record only actual actions; separate valuation disputes keep their existing review route. |
 | Seller simply waiting on a Final Offer after assessment | **No escalation.** Give the 3 to 5 business day timeline. |
 | Closing-side: close of escrow changes, late checkout, closing documents | Sales support, not the HSA |
 | Cash Now, More Later second-half offer/process | **No escalation.** Use the confirmed line in Part 6. |
@@ -2697,14 +2757,17 @@ qualification gate above rather than substituting an unqualified record.
 Older streets on an agent or repeat-seller page are history, not a second
 current property. If that payload has no `address_token`, the next call is
 `list_properties` with that street (`limit` 5), then `CreateCustomerNote`.
-No other tool in between. Do not add a fourth lookup round.
+No other tool in between except the shared merge skill's applicable incomplete-
+seller/property check. Reuse any sufficient property read for that check;
+do not add a fourth lookup round merely to repeat known evidence.
 
 **Then the fence, in this order:** (1) lookup batch below, (2)
 `get_customer_profile` with the caller's `customer_uuid` whenever that UUID
 is known and they did **not** type a street, so the note can use the
 property on that customer page; also `address_token` when a seller /
 previous-owner post has two or more named `list_customers` hits and a
-street (step 3), or when the XA mentions an assigned internal position whose
+street (step 3), or the shared merge skill's incomplete-seller/property check
+requires that one scoped read, or when the XA mentions an assigned internal position whose
 name belongs in the note (Home Sale Advisor, Agent Home Sale Advisor, Listing
 Partner, listing/resale agent, transaction coordinator, escrow officer,
 experience partner, support specialist, or another exact assigned role), (3)
@@ -3136,10 +3199,12 @@ Opendoor actually does or requires, not how the note says it.
 
 # REFERENCE FILES — only when this file lacks the answer
 
-Three files sit in `reference/`, next to this one, and are not loaded by default.
+The ordinary-note reference files below are not loaded by default.
+The separate `reference/hqi-report-and-note.md` procedure is loaded only for
+the explicitly requested HQI action above, never for ordinary drafting or warm-up.
 **Do not search the filesystem to discover them** — open the relative path under
 this skill only when needed. Check the shorthand index and Part 6 first, and
-stop there when the answer is here. **Nothing in the shorthand index is ever
+stop there when the answer is here. **Nothing in the ordinary-note shorthand index is ever
 answered from a reference file.**
 
 | File | Read it when |
@@ -3150,7 +3215,7 @@ answered from a reference file.**
 
 ---
 
-*Skill version: 2026-10-06b. If a note contradicts a rule above, check this date
+*Skill version: 2026-11-25-hqi-action. If a note contradicts a rule above, check this date
 against the version you expect to be live before assuming the rule is wrong.*
 
 ## Agent representation and transaction-count questions — October 27, 2026

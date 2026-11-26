@@ -34,8 +34,26 @@
     || /^Are you really sure\? This cannot be undone\.(?:\s*I'm sure\. Merge them\.)?$/.test(text)
     || /^Both of these customers have logins \(humans\)\./.test(text);
   const alerts = [...document.querySelectorAll('[role="alert"],.alert-danger,.toast-error')].filter(visible);
+  // Embedded agent-form validation is not a merge submission response. Retain
+  // it as evidence; never suppress page/toast errors or a new post-submit error.
+  const profileWarnings = [];
+  const profileWarning = element => {
+    if (element.closest('.toast-error,.toast,.toast-message,.md-toast-content')) return false;
+    const text = element.innerText.trim()
+      .replace(/^"([^"]+)"$/, '$1').replace(/^“([^”]+)”$/, '$1');
+    if (text !== 'Could not find an MLS agent with that MLS ID.') return false;
+    const panel = [keeping, removing].find(value => value?.contains(element));
+    if (!panel) return false;
+    const warning = {customerUuid: uuid(panel.innerText), message: text};
+    if (submitted && !before?.profileWarnings?.some(value =>
+      value.customerUuid === warning.customerUuid && value.message === warning.message)) return false;
+    if (!profileWarnings.some(value => value.customerUuid === warning.customerUuid
+      && value.message === warning.message)) profileWarnings.push(warning);
+    return true;
+  };
   const errors = alerts
     .filter(e => e.matches('.toast-error') || !normalNotice(e.innerText.trim()))
+    .filter(e => !profileWarning(e))
     .map(e => e.innerText.trim()).filter(Boolean);
   const success = [...document.querySelectorAll('[role="status"],.toast,.toast-message,.md-toast-content')]
     .some(e => visible(e) && /^Merged customers[.!]?$/i.test(e.innerText.trim()));
@@ -60,7 +78,7 @@
   const identity = panel => panel && ({uuid: uuid(panel.innerText),
     values: [...panel.querySelectorAll('input')].filter(e => visible(e)
       && !['checkbox', 'radio', 'hidden', 'submit', 'button'].includes(e.type)).map(e => e.value)});
-  const result = (state, evidence = null) => ({state, evidence, snapshot, errors, controls,
+  const result = (state, evidence = null) => ({state, evidence, snapshot, errors, profileWarnings, controls,
     ...(includeIdentity ? {identities: {keeping: identity(keeping), removing: identity(removing)},
       warningText: finalButtons.length ? [...new Set([
         finalButtons[0].closest('.alert-danger,.alert,[role="alert"]')?.innerText.trim() || '',

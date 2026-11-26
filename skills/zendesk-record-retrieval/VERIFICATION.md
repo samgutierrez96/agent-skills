@@ -15,6 +15,33 @@ state only if observable. Do not introduce automatic warm-up requests.
 
 ## Representative checks
 
+### Presented-final-offer advisor routing — November 25, 2026
+
+Synthetic acceptance scenarios only, not a semantic-model evaluation or
+permission for a live lookup, send, booking, escalation or post:
+
+- Listed regular HSA, offer not expiring soon, seller wants to discuss fees:
+  use that HSA's verified Final offer call link; offer seller self-scheduling
+  rather than substitute the support line or another advisor's calendar.
+- Seller chooses link-only: prepare/send only under the originating workflow's
+  permissions; do not choose a slot, book, add a note or claim an appointment.
+- Agent HSA explicitly verified, or verified assigned HSA absent from a complete
+  successful current-directory check: assigned-advisor outreach escalation,
+  not a guessed calendar or no-advisor-assigned conclusion.
+- Partial/inaccessible sheet, ambiguous assignee, blank link and listed ON LEAVE
+  advisor: retain the specific verification/coverage blocker, not Agent-HSA absence.
+- Regular HSA with offer expiring today or otherwise verified expiring soon:
+  urgent advisor escalation, not a routine future slot. No invented cutoff,
+  extension, callback deadline or preserved terms. Unknown urgency needs resolution.
+- Already-expired offer: retain refresh/unexpire guidance, not automatic booking.
+- No presented final offer / assessment still pending: retain its existing
+  status/support route. Many questions alone do not establish readiness.
+- Explicit draft-only request: no send, booking, Slack draft creation or note.
+  An unsent escalation or shared link never becomes a completed-action receipt.
+- Notes describing an already completed link handoff, booking or escalation:
+  preserve what actually happened; do not replace it with recommended handling
+  or add research/actions to ordinary note drafting.
+
 ### Acknowledge an escalated customer question — November 24, 2026
 
 Use synthetic frozen conversations only. These scenarios do not authorize a live

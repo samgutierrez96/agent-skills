@@ -65,7 +65,9 @@ def normalized(message):
     message = re.sub(r'\[([^\]\n]+)\]\((https://[^\s)]+)\)', r'<\2|\1>', message)
     message = re.sub(r'<(https://[^>|\s]+)\|([^>]+)>', r'\1 \2', message)
     message = re.sub(r'<(https://[^>|\s]+)>', r'\1', message)
-    message = re.sub(r'<!subteam\^([A-Z0-9]+)(?:\|[^>]+)?>', r'<@\1>', message)
+    # Search summaries can flatten a group into <@S...>. That lossy alias is
+    # not evidence of a native group mention; require exact raw-message checks.
+    message = re.sub(r'<!subteam\^(S[A-Z0-9]+)(?:\|[^>]+)?>', r'<!subteam^\1>', message)
     message = re.sub(r'<@([A-Z0-9]+)(?:\|[^>]+)?>', r'<@\1>', message)
     return re.sub(r'\s+', ' ', message).strip()
 
@@ -91,7 +93,8 @@ class Observer:
             if (re.fullmatch(r'[A-Za-z0-9_-]{1,200}', str(value.get('draft_id', '')))
                     and re.fullmatch(r'[A-Z0-9]{1,100}', str(args.get('channel_id', '')))
                     and isinstance(args.get('message'), str) and not args.get('thread_ts')
-                    and len(args['message']) < 12000):
+                    and len(args['message']) < 12000
+                    and not re.search(r'<@S[A-Z0-9]+(?:\|[^>]+)?>', args['message'])):
                 self.draft = {'draft_id':value['draft_id'], 'channel_id':args['channel_id'],
                               'message':args['message'], 'created':time.time()}
         if (item.get('server') == 'opshub' and item.get('tool') == 'call_operation'

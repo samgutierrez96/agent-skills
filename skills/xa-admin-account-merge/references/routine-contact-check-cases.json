@@ -1,6 +1,6 @@
 {
-  "purpose": "Maintenance-only synthetic acceptance cases for Notes and Escalations. No live customer actions; expected behavior is not a recorded model evaluation.",
-  "workflows": ["xa-notes", "xa-quick-slack"],
+  "purpose": "Maintenance-only synthetic decision-review and presentation cases for Notes, Escalations and retained merge tasks. No live customer actions; expected behavior is not a recorded model evaluation.",
+  "workflows": ["xa-notes", "xa-quick-slack", "xa-admin-account-merge"],
   "cases": [
     {
       "id": "unique-caller-optional-fields-omitted",
@@ -36,6 +36,111 @@
       "id": "retained-receipt-and-maintenance",
       "context": "The note already has a verified post receipt. The operator asks only to save this routine-contact workflow correction.",
       "expected": "Save owning sources locally and validate in isolation. Do not open any customer browser, resume the customer workflow, send/post, repair its conversation history or replay cleanup. A later authorized continuation retains the original caller, note body and receipts."
+    }
+  ],
+  "confirmed_split_cases": [
+    {
+      "id": "same-person-merge-single-email",
+      "context": "The retained original request has shown two exact UUIDs: its verified caller-phone profile has confirmed blank name/email; the verified property's seller profile has email seller@example.invalid and no phone. No other candidate or contact conflict is known. The XA replies: it's the same person, merge them.",
+      "expected": "Retain the pair-bound same-person and merge instruction as selecting the existing email-only keeping profile. State seller@example.invalid and the original caller phone, then continue only the original authorized remaining merge/cleanup/verification/posting steps. No one-option email question, repeated identity/merge approval, mandatory unknown name, shared-phone requirement or communication-history lookup. Do not claim completion before verified receipts."
+    },
+    {
+      "id": "identity-only-is-not-keeping-choice",
+      "context": "The same retained split has one known email, but the XA only answers Yes—same person to the identity question and supplies no pair-bound merge instruction or keeping-contact selection.",
+      "expected": "Retain same-person confirmation. Ask only the unresolved keeping-email choice; do not silently select it from a primary badge, list order or the email count. Do not ask identity again."
+    },
+    {
+      "id": "competing-emails-or-seller",
+      "context": "The XA says same person, merge them, but the retained evidence includes two possible keeping emails or an unresolved additional seller candidate.",
+      "expected": "Do not use the single-email shortcut. Retain established answers and show all genuinely unresolved independent contact/identity choices together, without selecting an account or merging a household."
+    },
+    {
+      "id": "unknown-email-is-not-blank",
+      "context": "Only seller@example.invalid is displayed, but the caller profile's email was omitted rather than confirmed blank.",
+      "expected": "Do not treat an omitted field as no email or invoke the shortcut. Resolve only the required missing fact through sufficient retained evidence or the documented exact-UUID read; no broad duplicate hunt or invented contact completeness."
+    },
+    {
+      "id": "unbound-or-conflicting-instruction",
+      "context": "A merge instruction is not tied to the displayed original pair, an earlier explicit keeping choice differs, or pre-submit inspection reveals conflicting identity/contact evidence.",
+      "expected": "No shortcut or substitute target. Preserve explicit prior choices and the original request binding. Resolve only the concrete ambiguity/conflict before any submission; never overwrite a prior answer or replay an uncertain/completed merge."
+    },
+    {
+      "id": "format-and-name-choice-still-apply",
+      "context": "A pair-bound same-person merge instruction leaves one malformed saved email, or two genuinely different usable names requiring a surviving-name choice.",
+      "expected": "Retain identity and the exact pair. Ask only the actual email correction or supported name choice under the existing separate controls before mutation; do not invent a corrected email/name or ask for an unavailable name."
+    },
+    {
+      "id": "shortcut-does-not-resume-maintenance",
+      "context": "The operator supplies the same-person split example while requesting a reusable guidance correction, or the original case is explicitly draft-only or already has a verified note receipt.",
+      "expected": "Maintenance performs no live action or saved-conversation follow-up. Draft-only remains draft-only. On a later separately authorized continuation, reuse original target, body and completed receipts; perform only remaining authorized work and never repost the note."
+    }
+  ],
+  "incomplete_seller_cases": [
+    {
+      "id": "phone-only-seller-known-property",
+      "context": "An authorized seller post has an exact caller-phone UUID, confirmed blank name/email and a supplied full property address; no property seller read is retained.",
+      "expected": "Reuse the property lookup and make one scoped property-profile read. Inspect distinct relevant seller UUIDs; no broad name search, Admin/browser discovery, caller substitution or write before classification."
+    },
+    {
+      "id": "known-property-already-read",
+      "context": "The same authorized request already retained sufficient caller and property-seller evidence.",
+      "expected": "Reuse it without another discovery read; retain candidate identities, answers and prior action receipts on continuation."
+    },
+    {
+      "id": "genuinely-blank-no-candidate",
+      "context": "The bounded property check completes with no distinct relevant seller candidate. The original caller's current full phone matches; name/email are genuinely blank.",
+      "expected": "Continue the original authorized workflow on that caller. No Admin, contact cleanup, invented contact fields or mandatory name/email question; say only that no separate candidate was found on this property."
+    },
+    {
+      "id": "same-uuid-not-two-accounts",
+      "context": "Caller and repeated property-seller links resolve to the same UUID.",
+      "expected": "Deduplicate the UUID, skip account merge and preserve the original caller. Repeated links do not create a second person."
+    },
+    {
+      "id": "relay-email-is-present",
+      "context": "A distinct named property seller has an Apple private-relay email and no primary phone; caller identity is phone-only.",
+      "expected": "Show both profile links and known/unknown contacts. Treat the relay as an existing email, not a missing email, inferred name or same-person proof. Ask only unresolved independent identity and keeping-email choices."
+    },
+    {
+      "id": "co-seller-or-multiple-candidates",
+      "context": "The scoped property exposes multiple sellers or an agent; common ownership with the caller is not established.",
+      "expected": "Keep people separate, display relevant identities/roles and resolve which, if any, belongs to the caller. Never merge by household, address, primary badge, list order or complementary fields."
+    },
+    {
+      "id": "property-check-unavailable",
+      "context": "The required bounded property read fails, is truncated or lacks sufficient participant coverage.",
+      "expected": "Report Property-linked profile check unavailable with the concrete blocker. Keep dependent writes pending; never label it none found, guess identity or poll."
+    },
+    {
+      "id": "optional-omitted-not-blank",
+      "context": "A routine unique verified caller has omitted optional fields, not evidence of saved blanks, and no observed account conflict.",
+      "expected": "Stay on the normal MCP-only path without extra discovery or a complete-list/browser audit; do not interpret omitted fields as empty."
+    },
+    {
+      "id": "no-property-or-non-seller",
+      "context": "There is no supplied/verified property, or the caller is an agent, buyer, inspector or vendor rather than the seller.",
+      "expected": "Do not demand a property solely for duplicate hunting or substitute its owner for the caller. Keep ordinary tool-free drafts, maintenance and status-only checks free of discovery reads."
+    },
+    {
+      "id": "already-posted-cleanup",
+      "context": "The original note has a verified receipt and unchanged body; a later explicit request authorizes remaining account cleanup.",
+      "expected": "Preserve the caller/property binding and completed receipts. Perform only remaining authorized steps; never recreate, edit or repost the note to repair discovery."
+    }
+  ],
+  "presentation_cases": [
+    {
+      "id": "split-seller-visible-comparison",
+      "response": "Profile comparison\nCaller profile: https://opshub.apps.opendoor.com/customers/synthetic-caller — no name saved; no primary email saved; phone +1 202-555-0124; property relationship not verified.\nProperty seller profile: https://opshub.apps.opendoor.com/customers/synthetic-seller — Alex Example; relay@example.invalid (synthetic Apple private-relay email); no primary phone saved; Seller on https://opshub.apps.opendoor.com/property/synthetic-property.\nWhy this surfaced: The caller profile lacks identity details and the supplied property's seller is a distinct account. Common ownership is not verified.\n\nNot posted. The original request is pending identity and keeping-email answers.\n\nDoes this account belong to the verified caller?\n\n- Yes—same person\n- No—not the same person\n- I’m not sure\n\nWhich primary email should be kept?\n\n- relay@example.invalid\n- Enter a different email (provide the email)",
+      "visible": ["Caller profile:", "synthetic-caller", "no name saved", "+1 202-555-0124", "Property seller profile:", "synthetic-seller", "relay@example.invalid", "Apple private-relay email", "no primary phone saved", "synthetic-property", "Why this surfaced:", "Common ownership is not verified"],
+      "options": ["Yes—same person", "No—not the same person", "I’m not sure", "relay@example.invalid", "Enter a different email (provide the email)"],
+      "decision_count": 2
+    },
+    {
+      "id": "multiple-sellers-visible-comparison",
+      "response": "Profile comparison\nCaller profile: https://opshub.apps.opendoor.com/customers/synthetic-caller — no name saved; primary email not returned; phone +1 202-555-0124.\nProperty seller profile: https://opshub.apps.opendoor.com/customers/synthetic-seller-a — Alex Example; alex@example.invalid; phone not returned; Seller on https://opshub.apps.opendoor.com/property/synthetic-property.\nProperty seller profile: https://opshub.apps.opendoor.com/customers/synthetic-seller-b — Taylor Example; taylor@example.invalid; phone not returned; Co-seller on the same verified property.\nWhy this surfaced: Multiple seller accounts are attached to the supplied property; neither is verified as the caller.\n\nNot posted. Caller selection remains unresolved.\n\nWhich, if any, of these profiles belongs to the caller?\n\n- Alex Example\n- Taylor Example\n- Neither belongs to the caller\n- I’m not sure",
+      "visible": ["Caller profile:", "primary email not returned", "synthetic-seller-a", "synthetic-seller-b", "Co-seller", "Why this surfaced:", "neither is verified as the caller"],
+      "options": ["Alex Example", "Taylor Example", "Neither belongs to the caller", "I’m not sure"],
+      "decision_count": 1
     }
   ]
 }

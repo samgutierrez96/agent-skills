@@ -1,4 +1,4 @@
 interface:
   display_name: "Schedule Final Offer Appointment"
-  short_description: "Schedule a final-offer call and document it in OpsHub"
-  default_prompt: "Schedule the customer’s final-offer call using the available HSA Calendly link, then add the follow-up note to OpsHub."
+  short_description: "Route final-offer discussions or share an HSA link"
+  default_prompt: "Use $schedule-final-offer-appointment to verify the assigned advisor and offer expiry, then choose the regular-HSA scheduling/link path or Agent-HSA/urgent-expiry escalation path. Book, send or post a note only when authorized."

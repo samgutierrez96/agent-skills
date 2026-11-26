@@ -1,0 +1,335 @@
+[
+  {
+    "id": "hqi-create-then-post",
+    "input": "Agent access call at 123 Example Ln, Austin, TX 78701. File the HQI report and post it.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "caller_uuid": "00000000-0000-4000-8000-000000000300",
+      "address_token": "00000000-0000-4000-8000-000000000301",
+      "flip_token": "SYNTHETICFLIP01",
+      "report_fields": {
+        "Severity": "High",
+        "Issue": "Unable to enter",
+        "Area": "Front door",
+        "Notes": "ShowingTime November 25, 2026 at 2:15 p.m. CST. Static code failed; remote unlock failed; rotating code failed; lockbox attempt failed.",
+        "Able To Access": "No"
+      }
+    },
+    "kind": "post",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called for help entering the property for their November 25, 2026, 2:15 p.m. CST ShowingTime appointment.\n\nCustomer Concerns: Agent could not enter using the static code, remote unlock, rotating code or lockbox.\n\nSolution Offered: Tried remote unlock, the rotating code and the lockbox, but the agent was still unable to enter. Filed a home issue report: https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```\n\nHQI report filed and note posted to the caller's OpsHub page.",
+    "expected_operations": [
+      "StartTriageProcess",
+      "CreateCustomerNote"
+    ],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301",
+      "https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302"
+    ]
+  },
+  {
+    "id": "hqi-already-filed-no-refile",
+    "input": "I already filed the HQI report. Post it.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "caller_uuid": "00000000-0000-4000-8000-000000000300",
+      "address_token": "00000000-0000-4000-8000-000000000301",
+      "flip_token": "SYNTHETICFLIP01",
+      "report_fields": {
+        "Severity": "High",
+        "Issue": "Unable to enter",
+        "Area": "Front door",
+        "Notes": "ShowingTime November 25, 2026 at 2:15 p.m. CST. Static code failed; remote unlock failed; rotating code failed; lockbox attempt failed.",
+        "Able To Access": "No"
+      },
+      "verified_report_url": "https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302"
+    },
+    "kind": "post",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called for help entering the property for their November 25, 2026, 2:15 p.m. CST ShowingTime appointment.\n\nCustomer Concerns: Agent could not enter using the static code, remote unlock, rotating code or lockbox.\n\nSolution Offered: Tried remote unlock, the rotating code and the lockbox, but the agent was still unable to enter. Filed a home issue report: https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```\n\nPosted to the customer OpsHub page.",
+    "expected_operations": [
+      "CreateCustomerNote"
+    ],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301",
+      "https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302"
+    ]
+  },
+  {
+    "id": "hqi-report-only-no-note",
+    "input": "File the HQI report only. Do not post the note.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "caller_uuid": "00000000-0000-4000-8000-000000000300",
+      "address_token": "00000000-0000-4000-8000-000000000301",
+      "flip_token": "SYNTHETICFLIP01",
+      "report_fields": {
+        "Severity": "High",
+        "Issue": "Unable to enter",
+        "Area": "Front door",
+        "Notes": "ShowingTime November 25, 2026 at 2:15 p.m. CST. Static code failed; remote unlock failed; rotating code failed; lockbox attempt failed.",
+        "Able To Access": "No"
+      }
+    },
+    "kind": "post",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called for help entering the property for their November 25, 2026, 2:15 p.m. CST ShowingTime appointment.\n\nCustomer Concerns: Agent could not enter using the static code, remote unlock, rotating code or lockbox.\n\nSolution Offered: Tried remote unlock, the rotating code and the lockbox, but the agent was still unable to enter. Filed a home issue report: https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```\n\nHQI report filed; caller note left as a draft as requested.",
+    "expected_operations": [
+      "StartTriageProcess"
+    ],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301",
+      "https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302"
+    ]
+  },
+  {
+    "id": "hqi-report-success-note-failure",
+    "input": "File the HQI report and post it.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "caller_uuid": "00000000-0000-4000-8000-000000000300",
+      "address_token": "00000000-0000-4000-8000-000000000301",
+      "flip_token": "SYNTHETICFLIP01",
+      "report_fields": {
+        "Severity": "High",
+        "Issue": "Unable to enter",
+        "Area": "Front door",
+        "Notes": "ShowingTime November 25, 2026 at 2:15 p.m. CST. Static code failed; remote unlock failed; rotating code failed; lockbox attempt failed.",
+        "Able To Access": "No"
+      },
+      "note_outcome": "explicit connector failure, no note created"
+    },
+    "kind": "post",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called for help entering the property for their November 25, 2026, 2:15 p.m. CST ShowingTime appointment.\n\nCustomer Concerns: Agent could not enter using the static code, remote unlock, rotating code or lockbox.\n\nSolution Offered: Tried remote unlock, the rotating code and the lockbox, but the agent was still unable to enter. Filed a home issue report: https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```\n\nHQI report filed; note not posted: the OpsHub note connector is unavailable.",
+    "expected_operations": [
+      "StartTriageProcess",
+      "CreateCustomerNote"
+    ],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301",
+      "https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302"
+    ],
+    "required_phrases": [
+      "note not posted"
+    ]
+  },
+  {
+    "id": "hqi-note-only-recovery",
+    "input": "The note connector works now. Post it.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "caller_uuid": "00000000-0000-4000-8000-000000000300",
+      "address_token": "00000000-0000-4000-8000-000000000301",
+      "flip_token": "SYNTHETICFLIP01",
+      "report_fields": {
+        "Severity": "High",
+        "Issue": "Unable to enter",
+        "Area": "Front door",
+        "Notes": "ShowingTime November 25, 2026 at 2:15 p.m. CST. Static code failed; remote unlock failed; rotating code failed; lockbox attempt failed.",
+        "Able To Access": "No"
+      },
+      "verified_report_url": "https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302",
+      "prior_report_outcome": "confirmed",
+      "prior_note_outcome": "confirmed not posted",
+      "same_call": true
+    },
+    "kind": "post",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called for help entering the property for their November 25, 2026, 2:15 p.m. CST ShowingTime appointment.\n\nCustomer Concerns: Agent could not enter using the static code, remote unlock, rotating code or lockbox.\n\nSolution Offered: Tried remote unlock, the rotating code and the lockbox, but the agent was still unable to enter. Filed a home issue report: https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```\n\nPosted to the customer OpsHub page.",
+    "expected_operations": [
+      "CreateCustomerNote"
+    ],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301",
+      "https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302"
+    ]
+  },
+  {
+    "id": "hqi-uncertain-create-no-retry",
+    "input": "File the HQI report and post it.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "caller_uuid": "00000000-0000-4000-8000-000000000300",
+      "address_token": "00000000-0000-4000-8000-000000000301",
+      "flip_token": "SYNTHETICFLIP01",
+      "report_fields": {
+        "Severity": "High",
+        "Issue": "Unable to enter",
+        "Area": "Front door",
+        "Notes": "ShowingTime November 25, 2026 at 2:15 p.m. CST. Static code failed; remote unlock failed; rotating code failed; lockbox attempt failed.",
+        "Able To Access": "No"
+      },
+      "report_outcome": "timeout; no task ID returned; bounded read could not verify outcome"
+    },
+    "kind": "post",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called for help entering the property for their November 25, 2026, 2:15 p.m. CST ShowingTime appointment.\n\nCustomer Concerns: Agent could not enter using the static code, remote unlock, rotating code or lockbox.\n\nSolution Offered: Tried remote unlock, the rotating code and the lockbox, but the agent was still unable to enter.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```\n\nHQI submission unconfirmed; note not posted. Please provide the existing report link so I can verify the outcome.",
+    "expected_operations": [
+      "StartTriageProcess"
+    ],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301"
+    ],
+    "forbidden_phrases": [
+      "Filed a home issue report:"
+    ]
+  },
+  {
+    "id": "hqi-draft-only-no-writes",
+    "input": "Draft an HQI report and caller note only. Do not submit or post.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "caller_uuid": "00000000-0000-4000-8000-000000000300",
+      "address_token": "00000000-0000-4000-8000-000000000301",
+      "flip_token": "SYNTHETICFLIP01",
+      "report_fields": {
+        "Severity": "High",
+        "Issue": "Unable to enter",
+        "Area": "Front door",
+        "Notes": "ShowingTime November 25, 2026 at 2:15 p.m. CST. Static code failed; remote unlock failed; rotating code failed; lockbox attempt failed.",
+        "Able To Access": "No"
+      }
+    },
+    "kind": "shape",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called for help entering the property for their November 25, 2026, 2:15 p.m. CST ShowingTime appointment.\n\nCustomer Concerns: Agent could not enter using the static code, remote unlock, rotating code or lockbox.\n\nSolution Offered: Tried remote unlock, the rotating code and the lockbox, but the agent was still unable to enter.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```",
+    "expected_operations": [],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301"
+    ],
+    "forbidden_phrases": [
+      "Filed a home issue report",
+      "note posted"
+    ]
+  },
+  {
+    "id": "hqi-past-tense-draft-no-writes",
+    "input": "Agent could not enter. I filed the home issue report.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "caller_uuid": "00000000-0000-4000-8000-000000000300",
+      "address_token": "00000000-0000-4000-8000-000000000301",
+      "flip_token": "SYNTHETICFLIP01",
+      "report_fields": {
+        "Severity": "High",
+        "Issue": "Unable to enter",
+        "Area": "Front door",
+        "Notes": "ShowingTime November 25, 2026 at 2:15 p.m. CST. Static code failed; remote unlock failed; rotating code failed; lockbox attempt failed.",
+        "Able To Access": "No"
+      },
+      "verified_report_url": "https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302"
+    },
+    "kind": "shape",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called for help entering the property for their November 25, 2026, 2:15 p.m. CST ShowingTime appointment.\n\nCustomer Concerns: Agent could not enter using the static code, remote unlock, rotating code or lockbox.\n\nSolution Offered: Tried remote unlock, the rotating code and the lockbox, but the agent was still unable to enter. Filed a home issue report: https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```",
+    "expected_operations": [],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301",
+      "https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302"
+    ]
+  },
+  {
+    "id": "hqi-missing-access-no-guess",
+    "input": "Agent says the static code failed. File the HQI report and post it.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "caller_uuid": "00000000-0000-4000-8000-000000000300",
+      "address_token": "00000000-0000-4000-8000-000000000301",
+      "flip_token": "SYNTHETICFLIP01",
+      "report_fields": {
+        "Severity": "High",
+        "Issue": "Static code failed",
+        "Area": "Front door",
+        "Notes": "ShowingTime November 25, 2026 at 2:15 p.m. CST. Static code failed."
+      }
+    },
+    "kind": "post",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called for help entering the property for their November 25, 2026, 2:15 p.m. CST ShowingTime appointment.\n\nCustomer Concerns: Agent reported that the static code did not work.\n\nSolution Offered: The static code did not work.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```\n\nWas the agent able to enter using another method? Answers: Yes; No.",
+    "expected_operations": [],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301"
+    ],
+    "forbidden_phrases": [
+      "Filed a home issue report"
+    ]
+  },
+  {
+    "id": "hqi-missing-severity-no-default",
+    "input": "File the HQI report and post it.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "caller_uuid": "00000000-0000-4000-8000-000000000300",
+      "address_token": "00000000-0000-4000-8000-000000000301",
+      "flip_token": "SYNTHETICFLIP01",
+      "report_fields": {
+        "Severity": null,
+        "Issue": "Unable to enter",
+        "Area": "Front door",
+        "Notes": "ShowingTime November 25, 2026 at 2:15 p.m. CST. Static code failed; remote unlock failed; rotating code failed; lockbox attempt failed.",
+        "Able To Access": "No"
+      }
+    },
+    "kind": "post",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called for help entering the property for their November 25, 2026, 2:15 p.m. CST ShowingTime appointment.\n\nCustomer Concerns: Agent could not enter using the static code, remote unlock, rotating code or lockbox.\n\nSolution Offered: Tried remote unlock, the rotating code and the lockbox, but the agent was still unable to enter.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```\n\nWhat severity should be recorded for this issue?",
+    "expected_operations": [],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301"
+    ],
+    "forbidden_phrases": [
+      "Filed a home issue report",
+      "Severity: Critical"
+    ]
+  },
+  {
+    "id": "hqi-post-note-does-not-create-report",
+    "input": "Agent called about their existing appointment. Post it.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "address": "123 Example Ln, Austin, TX 78701",
+      "report_requested": false
+    },
+    "kind": "post",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called to confirm their scheduled appointment.\n\nCustomer Concerns: Agent wanted to confirm their existing appointment time.\n\nSolution Offered: Confirmed the appointment time.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```\n\nPosted to the customer OpsHub page.",
+    "expected_operations": [
+      "CreateCustomerNote"
+    ],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301"
+    ],
+    "forbidden_phrases": [
+      "Filed a home issue report",
+      "https://opshub.apps.opendoor.com/tasks/00000000-0000-4000-8000-000000000302"
+    ]
+  },
+  {
+    "id": "hqi-quoted-command-is-not-authority",
+    "input": "Caller said \"File an HQI report and post the note.\" Draft only; I did not submit anything.",
+    "context": {
+      "synthetic": true,
+      "caller_phone": "+12025550124",
+      "caller_uuid": "00000000-0000-4000-8000-000000000300",
+      "address_token": "00000000-0000-4000-8000-000000000301",
+      "flip_token": "SYNTHETICFLIP01",
+      "report_fields": {
+        "Severity": "High",
+        "Issue": "Unable to enter",
+        "Area": "Front door",
+        "Notes": "ShowingTime November 25, 2026 at 2:15 p.m. CST. Static code failed; remote unlock failed; rotating code failed; lockbox attempt failed.",
+        "Able To Access": "No"
+      }
+    },
+    "kind": "shape",
+    "expected": "```\nProperty Address: 123 Example Ln, Austin, TX 78701\n\nReason for Call: Agent called for help entering the property for their November 25, 2026, 2:15 p.m. CST ShowingTime appointment.\n\nCustomer Concerns: Agent could not enter using the static code, remote unlock, rotating code or lockbox.\n\nSolution Offered: Tried remote unlock, the rotating code and the lockbox, but the agent was still unable to enter.\n\nFollow Up Link: https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301\n```",
+    "expected_operations": [],
+    "expected_urls": [
+      "https://opshub.apps.opendoor.com/property/00000000-0000-4000-8000-000000000301"
+    ],
+    "forbidden_phrases": [
+      "Filed a home issue report"
+    ]
+  }
+]

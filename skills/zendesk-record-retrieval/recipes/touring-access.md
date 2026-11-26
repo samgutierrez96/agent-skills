@@ -50,6 +50,21 @@ read the matching full-playbook section before drafting; this card is the first 
   missing credentials, not a phone-support-only referral. Never provide a code,
   remote unlock, or direct entry while denial/verification is unresolved; preserve
   non-negotiable Trust and Safety and rental-scam restrictions.
+- **ShowingTime touring-agent access (November 24 update):** After identity,
+  current Trust, appointment/listing-stage and other access gates pass, confirm
+  the tour was booked through ShowingTime and the agent is using the static
+  door code in their current confirmation, if that home uses one. Static door
+  codes have the same sharing restrictions as lockbox codes. On the live XA
+  call, a failed static code leads to remote-unlock and rotating-code options;
+  if those fail, an available lockbox is the fallback for a verified agent.
+  If entry still fails, use the usual HQI Triage under the property address,
+  completing all five access-macro fields. Notes retain the ShowingTime time,
+  actual attempts and each outcome; Able To Access is Yes or No. Caller notes
+  retain the reason, Solution Offered and actual entry outcome, plus a direct
+  HQI link when filed. No invented entry/report or incident-report default for
+  this scope. This is operator guidance, not assistant unlock, code-disclosure,
+  ticket-submission or denial-bypass authority. Source:
+  https://opendoor.slack.com/archives/C02K6JVSNUF/p1795560605110109.
 - **Safehaven agent troubleshooting (November 9 XA update):** Only for an
   otherwise authorized agent and applicable mechanical lockbox, fully cycle the
   rollers three or four revolutions before entering the code; do not guarantee

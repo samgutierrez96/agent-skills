@@ -32,6 +32,35 @@ try {
   assert.match(detailed.warningText, /This qualification data will be deleted/);
   assert.equal(await page.locator(detailed.controls.submit).count(), 1);
   assert.equal(await page.content(), dom, 'observation must not change the page');
+  const mlsWarning = '"Could not find an MLS agent with that MLS ID."';
+  await page.locator('#keeping').evaluate((e, text) =>
+    e.insertAdjacentHTML('beforeend', '<div role="alert">' + text + '</div>'), mlsWarning);
+  const withProfileWarning = await inspect({includeIdentity: true});
+  assert.equal(withProfileWarning.state, 'confirmation-ready', 'embedded MLS validation is not a merge rejection');
+  assert.deepEqual(withProfileWarning.errors, []);
+  assert.deepEqual(withProfileWarning.profileWarnings, [{
+    customerUuid: pair.keepingUuid, message: 'Could not find an MLS agent with that MLS ID.',
+  }], 'retain the scoped warning rather than hiding it');
+  await page.locator('#removing').evaluate(e => e.remove());
+  await page.locator('#warning').evaluate(e => e.remove());
+  assert.equal((await inspect({before: withProfileWarning, submitted: true})).state, 'verified',
+    'unchanged profile warning does not block the captured completed-pair transition');
+  assert.equal((await inspect({before, submitted: true})).state, 'unverified',
+    'a warning first appearing after submission is unresolved, not allowlisted');
+  for (const placement of ['page', 'toast', 'nested-toast']) {
+    await page.setContent(fixture);
+    await page.evaluate(({placement, text}) => {
+      const host = placement === 'nested-toast' ? document.querySelector('#keeping') : document.body;
+      host.insertAdjacentHTML('beforeend', '<div role="alert" class="'
+        + (placement === 'page' ? 'alert-danger' : 'toast-error') + '">' + text + '</div>');
+    }, {placement, text: mlsWarning});
+    assert.equal((await inspect()).state, 'unverified', 'unscoped or explicit MLS error still blocks: ' + placement);
+  }
+  await page.setContent(fixture);
+  await page.locator('#keeping').evaluate(e =>
+    e.insertAdjacentHTML('beforeend', '<div role="alert">Could not find an MLS agent with that MLS ID. Merge failed.</div>'));
+  assert.equal((await inspect()).state, 'unverified', 'do not suppress mixed/rejection text');
+  await page.setContent(fixture);
   assert.equal((await inspect({before, submitted: true})).state, 'unverified', 'warning is not success');
   await page.locator('[ng-click="customer_merge.merge()"]').evaluate(e => {e.textContent = ''; e.disabled = true;});
   assert.equal((await inspect({before, submitted: true})).state, 'unverified', 'spinner is not success');

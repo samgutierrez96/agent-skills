@@ -450,7 +450,7 @@ generic status: they may determine different next steps and wording.
   `get_customer_profile` only when the stage, address, or flip cannot otherwise
   be established. No Chrome.
 - **Seller email “when is the all-cash / final offer?” quoting an expiry / Book walkthrough campaign:** Glean already has street + campaign. `list_properties` on that street, then `get_sent_offer`. If `PRELIM_OFFER_SENT` and no inspection, point at the campaign walkthrough. No Chrome, no dual profile dumps, not a final-offer wait.
-- **Seller wants to speak about a presented final offer:** Glean → CUSTOMER, then the narrow OpsHub customer/profile read for assigned Home Sale Advisor; send that HSA’s Calendly from the directory. Do not redirect to (888) 352-7075.
+- **Seller wants to speak about a presented final offer:** Verify the assigned Home Sale Advisor and expiry on the matching qualified acquisition. A regular HSA listed in the directory uses their verified Final offer call link; an Agent HSA, including a verified assigned HSA absent from the fully checked directory, uses an outreach escalation to that advisor. An offer expiring soon takes urgent advisor escalation rather than routine future scheduling. See the per-type recipe; do not redirect to (888) 352-7075.
 - **Touring/access:** Glean → CUSTOMER, then read the property Flags before
   offering any path. Add only the browser pages the detailed recipe requires.
   **Exception:** a same-day keypad / lockbox SMS is the already-handled
@@ -1690,22 +1690,37 @@ the shape, the record wins, see "Stage gates the playbook".
   Slack).
 - **Seller wants to speak with someone about their final offer** (`FINAL_OFFER_SENT`,
   including “I missed a call” / “I would like to speak to someone about our home”).
-  This applies to all Home Sale Advisors and all Final Offer calls. Glean the
-  ticket, CUSTOMER on phone or uuid, then one OpsHub customer read for **Assigned
-  EP** (Sales Insights). Look up that name in the
-  [HSA Calendly directory](https://docs.google.com/spreadsheets/d/1gMPcyjLEEF4yBYiuTZybVaxzgr9UWiaYcFUoYb93zBs)
-  and send **that HSA’s Calendly link** so they can schedule time to discuss the
-  final offer. Name the assigned Home Sale Advisor. Do **not** redirect them to
-  (888) 352-7075 for this ask, and do not promise that XA or the HSA will call
-  them. Use the directory Calendly URL, not a Google Calendar app link. If the
-  final offer **expires today**, also say they need to sign before it expires to
-  see their final numbers after the diligence visit, and that the Opendoor
-  addendum allows cancellation at any time without cost or penalty. Once the
-  offer is signed, send the same assigned HSA Calendly so they can book time to
-  discuss the signed contract. Follow this unless management authorizes an
-  exception. Verified on Cave Creek AZ ticket 4925734 (Candy Kissner;
-  [process post](https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1789757961962119)
-  in #xa-announcements, 2026-09-18).
+  **Advisor type and expiry choose the path (Sam, November 25, 2026).** Reuse
+  verified ticket/customer context and the narrow assigned-advisor read for the
+  caller-matched current qualified acquisition. Look up that exact assigned name
+  in [HSA Schedules for XA](https://docs.google.com/spreadsheets/d/1gMPcyjLEEF4yBYiuTZybVaxzgr9UWiaYcFUoYb93zBs/edit?gid=741428371#gid=741428371).
+  A regular HSA listed there uses **that HSA’s verified Calendly link** for a
+  `Final offer call`: offer to send the link for seller self-scheduling, or book
+  only when separately authorized with the required slot details. Do not use a
+  `15 Minute Meeting`, another advisor's calendar, a Google Calendar app link,
+  or the internal spreadsheet as the seller's scheduling link.
+  **Agent HSA:** escalate to the assigned Agent HSA to contact the seller rather
+  than defaulting to Calendly. Sam confirmed that a verified assigned HSA absent
+  from the successfully and completely checked current directory takes this
+  Agent-HSA escalation path. A failed/partial sheet read, ambiguous assigned name,
+  blank link or `ON LEAVE` row is not proof of absence or Agent-HSA status; use
+  the existing verification/coverage gates and retain the exact blocker.
+  **Expiring soon:** do not use routine future scheduling as the resolution;
+  flag the verified expiry and escalate urgently to the assigned advisor under
+  the existing action-handoff permissions. Today is included, but Sam supplied
+  no numeric cutoff for “soon”; do not invent one or promise contact before
+  expiry, an extension, or preserved offer terms. Keep any separately applicable
+  signing/contract guidance verified and distinct; it does not replace this
+  urgent handoff. Already-expired offers retain the refresh/unexpire recipe.
+  Name the assigned advisor, distinguish a prepared escalation from a sent one,
+  and never claim a shared link is a booked appointment. Do **not** redirect this
+  ask to (888) 352-7075 or promise an XA callback. A signed-contract follow-up
+  retains its stage/role gates; never apply a blanket all-HSAs Calendly rule.
+  This replaces the older universal scheduling wording. The September 18
+  [process thread and owner replies](https://opendoor.enterprise.slack.com/archives/C02K6JVSNUF/p1789757961962119),
+  read November 25, explicitly allow HSA escalation for advisors not listed.
+  Sending, posting and booking still require their own workflow authorization;
+  saving this guidance authorizes none of them.
 - **Seller says the offer / marketing email named the wrong unit** (they gave
   #202, the email says #204). The first job is to identify the property they
   mean and whether the person emailing is associated with it. Glean the ticket,
@@ -2128,11 +2143,12 @@ assessment).
   to place calls. Record attempts only when actually completed; retain identity,
   appointment, Trust and Safety and access gates. Source:
   https://opendoor.slack.com/archives/C02K6JVSNUF/p1795462285205729.
-- **Exception for a presented final offer.** When the seller wants to speak with
-  someone about their FO, send the **assigned Home Sale Advisor’s Calendly** from
-  the HSA directory (see the per-type recipe). That is the path, not
-  (888) 352-7075 and not an XA callback. Chloe or other missed outbound FO calls
-  do not change it.
+- **Presented final-offer discussion.** Use the per-type advisor/expiry split:
+  listed regular HSA → verified Final offer call link or authorized booking;
+  Agent HSA / verified directory absence → assigned-advisor outreach escalation;
+  expiring soon → urgent advisor escalation instead of routine scheduling.
+  A missed outbound call does not change the split. This is not an XA callback
+  promise or a reason to substitute (888) 352-7075.
 - **Pre–final-offer contact (Sam, November 10, 2026):** When the seller is still
   completing the assessment and has no presented final offer yet, Support handles
   their questions in the ticket and at (888) 352-7075. The Home Sale Advisor
@@ -2500,6 +2516,15 @@ Three surfaces, three audiences, never interchange them:
   details at `opendoor.com/makeoffer` (Sam, November 2, 2026). This is
   self-service guidance, not evidence that Support checked a current status
   or contacted the listing agent; preserve transaction-confidentiality rules.
+  When an agent follows up on whether a buyer's emailed offer for a named
+  property was received or reviewed, tell them in the customer reply that
+  `opendoor.com/makeoffer` is the best place to submit an offer and check status
+  (enter the property address and follow that home's instructions). In the same
+  reply, list the verified listing agent's name and direct contact from OpsHub
+  `get_acquisition_transaction(panels:["participants"], full:true)` with role
+  `RESALE_AGENT`; use that contact for offer-receipt confirmation. Do not stop
+  at asking only for the recipient email and send time when the property is
+  already identified.
 
 When a current preliminary offer already exists for the client's property, do
 not tell the agent to request another offer. Direct them to review the existing
@@ -2901,8 +2926,18 @@ generic buyer-tour or ID-verification response.
 Agents complete client assessments in the **Opendoor Key app**, signing in with the
 email the invite went to.
 
-An unsuccessful ID scan means the app prompts again on the next attempt. That is
-the verified explanation for "why am I being asked to scan my ID again".
+**Opendoor app touring IDV (November 25):** Stripe Identity uses the prompted ID
+scan and selfie for buyers and agents touring through the app. Follow the actual
+app prompts; do not request ID images through SMS, email, Zendesk, Slack or another
+channel. The owner describes successful app verification as one-time today, not
+every app use; manual on-call re-verification is a separate process. A failed
+scan may need another attempt, but do not diagnose every new prompt as a prior
+failed scan. Technical trouble uses the current XA IDV guide/team-lead support;
+phone assessment is not a guaranteed app bypass, code or access result. For a
+visitor declining self-tour upload, an agent-assisted tour can be discussed under
+existing property/appointment/access rules. A tentative ShowingTime exemption in
+the thread is not permission to skip required agent or Trust checks. Source:
+https://opendoor.slack.com/archives/C02K6JVSNUF/p1795638600356649.
 
 **Previous owner on a closed Cash Now, More Later home.** After the acquisition
 closes they are no longer the owner; Opendoor is. They agreed to that when they
@@ -2996,7 +3031,11 @@ so "they said they were selling and renting at the same time" is still a scam.
 
 For a simple rental signal without an access or move-in claim, do not add an
 access-method question unless it is needed for the ticket. If the inbound
-mentions access or a move-in, ask whether they gained access, how, and when.
+mentions access or a move-in but does not establish how they entered, ask only
+for the missing access facts. When the reply already directs them to
+https://www.opendoor.com/rental-scam and the ticket states access, visit timing,
+or related incident facts, do not repeat T&S intake questions in the reply; the
+report collects remaining detail.
 Trust and Safety needs the access method to work the case, and access changes the
 situation from a bad ad to a possible move-in. The method matters: victim called
 Opendoor for access, suspect provided a keypad or lockbox code, suspect remotely
@@ -3041,7 +3080,7 @@ reply. Add only the block that matches what they just pushed. Base protocol
 
 **Customer-facing report URL, this URL only:**
 `https://www.opendoor.com/rental-scam`
-Send them there to file a report. Do not include a “learn more about rental
+Send them there to file a report. That public report is where customers supply listing URL, visit timing, payment amount and method, and other incident details—do not also ask in the same reply for a parallel email checklist for those same intake fields. When the inbound already states how they entered, when they visited, identification exposure, or payment discussion, direct them to include those details in the rental-scam report rather than re-asking. Zendesk internal notes should record ticket-supplied facts and operator JIRA prep; do not list those intake fields as outstanding customer email requests when the reply sent them to the report. Do not include a “learn more about rental
 scams” line, and do not send `/w/avoiding-rental-scams`, `opendoor.com/safety`,
 or Atlassian **10746** as the report link. `trust@opendoor.com` is the T&S inbox
 for details on a call, not a second public report URL. XA still files
@@ -3395,9 +3434,11 @@ market-dependent, so confirm the market before offering it as an option.
 - Do not invent a figure for how long after closing a bank takes to show the
   funds. The verified customer-facing line is release on the selected closing date.
 - A seller sending many questions at once is a Final Offer Call, not an email.
-  Answer the load-bearing ones, keep it short, and send the assigned Home Sale
-  Advisor’s Calendly rather than answering all ten in a wall of text. Do not
-  substitute the support line for that scheduling path.
+  Answer the load-bearing ones and keep it short. For an actual presented-final-
+  offer discussion, apply the per-type advisor/expiry split: listed regular HSA
+  scheduling versus Agent-HSA outreach escalation, with urgent advisor escalation
+  when expiry is soon. Do not send Calendly universally or substitute the support
+  line. Many questions alone do not prove the final-offer stage.
 
 ## Known gap
 
